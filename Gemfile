@@ -9,9 +9,9 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 
-gem 'grape'
+gem 'grape', github: 'intridea/grape'
 gem 'grape-entity'
-gem 'grape-swagger'
+gem 'grape-swagger', github: 'tim-vandecasteele/grape-swagger'
 
 
 gem 'capistrano-rails'

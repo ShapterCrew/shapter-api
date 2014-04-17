@@ -10,6 +10,6 @@ class API < Grape::API
     header['Access-Control-Allow-Origin'] = 'localhost'
     header['Access-Control-Request-Method'] = '*'
   end
-  add_swagger_documentation
+  add_swagger_documentation(mount_path: '/apidoc')
 
 end

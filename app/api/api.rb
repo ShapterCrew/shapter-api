@@ -4,6 +4,8 @@ class API < Grape::API
   format :json
   version :v1, using: :header, vendor: :shapter
 
+  helpers Shapter::Helpers
+
   mount Shapter::Ping
   mount Shapter::Items
   mount Shapter::Items::Comments

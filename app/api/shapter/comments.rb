@@ -2,6 +2,10 @@ module Shapter
   class Comments < Items
     format :json
 
+    before do 
+      check_user_login!
+    end
+
     namespace :items do 
       resource ':item_id' do
         namespace :comments do 

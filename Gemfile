@@ -11,7 +11,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'grape', github: 'intridea/grape'
 gem 'grape-entity'
-gem 'grape-swagger', github: 'tim-vandecasteele/grape-swagger'
+gem 'grape-swagger-rails'
 
 
 gem 'capistrano-rails'

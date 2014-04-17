@@ -4,16 +4,11 @@ class API < Grape::API
   format :json
   version :v1, using: :header, vendor: :shapter
 
-  before do
-    header['Access-Control-Allow-Origin'] = (Rails.env.production? ? 'localhost' : "*")
-    header['Access-Control-Request-Method'] = '*'
-  end
-
   mount Shapter::Ping
   mount Shapter::Items
   mount Shapter::Items::Comments
   mount Shapter::Tags
 
-  add_swagger_documentation(mount_path: '/apidoc', markdown: true)
+  add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
 
 end

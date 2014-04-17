@@ -10,8 +10,9 @@ class API < Grape::API
   end
 
   mount Shapter::Ping
+  mount Shapter::Items
+  mount Shapter::Items::Comments
   mount Shapter::Tags
-  mount Shapter::Comments
 
   add_swagger_documentation(mount_path: '/apidoc', markdown: true)
 

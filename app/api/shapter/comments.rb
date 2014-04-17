@@ -29,7 +29,7 @@ module Shapter
             end
             delete do
               {
-                :comment => {:id => 123, :status => :created}
+                :comment => {:id => 123, :status => :destroyed}
               }
             end
             # }}}
@@ -49,7 +49,7 @@ module Shapter
                   :score => params[:score],
                 }
               else
-                {error: "wrong score number"}
+                error! "wrong score number"
               end
             end
             #}}}

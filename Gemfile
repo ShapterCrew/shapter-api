@@ -22,7 +22,7 @@ gem 'capistrano-chruby'
 gem 'bson_ext'
 gem 'mongoid', :github => 'mongoid/mongoid'
 
-gem 'devise'
+gem 'devise', :github => 'plataformatec/devise'
 
 group :test, :development do
   gem 'factory_girl_rails'

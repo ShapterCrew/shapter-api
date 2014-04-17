@@ -23,6 +23,17 @@ GIT
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
 
+GIT
+  remote: git://github.com/plataformatec/devise.git
+  revision: 081ea9e0ba0a9ff8ebe46f520d8247a43844e241
+  specs:
+    devise (3.2.4)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -93,12 +104,6 @@ GEM
     connection_pool (2.0.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
-    devise (3.2.4)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
-      thread_safe (~> 0.1)
-      warden (~> 1.2.3)
     diff-lcs (1.2.5)
     equalizer (0.0.9)
     erubis (2.7.0)
@@ -234,7 +239,7 @@ DEPENDENCIES
   capistrano-rbenv
   capistrano-rvm
   coffee-rails (~> 4.0.0)
-  devise
+  devise!
   factory_girl_rails
   grape!
   grape-entity

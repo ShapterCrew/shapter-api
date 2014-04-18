@@ -13,7 +13,7 @@ module Shapter
     end
 
     def reco_tags(ary)
-      []
+      Tag.all.sample(10).map(&:name)
     end
 
     private

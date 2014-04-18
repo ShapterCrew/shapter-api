@@ -65,25 +65,25 @@ describe Shapter::Tags do
       end
 
       it "allows access" do 
-        post 'tags/suggested'
+        post 'tags/suggested', :filter => []
         access_denied(response).should be_false
       end
 
       it "provides user's tags" do 
-        post "tags/suggested", :ignore_user => false
+        post "tags/suggested", :ignore_user => false, :selected_tags => ['foo']
         h = JSON.parse(response.body)
         h.has_key?("user_tags").should be_true
         h["user_tags"].should =~ [@tag.name]
       end
 
       it "ignores users's tag when asked" do 
-        post "tags/suggested", :ignore_user => true
+        post "tags/suggested", :ignore_user => true, :selected_tags => ['foo']
         h = JSON.parse(response.body)
         h.has_key?("user_tags").should be_false
       end
 
       it "provides recommended tags" do 
-        post "tags/suggested"
+        post "tags/suggested", :selected_tags => ['foo']
         h = JSON.parse(response.body)
         h.has_key?("recommended_tags").should be_true
       end

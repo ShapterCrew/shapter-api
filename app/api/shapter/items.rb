@@ -27,18 +27,21 @@ module Shapter
         #{{{ get
         desc "get item infos"
         get do 
-          { 
-            :name => :foo,
-            :etc => "....etc",
-          }
+          i = Item.find(params[:id])
+          error!("not found",404) unless i
+          i
         end
         #}}}
 
         #{{{ subscribe
         desc "subscribe to the item"
         put :subscribe do 
+          i = Item.find(params[:id])
+          error!("not found",404) unless i
+          i.subscribers << current_user
+          i.save
           {
-            :id => params[:id],
+            :id => i.id,
             :status => :subscribed,
           }
         end
@@ -47,8 +50,12 @@ module Shapter
         #{{{ unsubscribe
         desc "unsubscribe to the item"
         put :unsubscribe do 
+          i = Item.find(params[:id])
+          error!("not found",404) unless i
+          i.subscribers.delete(current_user)
+          i.save
           {
-            :id => params[:id],
+            :id => i.id,
             :status => :unsubscribed,
           }
         end

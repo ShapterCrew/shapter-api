@@ -11,4 +11,6 @@ class Item
 
   has_and_belongs_to_many :tags
 
+  has_and_belongs_to_many :subscribers, class_name: "User", inverse_of: :items
+
 end

@@ -17,7 +17,7 @@ module Shapter
             requires :item_id, type: String, desc: "The item id"
           end
           post :create do
-            item = (Item.find(params[:item_id]) rescue error!("not found") )
+            item = (Item.find(params[:item_id]) || error!("not found") )
             item.comments << (c= Comment.new(:content => params[:content]))
             item.save
 
@@ -36,8 +36,8 @@ module Shapter
               requires :item_id, type: String, desc: "The item id"
             end
             delete do
-              item = (Item.find(params[:item_id]) rescue error!("item not found"))
-              comment = (item.comments.find(params[:comment_id]) rescue error!("comment not found"))
+              item = (Item.find(params[:item_id]) || error!("item not found"))
+              comment = (item.comments.find(params[:comment_id]) || error!("comment not found"))
               error!("forbidden") unless (comment.author == current_user or current_user.shapter_admin)
               comment.destroy
               {
@@ -54,8 +54,8 @@ module Shapter
               requires :item_id, type: String, desc: "The item id"
             end
             put :score do 
-              item = (Item.find(params[:item_id]) rescue error!("item not found"))
-              comment = (item.comments.find(params[:comment_id]) rescue error!("comment not found"))
+              item = (Item.find(params[:item_id]) || error!("item not found"))
+              comment = (item.comments.find(params[:comment_id]) || error!("comment not found"))
               s = params[:score].to_i
 
               if s == 0

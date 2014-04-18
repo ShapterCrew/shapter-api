@@ -17,8 +17,12 @@ module Shapter
             requires :item_id, type: String, desc: "The item id"
           end
           post :create do
+            item = (Item.find(params[:item_id]) rescue error!("not found") )
+            item.comments << (c= Comment.new(:content => params[:content]))
+            item.save
+
             {
-              :comment => {:id => :fake_id_of_comment, :status => :created}
+              :comment => {:status => :created, :id => c.id}
             }
           end
           # }}}
@@ -32,8 +36,12 @@ module Shapter
               requires :item_id, type: String, desc: "The item id"
             end
             delete do
+              item = (Item.find(params[:item_id]) rescue error!("item not found"))
+              comment = (item.comments.find(params[:comment_id]) rescue error!("comment not found"))
+              error!("forbidden") unless (comment.author == current_user or current_user.shapter_admin)
+              comment.destroy
               {
-                :comment => {:id => 123, :status => :destroyed}
+                :comment => {:id => comment.id, :status => :destroyed}
               }
             end
             # }}}
@@ -46,15 +54,28 @@ module Shapter
               requires :item_id, type: String, desc: "The item id"
             end
             put :score do 
-              if [-1,0,1].include? params[:score].to_i
-                {
-                  :item_id => params[:item_id],
-                  :comment_id => params[:comment_id],
-                  :score => params[:score],
-                }
+              item = (Item.find(params[:item_id]) rescue error!("item not found"))
+              comment = (item.comments.find(params[:comment_id]) rescue error!("comment not found"))
+              s = params[:score].to_i
+
+              if s == 0
+                item.likers.delete(current_user)
+                item.dislikers.delete(current_user)
+              elsif s == 1
+                item.likers << current_user
+                item.dislikers.delete(current_user)
+              elsif s == -1
+                item.dislikers << current_user
+                item.likers.delete(current_user)
               else
-                error! "wrong score number"
+                error!("invalid score parameter")
               end
+              item.save
+              {
+                :item_id => item.id,
+                :comment_id => comment.id,
+                :score => s,
+              }
             end
             #}}}
 

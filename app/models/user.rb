@@ -3,6 +3,10 @@ class User
 
   field :firstname, type: String
   field :lastname,  type: String
+  field :shapter_admin, type: Boolean
+
+  has_and_belongs_to_many :liked_items, class_name: "Item", inverse_of: :likers
+  has_and_belongs_to_many :disliked_items, class_name: "Item", inverse_of: :dislikers
 
   # {{{ devise
   # Include default devise modules. Others available are:

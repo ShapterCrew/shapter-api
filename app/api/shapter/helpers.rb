@@ -13,7 +13,7 @@ module Shapter
     end
 
     def check_user_login!
-      error!("user should be logged in" ,401) unless user_signed_in?
+      error!("please login" ,401) unless user_signed_in?
     end
 
     def current_user

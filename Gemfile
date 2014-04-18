@@ -22,11 +22,11 @@ gem 'capistrano-chruby'
 gem 'bson_ext'
 gem 'mongoid', :github => 'mongoid/mongoid'
 
-gem 'devise', :github => 'plataformatec/devise'
+gem 'devise', :github => 'plataformatec/devise', :branch => 'master'
 
 group :test, :development do
-  gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
   gem 'autotest-rails'
 end
 #gem 'carrierwave-mongoid', :require => "carrierwave/mongoid"

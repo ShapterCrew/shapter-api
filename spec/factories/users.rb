@@ -7,5 +7,7 @@ FactoryGirl.define do
     lastname "Trololo"
     password "oijoijoij"
     password_confirmation "oijoijoij"
+    confirmed_at Date.yesterday
+    shapter_admin false
   end
 end

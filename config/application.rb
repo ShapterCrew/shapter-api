@@ -28,5 +28,12 @@ module ShapterApi
     config.to_prepare do 
       DeviseController.respond_to :json
     end
+
+    config.middleware.use Rack::Cors do 
+      allow do 
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :options, :delete]
+      end
+    end
   end
 end

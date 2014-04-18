@@ -30,5 +30,7 @@ group :test, :development do
   gem 'autotest-rails'
   gem 'byebug'
 end
+
+gem 'rack-cors'
 #gem 'carrierwave-mongoid', :require => "carrierwave/mongoid"
 #gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'

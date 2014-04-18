@@ -74,6 +74,9 @@ GEM
     bson (2.2.2)
     bson_ext (1.5.1)
     builder (3.1.4)
+    byebug (2.7.0)
+      columnize (~> 0.3)
+      debugger-linecache (~> 1.2)
     capistrano (3.2.0)
       i18n
       rake (>= 10.0.0)
@@ -102,7 +105,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    columnize (0.3.6)
     connection_pool (2.0.0)
+    debugger-linecache (1.2.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.2.5)
@@ -235,6 +240,7 @@ PLATFORMS
 DEPENDENCIES
   autotest-rails
   bson_ext
+  byebug
   capistrano-chruby
   capistrano-rails
   capistrano-rbenv

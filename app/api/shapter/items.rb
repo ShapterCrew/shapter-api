@@ -1,6 +1,11 @@
 module Shapter
   class Items < Grape::API
+    helpers Shapter::FilterHelper
     format :json
+
+    before do 
+      check_user_login!
+    end
 
     namespace :items do 
 
@@ -10,13 +15,7 @@ module Shapter
         requires :filter, type: Array, desc: "array of tags to filter with"
       end
       get :filter do 
-        [
-          {
-          :name => :foo,
-          :id => 123,
-          :nb_of_comments => 34,
-        },
-        ]
+        f = filter_items(params[:filter]).map(&:id)
       end
       #}}}
 

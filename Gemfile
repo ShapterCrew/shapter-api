@@ -28,6 +28,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'autotest-rails'
+  gem 'byebug'
 end
 #gem 'carrierwave-mongoid', :require => "carrierwave/mongoid"
 #gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'

@@ -26,7 +26,7 @@ module Shapter
         NOTE
       }
       params do 
-        optional :selected_tags, type: Array, desc: "Array of tags"
+        requires :selected_tags, type: Array, desc: "Array of tags"
         optional :ignore_user, type: Boolean, desc: "Ignore user's tags"
       end
 

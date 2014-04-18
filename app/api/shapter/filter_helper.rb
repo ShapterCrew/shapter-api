@@ -12,5 +12,11 @@ module Shapter
       end
     end
 
+    def reco_tags(ary)
+      []
+    end
+
+    private
+
   end
 end

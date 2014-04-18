@@ -61,6 +61,25 @@ module Shapter
         end
         #}}}
 
+
+        #{{{ add_tag
+        desc "tag item with tag. Only shapter_admin can do that"
+        params do 
+          requires :tag_name, type: String, desc: "tag name to add"
+        end
+        post "add_tag" do 
+          error!("denied", 401) unless current_user.shapter_admin
+          i = Item.find(params[:id])
+          error!("not found",404) unless i
+
+          t = Tag.find_or_create_by(name: params[:tag_name])
+          t.items << i
+          t.save
+
+        end
+        #}}}
+
+
       end
 
     end

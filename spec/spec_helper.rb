@@ -23,3 +23,7 @@ end
 def login(user)
   post "/users/sign_in", :user => {email: user.email, password: user.password}
 end
+
+def access_denied(resp)
+  (resp.status == 401 or resp.status == 405) and resp.body = {error: "denied"}.to_json
+end

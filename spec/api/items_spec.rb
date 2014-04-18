@@ -21,9 +21,6 @@ describe Shapter::Items do
     @filter = ["t1","t2"]
   end
 
-  def access_denied(resp)
-    resp.status == 401 and resp.body = {error: "denied"}.to_json
-  end
 
   # {{{ filter
   describe :filter do 
@@ -145,5 +142,42 @@ describe Shapter::Items do
     end
   end
   #}}}
+
+  # {{{ add_tag
+  describe :add_tag do 
+    context "when not logged" do 
+      it "denies access" do 
+        post "items/#{@item.id}/add_tag", :tag_name => "newtag"
+        access_denied(response).should be_true
+      end
+    end
+
+    context "when not admin" do 
+      it "denies access" do 
+        login(@user)
+        post "items/#{@item.id}/add_tag", :tag_name => "newtag"
+        access_denied(response).should be_true
+      end
+    end
+
+    context "when admin" do
+      it "allows access" do 
+        login(@user)
+        User.any_instance.stub(:shapter_admin).and_return(true)
+        post "items/#{@item.id}/add_tag", :tag_name => "newtag"
+        access_denied(response).should be_false
+      end
+
+      it "adds tag" do 
+        login(@user)
+        User.any_instance.stub(:shapter_admin).and_return(true)
+        post "items/#{@item.id}/add_tag", :tag_name => "newtag"
+        @item.reload
+        @item.tags.last.name.should == "newtag"
+        Tag.last.name.should == "newtag"
+      end
+    end
+  end
+  # }}}
 
 end

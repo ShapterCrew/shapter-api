@@ -2,6 +2,12 @@ module Shapter
   class Tags < Grape::API
     format :json
 
+    helpers Shapter::FilterHelper
+
+    before do 
+      check_user_login!
+    end
+
     namespace :tags do 
 
       # index {{{
@@ -10,10 +16,7 @@ module Shapter
         NOTE
       }
       get :/ do 
-        [
-          :foo,
-          :bar,
-        ]
+        Tag.all
       end
       #}}}
 
@@ -26,17 +29,15 @@ module Shapter
         optional :selected_tags, type: Array, desc: "Array of tags"
         optional :ignore_user, type: Boolean, desc: "Ignore user's tags"
       end
+
       post :suggested do 
-        [
-          {
-          :name => :foo,
-          :weight => 2,
-        },
         {
-          :name => :bar,
-          :weight => 1,
-        },
-        ]
+          :recommended_tags => reco_tags(params[:selected_tags])
+        }.merge(
+          h = params[:ignore_user] ? {} : {
+          :user_tags => current_user.items.flat_map(&:tags).uniq.map(&:name)
+        }
+        )
       end
       # }}}
 

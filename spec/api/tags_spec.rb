@@ -78,7 +78,6 @@ describe Shapter::Tags do
       it "ignores users's tag when asked" do 
         post "tags/suggested", :ignore_user => true, :selected_tags => ['foo']
         h = JSON.parse(response.body)
-        puts "debug: h=#{h}"
         h["user_tags"].blank?.should be_true
       end
 

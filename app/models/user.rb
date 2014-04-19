@@ -46,4 +46,13 @@ class User
   # field :locked_at,       type: Time
   #}}}
 
+  def sign_in_json
+    {
+      id: id,
+      email: email,
+      first_name: firstname,
+      last_name: lastname,
+    }.to_json
+  end
+
 end

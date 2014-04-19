@@ -40,14 +40,13 @@ describe Shapter::Tags do
 
       it "list all tags" do 
         get "tags"
-        response.body.should == [@tag].to_json
+        response.body.should == [@tag].map{|t| {name: t.name}}.to_json
       end
 
     end
 
   end
   #}}}
-
 
   #{{{ suggested
   describe :suggested do 
@@ -73,13 +72,14 @@ describe Shapter::Tags do
         post "tags/suggested", :ignore_user => false, :selected_tags => ['foo']
         h = JSON.parse(response.body)
         h.has_key?("user_tags").should be_true
-        h["user_tags"].should =~ [@tag.name]
+        h["user_tags"].should =~ [{"name" => @tag.name}]
       end
 
       it "ignores users's tag when asked" do 
         post "tags/suggested", :ignore_user => true, :selected_tags => ['foo']
         h = JSON.parse(response.body)
-        h.has_key?("user_tags").should be_false
+        puts "debug: h=#{h}"
+        h["user_tags"].blank?.should be_true
       end
 
       it "provides recommended tags" do 

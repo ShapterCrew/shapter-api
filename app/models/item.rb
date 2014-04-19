@@ -13,4 +13,14 @@ class Item
 
   has_and_belongs_to_many :subscribers, class_name: "User", inverse_of: :items
 
+  def comments_count
+    comments.count
+  end
+
+  def user_likes?(user)
+    return 1 if likers.include?(user)
+    return -1 if dislikers.include?(user)
+    return 0
+  end
+
 end

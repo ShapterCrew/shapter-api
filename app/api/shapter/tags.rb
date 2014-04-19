@@ -1,8 +1,9 @@
+require 'ostruct'
 module Shapter
   class Tags < Grape::API
     format :json
 
-    helpers Shapter::FilterHelper
+    helpers Shapter::Helpers::FilterHelper
 
     before do 
       check_user_login!
@@ -16,7 +17,7 @@ module Shapter
         NOTE
       }
       get :/ do 
-        Tag.all
+        present Tag.all, with: Shapter::Entities::Tag
       end
       #}}}
 
@@ -31,13 +32,14 @@ module Shapter
       end
 
       post :suggested do 
-        {
-          :recommended_tags => reco_tags(params[:selected_tags])
-        }.merge(
-          h = params[:ignore_user] ? {} : {
-          :user_tags => current_user.items.flat_map(&:tags).uniq.map(&:name)
-        }
-        )
+
+      ignore_user = params[:ignore_user]
+
+        resp = { :recommended_tags => reco_tags(params[:selected_tags]) }
+        .merge( ignore_user ? {} : { :user_tags => current_user.items.flat_map(&:tags).uniq })
+
+        present OpenStruct.new(resp), with: Shapter::Entities::SuggestedTags 
+
       end
       # }}}
 

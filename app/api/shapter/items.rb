@@ -1,6 +1,6 @@
 module Shapter
   class Items < Grape::API
-    helpers Shapter::FilterHelper
+    helpers Shapter::Helpers::FilterHelper
     format :json
 
     before do 
@@ -15,7 +15,7 @@ module Shapter
         requires :filter, type: Array, desc: "array of tags to filter with"
       end
       get :filter do 
-        f = filter_items(params[:filter]).map(&:id)
+        present filter_items(params[:filter]), with: Shapter::Entities::Item, :current_user => current_user
       end
       #}}}
 
@@ -29,7 +29,7 @@ module Shapter
         get do 
           i = Item.find(params[:id])
           error!("not found",404) unless i
-          i
+          present i, with: Shapter::Entities::Item, :current_user => current_user
         end
         #}}}
 
@@ -75,7 +75,7 @@ module Shapter
           t = Tag.find_or_create_by(name: params[:tag_name])
           t.items << i
           t.save
-
+          "success"
         end
         #}}}
 

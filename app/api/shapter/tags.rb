@@ -29,13 +29,14 @@ module Shapter
       params do 
         requires :selected_tags, type: Array, desc: "Array of tags"
         optional :ignore_user, type: Boolean, desc: "Ignore user's tags"
+        optional :limit, type: Integer, desc: "Limit the max number of results", default: 20
       end
 
       post :suggested do 
 
       ignore_user = params[:ignore_user]
 
-        resp = { :recommended_tags => reco_tags(params[:selected_tags]) }
+        resp = { :recommended_tags => reco_tags(params[:selected_tags],params[:limit]) }
         .merge( ignore_user ? {} : { :user_tags => current_user.items.flat_map(&:tags).uniq })
 
         present OpenStruct.new(resp), with: Shapter::Entities::SuggestedTags 

@@ -21,6 +21,7 @@ module Shapter
         .sort_by{|k,v| v}.reverse
         .reject{|name,count| ary.include? name}
         .take(limit)
+        .map{|name,count| {name: name, score: count}}
       end
 
       private

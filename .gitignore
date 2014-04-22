@@ -12,7 +12,7 @@ rerun.txt
 pickle-email-*.html
 config/initializers/secret_token.rb
 config/secrets.yml
-mongoid.yml
+config/mongoid.yml
 
 ## Environment normalisation:
 /.bundle

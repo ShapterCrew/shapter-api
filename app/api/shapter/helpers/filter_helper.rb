@@ -15,7 +15,9 @@ module Shapter
 
       def reco_tags(ary,limit)
         tags_for_item_ids(
-          Tag.any_in(name: ary).flat_map(&tag_to_item_ids).uniq.compact
+          Tag.any_in(name: ary)
+          .map(&tag_to_item_ids)
+          .reduce(:&)
         )
         .reduce(Hash.new(0),&reco_reduce)
         .sort_by{|k,v| v}.reverse

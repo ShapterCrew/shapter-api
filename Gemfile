@@ -8,8 +8,6 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
-gem 'angular_rails_csrf'
-
 gem 'grape', github: 'intridea/grape'
 gem 'grape-entity'
 gem 'grape-swagger-rails'

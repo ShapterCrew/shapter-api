@@ -31,5 +31,8 @@ group :test, :development do
 end
 
 gem 'rack-cors'
+
+gem 'angular_rails_csrf'
+
 #gem 'carrierwave-mongoid', :require => "carrierwave/mongoid"
 #gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'

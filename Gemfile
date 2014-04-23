@@ -12,7 +12,6 @@ gem 'grape', github: 'intridea/grape'
 gem 'grape-entity'
 gem 'grape-swagger-rails'
 
-
 gem 'capistrano-rails'
 gem 'capistrano-rvm'
 gem 'capistrano-rbenv'
@@ -31,8 +30,3 @@ group :test, :development do
 end
 
 gem 'rack-cors'
-
-gem 'angular_rails_csrf'
-
-#gem 'carrierwave-mongoid', :require => "carrierwave/mongoid"
-#gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'

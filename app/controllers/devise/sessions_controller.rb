@@ -4,6 +4,9 @@ class Devise::SessionsController < DeviseController
   prepend_before_filter :verify_signed_out_user, only: :destroy
   prepend_before_filter only: [ :create, :destroy ] { request.env["devise.skip_timeout"] = true }
 
+  skip_before_filter :verify_authenticity_token
+
+
   # GET /resource/sign_in
   def new
     self.resource = resource_class.new(sign_in_params)

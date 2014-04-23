@@ -14,4 +14,5 @@ class API < Grape::API
 
   add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
 
+
 end

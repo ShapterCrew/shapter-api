@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/mongoid/mongoid.git
-  revision: 4893e77bb858b4f87d406115129cf8ca9d2c4f36
+  revision: 8b33b62a43fb989a6a6db9beb72d98d8c84874ea
   specs:
     mongoid (4.0.0.beta1)
       activemodel (>= 4.0.0)
@@ -38,7 +38,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    ZenTest (4.9.5)
+    ZenTest (4.10.0)
     actionmailer (4.0.3)
       actionpack (= 4.0.3)
       mail (~> 2.5.4)
@@ -74,7 +74,7 @@ GEM
     bson (2.2.2)
     bson_ext (1.5.1)
     builder (3.1.4)
-    byebug (3.1.1)
+    byebug (3.1.2)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
     capistrano (3.2.1)

@@ -13,12 +13,27 @@ module Shapter
           # {{{ create comment
           desc "comment an item"
           params do
-            requires :content, type: String, desc: "The comment content"
             requires :item_id, type: String, desc: "The item id"
+            requires :comment, type: Hash do
+              requires :content, type: String, desc: "comment content"
+              requires :work_score, type: Integer, desc: "workload score, from 1 to 100"
+              requires :quality_score, type: Integer, desc: "qualityload score, from 1 to 100"
+            end
           end
           post :create do
-            item = (Item.find(params[:item_id]) || error!("not found") )
-            item.comments << (c= Comment.new(:content => params[:content]))
+            item = (Item.find(params[:item_id]) || error!("item not found",400) )
+
+            #could be nicer with proper params :permit handling
+            c = Comment.new(
+              content: params[:comment][:content],
+              author: current_user,
+              work_score: params[:comment][:work_score],
+              quality_score: params[:comment][:quality_score],
+            )
+
+            error!(c.errors,400) unless c.valid?
+
+            item.comments << c
             item.save
 
             {

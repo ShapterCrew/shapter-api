@@ -6,6 +6,8 @@ module Shapter
       expose :tags, using: Shapter::Entities::Tag
       expose :id, :id
       expose :comments_count
+      expose :avg_quality_score
+      expose :avg_work_score
       expose :current_user_likes do |it,ops|
         it.user_likes?(ops[:current_user])
       end

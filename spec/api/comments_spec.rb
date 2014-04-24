@@ -6,8 +6,8 @@ describe Shapter::Comments do
     Item.delete_all
     User.delete_all
     @item = FactoryGirl.create(:item)
-    @comment = FactoryGirl.build(:comment)
     @user = FactoryGirl.create(:user)
+    @comment = FactoryGirl.build(:comment)
     @comment.author = @user
   end
 
@@ -15,29 +15,60 @@ describe Shapter::Comments do
   # {{{ create
   describe :create do 
     it "should require login" do 
-      post "/items/#{@item.id}/comments/create", :content => @valid_content
+      post "/items/#{@item.id}/comments/create", :comment => @comment.attributes
       response.status.should == 401
       response.body.should == {error: "please login"}.to_json
     end
 
-    it "errors if item is not found" do 
-      login(@user)
-      post "/items/not_valid/comments/create", :content => @valid_content
-      response.status.should == 500
-      response.body.should == {error: "not found"}.to_json
-    end
+    context "when logged in" do 
 
-    it "should create comment" do 
-      login(@user)
-      post "/items/#{@item.id}/comments/create", :content => @valid_content
-      response.status.should == 201
-      h = JSON.parse(response.body)
-      h.has_key?("comment").should be_true
-      h["comment"].has_key?("id").should be_true
-      h["comment"]["status"].should == "created"
+      before do 
+        login(@user)
+      end
 
-      @item.reload
-      @item.comments.last.content.should == @valid_content
+      it "errors if item is not found" do 
+        post "/items/not_valid/comments/create", :comment => @comment.attributes
+        response.status.should == 400
+        response.body.should == {error: "item not found"}.to_json
+      end
+
+      it "should create comment" do 
+        post "/items/#{@item.id}/comments/create", :comment => @comment.attributes
+        response.status.should == 201
+        h = JSON.parse(response.body)
+        h.has_key?("comment").should be_true
+        h["comment"].has_key?("id").should be_true
+        h["comment"]["status"].should == "created"
+
+        @item.reload
+        @item.comments.last.content.should == @comment.content
+      end
+
+      it "validates presence of content" do 
+        post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:content => nil)
+        response.status.should == 400
+      end
+
+      it "validates presence of work_score" do 
+        post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:work_score => nil)
+        response.status.should == 400
+      end
+
+      it "validates presence of quality_score" do 
+        post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:quality_score => nil)
+        response.status.should == 400
+      end
+
+      it "validates value of work_score" do 
+        post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:work_score => 600)
+        response.status.should == 400
+      end
+
+      it "validates value of quality_score" do 
+        post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:quality_score => 600)
+        response.status.should == 400
+      end
+
     end
 
   end

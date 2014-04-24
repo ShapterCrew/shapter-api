@@ -23,4 +23,12 @@ class Item
     return 0
   end
 
+  def avg_quality_score
+    comments.avg(:quality_score)
+  end
+
+  def avg_work_score
+    comments.avg(:work_score)
+  end
+
 end

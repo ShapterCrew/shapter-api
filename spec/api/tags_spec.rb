@@ -84,7 +84,6 @@ describe Shapter::Tags do
       it "provides recommended tags" do 
         post "tags/suggested", :selected_tags => ['foo']
         h = JSON.parse(response.body)
-        puts "debug: h = #{h}"
         h.has_key?("recommended_tags").should be_true
       end
 

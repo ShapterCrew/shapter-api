@@ -7,6 +7,9 @@ class Comment
   embedded_in :item
   belongs_to :author, class_name: "User"
 
+  has_and_belongs_to_many :likers, class_name: "User", inverse_of: :liked_comments
+  has_and_belongs_to_many :dislikers, class_name: "User", inverse_of: :disliked_comments
+
   validates_presence_of :author
   validates_presence_of :content
   validates_presence_of :work_score
@@ -24,6 +27,12 @@ class Comment
 
   def item_id
     item.id.to_s
+  end
+
+  def user_likes?(user)
+    return 1 if likers.include?(user)
+    return -1 if dislikers.include?(user)
+    return 0
   end
 
 end

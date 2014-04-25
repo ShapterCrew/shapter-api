@@ -148,7 +148,7 @@ module Shapter
             ok_admin = current_user.shapter_admin
             error!("access denied",401) unless (ok_admin or ok_school)
 
-            present i.comments, with: Shapter::Entities::Comment
+            present i.comments, with: Shapter::Entities::Comment, current_user: current_user
           end
           #}}}
 

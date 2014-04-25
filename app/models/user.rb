@@ -10,6 +10,8 @@ class User
 
   has_and_belongs_to_many :items, inverse_of: :subscribers
 
+  belongs_to :school, class_name: "Tag"
+
   # {{{ devise
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -53,6 +55,10 @@ class User
       first_name: firstname,
       last_name: lastname,
     }.to_json
+  end
+
+  def pretty_id
+    id.to_s
   end
 
 end

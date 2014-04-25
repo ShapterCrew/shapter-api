@@ -138,6 +138,21 @@ module Shapter
 
         end
 
+        namespace :comments do 
+
+          #{{{ index
+          desc "get comments from item"
+          get do
+            i = Item.find(params[:id]) || error!("not found",404)
+            error!("access denied",401) unless (i.tags.include?(current_user.school) or current_user.shapter_admin)
+
+            present i.comments, with: Shapter::Entities::Comment
+          end
+          #}}}
+
+
+        end
+
       end
 
     end

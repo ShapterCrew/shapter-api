@@ -18,5 +18,9 @@ class Comment
     validates_numericality_of p, {only_integer: true}
   end
 
+  def pretty_id
+    id.to_s
+  end
+
 
 end

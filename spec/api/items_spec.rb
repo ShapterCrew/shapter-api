@@ -307,4 +307,62 @@ describe Shapter::Items do
 
   end
 
+  describe :comments do 
+
+    #{{{ index
+    describe :index do
+
+      context "when logged of" do
+        it "denies access" do 
+          get "items/#{@item.id}/comments"
+          access_denied(@response).should be_true
+        end
+      end
+
+      context "when logged in as student" do 
+        before do 
+          login(@user)
+        end
+
+        it "allows access if item belongs to current_user.school " do 
+          @user.school = @item.tags.last ; @user.save ; @user.reload
+
+          get "items/#{@item.id}/comments"
+          access_denied(@response).should be_false
+        end
+
+        it "denies access if item does NOT belong to current_user.school " do 
+          get "items/#{@item.id}/comments"
+          access_denied(@response).should be_true
+        end
+      end
+
+      context "when logged in as admin" do 
+        before do 
+          login(@user)
+          User.any_instance.stub(:shapter_admin).and_return(true)
+        end
+
+        it "allows access if item does NOT belong to current_user.school " do 
+          get "items/#{@item.id}/comments"
+          access_denied(@response).should be_false
+        end
+
+        it "list items comments" do 
+          c = FactoryGirl.build(:comment) ;  c.author = @user
+          @item.comments << c
+          @item.save ; @item.reload
+          get "items/#{@item.id}/comments"
+          a = JSON.parse(response.body)
+          a.is_a?(Array).should be_true
+          a.size.should == @item.comments.size
+          a.last["id"].should == @item.comments.last.id.to_s
+        end
+
+      end
+    end
+    #}}}
+
+  end
+
 end

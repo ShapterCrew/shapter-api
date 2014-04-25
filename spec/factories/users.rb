@@ -9,5 +9,6 @@ FactoryGirl.define do
     password_confirmation "oijoijoij"
     confirmed_at Date.yesterday
     shapter_admin false
+    school {Tag.create(name: "schoolTag")}
   end
 end

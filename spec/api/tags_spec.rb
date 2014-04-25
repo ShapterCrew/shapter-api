@@ -40,7 +40,7 @@ describe Shapter::Tags do
 
       it "list all tags" do 
         get "tags"
-        response.body.should == [@tag].map{|t| {name: t.name, id: t.id.to_s}}.to_json
+        response.body.should == Tag.all.map{|t| {name: t.name, id: t.id.to_s}}.to_json
       end
 
     end

@@ -6,6 +6,7 @@ module Shapter
       expose :author, using: Shapter::Entities::UserShort
       expose :work_score
       expose :quality_score
+      expose :item_id
     end
   end
 end

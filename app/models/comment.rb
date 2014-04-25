@@ -22,5 +22,8 @@ class Comment
     id.to_s
   end
 
+  def item_id
+    item.id.to_s
+  end
 
 end

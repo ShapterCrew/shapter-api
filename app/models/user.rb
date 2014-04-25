@@ -61,4 +61,12 @@ class User
     id.to_s
   end
 
+  def valid_password?(pwd)
+    begin
+      super(pwd)
+    rescue
+      Pbkdf2PasswordHasher.check_password(pwd,self.encrypted_password)
+    end
+  end
+
 end

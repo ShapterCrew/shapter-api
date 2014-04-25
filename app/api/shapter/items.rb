@@ -63,6 +63,38 @@ module Shapter
         end
         #}}}
 
+        #{{{ delete
+        desc "destroy an item"
+        delete do 
+          error!("forbidden",403) unless current_user.shapter_admin
+          item = Item.find(params[:id]) || error!("not found",404)
+
+          item.tags.each do |tag|
+            tag.items.delete(item)
+          end
+          item.delete
+
+        end
+        #}}}
+
+        #{{{ update
+        desc "update an item" 
+        params do 
+          requires :item, type: Hash do 
+            optional :name, type: String, desc: "item name"
+            optional :description, type: String, desc: "description"
+          end
+        end
+        put :update do 
+          error!("forbidden",403) unless current_user.shapter_admin
+          item = Item.find(params[:id]) || error!("not found",404)
+
+          item.update(params[:item])
+
+          present item, with: Shapter::Entities::Item, :current_user => current_user
+        end
+        #}}}
+
         namespace :tags do 
 
           #{{{ add

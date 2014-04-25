@@ -14,8 +14,8 @@ describe Shapter::Items do
     @t2 = Tag.new(name: :t2) ; @t2.save
     @t3 = Tag.new(name: :t3) ; @t3.save
 
-    @item.tags = [@t1,@t2]
-    @item2.tags = [@t1,@t3]
+    @item.tags << @t1 ; @item.tags << @t2
+    @item2.tags << @t1; @item2.tags << @t3
     @item.save
     @item2.save
     @filter = ["t1","t2"]
@@ -140,6 +140,66 @@ describe Shapter::Items do
         @user.items.include?(@item).should be_false
 
         response.body.should == {:id => @item.id, :status => :unsubscribed}.to_json
+
+      end
+    end
+  end
+  #}}}
+
+  #{{{ delete
+  describe :delete do 
+    context "when not admin" do 
+      before do 
+        login(@user)
+      end
+      it "denies access" do 
+        delete "items/#{@item.id}"
+        access_denied(@response).should be_true
+      end
+    end
+    context "when admin" do 
+      before do 
+        login(@user)
+        User.any_instance.stub(:shapter_admin).and_return(true)
+      end
+      it "destroy an item" do 
+        tags = @item.tags
+        tags.select{|t| t.item_ids.include?(@item.id)}.empty?.should be_false
+        delete "items/#{@item.id}"
+
+        Item.find(@item.id).should be_nil
+        tags.select{|t| t.reload ; t.item_ids.include?(@item.id)}.empty?.should be_true
+
+      end
+    end
+  end
+  #}}}
+
+  #{{{ update
+  describe :update do 
+    context "when not admin" do 
+      before do 
+        login(@user)
+        User.any_instance.stub(:shapter_admin).and_return(false)
+      end
+      it "denies access" do 
+        put "items/#{@item.id}/update", :item => {:name => "new name ", :description => "soooo cool!"}
+        access_denied(@response).should be_true
+      end
+    end
+    context "when admin" do 
+      before do 
+        login(@user)
+        User.any_instance.stub(:shapter_admin).and_return(true)
+      end
+      it "destroy an item" do 
+        new_name = "new name"
+        desc = "soooooo cool !"
+        put "items/#{@item.id}/update", :item => {:name => new_name, :description => desc}
+
+        @item.reload
+        @item.name.should == new_name
+        @item.description.should == desc
 
       end
     end

@@ -4,7 +4,7 @@ class UserLine
   end
 
   def school
-    @ll[4]
+    Tag.find_or_create_by(name: @ll[4])
   end
 
   def firstname
@@ -36,12 +36,13 @@ class UserLine
       encrypted_password: password_hash,
       confirmed_at: Date.today,
       items: items,
+      school: school,
     )
   end
 
 end
 
-File.open("/home/aherve/Downloads/users.csv").each_line do |line|
+File.open("/home/aherve/Shapter/shapter-api/scripts/csvs/users.csv").each_line do |line|
   u = UserLine.new(line).to_user
   u.save(validate: false)
   puts u.email

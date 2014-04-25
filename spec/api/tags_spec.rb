@@ -40,7 +40,7 @@ describe Shapter::Tags do
 
       it "list all tags" do 
         get "tags"
-        response.body.should == [@tag].map{|t| {name: t.name}}.to_json
+        response.body.should == [@tag].map{|t| {name: t.name, id: t.id.to_s}}.to_json
       end
 
     end
@@ -72,7 +72,7 @@ describe Shapter::Tags do
         post "tags/suggested", :ignore_user => false, :selected_tags => ['foo']
         h = JSON.parse(response.body)
         h.has_key?("user_tags").should be_true
-        h["user_tags"].should =~ [{"name" => @tag.name}]
+        h["user_tags"].should =~ [{"name" => @tag.name, "id" => @tag.id.to_s}]
       end
 
       it "ignores users's tag when asked" do 
@@ -91,5 +91,74 @@ describe Shapter::Tags do
 
   end
   #}}}
+
+  describe :tag_id do 
+
+    #{{{ update
+    describe :update do 
+      context "when not admin" do 
+        before do 
+          login(@user)
+          User.any_instance.stub(:shapter_admin).and_return(false)
+        end
+
+        it "denies access" do 
+          post "tags/#{@tag.id}/update", :name => "another_name" 
+          access_denied(@response).should be_true
+        end
+      end
+
+      context "when admin" do 
+        before do 
+          login(@user)
+          User.any_instance.stub(:shapter_admin).and_return(true)
+        end
+
+        it "updates name" do 
+          post "tags/#{@tag.id}/update", :name => "another_name" 
+          access_denied(@response).should be_false
+          @tag.reload
+          @tag.name.should == "another_name"
+        end
+      end
+    end
+    #}}}
+
+    #{{{ delete
+    describe :delete do 
+      context "when not admin" do 
+        before do 
+          login(@user)
+        end
+
+        it "denies access" do 
+          delete "tags/#{@tag.id}"
+          access_denied(@response).should be_true
+        end
+      end
+
+      context "when admin" do 
+        before do 
+          login(@user)
+          User.any_instance.stub(:shapter_admin).and_return(:false)
+        end
+
+        it "deletes the tag" do 
+          delete "tags/#{@tag.id}"
+          Tag.find(@tag.id).should be_nil
+        end
+
+        it "removes pointer from previously tagged items" do 
+          @item.tag_ids.include?(@tag.id).should be_true
+          delete "tags/#{@tag.id}"
+          @item.reload
+          @item.tag_ids.include?(@tag.id).should be_false
+        end
+
+      end
+    end
+    #}}}
+
+  end
 
 end

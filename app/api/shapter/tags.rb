@@ -44,8 +44,47 @@ module Shapter
       end
       # }}}
 
-    end
+      namespace ":tag_id" do 
+        before do 
+          params do 
+            requires :tag_id, type: String, desc: "The tag id"
+          end
+        end
 
+        #{{{ udpate
+        desc "update tag's attributes"
+        params do 
+          requires :name, type: String, desc: "The new tag name"
+        end
+        post :update do 
+          error!("forbidden",403) unless current_user.shapter_admin
+          Tag.find(params[:tag_id]).update(name: params[:name])
+        end
+        #}}}end
+
+        #{{{ show
+        desc "show tag"
+        get "" do 
+          t = Tag.find(params[:tag_id])
+          present t, with: Shapter::Entities::TagFull
+        end
+        #}}}
+
+        #{{{ destroy
+        desc "delete tag"
+        delete "" do 
+          error!("forbidden",403) unless current_user.shapter_admin
+          t = Tag.find(params[:tag_id])
+          # Callback on model would be nicer, but I couldn't figure why it didn't work
+          t.items.each do |item|
+            item.tags.delete(t)
+          end
+          t.delete
+        end
+      end
+      #}}}
+
+    end
   end
 
 end

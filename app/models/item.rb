@@ -31,4 +31,8 @@ class Item
     comments.avg(:work_score)
   end
 
+  def pretty_id
+    id.to_s
+  end
+
 end

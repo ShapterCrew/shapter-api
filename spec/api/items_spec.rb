@@ -41,11 +41,11 @@ describe Shapter::Items do
       it "should filter properly" do 
         get "items/filter", filter: ["t1"]
         a = JSON.parse(response.body)
-        a.map{|h| h["id"]}.should =~ [@item.id, @item2.id].map(&:to_s).map{|id| {"$oid"=>id}}
+        a.map{|h| h["id"]}.should =~ [@item.id, @item2.id].map(&:to_s)
 
         get "items/filter", filter: ["t1","t3"]
         a = JSON.parse(response.body)
-        a.map{|h| h["id"]}.should =~ [@item2.id].map(&:to_s).map{|id| {"$oid"=>id}}
+        a.map{|h| h["id"]}.should =~ [@item2.id].map(&:to_s)
 
         get "items/filter", filter: ["t1","hahahalol"]
         a = JSON.parse(response.body)
@@ -79,7 +79,7 @@ describe Shapter::Items do
         get "items/#{@item.id}"
         response.status.should == 200
         i = JSON.parse(response.body)
-        i["id"].should == {"$oid" => @item.id.to_s}
+        i["id"].should == @item.id.to_s
       end
 
     end

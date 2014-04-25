@@ -4,7 +4,7 @@ module Shapter
       expose :name
       expose :description
       expose :tags, using: Shapter::Entities::Tag
-      expose :id, :id
+      expose :pretty_id, as: :id
       expose :comments_count
       expose :avg_quality_score
       expose :avg_work_score

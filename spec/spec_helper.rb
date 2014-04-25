@@ -25,5 +25,5 @@ def login(user)
 end
 
 def access_denied(resp)
-  (resp.status == 401 or resp.status == 405) and resp.body = {error: "denied"}.to_json
+  ([401,403,405].include? resp.status ) and (resp.body = {error: "denied"}.to_json or resp.body = {error: "forbidden"}.to_json)
 end

@@ -11,14 +11,17 @@ describe Shapter::Items do
     @item2= FactoryGirl.create(:item)
 
     @t1 = Tag.new(name: :t1) ; @t1.save
-    @t2 = Tag.new(name: :t2) ; @t1.save
-    @t3 = Tag.new(name: :t3) ; @t1.save
+    @t2 = Tag.new(name: :t2) ; @t2.save
+    @t3 = Tag.new(name: :t3) ; @t3.save
 
     @item.tags = [@t1,@t2]
     @item2.tags = [@t1,@t3]
     @item.save
     @item2.save
     @filter = ["t1","t2"]
+
+    @item.reload
+    @item2.reload
   end
 
 
@@ -143,41 +146,105 @@ describe Shapter::Items do
   end
   #}}}
 
-  # {{{ add_tag
-  describe :add_tag do 
-    context "when not logged" do 
-      it "denies access" do 
-        post "items/#{@item.id}/add_tag", :tag_name => "newtag"
-        access_denied(response).should be_true
-      end
-    end
+  describe :tags do 
 
-    context "when not admin" do 
-      it "denies access" do 
-        login(@user)
-        post "items/#{@item.id}/add_tag", :tag_name => "newtag"
-        access_denied(response).should be_true
-      end
-    end
-
-    context "when admin" do
-      it "allows access" do 
-        login(@user)
-        User.any_instance.stub(:shapter_admin).and_return(true)
-        post "items/#{@item.id}/add_tag", :tag_name => "newtag"
-        access_denied(response).should be_false
+    # {{{ add_tag
+    describe :add do 
+      context "when not logged" do 
+        it "denies access" do 
+          put "items/#{@item.id}/tags/newtag"
+          access_denied(response).should be_true
+        end
       end
 
-      it "adds tag" do 
-        login(@user)
-        User.any_instance.stub(:shapter_admin).and_return(true)
-        post "items/#{@item.id}/add_tag", :tag_name => "newtag"
-        @item.reload
-        @item.tags.last.name.should == "newtag"
-        Tag.last.name.should == "newtag"
+      context "when not admin" do 
+        it "denies access" do 
+          login(@user)
+          put "items/#{@item.id}/tags/newtag"
+          access_denied(response).should be_true
+        end
+      end
+
+      context "when admin" do
+        it "allows access" do 
+          login(@user)
+          User.any_instance.stub(:shapter_admin).and_return(true)
+          put "items/#{@item.id}/tags/newtag"
+          access_denied(response).should be_false
+        end
+
+        it "adds tag" do 
+          login(@user)
+          User.any_instance.stub(:shapter_admin).and_return(true)
+          put "items/#{@item.id}/tags/newtag"
+          @item.reload
+          @item.tags.last.name.should == "newtag"
+          Tag.last.name.should == "newtag"
+        end
       end
     end
+    # }}}
+
+    #{{{ delete
+    describe :delete do 
+
+      context "when logged of" do 
+        it "denies access" do 
+          delete "/items/#{@item.id}/tags/#{@t1.name}"
+          access_denied(@response).should be_true
+        end
+      end
+
+      context "when logged in as user" do 
+        before do 
+          login(@user)
+        end
+        it "denies access" do 
+          delete "/items/#{@item.id}/tags/#{@t1.name}"
+          access_denied(@response).should be_true
+        end
+      end
+
+      context 'when logged in as admin' do 
+        before do 
+          login(@user)
+          User.any_instance.stub(:shapter_admin).and_return(true)
+          @item.tags << @t1 ; @item.save
+          @item.tags << @t2 ; @item.save
+        end
+
+        it "allows access" do 
+          delete "/items/#{@item.id}/tags/#{@t1.name}"
+          access_denied(@response).should be_false
+        end
+
+        it "deletes the tag from item tags list" do
+          @item.tags.include?(@t1).should be_true
+          delete "/items/#{@item.id}/tags/#{@t1.name}"
+          @item.reload
+          @item.tags.include?(@t1).should be_false
+        end
+
+        it "delete the item from the tag items list" do 
+          @t1.items.include?(@item).should be_true
+          delete "/items/#{@item.id}/tags/#{@t1.name}"
+          @t1.reload
+          @t1.items.include?(@item).should be_false
+        end
+
+        it "removes the tag from base if no item correspond to this tag anymore" do 
+          @t2.items.include?(@item).should be_true
+          Tag.where(name: @t2.name).empty?.should be_false
+          @t2.items.size.should == 1
+          delete "/items/#{@item.id}/tags/#{@t2.name}"
+          Tag.where(name: @t2.name).empty?.should be_true
+        end
+
+      end
+
+    end
+    #}}}
+
   end
-  # }}}
 
 end

@@ -20,8 +20,10 @@ module Shapter
       #}}}
 
       namespace ':id' do 
-        params do 
-          requires :id, type: String, desc: "id of the item to fetch"
+        before do 
+          params do 
+            requires :id, type: String, desc: "id of the item to fetch"
+          end
         end
 
         #{{{ get
@@ -61,24 +63,48 @@ module Shapter
         end
         #}}}
 
+        namespace :tags do 
 
-        #{{{ add_tag
-        desc "tag item with tag. Only shapter_admin can do that"
-        params do 
-          requires :tag_name, type: String, desc: "tag name to add"
+          #{{{ add
+          desc "tag item with tag. Only shapter_admin can do that"
+          params do 
+            requires :tag_name, type: String, desc: "tag name to add"
+          end
+          put ":tag_name" do 
+            error!("denied", 401) unless current_user.shapter_admin
+            i = Item.find(params[:id])
+            error!("not found",404) unless i
+
+            t = Tag.find_or_create_by(name: params[:tag_name])
+            t.items << i
+            t.save
+            "success"
+          end
+          #}}}
+
+          #{{{ delete
+          desc "remove tag from item"
+          params do 
+            requires :tag_name, type: String, desc: "name of the tag to remove"
+          end
+
+          delete ':tag_name' do 
+            error!("forbidden",403) unless current_user.shapter_admin
+            item = Item.find(params[:id]) || error!("item not found",401)
+            tag = item.tags.find_by(name: params[:tag_name]) 
+            if tag
+              item.save if item.tags.delete(tag)
+              tag.reload
+              tag.delete if tag.items.empty?
+              {:tag => tag.name, :status => "removed from item #{item.id}"}.to_json
+            else
+              "item #{item.id} is not tagged with #{params[:tag_name]}"
+            end
+          end
+
+          #}}}
+
         end
-        post "add_tag" do 
-          error!("denied", 401) unless current_user.shapter_admin
-          i = Item.find(params[:id])
-          error!("not found",404) unless i
-
-          t = Tag.find_or_create_by(name: params[:tag_name])
-          t.items << i
-          t.save
-          "success"
-        end
-        #}}}
-
 
       end
 

@@ -5,6 +5,7 @@ module Shapter
       expose :firstname
       expose :lastname
       expose :school, using: Shapter::Entities::Tag
+      expose :shapter_admin, as: :admin
     end
   end
 end

@@ -24,8 +24,9 @@ module Shapter
             item = (Item.find(params[:item_id]) || error!("item not found",400) )
 
             #could be nicer with proper params :permit handling
+            content = CGI.escapeHTML(params[:comment][:content] || "")
             c = Comment.new(
-              content: params[:comment][:content],
+              content: content,
               author: current_user,
               work_score: params[:comment][:work_score],
               quality_score: params[:comment][:quality_score],

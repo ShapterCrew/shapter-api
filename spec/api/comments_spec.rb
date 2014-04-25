@@ -152,24 +152,24 @@ describe Shapter::Comments do
 
       it "should add to likers when +1" do 
         put "items/#{@item.id}/comments/#{@comment.id}/score", :score => 1
-        @item.reload
-        @item.likers.include?(@user).should be_true
-        @item.dislikers.include?(@user).should be_false
+        @comment.reload
+        @comment.likers.include?(@user).should be_true
+        @comment.dislikers.include?(@user).should be_false
       end
 
       it "should add to dislikers when -1" do 
         put "items/#{@item.id}/comments/#{@comment.id}/score", :score => -1
-        @item.reload
-        @item.likers.include?(@user).should be_false
-        @item.dislikers.include?(@user).should be_true
+        @comment.reload
+        @comment.likers.include?(@user).should be_false
+        @comment.dislikers.include?(@user).should be_true
       end
 
       it "should remove from like/dislikers when 0" do 
         put "items/#{@item.id}/comments/#{@comment.id}/score", :score => 1
         put "items/#{@item.id}/comments/#{@comment.id}/score", :score => 0
-        @item.reload
-        @item.likers.include?(@user).should be_false
-        @item.dislikers.include?(@user).should be_false
+        @comment.reload
+        @comment.likers.include?(@user).should be_false
+        @comment.dislikers.include?(@user).should be_false
       end
 
       it "should error when score is not in [-1,0,1]" do 

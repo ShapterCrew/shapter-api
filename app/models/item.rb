@@ -6,21 +6,12 @@ class Item
 
   embeds_many :comments
 
-  has_and_belongs_to_many :likers, class_name: "User", inverse_of: :liked_items
-  has_and_belongs_to_many :dislikers, class_name: "User", inverse_of: :disliked_items
-
   has_and_belongs_to_many :tags
 
   has_and_belongs_to_many :subscribers, class_name: "User", inverse_of: :items
 
   def comments_count
     comments.count
-  end
-
-  def user_likes?(user)
-    return 1 if likers.include?(user)
-    return -1 if dislikers.include?(user)
-    return 0
   end
 
   def avg_quality_score

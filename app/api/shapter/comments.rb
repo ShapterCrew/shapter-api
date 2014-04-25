@@ -75,18 +75,18 @@ module Shapter
               s = params[:score].to_i
 
               if s == 0
-                item.likers.delete(current_user)
-                item.dislikers.delete(current_user)
+                comment.likers.delete(current_user)
+                comment.dislikers.delete(current_user)
               elsif s == 1
-                item.likers << current_user
-                item.dislikers.delete(current_user)
+                comment.likers << current_user
+                comment.dislikers.delete(current_user)
               elsif s == -1
-                item.dislikers << current_user
-                item.likers.delete(current_user)
+                comment.dislikers << current_user
+                comment.likers.delete(current_user)
               else
                 error!("invalid score parameter")
               end
-              item.save
+              comment.save
               {
                 :item_id => item.id,
                 :comment_id => comment.id,

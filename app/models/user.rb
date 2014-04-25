@@ -5,8 +5,8 @@ class User
   field :lastname,  type: String
   field :shapter_admin, type: Boolean
 
-  has_and_belongs_to_many :liked_items, class_name: "Item", inverse_of: :likers
-  has_and_belongs_to_many :disliked_items, class_name: "Item", inverse_of: :dislikers
+  has_and_belongs_to_many :liked_comments, class_name: "Item", inverse_of: :likers
+  has_and_belongs_to_many :disliked_comments, class_name: "Item", inverse_of: :dislikers
 
   has_and_belongs_to_many :items, inverse_of: :subscribers
 

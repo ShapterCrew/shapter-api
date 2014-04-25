@@ -7,6 +7,9 @@ module Shapter
       expose :work_score
       expose :quality_score
       expose :item_id
+      expose :current_user_likes do |it,ops|
+        it.user_likes?(ops[:current_user])
+      end
     end
   end
 end

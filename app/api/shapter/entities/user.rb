@@ -4,6 +4,7 @@ module Shapter
       expose :email
       expose :firstname
       expose :lastname
+      expose :school, using: Shapter::Entities::Tag
     end
   end
 end

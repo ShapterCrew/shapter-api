@@ -3,6 +3,10 @@ class UserLine
     @ll = line.chomp.split(";")
   end
 
+  def school
+    @ll[4]
+  end
+
   def firstname
     @ll[0]
   end

@@ -32,7 +32,7 @@ module ShapterApi
     config.middleware.use Rack::Cors do 
       allow do 
         origins 'localhost:8100'
-        resource '*', :headers => :any, :methods => [:get, :post, :options, :delete]
+        resource '*', :headers => :any, :methods => [:get, :post, :options, :delete, :put]
       end
     end
   end

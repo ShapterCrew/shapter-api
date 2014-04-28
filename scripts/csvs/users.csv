@@ -1,6 +1,6 @@
 Ulysse;Klatzmann;ulysseklatzmann@gmail.com;pbkdf2_sha256$12000$t3lCAAoGqXIr$eO1qoRAxg1I0EhWUxCHNpG+A83E/oNB6Uc0SvaJBUCI=;8;1;2;14;17;42;392;393;436;534;547;548;554;560;568;758;759;774;803;811;812;814;816;817;820;847;848;849;863;866;873;973;986;1212;1213;1219;1220;1244;1245;1289;1290;1297;1298;1301;1351;1352;1361;1363;1364;1388;1429;1868;1900;1901;1904;1905;1906;1951;1952;1954;1962;1966;1976;1981;1983;2002;2011;2013;2054;2058;2099;2105;2348;2353;2363;2364;2575;2576;2577;2615;2616;2618;2621;2665;2666
 Alexandre;Hervé;alexandre.herve9@gmail.com;pbkdf2_sha256$12000$dhYTCUTf04Di$tDr1dTx+Dg/aOiTPNt+fDR3bKUHSxl+Qhc2ZRoO+Yn4=;1;3;5;6;8;9;11;12;13;15;17;18;19;21;22;23;24;54;55;56;60;61;64;74;75;79;116;132;146;182;183;185;208;209;226;358;422;509;510;533;578;750;758;759;845;1222;1234;1242;1276;1292;1430;1469;1576;1577;1581;1800;1809;1857;1858;1861;1865;1901;2363;2364
-Victor;Caritte;victor.caritte@gmail.com;pbkdf2_sha256$12000$DP8rUCdnzaFM$C8Q03DKdW0eqYKNvGKP9rmIJb/mMm165lAs2rmqgz58=;1;5;25;27;1242;1245
+Victor;Caritte;victor.caritte@gmail.com;pbkdf2_sha256$12000$DP8rUCdnzaFM$C8Q03DKdW0eqYKNvGKP9rmIJb/mMm165lAs2rmqgz58=;1;5;25;27;1242;1245;1857;1859
 Ophélie;Raimbault;ophelieraimbault@gmail.com;pbkdf2_sha256$12000$pqtGXjiyfsVL$2VIJrdTS1lNUmo0Nn9hCMCe1sNajfamBCLENeRU5ScQ=;1;17;18;55;60;61;125;129;132;142;209;1242;1857;1858
 Damien;FOUCAUD;damien.foucaud@gmail.com;pbkdf2_sha256$12000$yxeAiizD6Qzh$nhlwSP5v/57UySew8pZLDV8d5jdZ6Ax3Fg/ygBZBjFg=;1;17;18;19;21;22;23;24;58;59;65;79;111;115;122;138;143;149;170;171;179;180;185;205;210;1242;1857;1861
 Mariane;Fers;mariane.fers@ecl2013.ec-lyon.fr;pbkdf2_sha256$12000$5CrK9Za9WDVD$VPLCVVfPJFGkefPNcfPZB57whHaj8FVn6edP6kYowqY=;1;17;51;1242
@@ -41,7 +41,7 @@ Jérémy;Lhuillier;jeremy.lhuillier@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$lUDQh
 Julie;DECHAUD;julie.dechaud@ecl2014.ec-lyon.fr;pbkdf2_sha256$12000$CfBxNW7dhzGq$L1ElWfhq3y2ymp6R+33Xt/JKQHdMs72mii41V26stqg=;1;17;19;56;64;95;105;109;211;220;1242
 Antoine;Cuer;antoine.cuer@ecl2013.ec-lyon.fr;pbkdf2_sha256$12000$yjVp24P7qn3g$2YciSo+PCOkIGxFdFV6uhlyokdCaOJf7I2BBoyRiySM=;1;1242
 Geoffrey;Pelloux;geoffrey.pelloux@ecl2013.ec-lyon.fr;pbkdf2_sha256$12000$75usrIJfFaMK$QP/8PXZeTN8xUgVAv+7FN5owJLcgIOoA5HJSQsZ2ApI=;1;1242
-Xavier;Giraud;xavier.giraud@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$Y5irKll3ZUyD$LKfN6vJK53bkqyuMd8v2DAi1BRA5VeKhgqk8rHPRuIo=;1;19;211;385;1242
+Xavier;Giraud;xavier.giraud@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$Y5irKll3ZUyD$LKfN6vJK53bkqyuMd8v2DAi1BRA5VeKhgqk8rHPRuIo=;1;17;19;59;72;83;84;91;211;385;1242;1861
 Jean-Baptiste;Benoist;jean-baptiste.benoist@ecl2014.ec-lyon.fr;pbkdf2_sha256$12000$SaqRWFOwJgUz$azdW8pztiVw0ZISdm1YwXt2miTBFky3su/DdtlvCDrI=;1;17;19;58;72;82;84;106;218;1242;1861
 Abib;Alimi;abib.alimi@ecl2014.ec-lyon.fr;pbkdf2_sha256$12000$eBVX4XqGY7mE$60/2TrX8/b73oOQzIlB5KZgz/wMCbjyZl+wJRvMusHI=;1;1242
 Colas;Joannin;colas.joannin@ecl2013.ec-lyon.fr;pbkdf2_sha256$12000$wVhQJzGbcLDK$SMSHV/nnsLDLKYBoHEGa8MOpJJbAi8bL/8ks3/LUBfg=;1;1242
@@ -122,9 +122,9 @@ MANON;GODARD;manon.godard@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$iTHIJx3l3mZS$aF
 Maxime;Guillemont;maxime.guillemont@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$WkrSaaUFn8FG$ZBRnE1TKLTwKtXNf4loL6VU6XfTMnRyQqCp4hpQGBio=;1;1242
 Mathias;Ganem;mathias.ganem@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$yyOFiG3miR0B$bLa0IK2rma80ipZdD+vA9jDgDIEwOI2KEHuqTwkiIcE=;1;1242
 Yinghong;LI;yinghong.li@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$gCtJF6uzhVFJ$lbwCnTo9cwwCP7r+pjQd+JCOPb7gp1T7QpOxmLf4t2g=;1;17;19;26;62;73;85;90;101;217;395;1242;1861
-Viet Thi;Nguyen;viet-thi.nguyen@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$vpOq8sFGakvb$UK57S81jG7oygUt+pi7GfYBw5WGU9p9d9tb1IcuS3Pk=;1;421;1242;1468
+Viet Thi;Nguyen;viet-thi.nguyen@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$vpOq8sFGakvb$UK57S81jG7oygUt+pi7GfYBw5WGU9p9d9tb1IcuS3Pk=;1;17;19;68;95;97;421;1242;1468;1861;2729;2730
 Rémy;Férée;remy.feree@ecl2014.ec-lyon.fr;pbkdf2_sha256$12000$wH4zTpQY1azL$Y/yR3qQB9ibS68HuYDWgGmAKeZ9foNrIb6VNO9TYHIQ=;1;17;19;83;84;89;109;110;213;357;1242
-Joris;CHMIELEWSKI;joris.chmielewski@ecl13.ec-lyon.fr;pbkdf2_sha256$12000$64A9oYEVRSVF$n/2amSuopVQEntpw+RJ5oOwKFsyLf+ebVezdAiwMC4U=;1;1242
+Joris;CHMIELEWSKI;joris.chmielewski@ecl13.ec-lyon.fr;pbkdf2_sha256$12000$64A9oYEVRSVF$n/2amSuopVQEntpw+RJ5oOwKFsyLf+ebVezdAiwMC4U=;1;19;1242
 Julie;Douard;julie.douard@ecl2014.ec-lyon.fr;pbkdf2_sha256$12000$C787jTel8Yla$SYvgIXeu04SRu8btz/bXLsJQX+hDA/tlWSJyOc7oySM=;1;1242
 Vincent;Duprat;vincent.duprat@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$GHw6FJHQQltG$3QtK/TNJxQgGS2+ASKtTRsLybwnzu4OXphR1PK3PKUg=;1;19;211;1242
 Gérald;Lehallais;gerald.lehallais@ecl2013.ec-lyon.fr;pbkdf2_sha256$12000$efSWW9smlWeM$9eVrxWFgWaBAkNHU2eMFGJ/Ib5MU9rdpFsmE0V/uUmk=;1;15;17;51;84;91;1242
@@ -155,11 +155,11 @@ Marie;Gauthier;marie-laura.gauthier@ecl2014.ec-lyon.fr;pbkdf2_sha256$12000$sdNBd
 Xavier;Desmoulins;xavier.desmoulins@ecl2013.ec-lyon.fr;pbkdf2_sha256$12000$FaG0wx3Fc2PH$aea8Dbm7+stkInFHPks4nh5hV0KP3/0R3gZxhD8p6NM=;1;5;17;51;57;69;84;93;1242;1245
 Pierre;Larminy;pierre.larminy@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$JiGzomMfptxQ$a0ai07oTUr5YSMTmSSDYS/CwdmOWh3H8j3598TAu9dA=;1;1242
 Clément;Artaud;clement.artaud@ecl2014.ec-lyon.fr;pbkdf2_sha256$12000$cnDHo7eM5FhF$zHVOItOu5EagUZ5FJFk9Pc++x5jbH6w9oESsUGz7L78=;1;1242
-Martin;Bonnisseau;martin.bonnisseau@ecl2013.ec-lyon.fr;pbkdf2_sha256$12000$lRaIYbt9oULa$edPpFC8Zb/gMt2Jvl7+wZjGuBP9hD7pLCxpl2NtZzoo=;1;17;58;71;82;112;1242
+Martin;Bonnisseau;martin.bonnisseau@ecl2013.ec-lyon.fr;pbkdf2_sha256$12000$lRaIYbt9oULa$edPpFC8Zb/gMt2Jvl7+wZjGuBP9hD7pLCxpl2NtZzoo=;1;17;18;19;21;22;23;24;53;58;61;71;82;112;115;121;143;149;170;171;180;182;202;207;210;213;216;1242;1857;1858;1861;2509
 M;G;maite.gotor@ecl2014.ec-lyon.fr;pbkdf2_sha256$12000$8qzlfTmDtwx8$UcAQRgf9x3erPpVJFctscpQjzOuFW1rcbV+hetx5tQo=;1;1242
 Hugo;Vidal;hugo.vidal@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$fvjUeMFEHGcL$lreyIJEDV2f26AvMfE0/MJ5WvT5FyxfKOfUksWeoEpk=;1;1242
 Lucien;Talvard;lucien.talvard@ecl2014.ec-lyon.fr;pbkdf2_sha256$12000$ZhHliVrPKLTj$2yhwQFyvXKjXjtNXEeU7/cj2FZnbLYFWR5/KeNZHs1U=;1;17;19;59;84;87;92;108;217;1242;1857;1861
-Victor;Cholley;victor.cholley@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$pkrm36IQgKY9$g8xqvB36f+a/xsqj2ZmBccGkJL5JXNZP8pP2fX7lSWc=;1;1242
+Victor;Cholley;victor.cholley@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$pkrm36IQgKY9$g8xqvB36f+a/xsqj2ZmBccGkJL5JXNZP8pP2fX7lSWc=;1;14;17;19;25;58;82;422;1242;1857;1859;1861;2731
 Gaëtan ;Péroux;gaetan.peroux@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$gK3o4KvioVWn$fhzF0o0bP81L7CrnfmLRi4T8sHTY/wdNy6PGTP3C600=;1;19;395;1242
 Victor;Boullé;victor.boulle@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$QJXTFHaeBB8m$NWCGZbUzHLdkudoccqRPfouh8GQIL5Wo2ycc3q8huuo=;1;19;216;1242
 Félix;Pouchain;felix.pouchain@ecl2013.ec-lyon.fr;pbkdf2_sha256$12000$khE4Syzqn2uy$d/TAKpwVaMb8wYAd8bur/vg5RuINDQQZ7JPh9XdEKqk=;1;1242
@@ -221,7 +221,7 @@ felix;coutand;felix.coutand@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$bGQzrItWFciv$
 Damien;Douteaux;damien.douteaux@ecl13.ec-lyon.fr;pbkdf2_sha256$12000$zfFljQSbL7Et$v2n7xGFYTlgpT9ehk53E7drdqMUCEJMJGQ50pDS9JcU=;1;1242
 Sébastien;Prigent;sebastien.prigent@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$6rOsfgDrpZ9C$Qzsq5tIV0RCERtWYvhyFCcg8WCFZeo1dYPSSlKrNeRY=;1;1242
 Aubin;Eyraud;aubin.eyraud@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$AYvWC8v7VOG3$MH5F5bn2AVJS2UwPAOaecfWT1whb1y1+N/zDQR28u0U=;1;17;19;51;56;93;108;218;1242;1861
-Mathieu;Ortolé;mathieu.ortole@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$wYUqWAfxuNng$ukoH0EgYD6g20m+wOMDnx4u2H2C5mGfhDGfybS/rj+E=;1;1242
+Mathieu;Ortolé;mathieu.ortole@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$wYUqWAfxuNng$ukoH0EgYD6g20m+wOMDnx4u2H2C5mGfhDGfybS/rj+E=;1;17;19;58;81;219;385;1242;1861
 Chloé;Caron;chloe.caron@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$5xJBd9JclvIn$M/icOPDSUcIx9AmtJPwKGuZ2UFW8FaOLZMxlFWzPvhU=;1;1242
 Diane ;Mériaux;diane.meriaux@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$230kcppWqA9Q$acZKS3u+ENX0kY68PWEyzpN9bKKu3vEXuObaOG/KG84=;1;1242
 Pierre;Legrand;pierre.legrand@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$ibQY9Vwvo2CT$mAx8CZAD1OF7spFLbbn0htYJfmz0skfitp1bt1oLUqk=;1;1242
@@ -277,7 +277,7 @@ Jean;Goizauskas;jean.goizauskas@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$EcM6xmloO
 Adrien;LAGARDERE;adrien.lagardere@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$9eKgebWa3sXL$ESzdIyJHwV+YRxKtxdZbJint0n9fSV0o72h0Dn9+pms=;1;17;19;54;82;103;108;1242;1858
 Geoffrey;Poncelet;poncelet@telecom-paristech.fr;pbkdf2_sha256$12000$AxYAt9jxJMag$iCsbhh5HYJkqesQcJzSjlSX6iK6lsAfK1ICOTr2DHLM=;2;41;386;387;388;389;390;391;442;443;445;446;467;468;1244
 Victor;Trappler;victor.trappler@ecl13.ec-lyon.fr;pbkdf2_sha256$12000$KrinP832vOr0$5tHzvRP3Kiml2oaBSVcp2EO/BguIUSbCmmlNw7psV2s=;1;1242
-Hugo;Petat;hugo.petat@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$aWCAQKtlkdSE$uS8BYjMueRhvvp1dlpSheJcifE3itf1WdwKlwRMuyG0=;1;17;19;54;357;385;1242;1861
+Hugo;Petat;hugo.petat@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$aWCAQKtlkdSE$uS8BYjMueRhvvp1dlpSheJcifE3itf1WdwKlwRMuyG0=;1;17;19;54;357;385;1242;1861;2730
 ousseynou;yade;ousseynou.yade@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$Rrem4fu2dyqk$5A5RzmVtMQRyjfN2zmX+tBiCJxCAYxejjVkb/LB7m1k=;1;1242
 Pierre Emmanuel;Letournel;pierre-emmanuel.letournel@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$W4Cti6qBo4rm$dRD8IGd/NfeZ4v6HK1CiWhQKO3ffrDgX+kj/hbcjI3k=;1;1242
 d;lc;denis.lecoeuche@ecl2015.ec-lyon.fr;pbkdf2_sha256$12000$x8zFsS3VVn4i$H9rs02kUEiwyYDLjiB4pmkDTEu5dxfLjraT+TT84sRg=;1;1242
@@ -514,7 +514,7 @@ Kevin;SCAMAN;scaman@telecom-paristech.fr;;8;787;806;808;811;812;814;815;847;849;
 Philip;SCHMITT;pschmitt@telecom-paristech.fr;;8;807;811;812;813;815;817;818;1212;1220
 Philippe;CUVILLIER;cuvillie@telecom-paristech.fr;;8;794;804;811;812;818;844;848;863;880;983;986;1212;1216
 Silvio;DA SILVA;dasilva@telecom-paristech.fr;;8;786;794;805;806;811;812;813;817;818;983;984;1212;1216;1239
-Vincent;DEBERGUE;debergue@telecom-paristech.fr;;8;774;786;804;806;811;812;813;817;818;828;844;849;930;964
+Vincent;DEBERGUE;debergue@telecom-paristech.fr;pbkdf2_sha256$12000$JnlW6nht1McF$2UYqkL3QV3Yv7XSjQ3EkMB8uCdVV3sbAD6vCegW7ebE=;8;774;786;804;806;811;812;813;817;818;828;844;849;930;964
 Yannick;DEBLANDRE;deblandr@telecom-paristech.fr;;8;786;794;796;804;806;811;812;817;818;836;849;877;983;984;1212;1216;1229;1230;1239
 Boris;LIGER;liger@telecom-paristech.fr;;8;785;794;798;812;817;818;825;835;836;849;860;877;1212;1216;1229
 Thanh Xuan;NGUYEN;thnguyen@telecom-paristech.fr;;8;785;786;802;806;812;818;828;844;863;885;1212;1229
@@ -781,7 +781,7 @@ Laurent;Charignon;charigno@telecom-paristech.fr;;8
 Mathieu;Mansanarez;mansanar@telecom-paristech.fr;;8;789;791;795;796;797;812;833;858;1212;1230
 Marwa;Boujnah;boujnah@telecom-paristech.fr;;8;820;847;856;872;885;1212;1225;1229
 Baptiste;Dumond;dumond@telecom-paristech.fr;;8;785;786;794;796;798;810;835;847;860;885;1212;1216;1229;1230;1236
-Claire;Van De Voorde;vandevoo@telecom-paristech.fr;;8;774;786;787;806;811;812;828;833;845;849;879;935;1212;1223
+Claire;Van De Voorde;vandevoo@telecom-paristech.fr;pbkdf2_sha256$12000$jUVabvqKEfXZ$HS2NnBFwBG+kc6Uj20UjqQ00FopmEoK9ffsKcbeOUJc=;8;774;786;787;806;811;812;828;833;845;849;879;935;1212;1223;1229
 Paul;Le Manh;lemanh@telecom-paristech.fr;;8;774;787;811;812;828;829;831;833;859;863;865;880;881;890;901;1212;1229;1231;1235
 Lucas;Bonnet;lbonnet@telecom-paristech.fr;;8;794;798;806;807;811;812;818;837;844;851;1212;1216;1230
 Guillaume;Papa;papa@telecom-paristech.fr;;8;785;809;820;821;848;863;871;872;878;1212;1225

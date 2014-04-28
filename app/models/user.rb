@@ -12,6 +12,8 @@ class User
 
   belongs_to :school, class_name: "Tag"
 
+  validates_presence_of :school
+
   # {{{ devise
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -50,10 +52,12 @@ class User
 
   def sign_in_json
     {
-      id: id,
+      id: id.to_s,
       email: email,
       first_name: firstname,
       last_name: lastname,
+      school: ({id: school.id.to_s, name: school.name} rescue nil),
+      admin: shapter_admin,
     }.to_json
   end
 

@@ -10,8 +10,6 @@ class Item
 
   has_and_belongs_to_many :subscribers, class_name: "User", inverse_of: :items
 
-  has_and_belongs_to_many :students, class_name: "User", inverse_of: :schools
-
   def comments_count
     comments.count
   end

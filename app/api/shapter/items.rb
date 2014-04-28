@@ -63,16 +63,13 @@ module Shapter
         end
         #}}}
 
-        #{{{ delete
+        #{{{ destroy
         desc "destroy an item"
         delete do 
           error!("forbidden",403) unless current_user.shapter_admin
           item = Item.find(params[:id]) || error!("not found",404)
 
-          item.tags.each do |tag|
-            tag.items.delete(item)
-          end
-          item.delete
+          item.destroy
 
         end
         #}}}
@@ -130,9 +127,7 @@ module Shapter
             item = Item.find(params[:id]) || error!("item not found",401)
             tag = item.tags.find_by(name: params[:tag_name]) 
             if tag
-              item.save if item.tags.delete(tag)
-              tag.reload
-              tag.delete if tag.items.empty?
+              item.remove_tag!(tag)
               {:tag => tag.name, :status => "removed from item #{item.id}"}.to_json
             else
               "item #{item.id} is not tagged with #{params[:tag_name]}"

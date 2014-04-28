@@ -75,11 +75,7 @@ module Shapter
         delete "" do 
           error!("forbidden",403) unless current_user.shapter_admin
           t = Tag.find(params[:tag_id])
-          # Callback on model would be nicer, but I couldn't figure why it didn't work
-          t.items.each do |item|
-            item.tags.delete(t)
-          end
-          t.delete
+          t.destroy
         end
       end
       #}}}

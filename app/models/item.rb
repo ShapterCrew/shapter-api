@@ -26,4 +26,10 @@ class Item
     id.to_s
   end
 
+  def remove_tag!(tag)
+    tags.delete(tag)
+    tag.destroy if tag.items.empty?
+    self.save
+  end
+
 end

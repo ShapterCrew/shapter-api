@@ -37,9 +37,7 @@ module Shapter
             item.comments << c
             item.save
 
-            {
-              :comment => {:status => :created, :id => c.id}
-            }
+            present c, with: Shapter::Entities::Comment, :current_user => current_user
           end
           # }}}
 

@@ -103,14 +103,19 @@ module Shapter
             requires :tag_name, type: String, desc: "tag name to add"
           end
           put ":tag_name" do 
+
+
             error!("denied", 401) unless current_user.shapter_admin
             i = Item.find(params[:id])
             error!("not found",404) unless i
 
-            t = Tag.find_or_create_by(name: params[:tag_name])
+            clean_name = params[:tag_name].chomp.strip
+
+            t = Tag.find_or_create_by(name: clean_name)
             t.items << i
             t.save
-            "success"
+
+            present t, with: Shapter::Entities::Tag
           end
           #}}}
 

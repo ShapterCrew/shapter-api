@@ -36,9 +36,8 @@ describe Shapter::Comments do
         post "/items/#{@item.id}/comments/create", :comment => @comment.attributes
         response.status.should == 201
         h = JSON.parse(response.body)
-        h.has_key?("comment").should be_true
-        h["comment"].has_key?("id").should be_true
-        h["comment"]["status"].should == "created"
+        h.has_key?("content").should be_true
+        h.has_key?("id").should be_true
 
         @item.reload
         @item.comments.last.content.should == @comment.content

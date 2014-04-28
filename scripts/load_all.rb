@@ -70,7 +70,7 @@ File.open('./scripts/csvs/qualite.csv').each_line do |line|
 end
 
 puts "loading work"
-File.open('./scripts/csvs/qualite.csv').each_line do |line|
+File.open('./scripts/csvs/travail.csv').each_line do |line|
   ll = line.chomp.split(";").map(&:strip)
 
   c = @comments[ll.first]

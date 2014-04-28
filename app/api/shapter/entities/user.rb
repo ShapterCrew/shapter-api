@@ -1,6 +1,7 @@
 module Shapter
   module Entities
     class User < Grape::Entity
+      expose :pretty_id, as: :id
       expose :email
       expose :firstname
       expose :lastname

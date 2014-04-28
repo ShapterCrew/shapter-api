@@ -37,6 +37,7 @@ module Shapter
             item.comments << c
             item.save
 
+            c.reload
             present c, with: Shapter::Entities::Comment, :current_user => current_user
           end
           # }}}
@@ -55,7 +56,7 @@ module Shapter
               error!("forbidden") unless (comment.author == current_user or current_user.shapter_admin)
               comment.destroy
               {
-                :comment => {:id => comment.id, :status => :destroyed}
+                :comment => {:id => comment.id.to_s, :status => :destroyed}
               }
             end
             # }}}

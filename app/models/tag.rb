@@ -6,6 +6,8 @@ class Tag
 
   validates_uniqueness_of :name
 
+  has_and_belongs_to_many :students, class_name: "User", inverse_of: :schools
+
   def pretty_id
     id.to_s
   end

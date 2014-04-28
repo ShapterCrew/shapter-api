@@ -33,7 +33,7 @@ File.open("/home/aherve/Shapter/shapter-api/scripts/csvs/users.csv").each_line d
     email: ll[2],
     encrypted_password: ll[3],
     items: ll[4..-1].map{|id| @items[id]},
-    school: @items[ll[4]],
+    #schools: [@items[ll[4]]],
     shapter_admin: false,
     confirmed_at: Date.today,
   )

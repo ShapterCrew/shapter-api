@@ -99,7 +99,7 @@ describe Shapter::Comments do
           login(@user2)
           @item.comments.size.should == 1
           delete "items/#{@item.id}/comments/#{@comment.id}"
-          @response.body.should == {:comment => {:id => @comment.id, :status => :destroyed}}.to_json
+          @response.body.should == {:comment => {:id => @comment.id.to_s, :status => :destroyed}}.to_json
           @item.reload
           @item.comments.size.should == 0
         end

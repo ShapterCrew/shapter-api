@@ -144,7 +144,7 @@ module Shapter
           desc "get comments from item"
           get do
             i = Item.find(params[:id]) || error!("not found",404)
-            ok_school = (i.tags.include?(current_user.school) rescue nil)
+            ok_school = !(i.tags & current_user.schools).empty?
             ok_admin = current_user.shapter_admin
             error!("access denied",401) unless (ok_admin or ok_school)
 

@@ -10,9 +10,7 @@ class User
 
   has_and_belongs_to_many :items, inverse_of: :subscribers
 
-  belongs_to :school, class_name: "Tag"
-
-  validates_presence_of :school
+  has_and_belongs_to_many :schools, class_name: "Tag", inverse_of: :students
 
   # {{{ devise
   # Include default devise modules. Others available are:
@@ -56,7 +54,7 @@ class User
       email: email,
       first_name: firstname,
       last_name: lastname,
-      school: ({id: school.id.to_s, name: school.name} rescue nil),
+      schools: schools.map{|s| {id: s.id.to_s, name: s.name}},
       admin: shapter_admin,
     }.to_json
   end

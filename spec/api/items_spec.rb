@@ -325,7 +325,7 @@ describe Shapter::Items do
         end
 
         it "allows access if item belongs to current_user.school " do 
-          @user.school = @item.tags.last ; @user.save ; @user.reload
+          @user.schools << @item.tags.last ; @user.save ; @user.reload
 
           get "items/#{@item.id}/comments"
           access_denied(@response).should be_false

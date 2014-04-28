@@ -91,3 +91,15 @@ end
 
 puts "saving comments"
 @comments.each{|id,com| com.save(validate: false) ; puts id}
+
+puts "admin accesses"
+[
+  "alexandre.herve9@gmail.com",
+  "ulysseklatzmann@gmail.com",
+  "tiberein@enst.fr",
+].each do |email|
+  u = User.find_by(email: email)
+  u.shapter_admin = true
+  u.save
+end
+

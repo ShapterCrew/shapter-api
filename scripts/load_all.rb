@@ -1,4 +1,3 @@
-require 'byebug'
 Item.delete_all
 User.delete_all
 Tag.delete_all
@@ -33,7 +32,7 @@ File.open("/home/aherve/Shapter/shapter-api/scripts/csvs/users.csv").each_line d
     email: ll[2],
     encrypted_password: ll[3],
     items: ll[4..-1].map{|id| @items[id]},
-    #schools: [@items[ll[4]]],
+    schools: [ @tags[@items[ll[4]].name] ],
     shapter_admin: false,
     confirmed_at: Date.today,
   )

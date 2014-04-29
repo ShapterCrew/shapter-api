@@ -71,6 +71,11 @@ module Shapter
 
           item.destroy
 
+          {
+            item_id: item.id.to_s,
+            status: :destroyed
+          }.to_json
+
         end
         #}}}
 
@@ -130,7 +135,7 @@ module Shapter
               item.remove_tag!(tag)
               {:tag => tag.name, :status => "removed from item #{item.id}"}.to_json
             else
-              "item #{item.id} is not tagged with #{params[:tag_name]}"
+              {:status => :ok, :msg => "item #{item.id} is not tagged with #{params[:tag_name]}"}.to_json
             end
           end
 

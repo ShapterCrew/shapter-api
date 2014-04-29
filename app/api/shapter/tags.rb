@@ -76,6 +76,7 @@ module Shapter
           error!("forbidden",403) unless current_user.shapter_admin
           t = Tag.find(params[:tag_id])
           t.destroy
+          {:id => t.id.to_s, :status => :destroyed}.to_json
         end
       end
       #}}}

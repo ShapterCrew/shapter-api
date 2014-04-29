@@ -87,8 +87,8 @@ module Shapter
               end
               comment.save
               {
-                :item_id => item.id,
-                :comment_id => comment.id,
+                :item_id => item.pretty_id,
+                :comment_id => comment.pretty_id,
                 :score => s,
               }
             end

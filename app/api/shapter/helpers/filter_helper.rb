@@ -13,6 +13,20 @@ module Shapter
         end
       end
 
+      # A bit like reco_tags, but simplified. The goal is to build a dictionnary of acceptable tags
+      def dictionnary(tagname)
+        t = Tag.where(name: tagname)
+        return [] if t.empty?
+        tags_for_item_ids(
+          t
+          .flat_map(&tag_to_item_ids)
+          .uniq
+        )
+        .uniq
+      end
+
+      # Recommend a list of tags, based on a tag list.
+      # Collaborative filtering based on tag->item->tag path
       def reco_tags(ary,limit)
         tags_for_item_ids(
           Tag.any_in(name: ary)

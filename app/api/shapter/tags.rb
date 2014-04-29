@@ -14,10 +14,19 @@ module Shapter
       # index {{{
       desc "get all tags", { :notes => <<-NOTE
         Useful to build an exhaustive dictionnary of tags
+
+        A <filter> parameter can be passed to build a dictionnary based on some school.
+        If specified, then all the tags will have at least one item that is tagged by the school.
         NOTE
       }
+      params do 
+      end
       get :/ do 
-        present Tag.all, with: Shapter::Entities::Tag
+        if params[:filter]
+          present dictionnary(params[:filter]), with: Shapter::Entities::Tag
+        else
+          present Tag.all, with: Shapter::Entities::Tag
+        end
       end
       #}}}
 

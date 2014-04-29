@@ -32,15 +32,43 @@ describe Shapter::Tags do
     context "when logged in" do 
       before do 
         login(@user)
+        @t1 = Tag.new(name: "t1")
+        @t2 = Tag.new(name: "t2")
+        @t3 = Tag.new(name: "t3")
+
+        @school1 = Item.new(name: "school1")
+        @school2 = Item.new(name: "school2")
+
+        @schooltag1 = Tag.new(name: "school1")
+        @schooltag2 = Tag.new(name: "school2")
+
+        @school1.tags = [ @schooltag1, @t1,@t2]
+        @school2.tags = [ @schooltag2, @t1,@t3]
+        [@schooltag1,@schooltag2,@school1,@school2,@t3,@t2,@t1].map(&:save)
+        [@schooltag1,@schooltag2,@school1,@school2,@t3,@t2,@t1].map(&:reload)
       end
+
       it "allows access" do 
         get "tags"
         access_denied(response).should be_false
       end
 
-      it "list all tags" do 
+      it "list all tags withoug params" do 
         get "tags"
         response.body.should == Tag.all.map{|t| {name: t.name, id: t.id.to_s}}.to_json
+      end
+
+      context "when filter param is provided" do 
+        it "filters when <filter> param is provided" do 
+          get "tags", :filter => @schooltag1.name
+          a = JSON.parse(response.body)
+          a.should =~ [@schooltag1,@t1,@t2].map{|t| {"name" => t.name, "id" => t.id.to_s}}
+        end
+
+        it "returns empty array if nothing is found" do 
+          get "tags", :filter => "hahahanonono"
+          response.body.should == [].to_json
+        end
       end
 
     end

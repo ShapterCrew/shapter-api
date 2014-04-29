@@ -86,11 +86,8 @@ module Shapter
                 error!("invalid score parameter")
               end
               comment.save
-              {
-                :item_id => item.pretty_id,
-                :comment_id => comment.pretty_id,
-                :score => s,
-              }
+              comment.reload
+              present comment, with: Shapter::Entities::Comment, :current_user => current_user
             end
             #}}}
 

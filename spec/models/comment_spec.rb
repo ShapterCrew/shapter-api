@@ -25,10 +25,30 @@ describe Comment do
       @comment.user_likes?(@user).should == -1
     end
 
-    it "returns nil else" do 
+    it "returns 0 else" do 
       @comment.user_likes?(@user).should == 0
     end
 
+  end
+  #}}}
+
+  #{{{ dislikers_count
+  describe "dislikers_count" do 
+    it 'returns the number of dislikers' do 
+      @comment.dislikers_count.should == 0
+      @comment.dislikers << @user
+      @comment.dislikers_count.should == 1
+    end
+  end
+  #}}}
+
+  #{{{ likers_count
+  describe "likers_count" do 
+    it 'returns the number of likers' do 
+      @comment.likers_count.should == 0
+      @comment.likers << @user
+      @comment.likers_count.should == 1
+    end
   end
   #}}}
 

@@ -29,6 +29,14 @@ class Comment
     item.id.to_s
   end
 
+  def likers_count
+    likers.count
+  end
+
+  def dislikers_count
+    dislikers.count
+  end
+
   def user_likes?(user)
     return 1 if likers.include?(user)
     return -1 if dislikers.include?(user)

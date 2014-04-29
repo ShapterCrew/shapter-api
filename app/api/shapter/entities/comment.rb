@@ -10,6 +10,8 @@ module Shapter
       expose :current_user_likes do |it,ops|
         it.user_likes?(ops[:current_user])
       end
+      expose :likers_count
+      expose :dislikers_count
     end
   end
 end

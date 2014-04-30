@@ -7,6 +7,7 @@ module Shapter
       expose :lastname
       expose :schools, using: Shapter::Entities::Tag
       expose :shapter_admin, as: :admin
+      expose :confirmed?, as: :confirmed
     end
   end
 end

@@ -20,6 +20,12 @@ ShapterApi::Application.configure do
   config.active_support.deprecation = :log
 
   config.action_mailer.default_url_options = { :host => 'localhost'}
+  config.action_mailer.delivery_method = :ses
+
+  #use this to truly debug email sending:
+  #config.action_mailer.default_url_options = { :host => 'shapter.com'}
+  #config.action_mailer.perform_deliveries = true #try to force sending in development 
+  #config.action_mailer.raise_delivery_errors = true
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large

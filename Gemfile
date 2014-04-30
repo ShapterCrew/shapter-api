@@ -32,3 +32,6 @@ end
 gem 'rack-cors'
 
 gem "pbkdf2_password_hasher", "~> 0.1.0"
+
+gem 'aws-sdk'
+gem 'aws-ses'

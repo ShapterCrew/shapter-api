@@ -56,6 +56,7 @@ class User
       last_name: lastname,
       schools: schools.map{|s| {id: s.id.to_s, name: s.name}},
       admin: shapter_admin,
+      confirmed: confirmed?
     }.to_json
   end
 

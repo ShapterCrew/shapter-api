@@ -24,3 +24,5 @@ config/mongoid.yml
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
 *.swp
+
+config/initializers/aws_credentials.rb

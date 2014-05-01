@@ -35,6 +35,7 @@ module Shapter
         )
         .reduce(Hash.new(0),&reco_reduce)
         .sort_by{|k,v| v}.reverse
+        .reject{|name,count| count < 2 }
         .reject{|name,count| ary.include? name}
         .take(limit)
         .map{|name,count| {name: name, score: count}}

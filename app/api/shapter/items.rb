@@ -26,7 +26,7 @@ module Shapter
         optional :exl, type: Array, desc: "list of item ids to exclude from reco"
       end
       get :suggested do 
-        exclude = params[:exclude_items_list] || []
+        exclude = params[:exl] || []
         present reco_item(current_user,params[:limit],exclude), with: Shapter::Entities::ItemShort
       end
       #}}}

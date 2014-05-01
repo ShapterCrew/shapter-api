@@ -47,7 +47,7 @@ module Shapter
 
         #{{{ subscribe
         desc "subscribe to the item"
-        put :subscribe do 
+        post :subscribe do 
           i = Item.find(params[:id])
           error!("not found",404) unless i
           i.subscribers << current_user
@@ -61,7 +61,7 @@ module Shapter
 
         #{{{ unsubscribe
         desc "unsubscribe to the item"
-        put :unsubscribe do 
+        post :unsubscribe do 
           i = Item.find(params[:id])
           error!("not found",404) unless i
           i.subscribers.delete(current_user)

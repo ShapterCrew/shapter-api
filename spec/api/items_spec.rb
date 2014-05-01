@@ -90,7 +90,7 @@ describe Shapter::Items do
   describe :subscribe do 
     context "when logged off" do 
       it "should deny access" do 
-        put "items/#{@item.id}/subscribe"
+        post "items/#{@item.id}/subscribe"
         access_denied(response).should be_true
       end
     end
@@ -100,7 +100,7 @@ describe Shapter::Items do
         login(@user)
       end
       it "should add to subscribers list" do 
-        put "items/#{@item.id}/subscribe"
+        post "items/#{@item.id}/subscribe"
         response.body.should == {:id => @item.id, :status => :subscribed }.to_json
 
         @item.reload
@@ -116,7 +116,7 @@ describe Shapter::Items do
   describe :unsubscribe do 
     context "when logged off" do 
       it "should deny access" do 
-        put "items/#{@item.id}/unsubscribe"
+        post "items/#{@item.id}/unsubscribe"
         access_denied(response).should be_true
       end
     end
@@ -132,7 +132,7 @@ describe Shapter::Items do
       it "should unsubscribe" do 
         @item.subscribers.include?(@user).should be_true
         @user.items.include?(@item).should be_true
-        put "items/#{@item.id}/unsubscribe"
+        post "items/#{@item.id}/unsubscribe"
         access_denied(response).should be_false
         @item.reload
         @user.reload

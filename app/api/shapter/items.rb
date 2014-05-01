@@ -19,6 +19,16 @@ module Shapter
       end
       #}}}
 
+      #{{{ suggested
+      desc "suggestion of items the current user might want to subscribe to."
+      params do 
+        optional :limit, type: Integer, desc: "limit of questions to ask. default 5", default: 5
+      end
+      get :suggested do 
+        present reco_item(current_user,params[:limit]), with: Shapter::Entities::ItemShort
+      end
+      #}}}
+
       namespace ':id' do 
         before do 
           params do 
@@ -96,6 +106,7 @@ module Shapter
           present item, with: Shapter::Entities::Item, :current_user => current_user
         end
         #}}}
+
 
         namespace :tags do 
 

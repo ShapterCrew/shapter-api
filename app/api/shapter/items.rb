@@ -23,9 +23,10 @@ module Shapter
       desc "suggestion of items the current user might want to subscribe to."
       params do 
         optional :limit, type: Integer, desc: "limit of questions to ask. default 5", default: 5
+        optional :exclude_items_list, type: Array, desc: "list of item ids to exclude from reco"
       end
       get :suggested do 
-        present reco_item(current_user,params[:limit]), with: Shapter::Entities::ItemShort
+        present reco_item(current_user,params[:limit],params[:exclude_items_list]), with: Shapter::Entities::ItemShort
       end
       #}}}
 

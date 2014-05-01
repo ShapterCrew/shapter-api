@@ -40,6 +40,26 @@ module Shapter
         .map{|name,count| {name: name, score: count}}
       end
 
+      # Collaborative filtering items -> users -> items
+      def reco_item(user,limit)
+        user_item_ids = db[:users].find("_id" => user.id).select(item_ids: 1).map{|h| h["item_ids"]}.flatten.compact
+        user_items_user_ids = user_item_ids.flat_map{|item_id|
+          db[:items].find("_id" => item_id).select(subscriber_ids: 1).map{|h| h["subscriber_ids"]}
+        }.flatten.compact
+        user_items_users_item_ids = user_items_user_ids.flat_map{|user_id|
+          db[:users].find("_id" => user_id).select(item_ids: 1).map{|h| h["item_ids"]}
+        }.flatten.flatten
+        .reject{|item_id| user.item_ids.include? item_id}
+        .reduce(Hash.new(0)){|h,item_id|
+          h[item_id] += 1
+          h
+        }
+        .sort_by{|item_id,count| count}
+        .map(&:first)
+        .take(limit)
+        .map{|id| Item.find(id)}
+      end
+
       private
 
       def db

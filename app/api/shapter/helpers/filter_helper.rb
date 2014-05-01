@@ -54,7 +54,7 @@ module Shapter
           h[item_id] += 1
           h
         }
-        .sort_by{|item_id,count| count}
+        .sort_by{|item_id,count| count}.reverse
         .map(&:first)
         .take(limit)
         .map{|id| Item.find(id)}

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::Tags do 
+describe Shapter::TagsV2 do 
 
   before(:each) do 
     Tag.delete_all
@@ -97,20 +97,20 @@ describe Shapter::Tags do
       end
 
       it "provides user's tags" do 
-        post "tags/suggested", :ignore_user => false, :selected_tags => ['foo']
+        post "tags/suggested", {:ignore_user => false, :selected_tags => [@tag.id.to_s]}, {"Accept-Version" => "v2"}
         h = JSON.parse(response.body)
         h.has_key?("user_tags").should be_true
         h["user_tags"].should =~ [{"name" => @tag.name, "id" => @tag.id.to_s}]
       end
 
       it "ignores users's tag when asked" do 
-        post "tags/suggested", :ignore_user => true, :selected_tags => ['foo']
+        post "tags/suggested", {:ignore_user => true, :selected_tags => [@tag.id.to_s]}, {"Accept-Version" => "v2"}
         h = JSON.parse(response.body)
         h["user_tags"].blank?.should be_true
       end
 
       it "provides recommended tags" do 
-        post "tags/suggested", :selected_tags => ['foo']
+        post "tags/suggested", {:selected_tags => [@tag.id.to_s]}, {"Accept-Version" => "v2"}
         h = JSON.parse(response.body)
         h.has_key?("recommended_tags").should be_true
       end

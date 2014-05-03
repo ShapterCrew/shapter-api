@@ -1,6 +1,6 @@
 require 'ostruct'
 module Shapter
-  class Tags < Grape::API
+  class TagsV1 < Grape::API
     format :json
 
     helpers Shapter::Helpers::FilterHelper

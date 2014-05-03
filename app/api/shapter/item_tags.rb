@@ -1,5 +1,5 @@
 module Shapter
-  class ItemTags < Items
+  class ItemTags < Grape::API
     helpers Shapter::Helpers::FilterHelper
     format :json
 

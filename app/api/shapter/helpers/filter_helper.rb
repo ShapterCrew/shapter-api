@@ -65,12 +65,15 @@ module Shapter
           .map(&tag_to_item_ids)
           .reduce(:&)
         )
-        .reduce(Hash.new(0),&reco_reduce)
+        .reduce(Hash.new(0)) { |h,t|
+          h[t] += 1
+          h
+        }
         .sort_by{|k,v| v}.reverse
-        .reject{|name,count| count < 2 }
-        .reject{|name,count| ary.include? name}
+        .reject{|tag,count| count < 2 }
+        .reject{|tag,count| ary.include? tag.id.to_s}
         .take(limit)
-        .map{|name,count| {name: name, score: count}}
+        .map{|tag,count| {name: tag.name, id: tag.pretty_id, score: count}}
       end
       #}}}
 

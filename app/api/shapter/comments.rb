@@ -8,6 +8,11 @@ module Shapter
 
     namespace :items do 
       resource ':item_id' do
+        before do 
+          params do 
+            requires :item_id, type: String, desc: "id of the item to fetch"
+          end
+        end
         namespace :comments do 
 
           # {{{ create comment
@@ -41,6 +46,18 @@ module Shapter
             present c, with: Shapter::Entities::Comment, :current_user => current_user
           end
           # }}}
+
+          #{{{ index
+          desc "get comments from item"
+          get do
+            i = Item.find(params[:item_id]) || error!("not found",404)
+            ok_school = !(i.tags & current_user.schools).empty?
+            ok_admin = current_user.shapter_admin
+            error!("access denied",401) unless (ok_admin or ok_school)
+
+            present i.comments, with: Shapter::Entities::Comment, current_user: current_user
+          end
+          #}}}
 
           resource ':comment_id' do
 

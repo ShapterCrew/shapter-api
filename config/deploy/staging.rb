@@ -17,6 +17,8 @@ role :db,  %w{ubuntu@54.72.235.81}
 
 server '54.72.235.81', user: 'ubuntu', roles: %w{web app}#, my_property: :my_value
 
+set :branch, "staging"
+
 
 # Custom SSH Options
 # ==================

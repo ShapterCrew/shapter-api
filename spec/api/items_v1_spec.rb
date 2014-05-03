@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::Items do 
+describe Shapter::ItemsV1 do 
 
   before(:each) do 
     Item.delete_all
@@ -24,12 +24,11 @@ describe Shapter::Items do
     @item2.reload
   end
 
-
   # {{{ filter
   describe :filter do 
     context "when logged off" do 
       it "should deny access" do 
-        get "items/filter", filter: @filter
+        get "items/filter", {filter: @filter}, {"Accept-Version" => "v1"}
         access_denied(response).should be_true
       end
     end
@@ -39,15 +38,15 @@ describe Shapter::Items do
         login(@user)
       end
       it "should filter properly" do 
-        get "items/filter", filter: ["t1"]
+        get "items/filter", {filter: ["t1"]}, {"Accept-Version" => "v1"}
         a = JSON.parse(response.body)
         a.map{|h| h["id"]}.should =~ [@item.id, @item2.id].map(&:to_s)
 
-        get "items/filter", filter: ["t1","t3"]
+        get "items/filter", {filter: ["t1","t3"]}, {"Accept-Version" => "v1"}
         a = JSON.parse(response.body)
         a.map{|h| h["id"]}.should =~ [@item2.id].map(&:to_s)
 
-        get "items/filter", filter: ["t1","hahahalol"]
+        get "items/filter", {filter: ["t1","hahahalol"]}, {"Accept-Version" => "v1"}
         a = JSON.parse(response.body)
         a.empty?.should be_true
       end

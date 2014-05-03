@@ -5,10 +5,10 @@ class API < Grape::API
     helpers Shapter::Helpers::Warden
 
     mount Shapter::PingV2
-    mount Shapter::Items
+    mount Shapter::ItemsV2
     mount Shapter::ItemTags
     mount Shapter::Comments
-    mount Shapter::Tags
+    mount Shapter::TagsV2
     mount Shapter::Users
     add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
   end
@@ -16,10 +16,10 @@ class API < Grape::API
     helpers Shapter::Helpers::Warden
 
     mount Shapter::PingV1
-    mount Shapter::Items
+    mount Shapter::ItemsV1
     mount Shapter::ItemTags
     mount Shapter::Comments
-    mount Shapter::Tags
+    mount Shapter::TagsV1
     mount Shapter::Users
     add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
   end

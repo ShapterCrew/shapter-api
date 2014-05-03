@@ -1,5 +1,5 @@
 module Shapter
-  class Items < Grape::API
+  class ItemsV2 < Grape::API
     helpers Shapter::Helpers::FilterHelper
     format :json
 
@@ -15,7 +15,7 @@ module Shapter
         requires :filter, type: Array, desc: "array of tags to filter with"
       end
       get :filter do 
-        present filter_items(params[:filter]), with: Shapter::Entities::ItemShort, :current_user => current_user
+        present filter_items2(params[:filter]), with: Shapter::Entities::ItemShort, :current_user => current_user
       end
       #}}}
 

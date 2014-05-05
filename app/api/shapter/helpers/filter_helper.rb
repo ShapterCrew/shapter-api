@@ -5,7 +5,7 @@ module Shapter
       #{{{ filter_items
       # This was for v1. It is to be deprecated
       def filter_items(ary)
-        Rails.cache.fetch( "filter_items|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 10.minutes ) do 
+        Rails.cache.fetch( "filter_items|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
           return [] if ary.empty?
           first_tag = Tag.find_by(name: ary.first)
           return [] unless first_tag
@@ -19,7 +19,7 @@ module Shapter
 
       # This for v2. 
       def filter_items2(ary)
-        Rails.cache.fetch( "filter_items2|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 10.minutes ) do 
+        Rails.cache.fetch( "filter_items2|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
           return [] if ary.empty?
           first_tag = Tag.find(ary.first)
           return [] unless first_tag
@@ -35,7 +35,7 @@ module Shapter
       #{{{ dictionnary
       # A bit like reco_tags, but simplified. The goal is to build a dictionnary of acceptable tags
       def dictionnary(tagname)
-        Rails.cache.fetch( "dico|#{tagname}|#{cache_key_for(Tag,Item)}", expires_in: 10.minutes ) do 
+        Rails.cache.fetch( "dico|#{tagname}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
           t = Tag.where(name: tagname)
           return [] if t.empty?
           tags_for_item_ids(
@@ -52,7 +52,7 @@ module Shapter
       # Recommend a list of tags, based on a tag list.
       # Collaborative filtering based on tag->item->tag path
       def reco_tags(ary,limit)
-        Rails.cache.fetch( "reco_tags|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 10.minutes ) do 
+        Rails.cache.fetch( "reco_tags|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
           tags_for_item_ids(
             Tag.any_in(name: ary)
             .map(&tag_to_item_ids)
@@ -67,7 +67,7 @@ module Shapter
       end
 
       def reco_tags2(ary,limit)
-        Rails.cache.fetch( "reco_tags2|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 10.minutes ) do 
+        Rails.cache.fetch( "reco_tags2|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
           tags_for_item_ids(
             Tag.any_in(id: ary)
             .map(&tag_to_item_ids)

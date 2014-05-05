@@ -85,6 +85,10 @@ class User
     self.schools << Tag.find_or_create_by(name: "Centrale Lyon") if (email =~ /.*@ecl[0-9]+.ec-lyon.fr/ or email =~ /.*@auditeur.ec-lyon.fr/)
     self.schools << Tag.find_or_create_by(name: "Centrale Paris") if email =~ /.*@student.ecp.fr/
     self.schools << Tag.find_or_create_by(name: "HEC") if email =~ /.*@hec.edu/
+
+    if perm = SignupPermission.find_by(email: self.email)
+      self.schools << Tag.find_or_create_by(name: perm.school_name)
+    end
   end
 
 end

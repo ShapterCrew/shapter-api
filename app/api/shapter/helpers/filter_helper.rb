@@ -19,7 +19,7 @@ module Shapter
 
       # This for v2. 
       def filter_items2(ary)
-        Rails.cache.fetch( "filter_items|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 10.minutes ) do 
+        Rails.cache.fetch( "filter_items2|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 10.minutes ) do 
           return [] if ary.empty?
           first_tag = Tag.find(ary.first)
           return [] unless first_tag
@@ -67,7 +67,7 @@ module Shapter
       end
 
       def reco_tags2(ary,limit)
-        Rails.cache.fetch( "reco_tags|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 10.minutes ) do 
+        Rails.cache.fetch( "reco_tags2|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 10.minutes ) do 
           tags_for_item_ids(
             Tag.any_in(id: ary)
             .map(&tag_to_item_ids)

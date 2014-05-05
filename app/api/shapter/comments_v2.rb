@@ -1,5 +1,5 @@
 module Shapter
-  class Comments < Grape::API
+  class CommentsV2 < Grape::API
     format :json
 
     before do 

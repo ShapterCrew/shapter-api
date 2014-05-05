@@ -1,5 +1,5 @@
 module Shapter
-  class Users < Grape::API
+  class UsersV2 < Grape::API
     format :json
 
     before do 

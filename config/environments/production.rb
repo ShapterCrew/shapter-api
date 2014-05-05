@@ -12,6 +12,7 @@ ShapterApi::Application.configure do
 
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
+  config.cache_store = :redis_store, 'redis://localhost:6379/1/shapter_api_cache', { expires_in: 10.minutes }
   config.action_controller.perform_caching = true
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
@@ -81,6 +82,4 @@ ShapterApi::Application.configure do
   config.action_mailer.default_url_options = { :host => 'shapter.com'}
   config.action_mailer.delivery_method = :ses
 
-
-  config.action_controller.perform_caching = true
 end

@@ -36,5 +36,7 @@ gem "pbkdf2_password_hasher", "~> 0.1.0"
 gem 'aws-sdk'
 gem 'aws-ses'
 
-gem 'rack-cache'
+#gem 'rack-cache'
 gem 'redis-rails'
+gem 'redis-store'
+gem 'redis-rack-cache'

@@ -237,7 +237,7 @@ describe Shapter::ItemsV2 do
           User.any_instance.stub(:shapter_admin).and_return(true)
           put "items/#{@item.id}/tags/newtag"
           @item.reload
-          @item.tags.last.name.should == "newtag"
+          @item.tags.sort_by(&:updated_at).last.name.should == "newtag"
           Tag.last.name.should == "newtag"
         end
       end

@@ -25,4 +25,18 @@ describe Item do
   end
   #}}}
 
+  #{{{ current_user_subscribed?
+  describe :current_user_subscribed? do
+
+    it "returns false if user didn't subscribed" do 
+      @item.user_subscribed?(@user).should be_false
+    end
+
+    it "returns true if user subscribed" do 
+      @item.subscribers << @user ; @item.save ; @item.reload
+      @item.user_subscribed?(@user).should be_true
+    end
+  end
+  #}}}
+
 end

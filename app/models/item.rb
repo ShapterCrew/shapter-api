@@ -32,4 +32,9 @@ class Item
     self.save
   end
 
+  def user_subscribed?(user)
+    raise "wrong parameter" unless user.is_a? User
+    subscribers.include? user
+  end
+
 end

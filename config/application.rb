@@ -37,7 +37,5 @@ module ShapterApi
       end
     end
 
-    config.cache_store = :redis_store, 'redis://localhost:6379/0/shapter_api_cache', { expires_in: 10.minutes }
-
   end
 end

@@ -35,12 +35,14 @@ module Shapter
               author: current_user,
               work_score: params[:comment][:work_score],
               quality_score: params[:comment][:quality_score],
+              item: item,
             )
 
             error!(c.errors,400) unless c.valid?
 
-            item.comments << c
-            item.save
+            #item.comments << c
+            #item.save
+            c.save
 
             c.reload
             present c, with: Shapter::Entities::Comment, :current_user => current_user

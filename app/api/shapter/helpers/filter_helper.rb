@@ -78,7 +78,7 @@ module Shapter
       #}}}
 
       # Collaborative filtering items -> users -> items
-      # This seriously needs to be refactored, this version is way too ugly
+      # This seriously needs to be refactored, this version is way too ugly (but it works)
       def reco_item(user,limit,exclude)
         user_item_ids = db[:users].find("_id" => user.id).select(item_ids: 1).map{|h| h["item_ids"]}.flatten.compact
         user_items_user_ids = user_item_ids.flat_map{|item_id|

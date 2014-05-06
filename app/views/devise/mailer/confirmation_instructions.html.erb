@@ -1,0 +1,5 @@
+<p>Bienvenue sur Shapter, <%= @email %>!</p>
+
+<p>Merci de confirmer ton email en cliquant sur le lien suivant :</p>
+
+<p><%= link_to 'Vérifier mon addresse', "http://shapter.com/#/users?/confirmation?confirmation_token=#{@token}" %></p>

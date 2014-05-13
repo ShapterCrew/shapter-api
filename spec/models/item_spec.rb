@@ -39,4 +39,16 @@ describe Item do
   end
   #}}}
 
+  #{{{ user_comments_count
+  describe "user_comments_count" do
+    it "returns the number of comments the user wrote" do 
+      @item.user_comments_count(@user).should == 0
+      c = FactoryGirl.build(:comment)
+      c.author = @user
+      @item.comments << c ; @item.save ; @item.reload
+      @item.user_comments_count(@user).should == 1
+    end
+  end
+  #}}}
+
 end

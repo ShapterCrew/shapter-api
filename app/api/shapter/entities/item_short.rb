@@ -4,6 +4,9 @@ module Shapter
       expose :name
       expose :pretty_id, as: :id
       expose :comments_count
+      expose :subscribers_count
+      expose :avg_quality_score
+      expose :avg_work_score
     end
   end
 end

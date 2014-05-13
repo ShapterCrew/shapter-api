@@ -15,6 +15,10 @@ class Item
     comments.count
   end
 
+  def subscribers_count
+    subscribers.count
+  end
+
   def avg_quality_score
     comments.where(:quality_score.exists => true).avg(:quality_score)
   end
@@ -36,6 +40,11 @@ class Item
   def user_subscribed?(user)
     raise "wrong parameter" unless user.is_a? User
     subscribers.include? user
+  end
+
+  def user_comments_count(user)
+    raise "wrong parameter" unless user.is_a? User
+    self.comments.where(author: user).count
   end
 
 end

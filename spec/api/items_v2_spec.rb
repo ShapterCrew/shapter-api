@@ -100,7 +100,7 @@ describe Shapter::ItemsV2 do
       end
       it "should add to subscribers list" do 
         post "items/#{@item.id}/subscribe"
-        response.body.should == {:id => @item.id, :status => :subscribed }.to_json
+        JSON.parse(response.body)["id"].should == @item.id.to_s
 
         @item.reload
         @user.reload

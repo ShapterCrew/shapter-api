@@ -3,20 +3,6 @@ module Shapter
     module FilterHelper
 
       #{{{ filter_items
-      # This was for v1. It is to be deprecated
-      def filter_items(ary)
-        Rails.cache.fetch( "filter_items|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
-          return [] if ary.empty?
-          first_tag = Tag.find_by(name: ary.first)
-          return [] unless first_tag
-          init = first_tag.items
-          return init if ary.size == 1
-          ary[1..-1].reduce(init) do |aa, tagname|
-            aa = aa & Tag.where(name: tagname).flat_map(&:items)
-          end
-        end
-      end
-
       # This for v2. 
       def filter_items2(ary)
         Rails.cache.fetch( "filter_items2|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
@@ -51,21 +37,6 @@ module Shapter
       #{{{ reco_tags
       # Recommend a list of tags, based on a tag list.
       # Collaborative filtering based on tag->item->tag path
-      def reco_tags(ary,limit)
-        Rails.cache.fetch( "reco_tags|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
-          tags_for_item_ids(
-            Tag.any_in(name: ary)
-            .map(&tag_to_item_ids)
-            .reduce(:&)
-          )
-          .reduce(Hash.new(0),&reco_reduce)
-          .sort_by{|k,v| v}.reverse
-          .reject{|name,count| count < 2 }
-          .reject{|name,count| ary.include? name}
-        end.take(limit)
-        .map{|name,count| {name: name, score: count}}
-      end
-
       def reco_tags2(ary,limit)
         Rails.cache.fetch( "reco_tags2|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
           tags_for_item_ids(

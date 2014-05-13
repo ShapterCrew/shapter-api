@@ -1,4 +1,5 @@
 class Item
+
   include Mongoid::Document
   include Mongoid::Timestamps
   field :name, type: String
@@ -10,6 +11,17 @@ class Item
   has_and_belongs_to_many :tags
 
   has_and_belongs_to_many :subscribers, class_name: "User", inverse_of: :items
+
+  class << self
+    def touch
+      Item.find_or_create_by(name: "__null__").touch
+    end
+  end
+
+  after_destroy :class_touch
+  def class_touch
+    Item.touch
+  end
 
   def comments_count
     comments.count
@@ -44,7 +56,7 @@ class Item
 
   def user_comments_count(user)
     raise "wrong parameter" unless user.is_a? User
-    self.comments.where(author: user).count
+    comments.where(author: user).count
   end
 
 end

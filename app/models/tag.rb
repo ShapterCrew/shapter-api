@@ -13,4 +13,14 @@ class Tag
     id.to_s
   end
 
+  class << self
+    def touch
+      Tag.find_or_create_by(name: "__null__").touch
+    end
+  end
+
+  after_destroy :class_touch
+  def class_touch
+    Tag.touch
+  end
 end

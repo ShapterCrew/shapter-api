@@ -51,4 +51,13 @@ describe Item do
   end
   #}}}
 
+  describe "self.touch" do 
+    it "should update" do 
+      t = Time.now
+      Item.max(:updated_at).should < t
+      Item.touch
+      Item.max(:updated_at).should > t
+    end
+  end
+
 end

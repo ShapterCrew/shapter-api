@@ -17,6 +17,8 @@ module Shapter
       expose :current_user_comments_count do |it,ops|
         it.user_comments_count(ops[:current_user])
       end
+
+      expose :comments, using: Shapter::Entities::Comment
     end
   end
 end

@@ -12,6 +12,8 @@ module Shapter
       end
       expose :likers_count
       expose :dislikers_count
+      expose :created_at
+      expose :updated_at
     end
   end
 end

@@ -60,4 +60,11 @@ class Item
     comments.where(author: user).count
   end
 
+  def user_can_view_comments?(user)
+    raise "wrong parameter" unless user.is_a? User
+    ok_school = !(tags & user.schools).empty?
+    ok_admin = user.shapter_admin
+    ok_admin or ok_school
+  end
+
 end

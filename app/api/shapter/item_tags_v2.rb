@@ -44,18 +44,18 @@ module Shapter
           #{{{ delete
           desc "remove tag from item"
           params do 
-            requires :tag_name, type: String, desc: "name of the tag to remove"
+            requires :tag_id, type: String, desc: "id of the tag to remove"
           end
 
-          delete ':tag_name' do 
+          delete ':tag_id' do 
             error!("forbidden",403) unless current_user.shapter_admin
             item = Item.find(params[:id]) || error!("item not found",401)
-            tag = item.tags.find_by(name: params[:tag_name]) 
+            tag = item.tags.find(params[:tag_id]) 
             if tag
               item.remove_tag!(tag)
-              {:tag => tag.name, :status => "removed from item #{item.id}"}.to_json
+              {:tag => tag.name, :id => tag.pretty_id, :status => "removed from item #{item.id}"}.to_json
             else
-              {:status => :ok, :msg => "item #{item.id} is not tagged with #{params[:tag_name]}"}.to_json
+              {:status => :ok, :msg => "item #{item.id} is not tagged with #{params[:tag_id]}"}.to_json
             end
           end
 

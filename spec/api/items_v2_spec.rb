@@ -249,7 +249,7 @@ describe Shapter::ItemsV2 do
 
       context "when logged of" do 
         it "denies access" do 
-          delete "/items/#{@item.id}/tags/#{@t1.name}"
+          delete "/items/#{@item.id}/tags/#{@t1.id}"
           access_denied(@response).should be_true
         end
       end
@@ -259,7 +259,7 @@ describe Shapter::ItemsV2 do
           login(@user)
         end
         it "denies access" do 
-          delete "/items/#{@item.id}/tags/#{@t1.name}"
+          delete "/items/#{@item.id}/tags/#{@t1.id}"
           access_denied(@response).should be_true
         end
       end
@@ -273,20 +273,20 @@ describe Shapter::ItemsV2 do
         end
 
         it "allows access" do 
-          delete "/items/#{@item.id}/tags/#{@t1.name}"
+          delete "/items/#{@item.id}/tags/#{@t1.id}"
           access_denied(@response).should be_false
         end
 
         it "deletes the tag from item tags list" do
           @item.tags.include?(@t1).should be_true
-          delete "/items/#{@item.id}/tags/#{@t1.name}"
+          delete "/items/#{@item.id}/tags/#{@t1.id}"
           @item.reload
           @item.tags.include?(@t1).should be_false
         end
 
         it "delete the item from the tag items list" do 
           @t1.items.include?(@item).should be_true
-          delete "/items/#{@item.id}/tags/#{@t1.name}"
+          delete "/items/#{@item.id}/tags/#{@t1.id}"
           @t1.reload
           @t1.items.include?(@item).should be_false
         end
@@ -295,8 +295,18 @@ describe Shapter::ItemsV2 do
           @t2.items.include?(@item).should be_true
           Tag.where(name: @t2.name).empty?.should be_false
           @t2.items.size.should == 1
-          delete "/items/#{@item.id}/tags/#{@t2.name}"
+          delete "/items/#{@item.id}/tags/#{@t2.id}"
           Tag.where(name: @t2.name).empty?.should be_true
+        end
+
+        it "removing or destroying tag should not delete item" do 
+          delete "/items/#{@item.id}/tags/#{@t2.id}"
+          @item.reload
+          Item.where(id: @item.id).exists?.should be_true
+
+          @t1.destroy
+          @item.reload
+          Item.where(id: @item.id).exists?.should be_true
         end
 
       end

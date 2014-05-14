@@ -18,7 +18,10 @@ module Shapter
         it.user_comments_count(ops[:current_user])
       end
 
-      expose :comments, using: Shapter::Entities::Comment
+      expose :user_can_view_comments, as: :allowed_to_view_comments do |it,ops|
+        it.user_can_view_comments?(ops[:current_user])
+      end
+      expose :comments, using: Shapter::Entities::Comment, if: lambda {|it,ops| it.user_can_view_comments?(ops[:current_user]) }
     end
   end
 end

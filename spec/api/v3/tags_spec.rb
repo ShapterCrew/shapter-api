@@ -123,6 +123,8 @@ describe Shapter::V3::Tags do
   #{{{ batch_tag
   describe "batch_tag" do 
     before do 
+      login(@user)
+      User.any_instance.stub(:shapter_admin).and_return(:true)
       @i2 = FactoryGirl.create(:item)
       @i3 = FactoryGirl.create(:item)
       @i4 = FactoryGirl.create(:item)

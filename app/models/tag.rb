@@ -2,6 +2,7 @@ class Tag
   include Mongoid::Document
   include Mongoid::Timestamps
   field :name, type: String
+  field :description, type: String
   validates_uniqueness_of :name
 
   # Don't forget to update Tag.merge when adding new relations

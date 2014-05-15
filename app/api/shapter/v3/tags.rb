@@ -61,6 +61,9 @@ module Shapter
           requires :tag_name, type: String, desc: "The name of the tag"
         end
         post :batch_tag do 
+
+          error!("forbidden",403) unless current_user.shapter_admin
+
           tag = Tag.find_or_create_by(name: params[:tag_name].chomp.strip)
           Item.any_in(id: params[:item_ids_list]).each do |item|
             tag.items << item

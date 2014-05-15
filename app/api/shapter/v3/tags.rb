@@ -72,7 +72,7 @@ module Shapter
             tag.reload
             present tag, with: Shapter::Entities::TagFull
           else
-            error!
+            error!(tag.errors,500)
           end
 
         end

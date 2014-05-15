@@ -52,7 +52,7 @@ module Shapter
           .reject{|tag,count| count < 2 }
           .reject{|tag,count| ary.include? tag.id.to_s}
         end.take(limit)
-        .map{|tag,count| {name: tag.name, id: tag.pretty_id, score: count, type: tag.type}}
+        .map{|tag,count| {name: tag.name, id: tag.pretty_id, score: count, type: tag.type, description: tag.description}}
       end
       #}}}
 

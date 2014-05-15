@@ -11,6 +11,7 @@ class Item
   has_and_belongs_to_many :tags
 
   has_and_belongs_to_many :subscribers, class_name: "User", inverse_of: :items
+  has_and_belongs_to_many :interested_users, class_name: "User", inverse_of: :cart_items
 
   class << self
     def touch
@@ -53,6 +54,11 @@ class Item
   def user_subscribed?(user)
     raise "wrong parameter" unless user.is_a? User
     subscribers.include? user
+  end
+
+  def user_has_in_cart?(user)
+    raise "wrong parameter" unless user.is_a? User
+    interested_users.include? user
   end
 
   def user_comments_count(user)

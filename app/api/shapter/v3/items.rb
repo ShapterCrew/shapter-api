@@ -74,6 +74,30 @@ module Shapter
           end
           #}}}
 
+          #{{{ cart
+          desc "add item to cart"
+          post :cart do 
+            i = Item.find(params[:id])
+            error!("not found",404) unless i
+            i.interested_users << current_user
+            i.save
+            i.reload
+            present i, with: Shapter::Entities::Item, :current_user => current_user
+          end
+          #}}}
+
+          #{{{ uncart
+          desc "removes the item from cart"
+          post :uncart do 
+            i = Item.find(params[:id])
+            error!("not found",404) unless i
+            i.interested_users.delete(current_user)
+            i.save
+            i.reload
+            present i, with: Shapter::Entities::Item, :current_user => current_user
+          end
+          #}}}
+
           #{{{ destroy
           desc "destroy an item"
           delete do 

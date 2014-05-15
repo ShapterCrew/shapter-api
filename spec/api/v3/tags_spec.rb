@@ -55,14 +55,14 @@ describe Shapter::V3::Tags do
 
       it "list all tags withoug params" do 
         get "tags"
-        response.body.should == Tag.all.map{|t| {name: t.name, id: t.id.to_s}}.to_json
+        JSON.parse(response.body).should =~ Tag.all.map{|t| {"name" => t.name, "id" => t.id.to_s, "description" => t.description}}
       end
 
       context "when filter param is provided" do 
         it "filters when <filter> param is provided" do 
           get "tags", :filter => @schooltag1.name
           a = JSON.parse(response.body)
-          a.should =~ [@schooltag1,@t1,@t2].map{|t| {"name" => t.name, "id" => t.id.to_s}}
+          a.should =~ [@schooltag1,@t1,@t2].map{|t| {"name" => t.name, "id" => t.id.to_s, "description" => t.description}}
         end
 
         it "returns empty array if nothing is found" do 
@@ -97,20 +97,20 @@ describe Shapter::V3::Tags do
       end
 
       it "provides user's tags" do 
-        post "tags/suggested", {:ignore_user => false, :selected_tags => [@tag.id.to_s]}, {"Accept-Version" => "v2"}
+        post "tags/suggested", {:ignore_user => false, :selected_tags => [@tag.id.to_s]}, {"Accept-Version" => "v3"}
         h = JSON.parse(response.body)
         h.has_key?("user_tags").should be_true
-        h["user_tags"].should =~ [{"name" => @tag.name, "id" => @tag.id.to_s}]
+        h["user_tags"].should =~ [{"name" => @tag.name, "id" => @tag.id.to_s, "description" => @tag.description}]
       end
 
       it "ignores users's tag when asked" do 
-        post "tags/suggested", {:ignore_user => true, :selected_tags => [@tag.id.to_s]}, {"Accept-Version" => "v2"}
+        post "tags/suggested", {:ignore_user => true, :selected_tags => [@tag.id.to_s]}, {"Accept-Version" => "v3"}
         h = JSON.parse(response.body)
         h["user_tags"].blank?.should be_true
       end
 
       it "provides recommended tags" do 
-        post "tags/suggested", {:selected_tags => [@tag.id.to_s]}, {"Accept-Version" => "v2"}
+        post "tags/suggested", {:selected_tags => [@tag.id.to_s]}, {"Accept-Version" => "v3"}
         h = JSON.parse(response.body)
         h.has_key?("recommended_tags").should be_true
       end

@@ -54,6 +54,27 @@ module Shapter
         end
         # }}}
 
+        #{{{ batch_tag
+        desc "add a tag to multiple items at the same time"
+        params do 
+          requires :item_ids_list, type: Array, desc: "list of item ids to tag"
+          requires :tag_name, type: String, desc: "The name of the tag"
+        end
+        post :batch_tag do 
+          tag = Tag.find_or_create_by(name: params[:tag_name].chomp.strip)
+          Item.any_in(id: params[:item_ids_list]).each do |item|
+            tag.items << item
+          end
+          if tag.save
+            tag.reload
+            present tag, with: Shapter::Entities::TagFull
+          else
+            error!
+          end
+
+        end
+        #}}}
+
         namespace ":tag_id" do 
           before do 
             params do 

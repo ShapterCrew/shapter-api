@@ -2,6 +2,7 @@ module Shapter
   module Entities
     class TagFull < Grape::Entity
       expose :name
+      expose :description
       expose :pretty_id, as: :id
       expose :items, using: Shapter::Entities::ItemShort
     end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::CommentsV2 do 
+describe Shapter::V3::Comments do 
 
   before(:each) do 
     Item.delete_all

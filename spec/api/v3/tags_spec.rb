@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::TagsV2 do 
+describe Shapter::V3::Tags do 
 
   before(:each) do 
     Tag.delete_all
@@ -131,7 +131,7 @@ describe Shapter::TagsV2 do
         end
 
         it "denies access" do 
-          post "tags/#{@tag.id}/update", :name => "another_name" 
+          put "tags/#{@tag.id}", :tag => {:name => "another_name" }
           access_denied(@response).should be_true
         end
       end
@@ -143,10 +143,18 @@ describe Shapter::TagsV2 do
         end
 
         it "updates name" do 
-          post "tags/#{@tag.id}/update", :name => "another_name" 
+          put "tags/#{@tag.id}", :tag => {:name => "another_name" }
           access_denied(@response).should be_false
           @tag.reload
           @tag.name.should == "another_name"
+        end
+
+        it "updates description" do 
+          put "tags/#{@tag.id}", :tag => {:description => "another_description" }
+          access_denied(@response).should be_false
+          @tag.reload
+          @tag.description.should == "another_description"
+          @tag.name.blank?.should be_false
         end
       end
     end

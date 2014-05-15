@@ -67,6 +67,7 @@ module Shapter
             requires :tag, type: Hash do 
               optional :name, type: String, desc: "tag name"
               optional :description, type: String, desc: "tag description"
+              optional :type, type: String, desc: "tag type"
             end
           end
           put do 

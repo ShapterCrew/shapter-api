@@ -5,7 +5,7 @@ module Shapter
 
       desc "Returns pong, or passed parameter :ping if any."
       get :ping do 
-        { :ping => (params[:ping] || :pong), :version => 'v2'}
+        { :ping => (params[:ping] || :pong), :version => 'v3'}
       end
 
     end

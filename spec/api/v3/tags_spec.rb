@@ -131,7 +131,7 @@ describe Shapter::V3::Tags do
         end
 
         it "denies access" do 
-          put "tags/#{@tag.id}", :tag => {:name => "another_name" }
+          put "tags/#{@tag.id}", :name => "another_name"
           access_denied(@response).should be_true
         end
       end
@@ -143,14 +143,14 @@ describe Shapter::V3::Tags do
         end
 
         it "updates name" do 
-          put "tags/#{@tag.id}", :tag => {:name => "another_name" }
+          put "tags/#{@tag.id}", :name => "another_name" 
           access_denied(@response).should be_false
           @tag.reload
           @tag.name.should == "another_name"
         end
 
         it "updates description" do 
-          put "tags/#{@tag.id}", :tag => {:description => "another_description" }
+          put "tags/#{@tag.id}", :description => "another_description" 
           access_denied(@response).should be_false
           @tag.reload
           @tag.description.should == "another_description"

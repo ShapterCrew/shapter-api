@@ -64,15 +64,18 @@ module Shapter
           #{{{ udpate
           desc "update tag's attributes"
           params do 
-            requires :tag, type: Hash do 
-              optional :name, type: String, desc: "tag name"
-              optional :description, type: String, desc: "tag description"
-              optional :type, type: String, desc: "tag type"
-            end
+            optional :name, type: String, desc: "tag name"
+            optional :description, type: String, desc: "tag description"
+            optional :type, type: String, desc: "tag type"
           end
           put do 
             error!("forbidden",403) unless current_user.shapter_admin
-            Tag.find(params[:tag_id]).update(params[:tag])
+
+            tag_params = [:name,:description,:type].reduce({}) do |h,p|
+              h.merge( params[p] ? {p => params[p]} : {} )
+            end
+
+            Tag.find(params[:tag_id]).update(tag_params)
           end
           #}}}end
 

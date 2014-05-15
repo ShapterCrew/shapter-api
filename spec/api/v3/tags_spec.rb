@@ -55,14 +55,14 @@ describe Shapter::V3::Tags do
 
       it "list all tags withoug params" do 
         get "tags"
-        JSON.parse(response.body).should =~ Tag.all.map{|t| {"name" => t.name, "id" => t.id.to_s, "description" => t.description}}
+        JSON.parse(response.body).map{|h| h["id"]}.map(&:to_s).should =~ Tag.all.map(&:id).map(&:to_s)
       end
 
       context "when filter param is provided" do 
         it "filters when <filter> param is provided" do 
           get "tags", :filter => @schooltag1.name
           a = JSON.parse(response.body)
-          a.should =~ [@schooltag1,@t1,@t2].map{|t| {"name" => t.name, "id" => t.id.to_s, "description" => t.description}}
+          a.map{|h| h["id"]}.map(&:to_s).should =~ [@schooltag1,@t1,@t2].map{|h| h["id"]}.map(&:to_s)
         end
 
         it "returns empty array if nothing is found" do 
@@ -100,7 +100,7 @@ describe Shapter::V3::Tags do
         post "tags/suggested", {:ignore_user => false, :selected_tags => [@tag.id.to_s]}, {"Accept-Version" => "v3"}
         h = JSON.parse(response.body)
         h.has_key?("user_tags").should be_true
-        h["user_tags"].should =~ [{"name" => @tag.name, "id" => @tag.id.to_s, "description" => @tag.description}]
+        h["user_tags"].map{|h| h["id"]}.should =~ [@tag.id.to_s]
       end
 
       it "ignores users's tag when asked" do 
@@ -117,6 +117,31 @@ describe Shapter::V3::Tags do
 
     end
 
+  end
+  #}}}
+
+  #{{{ batch_tag
+  describe "batch_tag" do 
+    before do 
+      @i2 = FactoryGirl.create(:item)
+      @i3 = FactoryGirl.create(:item)
+      @i4 = FactoryGirl.create(:item)
+    end
+    it "add a tag to multiple items when tag doesn't exist yet" do 
+      post "tags/batch_tag", {:item_ids_list => [@i2,@i3,@i4].map(&:id).map(&:to_s), :tag_name => "batchAddedTag"}
+      [@i2,@i3,@i4].each(&:reload)
+      @i2.tags.map(&:name).include?("batchAddedTag").should be_true
+      @i3.tags.map(&:name).include?("batchAddedTag").should be_true
+      @i4.tags.map(&:name).include?("batchAddedTag").should be_true
+    end
+
+    it "find and add a tag to multiple items when tag already exists" do 
+      post "tags/batch_tag", {:item_ids_list => [@i2,@i3,@i4].map(&:id).map(&:to_s), :tag_name => @tag.name}
+      [@i2,@i3,@i4].each(&:reload)
+      @i2.tags.include?(@tag).should be_true
+      @i3.tags.include?(@tag).should be_true
+      @i4.tags.include?(@tag).should be_true
+    end
   end
   #}}}
 

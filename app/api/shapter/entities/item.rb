@@ -12,6 +12,10 @@ module Shapter
       expose :current_user_subscribed do |it,ops|
         it.user_subscribed?(ops[:current_user])
       end
+
+      expose :current_user_has_in_cart do |it,ops|
+        it.user_has_in_cart?(ops[:current_user])
+      end
       expose :subscribers, using: Shapter::Entities::UserShort
 
       expose :current_user_comments_count do |it,ops|

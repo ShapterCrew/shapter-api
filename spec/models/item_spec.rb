@@ -39,6 +39,20 @@ describe Item do
   end
   #}}}
 
+  #{{{ current_user_has_in_cart?
+  describe :current_user_has_in_cart? do
+
+    it "returns false if user don't have in cart" do 
+      @item.user_has_in_cart?(@user).should be_false
+    end
+
+    it "returns true if user has in cart" do 
+      @item.interested_users << @user ; @item.save ; @item.reload
+      @item.user_has_in_cart?(@user).should be_true
+    end
+  end
+  #}}}
+
   #{{{ user_comments_count
   describe "user_comments_count" do
     it "returns the number of comments the user wrote" do 

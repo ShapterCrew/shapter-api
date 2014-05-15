@@ -145,6 +145,63 @@ describe Shapter::V3::Items do
   end
   #}}}
 
+  #{{{ subscribe
+  describe :cart do 
+    context "when logged off" do 
+      it "should deny access" do 
+        post "items/#{@item.id}/cart"
+        access_denied(response).should be_true
+      end
+    end
+
+    context "when logged in" do 
+      before do 
+        login(@user)
+      end
+      it "should add to cart list" do 
+        post "items/#{@item.id}/cart"
+        JSON.parse(response.body)["id"].should == @item.id.to_s
+
+        @item.reload
+        @user.reload
+        @user.cart_items.include?(@item).should be_true
+        @item.interested_users.include?(@user).should be_true
+      end
+    end
+  end
+  #}}}
+
+  #{{{ uncart
+  describe :uncart do 
+    context "when logged off" do 
+      it "should deny access" do 
+        post "items/#{@item.id}/uncart"
+        access_denied(response).should be_true
+      end
+    end
+
+    context "when logged in" do 
+      before do 
+        login(@user)
+        @item.interested_users << @user
+        @item.save
+        @item.reload
+      end
+
+      it "should unsubscribe" do 
+        @item.interested_users.include?(@user).should be_true
+        @user.cart_items.include?(@item).should be_true
+        post "items/#{@item.id}/uncart"
+        access_denied(response).should be_false
+        @item.reload
+        @user.reload
+        @item.interested_users.include?(@user).should be_false
+        @user.cart_items.include?(@item).should be_false
+      end
+    end
+  end
+  #}}}
+
   #{{{ delete
   describe :delete do 
     context "when not admin" do 

@@ -75,14 +75,17 @@ class Item
   end
 
   def avg_diag
-    #must mnemoize, otherwise the averaged diagram itself is considered as a user diagram
+    #must memoize, otherwise the averaged diagram itself is considered as a user diagram
     @avg_diag ||= (
-    c = diagrams.count
-    return nil unless c > 0
-    d = diagrams.reduce(:+)
-    d.values = d.values.map{|v| v.to_f/c}
-    d.item = self
-    d
+      c = diagrams.count
+      if c > 0
+        d =  diagrams.reduce(:+)
+        d.values = d.values.map{|v| v.to_f/c}
+      else
+        d = Diagram.new_empty
+      end
+      d.item = self
+      d
     )
   end
 

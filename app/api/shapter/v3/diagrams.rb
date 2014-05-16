@@ -7,6 +7,62 @@ module Shapter
         check_user_login!
       end
 
+      namespace :items do 
+        resource ':item_id' do
+          before do 
+            params do 
+              requires :item_id, type: String, desc: "id of the item to fetch"
+            end
+          end
+
+          namespace :mydiagram do 
+
+            #{{{ create_or_update - post
+            desc "create or update my diagram"
+            params do
+              requires :values, type: Hash 
+            end
+            put do
+              i = Item.find(params[:item_id]) || error!("item not found",500)
+              d = i.diagrams.find_or_create_by(author: current_user)
+              params[:values].each do |i,v|
+                d.values ||= Array.new(Diagram.values_size)
+                d.values[i.to_i] = v.to_i
+              end
+              d.save
+              present d, with: Shapter::Entities::Diagram
+            end
+            #}}}
+
+            #{{{ delete
+            desc "delete my diagram"
+            delete do
+              i = Item.find(params[:item_id]) || error!("item not found",500)
+              d = i.diagrams.find_by(author: current_user)
+              if d
+                d.destroy
+                i.save
+                {:status => :destroyed}
+              else
+                error!("not found",404)
+              end
+
+            end
+            #}}}
+
+            #{{{ get
+            desc "get my diagram"
+            get do
+              i = Item.find(params[:item_id]) || error!("item not found",500)
+              d = i.diagrams.find_by(author: current_user)
+              present d, with: Shapter::Entities::Diagram
+            end
+            #}}}
+
+          end
+        end
+
+      end
     end
   end
 end

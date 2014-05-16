@@ -7,6 +7,7 @@ module Shapter
       expose :subscribers_count unless {format: :id_only}
       expose :avg_quality_score unless {format: :id_only}
       expose :avg_work_score    unless {format: :id_only}
+      expose :front_avg_diag, as: :averaged_diagram
     end
   end
 end

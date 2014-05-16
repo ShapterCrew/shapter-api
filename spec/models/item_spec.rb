@@ -76,4 +76,34 @@ describe Item do
   end
   #}}}
 
+  #{{{ avg_diag
+  describe :avg_diag do 
+    it 'averages diagrams' do 
+      d1 = Diagram.new(
+        item: @item,
+        values: [0,1,2,3,4],
+        author: @user,
+      )
+      d2 = Diagram.new(
+        item: @item,
+        values: [0,2,4,6,8],
+        author: @user,
+      )
+
+      @item.diagrams << d1
+      @item.diagrams << d2
+      @item.save
+      @item.reload
+
+      @item.diagrams.count.should == 2
+
+      avg_d = @item.avg_diag
+      avg_d.is_a?(Diagram).should be_true
+      avg_d.values.should == [0,1.5,3,4.5,6]
+      avg_d.item.should == @item
+
+    end
+  end
+  #}}}
+
 end

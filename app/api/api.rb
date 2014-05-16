@@ -10,6 +10,7 @@ class API < Grape::API
     mount Shapter::V3::Comments
     mount Shapter::V3::Tags
     mount Shapter::V3::Users
+    mount Shapter::V3::Diagrams
     add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
   end
   version :v2, using: :accept_version_header, format: :json do

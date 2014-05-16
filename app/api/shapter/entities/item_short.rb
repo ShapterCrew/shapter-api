@@ -3,10 +3,10 @@ module Shapter
     class ItemShort < Grape::Entity
       expose :name
       expose :pretty_id, as: :id
-      expose :comments_count
-      expose :subscribers_count
-      expose :avg_quality_score
-      expose :avg_work_score
+      expose :comments_count    unless {format: :id_only}
+      expose :subscribers_count unless {format: :id_only}
+      expose :avg_quality_score unless {format: :id_only}
+      expose :avg_work_score    unless {format: :id_only}
     end
   end
 end

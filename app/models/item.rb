@@ -7,6 +7,7 @@ class Item
   field :tags, type: Array
 
   embeds_many :comments
+  embeds_many :diagrams
 
   has_and_belongs_to_many :tags
 

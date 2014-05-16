@@ -10,6 +10,8 @@ class Diagram
 
   def names
     [
+      "quality",
+      "work_load",
       "maths",
       "ecl_dim",
       "telecom_dim",
@@ -46,15 +48,15 @@ class Diagram
     end
 
     def values_size
-      4
+      6
     end
 
     def centrale_lyon_dimensions
-      [0,1,3]
+      [2,3,5]
     end
 
     def telecom_paristech_dimensions
-      [0,2,3]
+      [2,4,5]
     end
 
   end
@@ -62,7 +64,7 @@ class Diagram
   private
 
   def front_dims
-    s = []
+    s = [0,1]
     s += Diagram.centrale_lyon_dimensions if item.tags.where(name: "Centrale Lyon").exists?
     s += Diagram.telecom_paristech_dimensions if item.tags.where(name: "Telecom ParisTech").exists?
     s.uniq

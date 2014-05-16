@@ -18,7 +18,17 @@ module Shapter
           namespace :mydiagram do 
 
             #{{{ create_or_update - post
-            desc "create or update my diagram"
+            desc "create or update my diagram", {
+              :notes => <<-NOTE
+              expected arguments format to set the values: 
+
+                  :values => {
+                  0 => 3, # x_0 is assigned to 3
+                  3 => 1, # x_1 is assigned to 1
+                  }
+
+              NOTE
+            }
             params do
               requires :values, type: Hash 
             end

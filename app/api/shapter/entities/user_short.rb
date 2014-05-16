@@ -3,7 +3,7 @@ module Shapter
     class UserShort < Grape::Entity
       expose :firstname
       expose :lastname
-      expose :schools, using: Shapter::Entities::Tag
+      expose :schools, using: Shapter::Entities::Tag unless {format: :no_schools}
       expose :pretty_id, as: :id
     end
   end

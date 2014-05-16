@@ -20,7 +20,7 @@ class Diagram
   def front_values
     front_dims.map{|i|
       {
-        "x#{i}" => {
+        i => {
         :value => values[i],
         :name => names[i],
       }
@@ -35,7 +35,19 @@ class Diagram
     )
   end
 
+  def pretty_id
+    id.to_s
+  end
+
   class << self
+
+    def new_empty
+      Diagram.new(values: (1..Diagram.values_size).map{|i| nil})
+    end
+
+    def values_size
+      4
+    end
 
     def centrale_lyon_dimensions
       [0,1,3]
@@ -55,6 +67,5 @@ class Diagram
     s += Diagram.telecom_paristech_dimensions if item.tags.where(name: "Telecom ParisTech").exists?
     s.uniq
   end
-
 
 end

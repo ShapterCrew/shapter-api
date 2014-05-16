@@ -4,14 +4,14 @@ describe Diagram do
 
   describe :+ do 
     it "add should add all variables" do 
-      d1 = Diagram.new(x0: 1, x1: 2       )
-      d2 = Diagram.new(x0: 1       , x3: 3)
+      d1 = Diagram.new(values: [1, 2  , nil, nil])
+      d2 = Diagram.new(values: [1, nil, nil, 3])
 
       dd = d1 + d2
-      dd.x0.should == 2
-      dd.x1.should == 2
-      dd.x2.should == nil
-      dd.x3.should == 3
+      dd.values[0].should == 2
+      dd.values[1].should == 2
+      dd.values[2].should == nil
+      dd.values[3].should == 3
     end
   end
 end

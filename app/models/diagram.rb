@@ -1,39 +1,28 @@
 class Diagram
   include Mongoid::Document
 
-  MAX_DIM = 4 # total number of dimensions
-
-  (0..MAX_DIM - 1).each do |i|
-    field "x#{i}", type: Integer
-  end
+  field :values, type: Array
 
   embedded_in :item
   belongs_to :author, class_name: "User"
 
   validates_presence_of :author
 
-  def x0_name
-    "maths"
+  def names
+    [
+      "maths",
+      "ecl_dim",
+      "telecom_dim",
+      "pipo",
+    ]
   end
 
-  def x1_name
-    "ecl_dim"
-  end
-
-  def x2_name
-    "telecom_dim"
-  end
-
-  def x3_name
-    "pipo"
-  end
-
-  def values
+  def front_values
     front_dims.map{|i|
       {
         "x#{i}" => {
-        :value => self.send("x#{i}"),
-        :name => self.send("x#{i}_name"),
+        :value => values[i],
+        :name => names[i],
       }
       }
     }.reduce(&:merge)
@@ -41,11 +30,8 @@ class Diagram
 
   def + diag
     Diagram.new(
-      (0..MAX_DIM - 1).map { |i|
-      if self.send("x#{i}") or diag.send("x#{i}") 
-        ["x#{i}" , (self.send("x#{i}") || 0 ) + (diag.send("x#{i}") || 0 )]
-      end
-    }.compact.to_h
+      values: self.values.zip(diag.values)
+      .map{|a| (a.first || a.last) ? (a.first || 0) + (a.last || 0) : nil}
     )
   end
 

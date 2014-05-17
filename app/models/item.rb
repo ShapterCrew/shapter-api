@@ -89,6 +89,21 @@ class Item
     )
   end
 
+  def diagrams_count
+    diagrams.count
+  end
+
+  def user_diagram(user)
+    if d = diagrams.find_by(author: user)
+      d
+    else
+      d = Diagram.new_empty
+      d.author = user
+      d.item = self
+      d
+    end
+  end
+
   def front_avg_diag
     avg_diag.front_values if avg_diag
   end

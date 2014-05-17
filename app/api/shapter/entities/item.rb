@@ -22,6 +22,12 @@ module Shapter
         it.user_comments_count(ops[:current_user])
       end
 
+      expose :current_user_diagram, using: Shapter::Entities::Diagram do |it,ops|
+        it.user_diagram(ops[:current_user])
+      end
+
+      expose :diagrams_count
+
       expose :user_can_view_comments, as: :allowed_to_view_comments do |it,ops|
         it.user_can_view_comments?(ops[:current_user])
       end

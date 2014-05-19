@@ -76,7 +76,7 @@ class Item
 
   def avg_diag
     #must memoize, otherwise the averaged diagram itself is considered as a user diagram
-    Rails.cache.fetch("avg_diag|#{self.id.to_s}|#{diagrams.max(:updated_at)}", expires_in: 90.minutes) do 
+    @avg_diag ||= (
       c = diagrams.count
       if c > 0
         d =  diagrams.reduce(:+)
@@ -85,8 +85,8 @@ class Item
         d = Diagram.new_empty
       end
       d.item = self
-      return d
-    end
+      d
+    )
   end
 
   def diagrams_count
@@ -105,7 +105,9 @@ class Item
   end
 
   def front_avg_diag
-    avg_diag.front_values if avg_diag
+    Rails.cache.fetch("frontAvgDiag|#{self.id.to_s}|#{diagrams.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 90.minutes) do 
+      avg_diag.front_values if avg_diag
+    end
   end
 
 end

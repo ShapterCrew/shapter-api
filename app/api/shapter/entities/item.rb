@@ -33,7 +33,7 @@ module Shapter
       end
       expose :comments, using: Shapter::Entities::Comment, if: lambda {|it,ops| it.user_can_view_comments?(ops[:current_user]) }
 
-      expose :front_avg_diag, as: :averaged_diagram
+      expose :front_avg_diag, as: :averaged_diagram #please leave this guy at the bottom
     end
 
   end

@@ -6,7 +6,7 @@ module Shapter
       expose :pretty_id, as: :id
       expose :comments_count    
       expose :subscribers_count 
-      expose :front_avg_diag, as: :averaged_diagram
+      expose :front_avg_diag, as: :averaged_diagram #please leave this guy at the bottom
     end
   end
 end

@@ -9,14 +9,7 @@ class Diagram
   validates_presence_of :author
 
   def names
-    [
-      "quality",
-      "work_load",
-      "maths",
-      "ecl_dim",
-      "telecom_dim",
-      "pipo",
-    ]
+    Diagram.names
   end
 
   def front_values
@@ -48,15 +41,42 @@ class Diagram
     end
 
     def values_size
-      6
+      names.size
+    end
+
+    def names
+      [
+        "Charge de travail", #00
+        "Travail en groupe", #01
+        "Maths"            , #02
+        "Codage"           , #03
+        "Théorique"        , #04
+        "Technique"        , #05
+        "Qualité"          , #06
+        "Dur à valider"    , #07
+        "Fun"              , #08
+        "Pipo"             , #09
+      ]
     end
 
     def centrale_lyon_dimensions
-      [2,3,5]
+      [1,5,8,9]
     end
 
     def telecom_paristech_dimensions
-      [2,4,5]
+      [1,2,3,4,8,9]
+    end
+
+    def supelec_dimensions
+      [1,5,8,9]
+    end
+
+    def eurecom_dimensions
+      [1,2,3,4,8,9]
+    end
+
+    def base_dimensions
+      [0,6,7]
     end
 
   end
@@ -64,9 +84,11 @@ class Diagram
   private
 
   def front_dims
-    s = [0,1]
+    s = base_dimensions
     s += Diagram.centrale_lyon_dimensions if item.tags.where(name: "Centrale Lyon").exists?
     s += Diagram.telecom_paristech_dimensions if item.tags.where(name: "Telecom ParisTech").exists?
+    s += Diagram.supelec_dimensions if item.tags.where(name: "Supélec").exists?
+    s += Diagram.eurecom_dimensions if item.tags.where(name: "Eurecom").exists?
     s.uniq
   end
 

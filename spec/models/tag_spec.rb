@@ -19,6 +19,9 @@ describe Tag do
         @i1.tags.should == [@t1]
         @i2.tags.should == [@t2]
 
+        @t1.items.should == [@i1]
+        @t2.items.should == [@i2]
+
         (@t1 == @t2).should be_false
 
         Tag.merge!(@t1,@t2)

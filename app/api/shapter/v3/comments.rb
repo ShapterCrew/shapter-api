@@ -22,8 +22,8 @@ module Shapter
               requires :item_id, type: String, desc: "The item id"
               requires :comment, type: Hash do
                 requires :content, type: String, desc: "comment content"
-                requires :work_score, type: Integer, desc: "workload score, from 1 to 100"
-                requires :quality_score, type: Integer, desc: "qualityload score, from 1 to 100"
+                optional :work_score, type: Integer, desc: "workload score, from 1 to 100"
+                optional :quality_score, type: Integer, desc: "qualityload score, from 1 to 100"
               end
             end
             post :create do

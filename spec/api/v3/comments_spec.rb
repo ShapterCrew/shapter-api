@@ -48,25 +48,25 @@ describe Shapter::V3::Comments do
         response.status.should == 400
       end
 
-      it "validates presence of work_score" do 
+      it "doesn't validates presence of work_score" do 
         post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:work_score => nil)
-        response.status.should == 400
+        response.status.should_not == 400
       end
 
-      #it "validates presence of quality_score" do 
-      #  post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:quality_score => nil)
-      #  response.status.should == 400
-      #end
+      it "doesn't validates presence of quality_score" do 
+        post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:quality_score => nil)
+        response.status.should_not == 400
+      end
 
       #it "validates value of work_score" do 
       #  post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:work_score => 600)
       #  response.status.should == 400
       #end
 
-      it "validates value of quality_score" do 
-        post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:quality_score => 600)
-        response.status.should == 400
-      end
+      #it "validates value of quality_score" do 
+      #  post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:quality_score => 600)
+      #  response.status.should == 400
+      #end
 
     end
 

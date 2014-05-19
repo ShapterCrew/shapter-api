@@ -77,7 +77,13 @@ class User
   validate :valid_school?
   before_validation :set_school
 
+  before_save :items_touch
+
   private
+
+  def items_touch
+    items.each(&:touch) 
+  end
 
   def valid_school?
     errors.add(:base,"user must belong to at least one school") if self.schools.empty?

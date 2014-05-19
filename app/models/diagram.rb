@@ -1,5 +1,6 @@
 class Diagram
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :values, type: Array
 

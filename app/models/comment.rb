@@ -22,6 +22,10 @@ class Comment
   #  validates_numericality_of p, {only_integer: true}
   #end
 
+  def unescaped_content
+    CGI.unescapeHTML(content)
+  end
+
   def pretty_id
     id.to_s
   end

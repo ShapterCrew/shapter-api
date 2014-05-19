@@ -18,7 +18,7 @@ describe Shapter::V3::Diagrams do
     it "creates or updates a diagram" do 
       @item.diagrams.count.should == 0
 
-      put "/items/#{@item.id}/mydiagram", :values => {0 => 0, 1 => 2, 3 => 6}
+      put "/items/#{@item.id}/mydiagram", :values => {0 => 0, "1" => 2, 3 => 6}
 
       @item.reload
       @item.diagrams.count.should == 1

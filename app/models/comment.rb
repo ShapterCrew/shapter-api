@@ -13,8 +13,8 @@ class Comment
 
   validates_presence_of :author
   validates_presence_of :content
-  validates_presence_of :work_score
-  validates_presence_of :quality_score
+  #validates_presence_of :work_score
+  #validates_presence_of :quality_score
 
   [:work_score, :quality_score].each do |p|
     validates_numericality_of p, {greater_than_or_equal_to: 1}

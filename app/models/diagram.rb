@@ -84,7 +84,7 @@ class Diagram
   private
 
   def front_dims
-    s = base_dimensions
+    s  = Diagram.base_dimensions
     s += Diagram.centrale_lyon_dimensions if item.tags.where(name: "Centrale Lyon").exists?
     s += Diagram.telecom_paristech_dimensions if item.tags.where(name: "Telecom ParisTech").exists?
     s += Diagram.supelec_dimensions if item.tags.where(name: "Supélec").exists?

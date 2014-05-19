@@ -20,9 +20,11 @@ class Tag
     end
 
     def merge!(t1,t2)
-      t2.items.each{|i| t1.items << i}
-      t2.students.each{|s| t1.students << s}
-      if t1.save
+      is = []
+      ss = []
+      t2.items.each{|i| t1.items << i; i.tags << t1 ; is << i}
+      t2.students.each{|s| t1.students << s; s.schools << t1 ; ss << s}
+      if [t1.save,ss.map(&:save),is.map(&:save)].reduce(:&)
         t2.destroy
         true
       else

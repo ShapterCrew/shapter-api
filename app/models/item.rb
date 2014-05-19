@@ -30,7 +30,9 @@ class Item
   end
 
   def subscribers_count
-    subscribers.count
+    Rails.cache.fetch("itSubsCnt|#{updated_at.try(:utc).try(:to_s, :number)}", :expires_in => 1.hours) do 
+      subscribers.count
+    end
   end
 
   def avg_quality_score
@@ -75,7 +77,6 @@ class Item
   end
 
   def avg_diag
-    #must memoize, otherwise the averaged diagram itself is considered as a user diagram
     @avg_diag ||= (
       c = diagrams.count
       if c > 0
@@ -105,10 +106,15 @@ class Item
   end
 
   def front_avg_diag
-    self.reload
-    Rails.cache.fetch("frontAvgDiag|#{self.id.to_s}|#{diagrams.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 90.minutes) do 
+    Rails.cache.fetch("frontAvgDiag|#{self.id.to_s}|#{diag_timestamp_key}", expires_in: 90.minutes) do 
       avg_diag.front_values if avg_diag
     end
+  end
+
+  private
+
+  def diag_timestamp_key
+    Item.find(id).diagrams.max(:updated_at).try(:utc).try(:to_s, :number)
   end
 
 end

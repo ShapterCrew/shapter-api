@@ -9,8 +9,15 @@ module Shapter
 
       namespace "signup-permissions"
 
+      #{{{ index
+      desc "list all permissions" 
+      get do 
+        present SignupPermission.all, with: Shapter::Entities::SignupPermission
+      end
+      #}}}
+
       #{{{ add a signup permission
-      desc "add a signup permission"
+      desc "add or update a signup permission"
       params do
         requires :signup_permission, type: Hash do 
           requires :email, type: String, desc: "I'm sure you can guess"

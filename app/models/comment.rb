@@ -35,13 +35,13 @@ class Comment
   end
 
   def likers_count
-    Rails.cache.fetch("likersCnt|#{item.id.to_s}|#{self.id.to_s}|#{self.timestamp_key}",expires_in: 1.hours) do 
+    Rails.cache.fetch("likersCnt|#{item.id}|#{self.id}|#{self.timestamp_key}",expires_in: 1.hours) do 
       likers.count
     end
   end
 
   def dislikers_count
-    Rails.cache.fetch("dislikersCnt|#{item.id.to_s}|#{self.id.to_s}|#{self.timestamp_key}",expires_in: 1.hours) do 
+    Rails.cache.fetch("dislikersCnt|#{item.id}|#{self.id}|#{self.timestamp_key}",expires_in: 1.hours) do 
       dislikers.count
     end
   end
@@ -53,7 +53,14 @@ class Comment
   end
 
   def timestamp_key
-    updated_at.try(:utc).try(:to_s, :number)
+    self.item.comments.find(id).updated_at.try(:utc).try(:to_s, :number)
+  end
+
+  after_save :touches
+
+  def touches
+    self.touch
+    item.touch
   end
 
 end

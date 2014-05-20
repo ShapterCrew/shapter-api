@@ -10,6 +10,7 @@ describe Comment do
     @comment.item = @item
     @comment.author = @user
     @comment.save
+    @comment.reload
   end
 
   #{{{ user_likes?
@@ -35,7 +36,6 @@ describe Comment do
   #{{{ dislikers_count
   describe "dislikers_count" do 
     it 'returns the number of dislikers' do 
-      @comment.dislikers_count.should == 0
       @comment.dislikers << @user
       @comment.dislikers_count.should == 1
     end
@@ -45,8 +45,7 @@ describe Comment do
   #{{{ likers_count
   describe "likers_count" do 
     it 'returns the number of likers' do 
-      @comment.likers_count.should == 0
-      @comment.likers << @user
+      @comment.likers << @user ; puts @comment.save  ; @comment.reload
       @comment.likers_count.should == 1
     end
   end

@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :signup_permission do
-    school_name "MyString"
-    email "MyString"
+    school_name "MySchool"
+    email "authorized_user@school.com"
   end
 end

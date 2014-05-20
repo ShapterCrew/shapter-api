@@ -7,4 +7,8 @@ class SignupPermission
   validates_presence_of :email
 
   validates_uniqueness_of :email
+
+  def pretty_id
+    id.to_s
+  end
 end

@@ -6,14 +6,18 @@ module Shapter
       # This for v2. 
       def filter_items2(ary)
         Rails.cache.fetch( "filter_items2|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
-          return [] if ary.empty?
-          first_tag = Tag.find(ary.first)
-          return [] unless first_tag
-          init = first_tag.items
-          return init if ary.size == 1
-          ary[1..-1].reduce(init) do |aa, tag_id|
-            aa = aa & Tag.where(id: tag_id).flat_map(&:items)
-          end
+          compute_filter(ary)
+        end
+      end
+
+      def compute_filter(ary)
+        return [] if ary.empty?
+        first_tag = Tag.find(ary.first)
+        return [] unless first_tag
+        init = first_tag.items
+        return init if ary.size == 1
+        ary[1..-1].reduce(init) do |aa, tag_id|
+          aa = aa & Tag.where(id: tag_id).flat_map(&:items)
         end
       end
       #}}}
@@ -22,15 +26,19 @@ module Shapter
       # A bit like reco_tags, but simplified. The goal is to build a dictionnary of acceptable tags
       def dictionnary(tagname)
         Rails.cache.fetch( "dico|#{tagname}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
-          t = Tag.where(name: tagname)
-          return [] if t.empty?
-          tags_for_item_ids(
-            t
-            .flat_map(&tag_to_item_ids)
-            .uniq
-          )
-          .uniq
+          compute_dico(tagname)
         end
+      end
+
+      def compute_dico(tagname)
+        t = Tag.where(name: tagname)
+        return [] if t.empty?
+        tags_for_item_ids(
+          t
+          .flat_map(&tag_to_item_ids)
+          .uniq
+        )
+        .uniq
       end
       #}}}
 
@@ -41,15 +49,15 @@ module Shapter
         Rails.cache.fetch( "reco_tags2|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
           tags_for_item_ids(
             Tag.any_in(id: ary)
-            .map(&tag_to_item_ids)
-            .reduce(:&)
-          )
-          .reduce(Hash.new(0)) { |h,t|
-            h[t] += 1
-            h
-          }
-          .sort_by{|k,v| v}.reverse
-          .reject{|tag,count| ary.include? tag.id.to_s}
+        .map(&tag_to_item_ids)
+        .reduce(:&)
+        )
+        .reduce(Hash.new(0)) { |h,t|
+          h[t] += 1
+          h
+        }
+        .sort_by{|k,v| v}.reverse
+        .reject{|tag,count| ary.include? tag.id.to_s}
         end.take(limit)
         .map{|tag,count| {name: tag.name, id: tag.pretty_id, score: count, type: tag.type, description: tag.description}}
       end

@@ -77,12 +77,18 @@ class User
   validate :valid_school?
   before_validation :set_school
 
-  before_save :items_touch
+  after_save :items_touch
+  after_save :comments_touch
 
   private
 
   def items_touch
     items.each(&:touch) 
+  end
+
+  def comments_touch
+    liked_comments.each(&:touch)
+    disliked_comments.each(&:touch)
   end
 
   def valid_school?

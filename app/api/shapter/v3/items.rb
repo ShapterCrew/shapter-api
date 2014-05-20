@@ -14,9 +14,15 @@ module Shapter
         desc "search for an item using a list of tags"
         params do 
           requires :filter, type: Array, desc: "array of tags to filter with"
+          optional :n_start, type: Integer, desc: "index to start with. default: 0", default: 0
+          optional :n_stop, type: Integer, desc: "index to end with. default: 14. -1 will return the entire list", default: 14
         end
         get :filter do 
-          present filter_items2(params[:filter]), with: Shapter::Entities::ItemShort, :current_user => current_user
+          nstart = params[:n_start].to_i
+          nstop = params[:n_stop].to_i
+          f = filter_items2(params[:filter])
+          present :number_of_results, f.size
+          present :items, f[nstart..nstop], with: Shapter::Entities::ItemShort, :current_user => current_user
         end
         #}}}
 

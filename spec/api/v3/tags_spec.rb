@@ -135,6 +135,11 @@ describe Shapter::V3::Tags do
       @i2.tags.map(&:name).include?("batchAddedTag").should be_true
       @i3.tags.map(&:name).include?("batchAddedTag").should be_true
       @i4.tags.map(&:name).include?("batchAddedTag").should be_true
+
+      t = Tag.find_by(name: "batchAddedTag")
+      t.items.include?(@i2).should be_true
+      t.items.include?(@i3).should be_true
+      t.items.include?(@i4).should be_true
     end
 
     it "find and add a tag to multiple items when tag already exists" do 
@@ -143,6 +148,11 @@ describe Shapter::V3::Tags do
       @i2.tags.include?(@tag).should be_true
       @i3.tags.include?(@tag).should be_true
       @i4.tags.include?(@tag).should be_true
+
+      @tag.reload
+      @tag.items.include?(@i2).should be_true
+      @tag.items.include?(@i3).should be_true
+      @tag.items.include?(@i4).should be_true
     end
   end
   #}}}

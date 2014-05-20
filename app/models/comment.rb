@@ -2,8 +2,8 @@ class Comment
   include Mongoid::Document
   include Mongoid::Timestamps
   field :content, type: String
-  field :work_score, type: Integer
-  field :quality_score, type: Integer
+  #field :work_score, type: Integer
+  #field :quality_score, type: Integer
 
   embedded_in :item
   belongs_to :author, class_name: "User"

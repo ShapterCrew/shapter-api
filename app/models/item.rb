@@ -35,13 +35,13 @@ class Item
     end
   end
 
-  def avg_quality_score
-    comments.where(:quality_score.exists => true).avg(:quality_score)
-  end
+  #def avg_quality_score
+  #  comments.where(:quality_score.exists => true).avg(:quality_score)
+  #end
 
-  def avg_work_score
-    comments.where(:work_score.exists => true).avg(:work_score)
-  end
+  #def avg_work_score
+  #  comments.where(:work_score.exists => true).avg(:work_score)
+  #end
 
   def pretty_id
     id.to_s

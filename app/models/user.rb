@@ -77,8 +77,8 @@ class User
   validate :valid_school?
   before_validation :set_school
 
-  after_save :items_touch
-  after_save :comments_touch
+  before_save :items_touch
+  before_save :comments_touch
 
   private
 

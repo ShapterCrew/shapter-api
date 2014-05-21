@@ -61,21 +61,21 @@ File.open("/home/aherve/Shapter/shapter-api/scripts/csvs/dislikes.csv").each_lin
   @comments[ll.first].dislikers << ll[1..-1].map{|email| @users[email]}
 end
 
-puts "loading quality"
-File.open('./scripts/csvs/qualite.csv').each_line do |line|
-  ll = line.chomp.split(";").map(&:strip)
-
-  c = @comments[ll.first]
-  c.quality_score = ll.last.to_i*20
-end
-
-puts "loading work"
-File.open('./scripts/csvs/travail.csv').each_line do |line|
-  ll = line.chomp.split(";").map(&:strip)
-
-  c = @comments[ll.first]
-  c.work_score = ll.last.to_i*20
-end
+#puts "loading quality"
+#File.open('./scripts/csvs/qualite.csv').each_line do |line|
+#  ll = line.chomp.split(";").map(&:strip)
+#
+#  c = @comments[ll.first]
+#  c.quality_score = ll.last.to_i*20
+#end
+#
+#puts "loading work"
+#File.open('./scripts/csvs/travail.csv').each_line do |line|
+#  ll = line.chomp.split(";").map(&:strip)
+#
+#  c = @comments[ll.first]
+#  c.work_score = ll.last.to_i*20
+#end
 
 puts 'saving tags'
 @tags.each{|name,tag| p name ; tag.save(validate: false)}

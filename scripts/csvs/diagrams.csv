@@ -1,4 +1,4 @@
-PJL380 - Projet libre ;ulysseklatzmann@gmail.com;100;100;67;35;98;
+PJL380 - Projet libre ;ulysseklatzmann@gmail.com;100;100;67;35;98;None
 MDI343 - Apprentissage statistique et fouille de donnees ;ulysseklatzmann@gmail.com;63;61;79;79;45;100
 SIMDI226 - Statistiques des séries temporelles ;ulysseklatzmann@gmail.com;13;37;70;80;27;58
 MDI224 - Méthodes d'optimisation continue et applications ;ulysseklatzmann@gmail.com;31;48;71;73;24;46
@@ -8,13 +8,13 @@ INF225 - Bases de données  ;ulysseklatzmann@gmail.com;16;71;57;96;37;77
 INF224 - Paradigmes de programmation ;ulysseklatzmann@gmail.com;16;76;22;71;24;74
 INF223 - Concurrence et communication ;ulysseklatzmann@gmail.com;22;70;33;53;41;29
 INF220 - Concepts fondamentaux de la sécurité ;ulysseklatzmann@gmail.com;9;100;52;70;24;76
-INF341 - Spécifications, modélisation et conception de systèmes logiciels ;debergue@telecom-paristech.fr;77;62;15;53;31;
-INF227 - Architecture et parallélisme ;debergue@telecom-paristech.fr;21;28;55;56;24;
-SI221 - Bases de la reconnaissance des formes ;debergue@telecom-paristech.fr;40;80;73;66;52;
+INF341 - Spécifications, modélisation et conception de systèmes logiciels ;debergue@telecom-paristech.fr;77;62;15;53;31;None
+INF227 - Architecture et parallélisme ;debergue@telecom-paristech.fr;21;28;55;56;24;None
+SI221 - Bases de la reconnaissance des formes ;debergue@telecom-paristech.fr;40;80;73;66;52;None
 INF223 - Concurrence et communication ;peraldi@telecom-paristech.fr;29;64;0;51;67;65
-ELECINF381 - Projet architecture des systèmes embarqués ;peron@telecom-paristech.fr;100;100;37;18;86;
-ELECINF344 - Architecture des systèmes embarqués ;peron@telecom-paristech.fr;100;100;21;16;90;
-INFSI351 - Interfaces hommes-machines ;debergue@telecom-paristech.fr;83;84;55;22;83;
+ELECINF381 - Projet architecture des systèmes embarqués ;peron@telecom-paristech.fr;100;100;37;18;86;None
+ELECINF344 - Architecture des systèmes embarqués ;peron@telecom-paristech.fr;100;100;21;16;90;None
+INFSI351 - Interfaces hommes-machines ;debergue@telecom-paristech.fr;83;84;55;22;83;None
 COM224 - Codage correcteur d'erreurs et performances de systèmes codés ;vdurand@telecom-paristech.fr;0;18;85;81;22;85
 INF225 - Bases de données  ;vdurand@telecom-paristech.fr;0;42;13;70;28;40
 INF222 - Modèles et vérification ;vdurand@telecom-paristech.fr;29;21;0;85;50;22
@@ -26,20 +26,20 @@ SI241 - Traitement et analyse des images ;depreux@telecom-paristech.fr;82;70;82;
 SI224 - Bases de la mécanique quantique ;depreux@telecom-paristech.fr;0;0;85;100;85;51
 SI221 - Bases de la reconnaissance des formes ;depreux@telecom-paristech.fr;26;53;59;50;38;51
 INF224 - Paradigmes de programmation ;depreux@telecom-paristech.fr;0;87;0;43;0;49
-MDI243 - Algèbre ;lagree@telecom-paristech.fr;42;23;100;100;59;
-MDI241 - Probabilités ++ ;lagree@telecom-paristech.fr;0;0;96;94;20;
+MDI243 - Algèbre ;lagree@telecom-paristech.fr;42;23;100;100;59;None
+MDI241 - Probabilités ++ ;lagree@telecom-paristech.fr;0;0;96;94;20;None
 INFMDI356 - Cryptographie ;lagree@telecom-paristech.fr;54;41;57;63;25;85
-INF223 - Concurrence et communication ;lagree@telecom-paristech.fr;21;79;1;50;43;
-INF358 - Sécurité des systèmes d'information ;lagree@telecom-paristech.fr;68;29;20;49;0;
-INF226 - Algorithmes et complexité ;lagree@telecom-paristech.fr;8;35;62;50;56;
-SES221 - IDEE: Innovation et développement, approche économique ;belhalfa@telecom-paristech.fr;54;0;17;50;77;
-INF224 - Paradigmes de programmation ;belhalfa@telecom-paristech.fr;0;76;0;74;21;
-SES222 - Technologies et société ;belhalfa@telecom-paristech.fr;80;0;0;77;0;
-RES221 - Trafic, files d'attente et réseaux ;belhalfa@telecom-paristech.fr;0;34;100;100;50;
-SES241 - Economie et stratégie ;belhalfa@telecom-paristech.fr;75;0;0;66;28;
+INF223 - Concurrence et communication ;lagree@telecom-paristech.fr;21;79;1;50;43;None
+INF358 - Sécurité des systèmes d'information ;lagree@telecom-paristech.fr;68;29;20;49;0;None
+INF226 - Algorithmes et complexité ;lagree@telecom-paristech.fr;8;35;62;50;56;None
+SES221 - IDEE: Innovation et développement, approche économique ;belhalfa@telecom-paristech.fr;54;0;17;50;77;None
+INF224 - Paradigmes de programmation ;belhalfa@telecom-paristech.fr;0;76;0;74;21;None
+SES222 - Technologies et société ;belhalfa@telecom-paristech.fr;80;0;0;77;0;None
+RES221 - Trafic, files d'attente et réseaux ;belhalfa@telecom-paristech.fr;0;34;100;100;50;None
+SES241 - Economie et stratégie ;belhalfa@telecom-paristech.fr;75;0;0;66;28;None
 INF224 - Paradigmes de programmation ;nowinsky@telecom-paristech.fr;0;79;0;70;39;32
 SES221 - IDEE: Innovation et développement, approche économique ;nowinsky@telecom-paristech.fr;53;12;32;55;50;99
-INF221 - Programmation logique et connaissances ;sauget@telecom-paristech.fr;0;50;51;50;0;
+INF221 - Programmation logique et connaissances ;sauget@telecom-paristech.fr;0;50;51;50;0;None
 INF221 - Programmation logique et connaissances ;lostanle@telecom-paristech.fr;0;56;58;36;4;85
 INF220 - Concepts fondamentaux de la sécurité ;meheut@telecom-paristech.fr;9;43;43;63;35;70
 INF222 - Modèles et vérification ;meheut@telecom-paristech.fr;27;0;0;50;31;10
@@ -50,78 +50,78 @@ INF224 - Paradigmes de programmation ;meheut@telecom-paristech.fr;19;100;31;70;2
 COMMDI225 - Théorie de l information et du codage ;meheut@telecom-paristech.fr;0;26;100;100;81;75
 MDI220 - Statistiques ;lostanle@telecom-paristech.fr;27;16;91;90;74;75
 INF224 - Paradigmes de programmation ;lostanle@telecom-paristech.fr;13;81;0;50;27;10
-INF224 - Paradigmes de programmation ;csillag@telecom-paristech.fr;4;59;2;79;30;
+INF224 - Paradigmes de programmation ;csillag@telecom-paristech.fr;4;59;2;79;30;None
 SI341 - Méthodes avancées pour le traitement du signal ;lostanle@telecom-paristech.fr;0;71;81;64;0;75
 SI220 - Acoustique ;lostanle@telecom-paristech.fr;34;0;70;76;50;60
-INF222 - Modèles et vérification ;bunzl@telecom-paristech.fr;22;15;14;79;24;
-INF223 - Concurrence et communication ;bunzl@telecom-paristech.fr;15;76;14;55;52;
-SES242 - Management par projet et sociologie de l'innovation ;acousin@telecom-paristech.fr;0;2;21;36;21;
-MDI342 - Calcul de Malliavin et analyse stochastique ;acousin@telecom-paristech.fr;0;0;98;100;86;
-MDI241 - Probabilités ++ ;acousin@telecom-paristech.fr;0;0;99;100;75;
-MDI220 - Hilbert Fourier;acousin@telecom-paristech.fr;0;0;99;69;50;
-SIMDI226 - Statistiques des séries temporelles ;acousin@telecom-paristech.fr;69;28;61;73;43;
+INF222 - Modèles et vérification ;bunzl@telecom-paristech.fr;22;15;14;79;24;None
+INF223 - Concurrence et communication ;bunzl@telecom-paristech.fr;15;76;14;55;52;None
+SES242 - Management par projet et sociologie de l'innovation ;acousin@telecom-paristech.fr;0;2;21;36;21;None
+MDI342 - Calcul de Malliavin et analyse stochastique ;acousin@telecom-paristech.fr;0;0;98;100;86;None
+MDI241 - Probabilités ++ ;acousin@telecom-paristech.fr;0;0;99;100;75;None
+MDI220 - Hilbert Fourier;acousin@telecom-paristech.fr;0;0;99;69;50;None
+SIMDI226 - Statistiques des séries temporelles ;acousin@telecom-paristech.fr;69;28;61;73;43;None
 SES381 - Projet d'innovation ;depreux@telecom-paristech.fr;100;0;0;73;26;90
-INF222 - Modèles et vérification ;debergue@telecom-paristech.fr;43;10;0;67;33;
-INF224 - Paradigmes de programmation ;debergue@telecom-paristech.fr;0;82;0;42;31;
+INF222 - Modèles et vérification ;debergue@telecom-paristech.fr;43;10;0;67;33;None
+INF224 - Paradigmes de programmation ;debergue@telecom-paristech.fr;0;82;0;42;31;None
 MDI241 - Probabilités ++ ;picq@telecom-paristech.fr;0;4;100;100;81;80
-INFSES344 - Syst?mes d'information et management;picq@telecom-paristech.fr;50;25;0;68;23;45
+INFSES344 - Systèmes d'information et management;picq@telecom-paristech.fr;50;25;0;68;23;45
 SES240 - Management de l'entreprise : fondamentaux en stratégie / finance / marketing ;picq@telecom-paristech.fr;50;0;0;25;0;40
 MDI343 - Apprentissage statistique et fouille de donnees ;picq@telecom-paristech.fr;68;80;84;85;51;90
-INFSI350 - Informatique graphique 3D et réalité virtuelle ;jcornic@telecom-paristech.fr;100;83;76;77;74;
-INF380 - Projet d'?quipe en informatique;jcornic@telecom-paristech.fr;100;86;23;23;50;
-INF224 - Paradigmes de programmation ;jcornic@telecom-paristech.fr;0;83;0;52;50;
+INFSI350 - Informatique graphique 3D et réalité virtuelle ;jcornic@telecom-paristech.fr;100;83;76;77;74;None
+INF380 - Projet d'équipe en informatique;jcornic@telecom-paristech.fr;100;86;23;23;50;None
+INF224 - Paradigmes de programmation ;jcornic@telecom-paristech.fr;0;83;0;52;50;None
 MDI220 - Hilbert Fourier;ulysseklatzmann@gmail.com;4;10;83;90;26;95
-SIMDI226 - Statistiques des séries temporelles ;bunzl@telecom-paristech.fr;5;19;100;100;82;
+SIMDI226 - Statistiques des séries temporelles ;bunzl@telecom-paristech.fr;5;19;100;100;82;None
 MDI220 - Statistiques ;ulysseklatzmann@gmail.com;72;12;68;62;75;77
-MDI220 - Statistiques ;bunzl@telecom-paristech.fr;29;47;90;89;72;
-MDI224 - Méthodes d'optimisation continue et applications ;bunzl@telecom-paristech.fr;31;40;80;69;55;
-INF225 - Bases de données  ;bunzl@telecom-paristech.fr;30;78;50;73;50;
-SES240 - Management de l'entreprise : fondamentaux en stratégie / finance / marketing ;bunzl@telecom-paristech.fr;100;0;0;31;33;
-MDI343 - Apprentissage statistique et fouille de donnees ;bunzl@telecom-paristech.fr;63;80;81;81;61;
-INFSES344 - Syst?mes d'information et management;bunzl@telecom-paristech.fr;86;20;31;59;59;
-INFSI350 - Informatique graphique 3D et réalité virtuelle ;schumach@telecom-paristech.fr;83;83;50;31;72;
-RES221 - Trafic, files d'attente et réseaux ;derrien@telecom-paristech.fr;0;0;79;25;81;
-INF225 - Bases de données  ;derrien@telecom-paristech.fr;0;48;0;65;80;
-INFSES344 - Syst?mes d'information et management;amri@telecom-paristech.fr;100;0;0;58;0;
-SES240 - Management de l'entreprise : fondamentaux en stratégie / finance / marketing ;amri@telecom-paristech.fr;35;0;54;97;68;
-SES341 - Création d'entreprise ;amri@telecom-paristech.fr;76;0;61;18;20;
-INFSI350 - Informatique graphique 3D et réalité virtuelle ;gachet@telecom-paristech.fr;74;84;47;69;86;
-SES340 - Techniques de l'économiste et du gestionnaire ;scharff@telecom-paristech.fr;51;20;71;50;0;
-INFSES344 - Syst?mes d'information et management;scharff@telecom-paristech.fr;80;32;0;73;67;
+MDI220 - Statistiques ;bunzl@telecom-paristech.fr;29;47;90;89;72;None
+MDI224 - Méthodes d'optimisation continue et applications ;bunzl@telecom-paristech.fr;31;40;80;69;55;None
+INF225 - Bases de données  ;bunzl@telecom-paristech.fr;30;78;50;73;50;None
+SES240 - Management de l'entreprise : fondamentaux en stratégie / finance / marketing ;bunzl@telecom-paristech.fr;100;0;0;31;33;None
+MDI343 - Apprentissage statistique et fouille de donnees ;bunzl@telecom-paristech.fr;63;80;81;81;61;None
+INFSES344 - Systèmes d'information et management;bunzl@telecom-paristech.fr;86;20;31;59;59;None
+INFSI350 - Informatique graphique 3D et réalité virtuelle ;schumach@telecom-paristech.fr;83;83;50;31;72;None
+RES221 - Trafic, files d'attente et réseaux ;derrien@telecom-paristech.fr;0;0;79;25;81;None
+INF225 - Bases de données  ;derrien@telecom-paristech.fr;0;48;0;65;80;None
+INFSES344 - Systèmes d'information et management;amri@telecom-paristech.fr;100;0;0;58;0;None
+SES240 - Management de l'entreprise : fondamentaux en stratégie / finance / marketing ;amri@telecom-paristech.fr;35;0;54;97;68;None
+SES341 - Création d'entreprise ;amri@telecom-paristech.fr;76;0;61;18;20;None
+INFSI350 - Informatique graphique 3D et réalité virtuelle ;gachet@telecom-paristech.fr;74;84;47;69;86;None
+SES340 - Techniques de l'économiste et du gestionnaire ;scharff@telecom-paristech.fr;51;20;71;50;0;None
+INFSES344 - Systèmes d'information et management;scharff@telecom-paristech.fr;80;32;0;73;67;None
 RES224 - Architecture des applications Internet ;vdurand@telecom-paristech.fr;4;14;8;73;11;55
-SES341 - Création d'entreprise ;scharff@telecom-paristech.fr;63;0;0;30;51;
+SES341 - Création d'entreprise ;scharff@telecom-paristech.fr;63;0;0;30;51;None
 RES223 - Internet ;vdurand@telecom-paristech.fr;0;19;0;66;20;60
-INF222 - Modèles et vérification ;ljullien@telecom-paristech.fr;50;0;0;100;50;
-INFSI351 - Interfaces hommes-machines ;ljullien@telecom-paristech.fr;77;63;35;23;68;
-INFSI350 - Informatique graphique 3D et réalité virtuelle ;ljullien@telecom-paristech.fr;92;80;40;62;81;
-MDI220 - Statistiques ;ljullien@telecom-paristech.fr;11;22;100;100;84;
-SI345 - Application du traitement des images ;ljullien@telecom-paristech.fr;0;17;18;44;24;
-SI221 - Bases de la reconnaissance des formes ;baylocq@telecom-paristech.fr;19;52;100;72;31;
-MDI220 - Statistiques ;baylocq@telecom-paristech.fr;23;0;100;100;52;
-SES221 - IDEE: Innovation et développement, approche économique ;baylocq@telecom-paristech.fr;99;0;0;63;0;
-SIMDI226 - Statistiques des séries temporelles ;baylocq@telecom-paristech.fr;0;34;100;100;81;
-SES241 - Economie et stratégie ;baylocq@telecom-paristech.fr;100;0;50;50;33;
-SES240 - Management de l'entreprise : fondamentaux en stratégie / finance / marketing ;baylocq@telecom-paristech.fr;100;0;0;9;20;
-SI241 - Traitement et analyse des images ;baylocq@telecom-paristech.fr;100;100;100;100;0;
-SES349 - Télécom, Internet, Médias (stratégie et acteurs) ;baylocq@telecom-paristech.fr;83;0;0;99;0;
-SES340 - Techniques de l'économiste et du gestionnaire ;baylocq@telecom-paristech.fr;50;30;67;66;0;
+INF222 - Modèles et vérification ;ljullien@telecom-paristech.fr;50;0;0;100;50;None
+INFSI351 - Interfaces hommes-machines ;ljullien@telecom-paristech.fr;77;63;35;23;68;None
+INFSI350 - Informatique graphique 3D et réalité virtuelle ;ljullien@telecom-paristech.fr;92;80;40;62;81;None
+MDI220 - Statistiques ;ljullien@telecom-paristech.fr;11;22;100;100;84;None
+SI345 - Application du traitement des images ;ljullien@telecom-paristech.fr;0;17;18;44;24;None
+SI221 - Bases de la reconnaissance des formes ;baylocq@telecom-paristech.fr;19;52;100;72;31;None
+MDI220 - Statistiques ;baylocq@telecom-paristech.fr;23;0;100;100;52;None
+SES221 - IDEE: Innovation et développement, approche économique ;baylocq@telecom-paristech.fr;99;0;0;63;0;None
+SIMDI226 - Statistiques des séries temporelles ;baylocq@telecom-paristech.fr;0;34;100;100;81;None
+SES241 - Economie et stratégie ;baylocq@telecom-paristech.fr;100;0;50;50;33;None
+SES240 - Management de l'entreprise : fondamentaux en stratégie / finance / marketing ;baylocq@telecom-paristech.fr;100;0;0;9;20;None
+SI241 - Traitement et analyse des images ;baylocq@telecom-paristech.fr;100;100;100;100;0;None
+SES349 - Télécom, Internet, Médias (stratégie et acteurs) ;baylocq@telecom-paristech.fr;83;0;0;99;0;None
+SES340 - Techniques de l'économiste et du gestionnaire ;baylocq@telecom-paristech.fr;50;30;67;66;0;None
 INF220 - Concepts fondamentaux de la sécurité ;abramovi@telecom-paristech.fr;0;18;57;80;23;84
-ELECINF344 - Architecture des systèmes embarqués ;chelfi@telecom-paristech.fr;65;100;6;1;85;
-ELECINF381 - Projet architecture des systèmes embarqués ;chelfi@telecom-paristech.fr;100;100;50;23;100;
-SES247 - Management et design de l'innovation technologique ;jegou@telecom-paristech.fr;66;0;0;51;50;
+ELECINF344 - Architecture des systèmes embarqués ;chelfi@telecom-paristech.fr;65;100;6;1;85;None
+ELECINF381 - Projet architecture des systèmes embarqués ;chelfi@telecom-paristech.fr;100;100;50;23;100;None
+SES247 - Management et design de l'innovation technologique ;jegou@telecom-paristech.fr;66;0;0;51;50;None
 SI227 - Etudes de cas en signal ;lostanle@telecom-paristech.fr;14;79;83;63;14;40
 SIMDI226 - Statistiques des séries temporelles ;lostanle@telecom-paristech.fr;0;0;100;100;82;20
-COM220 - Communications optiques ;clavello@telecom-paristech.fr;0;0;64;59;52;
-COM221 - Communications radiofréquences ;clavello@telecom-paristech.fr;0;0;58;68;35;
-COM222 - Systèmes de communications ;clavello@telecom-paristech.fr;85;71;75;67;21;
-COM223 - Modulations numériques ;clavello@telecom-paristech.fr;1;13;85;79;89;
-COM340 - Systèmes optiques ;clavello@telecom-paristech.fr;0;0;2;18;19;
-COM342 - Systèmes radio ;clavello@telecom-paristech.fr;0;0;18;73;31;
+COM220 - Communications optiques ;clavello@telecom-paristech.fr;0;0;64;59;52;None
+COM221 - Communications radiofréquences ;clavello@telecom-paristech.fr;0;0;58;68;35;None
+COM222 - Systèmes de communications ;clavello@telecom-paristech.fr;85;71;75;67;21;None
+COM223 - Modulations numériques ;clavello@telecom-paristech.fr;1;13;85;79;89;None
+COM340 - Systèmes optiques ;clavello@telecom-paristech.fr;0;0;2;18;19;None
+COM342 - Systèmes radio ;clavello@telecom-paristech.fr;0;0;18;73;31;None
 INFSI351 - Interfaces hommes-machines ;vdurand@telecom-paristech.fr;83;78;21;66;68;60
-SI223 - Optique non linéaire ;clavello@telecom-paristech.fr;0;0;73;33;33;
+SI223 - Optique non linéaire ;clavello@telecom-paristech.fr;0;0;73;33;33;None
 INF341 - Spécifications, modélisation et conception de systèmes logiciels ;vdurand@telecom-paristech.fr;55;0;0;73;45;35
-SI224 - Bases de la mécanique quantique ;clavello@telecom-paristech.fr;0;0;69;65;36;
-RES223 - Internet ;clavello@telecom-paristech.fr;20;26;0;27;24;
+SI224 - Bases de la mécanique quantique ;clavello@telecom-paristech.fr;0;0;69;65;36;None
+RES223 - Internet ;clavello@telecom-paristech.fr;20;26;0;27;24;None
 COM223 - Modulations numériques ;mattei@telecom-paristech.fr;0;0;100;100;100;65
 COM346 - Systèmes de communications satellitaires et aéroportés ;mattei@telecom-paristech.fr;72;0;0;21;31;100
 SI241 - Traitement et analyse des images ;mattei@telecom-paristech.fr;100;92;71;77;100;78
@@ -134,26 +134,26 @@ INFSI350 - Informatique graphique 3D et réalité virtuelle ;peraldi@telecom-par
 SI241 - Traitement et analyse des images ;peraldi@telecom-paristech.fr;50;63;50;50;59;90
 SES349 - Télécom, Internet, Médias (stratégie et acteurs) ;xqi@telecom-paristech.fr;70;0;0;0;0;70
 SES349 - Télécom, Internet, Médias (stratégie et acteurs) ;xqi@telecom-paristech.fr;70;0;0;0;0;70
-INFSI350 - Informatique graphique 3D et réalité virtuelle ;tfrancoi@telecom-paristech.fr;71;83;52;50;65;
-INF341 - Spécifications, modélisation et conception de systèmes logiciels ;oudet@telecom-paristech.fr;0;50;0;79;0;
-SI343 - Méthodes avancées de traitement des images ;derome@telecom-paristech.fr;50;69;83;77;65;
+INFSI350 - Informatique graphique 3D et réalité virtuelle ;tfrancoi@telecom-paristech.fr;71;83;52;50;65;None
+INF341 - Spécifications, modélisation et conception de systèmes logiciels ;oudet@telecom-paristech.fr;0;50;0;79;0;None
+SI343 - Méthodes avancées de traitement des images ;derome@telecom-paristech.fr;50;69;83;77;65;None
 INF224 - Paradigmes de programmation ;peraldi@telecom-paristech.fr;0;65;2;50;55;70
 INF225 - Bases de données  ;peraldi@telecom-paristech.fr;6;56;12;64;50;65
 INFSI351 - Interfaces hommes-machines ;peraldi@telecom-paristech.fr;96;95;0;69;75;75
 SI221 - Bases de la reconnaissance des formes ;peraldi@telecom-paristech.fr;0;62;79;79;33;80
 SI344 - Vision artificielle et raisonnement dans les images ;peraldi@telecom-paristech.fr;0;61;62;50;18;65
-ELECINF344 - Architecture des systèmes embarqués ;ract@telecom-paristech.fr;89;83;15;31;85;
-ELEC223 - Pratique des systèmes à microprocesseurs ;ract@telecom-paristech.fr;21;85;15;65;50;
-SI227 - Etudes de cas en signal ;penin@telecom-paristech.fr;0;80;68;50;50;
-SES240 - Management de l'entreprise : fondamentaux en stratégie / finance / marketing ;penin@telecom-paristech.fr;49;0;9;18;24;
-SI222 - Techniques de compression ;penin@telecom-paristech.fr;0;31;55;55;32;
+ELECINF344 - Architecture des systèmes embarqués ;ract@telecom-paristech.fr;89;83;15;31;85;None
+ELEC223 - Pratique des systèmes à microprocesseurs ;ract@telecom-paristech.fr;21;85;15;65;50;None
+SI227 - Etudes de cas en signal ;penin@telecom-paristech.fr;0;80;68;50;50;None
+SES240 - Management de l'entreprise : fondamentaux en stratégie / finance / marketing ;penin@telecom-paristech.fr;49;0;9;18;24;None
+SI222 - Techniques de compression ;penin@telecom-paristech.fr;0;31;55;55;32;None
 SES381 - Projet d'innovation ;vdurand@telecom-paristech.fr;99;80;34;40;67;90
 INF347 - Ingénierie du Web ;vdurand@telecom-paristech.fr;13;82;0;43;41;90
-INFSI351 - Interfaces hommes-machines ;jcornic@telecom-paristech.fr;74;99;17;29;80;
-SES247 - Management et design de l'innovation technologique ;desa@telecom-paristech.fr;70;0;11;59;62;
-SES381 - Projet d'innovation ;desa@telecom-paristech.fr;100;45;13;28;26;
+INFSI351 - Interfaces hommes-machines ;jcornic@telecom-paristech.fr;74;99;17;29;80;None
+SES247 - Management et design de l'innovation technologique ;desa@telecom-paristech.fr;70;0;11;59;62;None
+SES381 - Projet d'innovation ;desa@telecom-paristech.fr;100;45;13;28;26;None
 INF340 - Théorie de l'informatique ;ulysseklatzmann@gmail.com;0;0;100;100;50;82
-INF227 - Architecture et parallélisme ;amartin@telecom-paristech.fr;0;32;0;67;30;
+INF227 - Architecture et parallélisme ;amartin@telecom-paristech.fr;0;32;0;67;30;None
 SES344 - Innovation et recherche en sciences humaines : Projets Incubateur ;nowinsky@telecom-paristech.fr;76;15;20;29;74;87
 INF347 - Ingénierie du Web ;nowinsky@telecom-paristech.fr;22;81;13;35;58;93
 INFMDI348 - SI décisionnels et gestion de la relation client ;picq@telecom-paristech.fr;90;68;0;39;22;80
@@ -162,7 +162,7 @@ SI345 - Application du traitement des images ;mattei@telecom-paristech.fr;0;0;50
 INF221 - Programmation logique et connaissances ;abramovi@telecom-paristech.fr;0;64;63;74;57;25
 RES224 - Architecture des applications Internet ;abramovi@telecom-paristech.fr;0;14;16;82;28;91
 INFMDI348 - SI décisionnels et gestion de la relation client ;bunzl@telecom-paristech.fr;0;39;65;56;29;33
-PJL380 - Projet libre ;xqi@telecom-paristech.fr;0;0;0;0;0;
+PJL380 - Projet libre ;xqi@telecom-paristech.fr;0;0;0;0;0;None
 PJL380 - Projet libre ;xqi@telecom-paristech.fr;0;0;0;0;0;100
 SI350 - Vidéo numérique et multimédia ;depreux@telecom-paristech.fr;15;42;20;62;31;95
 ELEC342 - Conception des Systems on chip ;tardivon@telecom-paristech.fr;100;100;0;25;38;100
@@ -247,7 +247,7 @@ TA14 - De la Terre aux étoiles : mécanique céleste et physique stellaire;mehe
 MDI342 - Calcul de Malliavin et analyse stochastique ;botteede@telecom-paristech.fr;24;0;100;100;50;35
 SI393 - Multimedia Indexing and Retrieval (TPT17);lostanle@telecom-paristech.fr;100;79;67;50;67;50
 WUT14 -  Knowledge Systems;lostanle@telecom-paristech.fr;0;0;40;76;15;82
-UPM14 - Accessible Web Design;jcornic@telecom-paristech.fr;79;12;0;50;96;0
+UPM14 - Accessible Web Design;jcornic@telecom-paristech.fr;79;12;0;50;96;None
 MP12 - Musique, science, histoire;jcornic@telecom-paristech.fr;0;0;16;50;86;50
 KUL16 - Fundamentals of Artificial Intelligence;debergue@telecom-paristech.fr;26;18;83;94;40;100
 SES240 - Management de l'entreprise : fondamentaux en stratégie / finance / marketing ;collette@telecom-paristech.fr;64;0;5;77;34;97
@@ -342,7 +342,7 @@ INFSI351 - Interfaces hommes-machines ;viano@telecom-paristech.fr;82;49;0;50;26;
 INFMDI340 - Algorithmes, combinatoire et optimisation ;couteau@telecom-paristech.fr;0;0;100;71;22;100
 PJL380 - Projet libre ;couteau@telecom-paristech.fr;50;50;50;50;0;100
 MDI224 - Méthodes d'optimisation continue et applications ;gombert@telecom-paristech.fr;0;100;100;100;50;100
-SI220 - Acoustique ;gombert@telecom-paristech.fr;0;0;50;100;0;0
+SI220 - Acoustique ;gombert@telecom-paristech.fr;0;0;50;100;0;None
 SI227 - Etudes de cas en signal ;gombert@telecom-paristech.fr;100;100;100;100;50;100
 SI341 - Méthodes avancées pour le traitement du signal ;gombert@telecom-paristech.fr;50;100;100;100;50;50
 SI344 - Vision artificielle et raisonnement dans les images ;gobetti@telecom-paristech.fr;0;0;71;100;0;71

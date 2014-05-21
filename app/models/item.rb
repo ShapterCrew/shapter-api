@@ -81,7 +81,7 @@ class Item
       c = diagrams.count
       if c > 0
         d =  diagrams.reduce(:+)
-        d.values = d.values.map{|v| v.to_f/c}.map(&:round)
+        d.values = d.values.map{|v| v.to_f/c}.map{|n| n.round(1)}
       else
         d = Diagram.new_empty
       end

@@ -16,9 +16,9 @@ module Shapter
         return [] unless first_tag
         init = first_tag.items
         return init if ary.size == 1
-        ary[1..-1].reduce(init) do |aa, tag_id|
+        ary[1..-1].reduce(init) { |aa, tag_id|
           aa = aa & Tag.where(id: tag_id).flat_map(&:items)
-        end
+        }.sort_by(&natural_sort)
       end
       #}}}
 
@@ -116,6 +116,15 @@ module Shapter
           ].join(":")
         }
         .join("|")
+      end
+
+      def natural_sort
+        Proc.new do |item|
+          item.name
+          .downcase
+          .gsub("/àÀáÁãÃâÂäÄ/","a")
+          .gsub("/éÉèÈêÊẽẼëË/",'e')
+        end
       end
 
     end

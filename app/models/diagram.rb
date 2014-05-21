@@ -56,7 +56,7 @@ class Diagram
         "Qualité"          , #06
         "Dur à valider"    , #07
         "Fun"              , #08
-        "Pipo"             , #09
+        "Pipeau"           , #09
       ]
     end
 

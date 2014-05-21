@@ -24,6 +24,52 @@ describe Shapter::V3::Items do
     @item2.reload
   end
 
+  #{{{ create_with_tags
+  describe :create_with_tags do
+    before do 
+      login(@user)
+    end
+    context "when non admin user" do 
+      before do 
+        User.any_instance.stub(:shapter_admin).and_return(false)
+      end
+
+      it "denies access" do 
+        post "items/create_with_tags", {:itemNames => ["fooitem","baritem"], :tagNames => ["footag","bartag"]}
+        access_denied(@response).should be_true
+      end
+    end
+
+    context "when admin" do 
+      before do 
+        User.any_instance.stub(:shapter_admin).and_return(true)
+        post "items/create_with_tags", {:itemNames => ["fooitem","baritem"], :tagNames => ["footag","bartag"]}
+      end
+
+      it "allows access" do 
+        access_denied(@response).should be_false
+      end
+
+      it 'creates properly named item' do 
+        Item.where(name: "fooitem").exists?.should be_true
+        Item.where(name: "baritem").exists?.should be_true
+      end
+
+      it 'creates item with proper tags' do 
+        Item.find_by(name: "fooitem").tags.map(&:name).should =~ ["footag","bartag","fooitem"]
+        Item.find_by(name: "baritem").tags.map(&:name).should =~ ["footag","bartag","baritem"]
+      end
+
+      it 'given tags are properly created/updated' do 
+        Tag.where(name: "footag").exists?.should be_true
+        i1 = Item.find_by(name: "fooitem")
+        i2 = Item.find_by(name: "baritem")
+        Tag.find_by(name: "footag").items.map(&:id).map(&:to_s).should =~ [i1,i2].map(&:id).map(&:to_s)
+      end
+    end
+  end
+  #}}}
+
   # {{{ filter
   describe :filter do 
     context "when logged off" do 
@@ -295,7 +341,7 @@ describe Shapter::V3::Items do
           put "items/#{@item.id}/tags/newtag"
           @item.reload
           @item.tags.sort_by(&:updated_at).last.name.should == "newtag"
-          Tag.last.name.should == "newtag"
+          Tag.all.sort_by(&:updated_at).last.name.should == "newtag"
         end
       end
     end

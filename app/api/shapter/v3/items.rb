@@ -38,6 +38,29 @@ module Shapter
         end
         #}}}
 
+        #{{{ create
+        desc "create multiple items, all of them being tagged with some tags (using tag names)"
+        params do 
+          requires :itemNames, type: Array, desc: "name of the items to create"
+          optional :tagNames, type: Array, desc: "array of tag names to associate with the created items" 
+        end
+        post :create_with_tags do 
+          check_user_admin!
+          its  = params[:itemNames].map{|n| Item.new(name: n.strip)}
+          tags = params[:tagNames].map{|n| Tag.find_or_create_by(name: n.strip)}
+
+          its.each do |item|
+            tags.each{|t| item.tags << t}
+            item.tags << Tag.find_or_create_by(name: item.name)
+            item.save
+          end
+          tags.each(&:save)
+
+          present :status, "created"
+          present :items, its, with: Shapter::Entities::ItemShort
+        end
+        #}}}
+
         namespace ':id' do 
           before do 
             params do 

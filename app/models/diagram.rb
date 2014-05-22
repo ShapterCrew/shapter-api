@@ -31,6 +31,20 @@ class Diagram
     )
   end
 
+  def count_els diag
+    Diagram.new(
+      values: self.values.zip(diag.values)
+      .map{|a| (a.first.nil? ? 0 : 1) + (a.last.nil? ? 0 : 1)}
+    )
+  end
+
+  def / diag
+    Diagram.new(
+      values: self.values.zip(diag.values)
+      .map{|a| a.last.to_i == 0 ? 50 : a.first.to_f/a.last }
+    )
+  end
+
   def pretty_id
     id.to_s
   end

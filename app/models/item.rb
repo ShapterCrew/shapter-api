@@ -78,15 +78,13 @@ class Item
 
   def avg_diag
     @avg_diag ||= (
-      c = diagrams.count
-      if c > 0
-        d =  diagrams.reduce(:+)
-        d.values = d.values.map{|v| v.to_f/c}.map{|n| n.round(1)}
-      else
+      if diagrams.empty?
         d = Diagram.new_empty
+      else
+        d = diagrams.reduce(:+) / diagrams.reduce(:count_els)
       end
-      d.item = self
-      d
+    d.item = self
+    d
     )
   end
 

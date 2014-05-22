@@ -101,7 +101,7 @@ module Shapter
 
                   items = filter_items2(item_ids)
 
-                  present :nb_of_steps, tag.signup_funnel_tag_list.size
+                  present :total_nb_of_steps, tag.signup_funnel_tag_list.size
                   present :name, name
                   present :items, items, with: Shapter::Entities::ItemId
                   end

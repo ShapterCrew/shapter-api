@@ -86,6 +86,27 @@ describe Item do
       avg_d.item.should == @item
 
     end
+
+    it "deals with nil values" do 
+      d1 = Diagram.new(
+        item: @item,
+        values: [1,nil,2,3],
+        author: @user,
+      )
+      d2 = Diagram.new(
+        item: @item,
+        values: [nil,nil,4,5],
+        author: @user,
+      )
+
+      @item.diagrams << d1
+      @item.diagrams << d2
+      @item.save
+      @item.reload
+
+      avg_d = @item.avg_diag
+      avg_d.values.should == [ 1, 50, 3, 4 ]
+    end
   end
   #}}}
 

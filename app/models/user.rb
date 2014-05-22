@@ -80,6 +80,20 @@ class User
   before_save :items_touch
   before_save :comments_touch
 
+  def comments
+    Rails.cache.fetch("userComms|#{id}|#{updated_at.try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
+      Item.where("comments.author_id" => self.id).flat_map{|i| i.comments.where(author: self)}
+    end
+  end
+
+  def comments_likes_count
+    comments.map(&:likers_count).reduce(:+)
+  end
+
+  def comments_dislikes_count
+    comments.map(&:dislikers_count).reduce(:+)
+  end
+
   private
 
   def items_touch
@@ -98,11 +112,11 @@ class User
   def set_school
     self.schools << Tag.find_or_create_by(name: "Centrale Lyon") if (email =~ /.*@ecl[0-9]+.ec-lyon.fr/ or email =~ /.*@auditeur.ec-lyon.fr/)
     self.schools << Tag.find_or_create_by(name: "Centrale Paris") if email =~ /.*@student.ecp.fr/
-    self.schools << Tag.find_or_create_by(name: "HEC") if email =~ /.*@hec.edu/
+      self.schools << Tag.find_or_create_by(name: "HEC") if email =~ /.*@hec.edu/
 
-    if perm = SignupPermission.find_by(email: self.email)
-      self.schools << Tag.find_or_create_by(name: perm.school_name)
-    end
+      if perm = SignupPermission.find_by(email: self.email)
+        self.schools << Tag.find_or_create_by(name: perm.school_name)
+      end
   end
 
 end

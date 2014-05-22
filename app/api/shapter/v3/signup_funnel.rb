@@ -32,7 +32,15 @@ module Shapter
               requires :signup_funnel, type: Array
             end
             put do
-              @tag.signup_funnel_tag_list = params[:signup_funnel]
+
+              clean_params = params[:signup_funnel].map{|step|
+                {
+                  :name => step["name"],
+                  :tag_ids => step["tag_ids"],
+                }
+              }
+
+              @tag.signup_funnel_tag_list = clean_params
               if @tag.save
                 present @tag.signup_funnel_tag_list
               else

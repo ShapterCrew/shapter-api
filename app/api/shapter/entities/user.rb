@@ -15,6 +15,8 @@ module Shapter
       expose :comments_likes_count
       expose :comments_dislikes_count
       expose :user_diagram, using: Shapter::Entities::Diagram
+
+      expose :sign_in_count
     end
   end
 end

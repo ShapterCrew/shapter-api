@@ -12,6 +12,7 @@ class API < Grape::API
     mount Shapter::V3::Users
     mount Shapter::V3::Diagrams
     mount Shapter::V3::SignupPermissions
+    mount Shapter::V3::SignupFunnel
     add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
   end
   version :v2, using: :accept_version_header, format: :json do

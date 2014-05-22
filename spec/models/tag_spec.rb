@@ -12,8 +12,56 @@ describe Tag do
     @i2 = FactoryGirl.create(:item) ; @i2.tags << @t2 ; @i2.save
   end
 
+  describe "validations" do 
+
+    #{{{ signup_funnel_tag_list
+    describe :signup_funnel_tag_list do 
+      before do 
+        @tag = FactoryGirl.build(:tag)
+        @signup = [
+          {name: "first", tag_ids: Tag.all.sample(2).map(&:id).map(&:to_s)},
+          {name: "second", tag_ids: Tag.all.sample(2).map(&:id).map(&:to_s)},
+        ]
+      end
+
+      it "validates proper structure" do 
+        @tag.signup_funnel_tag_list = @signup
+        @tag.valid?
+        @tag.valid?.should be_true
+      end
+
+      it "can be nil" do 
+        @tag.signup_funnel_tag_list = @signup
+        @tag.signup_funnel_tag_list = nil
+        @tag.valid?.should be_true
+      end
+
+      it "all list elements should be hashes" do 
+        @tag.signup_funnel_tag_list = @signup
+        @tag.signup_funnel_tag_list << "foo"
+        @tag.valid?.should be_false
+      end
+
+      it "all hashes in element should have name key" do 
+        @tag.signup_funnel_tag_list = @signup
+        @tag.signup_funnel_tag_list.last.delete(:name)
+        @tag.valid?.should be_false
+      end
+
+      it "all hashes in element should have tag_ids key" do 
+        @tag.signup_funnel_tag_list = @signup
+        @tag.signup_funnel_tag_list.last.delete(:tag_ids)
+        @tag.valid?.should be_false
+      end
+
+    end
+    #}}}
+
+  end
+
   describe "class methods" do
 
+    #{{{ merge tags
     describe "merge tags" do 
       it "should merge tags" do 
         @i1.tags.should == [@t1]
@@ -29,7 +77,7 @@ describe Tag do
         @t1.reload
         @i1.reload
         @i2.reload
-        
+
         # tag has items
         @t1.items.map(&:id).should =~ [@i1,@i2].map(&:id)
 
@@ -41,6 +89,7 @@ describe Tag do
         Tag.where(name: @t2.name).count.should == 0
       end
     end
+    #}}}
 
   end
 

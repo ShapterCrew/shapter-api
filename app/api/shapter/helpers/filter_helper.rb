@@ -58,7 +58,7 @@ module Shapter
         }
         .sort_by{|k,v| v}.reverse
         .reject{|tag,count| ary.include? tag.id.to_s}
-        .reject{|tag,count| tag.type.downcase == "cours"}
+        .reject{|tag,count| (tag.type || "").downcase == "cours"}
         end.take(limit)
         .map{|tag,count| {name: tag.name, id: tag.pretty_id, score: count, type: tag.type, description: tag.description}}
       end

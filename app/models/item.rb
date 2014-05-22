@@ -35,14 +35,6 @@ class Item
     end
   end
 
-  #def avg_quality_score
-  #  comments.where(:quality_score.exists => true).avg(:quality_score)
-  #end
-
-  #def avg_work_score
-  #  comments.where(:work_score.exists => true).avg(:work_score)
-  #end
-
   def pretty_id
     id.to_s
   end
@@ -76,16 +68,20 @@ class Item
     ok_admin or ok_school
   end
 
+  def raw_avg_diag
+    @raw_avg_diag ||= (
+      d =   if diagrams.empty?
+              Diagram.new_empty
+            else
+              (diagrams.reduce(:+) / diagrams.map(&:count_els).reduce(:+))
+            end
+    )
+  end
+
   def avg_diag
-    @avg_diag ||= (
-      if diagrams.empty?
-        d = Diagram.new_empty
-      else
-        d = diagrams.reduce(:+) / diagrams.reduce(:count_els)
-      end
+    d = raw_avg_diag.fill_with(50)
     d.item = self
     d
-    )
   end
 
   def diagrams_count

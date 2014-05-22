@@ -79,9 +79,11 @@ class Item
   end
 
   def avg_diag
+    @avg_diag ||= (
     d = raw_avg_diag.fill_with(50)
     d.item = self
     d
+    )
   end
 
   def diagrams_count

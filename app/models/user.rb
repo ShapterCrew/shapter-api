@@ -95,13 +95,15 @@ class User
   end
 
   def user_diagram
-    unless (diags = items.map(&:raw_avg_diag) ).empty?
-      d = (diags.reduce(:+) / diags.map(&:count_els).reduce(:+)).fill_with(50)
-      d.item = items.first
-    else
-      d = Diagram.new_empty
-    end
+    Rails.cache.fetch("userDiag|#{id}|#{items.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 1.hours) do 
+      unless (diags = items.map(&:raw_avg_diag) ).empty?
+        d = (diags.reduce(:+) / diags.map(&:count_els).reduce(:+)).fill_with(50)
+        d.item = items.first
+      else
+        d = Diagram.new_empty
+      end
     d
+    end
   end
 
   private

@@ -63,16 +63,17 @@ describe Item do
   describe :avg_diag do 
     it 'averages diagrams' do 
       d1 = Diagram.new(
-        item: @item,
+        #item: @item,
         values: [0,1,2,3,4],
         author: @user,
       )
       d2 = Diagram.new(
-        item: @item,
+        #item: @item,
         values: [0,2,4,6,8],
         author: @user,
       )
 
+      @item.diagrams.count.should == 0
       @item.diagrams << d1
       @item.diagrams << d2
       @item.save
@@ -89,12 +90,10 @@ describe Item do
 
     it "deals with nil values" do 
       d1 = Diagram.new(
-        item: @item,
         values: [1,nil,2,3],
         author: @user,
       )
       d2 = Diagram.new(
-        item: @item,
         values: [nil,nil,4,5],
         author: @user,
       )

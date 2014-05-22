@@ -32,7 +32,7 @@ class Diagram
   end
 
   def count_els
-    Diagram.new( values: self.values.map{|v| v.to_i == 0 ? 0 : 1})
+    Diagram.new( values: self.values.map{|v| v.nil? ? 0 : 1})
   end
 
   def / diag
@@ -97,6 +97,12 @@ class Diagram
       [0,6,7]
     end
 
+  end
+
+  after_save :touches
+  def touches
+    self.touch
+    item.touch
   end
 
   private

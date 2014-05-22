@@ -140,7 +140,7 @@ describe Shapter::V3::SignupFunnel do
         get "users/me/signup-funnel/1"
         a = JSON.parse(@response.body)
 
-        a["nb_of_steps"].should == 2
+        a["total_nb_of_steps"].should == 2
         a["name"].should == "foo"
         a["items"].size.should == 1
         a["items"].first["id"].should == @item.id.to_s

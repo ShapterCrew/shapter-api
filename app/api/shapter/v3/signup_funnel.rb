@@ -1,13 +1,13 @@
 module Shapter
   module V3
     class SignupFunnel < Grape::API
+      helpers Shapter::Helpers::FilterHelper
       format :json
 
-      before do 
-        check_user_admin!
-      end
-
       namespace "tags" do
+        before do 
+          check_user_admin!
+        end
 
         resource ":tag_id" do 
           before do 
@@ -34,7 +34,7 @@ module Shapter
             put do
               @tag.signup_funnel_tag_list = params[:signup_funnel]
               if @tag.save
-              present @tag.signup_funnel_tag_list
+                present @tag.signup_funnel_tag_list
               else
                 error!(@tag.errors.messages)
               end
@@ -63,6 +63,56 @@ module Shapter
               end
             end
             #}}}
+
+          end
+
+        end
+      end
+
+      namespace :users do 
+
+        before do 
+          check_user_login!
+        end
+
+        namespace "me" do 
+
+          namespace "signup-funnel" do 
+
+            resource ":i" do 
+              before do 
+                params do 
+                  requires :i, type: Integer, desc: "list index, from 1 to n"
+                end
+              end
+
+              #{{{ get
+              desc "get ith items list for users signup funnel"
+              get do 
+                tag = current_user.schools.first
+                if tag.signup_funnel_tag_list
+
+                  if params[:i].to_i > tag.signup_funnel_tag_list.size
+                    error!("only #{tag.signup_funnel_tag_list.size} steps available")
+                  else
+
+                  item_ids = tag.signup_funnel_tag_list[params[:i].to_i - 1]["tag_ids"]
+                  name     = tag.signup_funnel_tag_list[params[:i].to_i - 1]["name"]
+
+                  items = filter_items2(item_ids)
+
+                  present :nb_of_steps, tag.signup_funnel_tag_list.size
+                  present :name, name
+                  present :items, items, with: Shapter::Entities::ItemId
+                  end
+                else
+                  present :items, nil
+                  present :nb_of_steps, 0
+                end
+              end
+              #}}}
+
+            end
 
           end
 

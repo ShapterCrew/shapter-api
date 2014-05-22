@@ -94,6 +94,16 @@ class User
     comments.map(&:dislikers_count).reduce(:+)
   end
 
+  def user_diagram
+    unless (diags = items.map(&:raw_avg_diag) ).empty?
+      d = (diags.reduce(:+) / diags.map(&:count_els).reduce(:+)).fill_with(50)
+      d.item = items.first
+    else
+      d = Diagram.new_empty
+    end
+    d
+  end
+
   private
 
   def items_touch

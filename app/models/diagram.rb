@@ -31,17 +31,20 @@ class Diagram
     )
   end
 
-  def count_els diag
-    Diagram.new(
-      values: self.values.zip(diag.values)
-      .map{|a| (a.first.nil? ? 0 : 1) + (a.last.nil? ? 0 : 1)}
-    )
+  def count_els
+    Diagram.new( values: self.values.map{|v| v.to_i == 0 ? 0 : 1})
   end
 
   def / diag
     Diagram.new(
       values: self.values.zip(diag.values)
-      .map{|a| a.last.to_i == 0 ? 50 : a.first.to_f/a.last }
+      .map{|a| a.last.to_i == 0 ? nil : a.first.to_f/a.last }
+    )
+  end
+
+  def fill_with(n)
+    Diagram.new(
+      values: self.values.map{|v| v.nil? ? n : v}
     )
   end
 
@@ -100,6 +103,7 @@ class Diagram
 
   def front_dims
     s  = Diagram.base_dimensions
+    return s unless item
     s += Diagram.centrale_lyon_dimensions if item.tags.where(name: "Centrale Lyon").exists?
     s += Diagram.telecom_paristech_dimensions if item.tags.where(name: "Telecom ParisTech").exists?
     s += Diagram.supelec_dimensions if item.tags.where(name: "Supélec").exists?

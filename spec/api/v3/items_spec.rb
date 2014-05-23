@@ -183,9 +183,6 @@ describe Shapter::V3::Items do
         @user.reload
         @item.subscribers.include?(@user).should be_false
         @user.items.include?(@item).should be_false
-
-        response.body.should == {:id => @item.id, :status => :unsubscribed}.to_json
-
       end
     end
   end

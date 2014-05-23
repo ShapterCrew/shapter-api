@@ -46,7 +46,7 @@ class Comment
     self.item.comments.find(id).updated_at.try(:utc).try(:to_s, :number)
   end
 
-  after_save :touches
+  before_save :touches
 
   def touches
     self.touch

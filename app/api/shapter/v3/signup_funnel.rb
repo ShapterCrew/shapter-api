@@ -111,7 +111,7 @@ module Shapter
 
                   present :total_nb_of_steps, tag.signup_funnel_tag_list.size
                   present :name, name
-                  present :items, items, with: Shapter::Entities::ItemId
+                  present :items, items, with: Shapter::Entities::ItemId, :current_user => current_user
                   end
                 else
                   present :items, nil

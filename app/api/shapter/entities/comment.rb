@@ -12,6 +12,7 @@ module Shapter
       expose :dislikers_count
       expose :created_at
       expose :updated_at
+      expose :item_name, as: :course_name
     end
   end
 end

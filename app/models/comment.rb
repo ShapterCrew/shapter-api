@@ -24,6 +24,10 @@ class Comment
     item.id.to_s
   end
 
+  def item_name
+    item.name
+  end
+
   def likers_count
     Rails.cache.fetch("likersCnt|#{item.id}|#{self.id}|#{self.timestamp_key}",expires_in: 1.hours) do 
       likers.count

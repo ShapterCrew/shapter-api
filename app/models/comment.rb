@@ -50,7 +50,7 @@ class Comment
 
   def touches
     self.touch
-    tem.touch
+    item.touch
     author.touch
   end
 

@@ -99,6 +99,7 @@ module Shapter
                   error!("invalid score parameter")
                 end
                 comment.save
+                comment.touch
                 comment.reload
                 present comment, with: Shapter::Entities::Comment, :current_user => current_user
               end

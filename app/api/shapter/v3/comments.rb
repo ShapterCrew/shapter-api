@@ -98,9 +98,12 @@ module Shapter
                 else
                   error!("invalid score parameter")
                 end
-                comment.save
-                comment.reload
-                present comment, with: Shapter::Entities::Comment, :current_user => current_user
+
+                if comment.save
+                  present comment, with: Shapter::Entities::Comment, :current_user => current_user
+                else
+                  error!(comment.errors.messages)
+                end
               end
               #}}}
 

@@ -96,10 +96,8 @@ module Shapter
             error!("not found",404) unless i
             i.subscribers.delete(current_user)
             i.save
-            {
-              :id => i.id,
-              :status => :unsubscribed,
-            }
+            i.reload
+            present i, with: Shapter::Entities::Item, :current_user => current_user
           end
           #}}}
 

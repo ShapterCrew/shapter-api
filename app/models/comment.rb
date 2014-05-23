@@ -43,7 +43,7 @@ class Comment
   end
 
   def timestamp_key
-    self.item.comments.find(id).updated_at.try(:utc).try(:to_s, :number)
+    updated_at.try(:utc).try(:to_s, :number)
   end
 
   before_save :touches

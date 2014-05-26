@@ -54,8 +54,8 @@ class User
     {
       id: id.to_s,
       email: email,
-      first_name: firstname,
-      last_name: lastname,
+      firstname: firstname,
+      lastname: lastname,
       schools: schools.map{|s| {id: s.id.to_s, name: s.name}},
       admin: shapter_admin,
       confirmed: confirmed?

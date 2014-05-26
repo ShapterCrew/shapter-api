@@ -4,6 +4,8 @@ module Shapter
       expose :email
       expose :school_name
       expose :pretty_id, as: :id
+      expose :firstname
+      xpose :lastname
     end
   end
 end

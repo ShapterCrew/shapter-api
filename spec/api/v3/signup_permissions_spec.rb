@@ -10,7 +10,9 @@ describe Shapter::V3::SignupPermissions do
 
     @params = {
       :email => "UserToInvite@someschool.com",
-      :school_tag_id => @tag.id.to_s
+      :school_tag_id => @tag.id.to_s,
+      :firstname => "myFirstName",
+      :lastname => "myLastName",
     }
 
   end
@@ -44,6 +46,8 @@ describe Shapter::V3::SignupPermissions do
         SignupPermission.count.should == 1
         JSON.parse(@response.body)["id"].should == SignupPermission.last.id.to_s
         JSON.parse(@response.body)["email"].should == SignupPermission.last.email
+        JSON.parse(@response.body)["firstname"].should == SignupPermission.last.firstname
+        JSON.parse(@response.body)["lastname"].should == SignupPermission.last.lastname
       end
     end
     #}}}

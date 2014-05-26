@@ -3,6 +3,9 @@ class SignupPermission
   field :school_name, type: String
   field :email, type: String
 
+  field :firstname, type: String
+  field :lastname, type: String
+
   validates_presence_of :school_name
   validates_presence_of :email
 

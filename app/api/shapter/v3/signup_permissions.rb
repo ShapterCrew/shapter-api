@@ -22,12 +22,17 @@ module Shapter
         requires :signup_permission, type: Hash do 
           requires :email, type: String, desc: "I'm sure you can guess"
           requires :school_tag_id, type: String, desc: "id of the TAG that will be used as a school"
+          optional :firstname, type: String, desc: "users's firstname"
+          optional :lastname, type: String, desc: "users's lastname"
         end
       end
       put do 
         tag = Tag.find(params[:signup_permission][:school_tag_id].strip) || error!("tag not found",404)
         perm = SignupPermission.find_or_create_by(email: params[:signup_permission][:email].strip)
         perm.school_name = tag.name
+
+        perm.firstname = params[:signup_permission][:firstname].chomp.strip
+        perm.lastname  = params[:signup_permission][:lastname].chomp.strip
 
         if perm.save
           present perm, with: Shapter::Entities::SignupPermission

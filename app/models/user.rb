@@ -76,6 +76,7 @@ class User
 
   validate :valid_school?
   before_validation :set_school
+  before_validation :set_names
 
   before_save :items_touch
   before_save :comments_touch
@@ -119,6 +120,13 @@ class User
 
   def valid_school?
     errors.add(:base,"user must belong to at least one school") if self.schools.empty?
+  end
+
+  def set_names
+    if perm = SignupPermission.find_by(email: self.email)
+      firstname = perm.firstname if perm.firstname
+      lastname  = perm.firstname if perm.lastname
+    end
   end
 
   def set_school

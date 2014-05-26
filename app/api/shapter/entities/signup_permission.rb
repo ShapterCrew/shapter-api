@@ -5,7 +5,7 @@ module Shapter
       expose :school_name
       expose :pretty_id, as: :id
       expose :firstname
-      xpose :lastname
+      expose :lastname
     end
   end
 end

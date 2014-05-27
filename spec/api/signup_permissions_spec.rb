@@ -1,5 +1,5 @@
 require 'spec_helper'
-describe Shapter::V3::SignupPermissions do 
+describe Shapter::V4::SignupPermissions do 
   before(:each) do 
     User.delete_all
     Tag.delete_all
@@ -10,7 +10,7 @@ describe Shapter::V3::SignupPermissions do
 
     @params = {
       :email => "UserToInvite@someschool.com",
-      :school_tag_id => @tag.id.to_s,
+      :school_tag_ids => [@tag.id.to_s],
       :firstname => "myFirstName",
       :lastname => "myLastName",
     }

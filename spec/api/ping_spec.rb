@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::V3::Ping do 
+describe Shapter::V4::Ping do 
 
   it "ping" do 
     get "/ping", {}, {"Accept-Version" => 'v3'}

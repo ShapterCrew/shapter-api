@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::V3::Tags do 
+describe Shapter::V4::Tags do 
 
   before(:each) do 
     Tag.delete_all

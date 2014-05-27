@@ -76,7 +76,7 @@ class User
   end
 
   validate :valid_school?
-  before_validation :set_school
+  before_validation :set_schools
   before_validation :set_names
 
   before_save :items_touch
@@ -125,18 +125,24 @@ class User
 
   def set_names
     if perm = SignupPermission.find_by(email: self.email)
-      firstname = perm.firstname if perm.firstname
-      lastname  = perm.firstname if perm.lastname
+      self.firstname ||= perm.firstname if perm.firstname
+      self.lastname  ||= perm.firstname if perm.lastname
     end
   end
 
-  def set_school
+  def set_schools
     self.schools << Tag.find_or_create_by(name: "Centrale Lyon") if (email =~ /.*@ecl[0-9]+.ec-lyon.fr/ or email =~ /.*@auditeur.ec-lyon.fr/)
     self.schools << Tag.find_or_create_by(name: "Centrale Paris") if email =~ /.*@student.ecp.fr/
       self.schools << Tag.find_or_create_by(name: "HEC") if email =~ /.*@hec.edu/
 
       if perm = SignupPermission.find_by(email: self.email)
-        self.schools << Tag.find_or_create_by(name: perm.school_name)
+
+        # This will be deprecated, please remove after v4 is fully running
+        self.schools << Tag.find_or_create_by(name: perm.school_name) if perm.school_name
+
+        perm.school_names.each do |school_name|
+          self.schools << Tag.find_or_create_by(name: school_name)
+        end
       end
   end
 

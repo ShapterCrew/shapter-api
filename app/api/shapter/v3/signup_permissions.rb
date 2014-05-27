@@ -31,8 +31,12 @@ module Shapter
         perm = SignupPermission.find_or_create_by(email: params[:signup_permission][:email].strip)
         perm.school_name = tag.name
 
-        perm.firstname = params[:signup_permission][:firstname].chomp.strip
-        perm.lastname  = params[:signup_permission][:lastname].chomp.strip
+        if params[:firstname]
+          perm.firstname = params[:signup_permission][:firstname].chomp.strip
+        end
+        if params[:lastname]
+          perm.lastname  = params[:signup_permission][:lastname].chomp.strip
+        end
 
         if perm.save
           present perm, with: Shapter::Entities::SignupPermission

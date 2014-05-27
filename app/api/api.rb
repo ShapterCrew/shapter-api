@@ -1,6 +1,17 @@
 require 'grape-swagger'
 
 class API < Grape::API
+  version :v4, using: :accept_version_header, format: :json do
+    helpers Shapter::Helpers::Warden
+
+    mount Shapter::V4::Ping
+    mount Shapter::V4::Items
+    mount Shapter::V4::ItemTags
+    mount Shapter::V4::Comments
+    mount Shapter::V4::Tags
+    mount Shapter::V4::Users
+    add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
+  end
   version :v3, using: :accept_version_header, format: :json do
     helpers Shapter::Helpers::Warden
 
@@ -15,15 +26,4 @@ class API < Grape::API
     mount Shapter::V3::SignupFunnel
     add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
   end
-#  version :v2, using: :accept_version_header, format: :json do
-#    helpers Shapter::Helpers::Warden
-#
-#    mount Shapter::V2::Ping
-#    mount Shapter::V2::Items
-#    mount Shapter::V2::ItemTags
-#    mount Shapter::V2::Comments
-#    mount Shapter::V2::Tags
-#    mount Shapter::V2::Users
-#    add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
-#  end
 end

@@ -9,8 +9,8 @@ module Shapter
       expose :shapter_admin, as: :admin
       expose :confirmed?, as: :confirmed
 
-      expose :items, using: Shapter::Entities::ItemId
-      expose :cart_items, using: Shapter::Entities::ItemId
+      expose :items, using: Shapter::Entities::ItemShort
+      expose :cart_items, using: Shapter::Entities::ItemShort
       expose :comments, using: Shapter::Entities::Comment
       expose :comments_likes_count
       expose :comments_dislikes_count

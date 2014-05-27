@@ -74,7 +74,7 @@ describe Shapter::V3::Items do
   describe :filter do 
     context "when logged off" do 
       it "should deny access" do 
-        get "items/filter", {filter: @filter}, {"Accept-Version" => "v2"}
+        get "items/filter", {filter: @filter}
         access_denied(response).should be_true
       end
     end
@@ -84,17 +84,17 @@ describe Shapter::V3::Items do
         login(@user)
       end
       it "should filter properly" do 
-        get "items/filter", {filter: [@t1.id.to_s]}, {"Accept-Version" => "v2"}
+        get "items/filter", {filter: [@t1.id.to_s]}
         a = JSON.parse(response.body)
-        a.map{|h| h["id"]}.should =~ [@item.id, @item2.id].map(&:to_s)
+        a["items"].map{|h| h["id"]}.should =~ [@item.id, @item2.id].map(&:to_s)
 
-        get "items/filter", {filter: [@t1.id.to_s,@t3.id.to_s]}, {"Accept-Version" => "v2"}
+        get "items/filter", {filter: [@t1.id.to_s,@t3.id.to_s]}
         a = JSON.parse(response.body)
-        a.map{|h| h["id"]}.should =~ [@item2.id].map(&:to_s)
+        a["items"].map{|h| h["id"]}.should =~ [@item2.id].map(&:to_s)
 
-        get "items/filter", {filter: [@t1.id.to_s,"hahahalol"]}, {"Accept-Version" => "v2"}
+        get "items/filter", {filter: [@t1.id.to_s,"hahahalol"]}
         a = JSON.parse(response.body)
-        a.empty?.should be_true
+        a["items"].blank?.should be_true
       end
     end
   end

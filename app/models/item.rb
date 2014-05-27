@@ -5,6 +5,7 @@ class Item
   field :name, type: String
   field :description, type: String
   field :tags, type: Array
+  field :requires_comment_score, type: Integer
 
   embeds_many :comments
   embeds_many :diagrams
@@ -32,6 +33,12 @@ class Item
   def subscribers_count
     Rails.cache.fetch("itSubsCnt|#{self.id}|#{updated_at.try(:utc).try(:to_s, :number)}", :expires_in => 1.hours) do 
       subscribers.count
+    end
+  end
+
+  def interested_users_count
+    Rails.cache.fetch("itIntUsersCnt|#{self.id}|#{updated_at.try(:utc).try(:to_s, :number)}", :expires_in => 1.hours) do 
+      interested_users.count
     end
   end
 
@@ -107,7 +114,13 @@ class Item
     end
   end
 
+  before_save :set_requires_comment_score
+
   private
+
+  def set_requires_comment_score
+    self.requires_comment_score = ( 10*interested_users_count - subscribers_count - 20*comments_count)
+  end
 
   def diag_timestamp_key
     Item.find(id).diagrams.max(:updated_at).try(:utc).try(:to_s, :number)

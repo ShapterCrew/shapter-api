@@ -7,6 +7,7 @@ module Shapter
       expose :comments_count    
       expose :subscribers_count 
       expose :front_avg_diag, as: :averaged_diagram 
+      expose :requires_comment_score
     end
   end
 end

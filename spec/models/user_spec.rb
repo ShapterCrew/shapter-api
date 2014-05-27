@@ -24,15 +24,18 @@ describe User do
   it "should set and validates school using signup_permission" do 
     u = FactoryGirl.build(:user)
     u.schools = []
+    u.firstname = nil
     u.valid?.should be_false
 
-    SignupPermission.create(email: "foo@bar.com", school_name: "fooSchool")
+    SignupPermission.create(email: "foo@bar.com", school_names: ["fooSchool","barSchool"], firstname: 'fname')
 
     u.email = "foo@bar.com"
 
     u.save ; u.reload
     u.valid?.should be_true
     u.schools.first.name.should == "fooSchool"
+    u.schools.last.name.should == "barSchool"
+    u.firstname.should == 'fname'
   end
 
 end

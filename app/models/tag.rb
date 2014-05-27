@@ -8,6 +8,7 @@ class Tag
   field :signup_funnel_tag_list, type: Array
 
   validates_uniqueness_of :name
+  validates_presence_of :name
 
   #{{{ signup_funnel_tag_list validation
 

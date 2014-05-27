@@ -9,7 +9,7 @@ class ItemUpdater
   end
 
   def tags
-    @tags ||= @ll.map{|name| Tag.find_or_create_by(name: name)}
+    @tags ||= @ll.reject{|name| name.blank?}.map{|name| Tag.find_or_create_by(name: name)}
   end
 
 end

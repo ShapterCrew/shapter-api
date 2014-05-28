@@ -1,113 +1,113 @@
-COM220	Communications optiques	Cours de base	COM	P1 P1A2	P2 P2B2			Renaud GABET
-COM221	Communications radiofréquences	Cours de base	COM	P1 P1B1	P2 P2B2			Eric BERGEAULT
-COM222	Systèmes de communications	Cours de base	COM	P1 P1B2	P2 P2B1	P3 P3A1		Bernard HUYART
-COM223	Modulations numériques	Cours de base	COM	P1 P1A1				Philippe CIBLAT
-COM224	Codage correcteur d'erreurs et performances de systèmes codés	Cours de base	COM MDI		P2 P2A2			Aslan TCHAMKERTEN Ghaya REKAYA Jean-Claude BELFIORE
-COM340	Systèmes optiques	Cours de spé	COM			P3 P3B		Philippe GALLION Yves JAOUEN
-COM341	Fonctions optiques et nanotechnologiques	Cours de spé	COM				P4 P4A	Didier ERASME
-COM342	Systèmes radio	Cours de spé	COM			P3 P3A		Bernard HUYART
-COM343	Applications des micro-ondes aux radars antennes et réseaux sans fils	Cours de spé	COM				P4 P4B	Xavier BEGAUD
-COM344	Systèmes et technologies émergents pour les communications sans fil	Cours de spé	COM			P3 P3B		Ghaya REKAYA Michèle WIGGER
-COM345	Théorie de l'information pour les réseaux et applications	Cours de spé	COM				P4 P4A	Aslan TCHAMKERTEN Ghaya REKAYA Jean-Claude BELFIORE
-COM346	Systèmes de communications satellitaires et aéroportés	Cours de spé	COM			P3 P3B		Anne-Claire LEPAGE
-COMELEC380	Projet ComElec	Cours de spé projet	COM ELEC			P3 P3A P3 P3B	P4 P4A P4 P4B	Eric BERGEAULT
-COMMDI225	Théorie de l information et du codage	Cours de base	COM MDI		P2 P2B1			Olivier RIOUL
-COMMDI340	Physique de l'information	Cours de spé	COM MDI				P4 P4A	Romain ALLEAUME
-COMRES348	Réseaux satellitaires	Cours de spé	COM RES				P4 P4A	Philippe GODLEWSKI
-ELEC220	Base de l'électronique radiofréquences	Cours de base	ELEC		P2 P2A2			Patrick LOUMEAU
-ELEC221	Théories et architectures du calcul matériel	Cours de base	ELEC	P1 P1B1		P3 P3A1		Lirida ALVES DE BARROS NAVINER
-ELEC222	Architectures reconfigurables et langages HDL	Cours de base	ELEC	P1 P1A2	P2 P2B2			Yves MATHIEU
-ELEC223	Pratique des systèmes à microprocesseurs	Cours de base	ELEC INF	P1 P1B2	P2 P2B1			Guillaume DUC
-ELEC340	Intégration des systèmes électroniques pour les radiocommunications	Cours de spé	ELEC				P4 P4A	Patricia DESGREYS
-ELEC341	Microélectronique	Cours de spé	ELEC			P3 P3B		Herve PETIT
-ELEC342	Conception des Systems on chip	Cours de spé	ELEC				P4 P4A	Tarik GRABA Yves MATHIEU
-ELECINF344	Architecture des systèmes embarqués et objets connectés	Cours de spé	ELEC INF			P3 P3B		Alexis POLTI Samuel TARDIEU
-ELECINF359	Sécurité des systèmes embarqués	Cours de spé	ELEC INF				P4 P4B	Guillaume DUC
-ELECINF381	Projet architecture des systèmes embarqués et objets connectés	Cours de spé projet	ELEC INF			P3 P3A		Alexis POLTI Samuel TARDIEU
-INF220	Concepts fondamentaux de la sécurité	Cours de base	INF		P2 P2B2	P3 P3A1		Houda LABIOD Jean LENEUTRE Romain ALLEAUME
-INF221	Programmation logique et connaissances	Cours de base	INF		P2 P2A2			Jean-Louis DESSALLES
-INF222	Modèles et vérification	Cours de base	INF	P1 P1A2	P2 P2A2	P3 P3B2		Elie NAJM Etienne BORDE Sylvie VIGNES
-INF223	Concurrence et communication	Cours de base	INF	P1 P1B1	P2 P2A1			Ada DIACONESCU Laurent PAUTET
-INF224	Paradigmes de programmation : théorie et pratique	Cours de base	INF	P1 P1B2	P2 P2A1			Eric LECOLINET
-INF225	Bases de données	Cours de base	INF	P1 P1B1	P2 P2A2			Talel ABDESSALEM
-INF226	Algorithmes et complexité	Cours de base	INF		P2 P2B1			Olivier HUDRY
-INF227	Architecture et parallélisme	Cours de base	INF	P1 P1A1		P3 P3A2		Thomas ROBERT
-INF228	Développement Web	Cours de base	INF		P2 P2B2			Pierre SENELLART
-INF229	Visualisation d'information	Cours de base	INF		P2 P2A2			James EAGAN
-INF230	Large-Scale Data Mining	Cours de base	INF	P1 P1B2				Mauro Sozio
-INF280	Projet de programmation : problèmes pratiques et concours	Cours de base	INF				P4 P4A P4 P4B	Pierre SENELLART
-INF340	Théorie de l'informatique	Cours de spé	INF				P4 P4A	Patrick BELLOT
-INF341	Spécifications modélisation et conception de systèmes logiciels	Cours de spé	INF			P3 P3A		Sylvie VIGNES
-INF342	Systèmes embarqués temps-réel	Cours de spé	INF				P4 P4B	Laurent PAUTET
-INF344	Données du Web	Cours de spé	INF				P4 P4B	Mauro Sozio Pierre SENELLART
-INF345	Bases de données avancées	Cours de spé	INF		P2 P2B			Talel ABDESSALEM
-INF346	Systèmes répartis	Cours de spé	INF			P3 P3A		Petr KUZNETSOV Remi SHARROCK
-INF348	Modélisation cognitive et informatique intelligente	Cours de spé	INF				P4 P4A	Jean-Louis DESSALLES
-INF355	Paradigmes et langages non classiques	Cours de spé	INF				P4 P4B	Samuel TARDIEU
-INF358	Sécurité des systèmes d'information	Cours de spé	INF			P3 P3B		Jean LENEUTRE Rida Khatoun
-INF380	Projet d\'équipe en informatique	Cours de spé projet	INF				P4 P4A P4 P4B	Sylvie VIGNES
-INFMDI340	Algorithmes combinatoire et optimisation	Cours de spé	INF MDI			P3 P3B		Bertrand MEYER Hugues RANDRIAMBOLOLONA Olivier HUDRY
-INFMDI341	Machine learning avancé	Cours de spé	INF MDI				P4 P4A	Stephan CLEMENÇON
-INFMDI356	Cryptographie	Cours de spé	INF MDI		P2 P2A			Hugues RANDRIAMBOLOLONA
-INFRES352	Modélisation et conception de services et logiciels répartis	Cours de spé	INF RES			P3 P3B		Elie NAJM
-INFRES357	Sécurité des réseaux	Cours de spé	INF RES		P2 P2B	P3 P3A		Ahmed SERHROUCHNI Pascal URIEN
-INFSES344	Systèmes d'information et management	Cours de spé	INF SES			P3 P3B		Laure MUSELLI Sylvie VIGNES
-INFSES384	Projet en systèmes d'information et management	Cours de spé projet	INF SES			P3 P3A		Laure MUSELLI Sylvie VIGNES
-INFSI350	Informatique graphique 3D et réalité virtuelle	Cours de spé	INF SI			P3 P3A		Tamy BOUBEKEUR
-INFSI351	Interfaces homme-machine	Cours de spé	INF SI			P3 P3B		Eric LECOLINET
-MDI220	Statistiques	Cours de base	MDI	P1 P1A2				Francois ROUEFF Stephan CLEMENÇON
-MDI222	Statistiques mathématiques	Cours de base	MDI		P2 P2A1			Francois ROUEFF Pascal BIANCHI
-MDI224	Méthodes d'optimisation continue et applications	Cours de base	MDI		P2 P2B2			Alexandre GRAMFORT Roland BADEAU
-MDI241	Probabilités ++	Cours de base	MDI	P1 P1B				Eric MOULINES Stephan CLEMENÇON
-MDI243	Algèbre	Cours de base	MDI	P1 P1A				Hugues RANDRIAMBOLOLONA
-MDI340	Calcul stochastique de la finance	Cours de spé	MDI			P3 P3B		Laurent DECREUSEFOND Suleyman USTUNEL
-MDI342	Calcul de Malliavin et analyse stochastique	Cours de spé	MDI			P3 P3A		Laurent DECREUSEFOND Suleyman USTUNEL
-MDI343	Apprentissage statistique et fouille de donnees	Cours de spé	MDI			P3 P3B		Joseph SALMON Stephan CLEMENÇON
-MDI345	Calcul numérique	Cours de spé	MDI				P4 P4A	Eric MOULINES Laurent DECREUSEFOND
-MDI349	Techniques mathématiques avancées pour le codage et la cryptographie	Cours de spé	MDI				P4 P4B	Gérard COHEN Hugues RANDRIAMBOLOLONA
-PIM380	Projet Innovation Master	Cours de spé projet	COM ELEC INF MDI PHY RES SES SI	P1 P1A P1 P1B	P2 P2A P2 P2B	P3 P3A P3 P3B	P4 P4A P4 P4B	Remi MANIAK
-PJL380	Projet libre	Cours de spé projet	COM INF MDI RES SES SI	P1 P1A P1 P1B	P2 P2A P2 P2B	P3 P3A P3 P3B	P4 P4A P4 P4B	Dominique KREMMER
-RES220	Signalisation	Cours de base	RES	P1 P1A2		P3 P3B2		Nadia BOUKHATEM Philippe MARTINS GONÇALVES
-RES221	Trafic files d'attente et réseaux	Cours de base	RES	P1 P1A1				Thomas BONALD
-RES222	Accès et mobilité	Cours de base	RES	P1 P1A2		P3 P3A2		Marceau COUPECHOUX Maurice GAGNAIRE
-RES223	Internet	Cours de base	RES	P1 P1B1	P2 P2B1			Ahmed SERHROUCHNI
-RES224	Architecture des applications Internet	Cours de base	RES	P1 P1B2	P2 P2B2			Dario ROSSI
-RES340	Communications sans fil et réseaux autonomes	Cours de spé	RES		P2 P2A	P3 P3A		Claude CHAUDET Houda LABIOD
-RES341	Ingénierie des réseaux radiomobiles	Cours de spé	RES			P3 P3B	P4 P4A	Philippe GODLEWSKI Philippe MARTINS GONÇALVES
-RES343	Nouvelles technologies IP et internet du futur	Cours de spé	RES		P2 P2B		P4 P4A	Jean-Louis ROUGIER
-RES344	Réseaux et communications d'entreprise	Cours de spé	RES			P3 P3A		Ahmed SERHROUCHNI
-RES345	Réseaux radiomobiles cellulaires	Cours de spé	RES		P2 P2A		P4 P4B	Marceau COUPECHOUX Philippe GODLEWSKI Philippe MARTINS GONÇALVES
-RES346	Cloud computing: architecture réseaux mise en oeuvre	Cours de spé	RES			P3 P3A		Maurice GAGNAIRE
-SES221	IDEE: Innovation et développement approche économique	Cours de base	SES	P1 P1A2				Maya BACACHE
-SES222	Technologies et société	Cours de base	SES		P2 P2B1			Jerome DENIS
-SES223	Cultures et sociabilités du numérique	Cours de base	SES	P1 P1A1				Antonio Casilli
-SES224	Ecritures et lectures numériques	Cours de base	SES			P3 P3B1		Isabelle GARRON Valérie BEAUDOUIN
-SES240	Management de l'entreprise : fondamentaux en stratégie / finance / marketing	Cours de base	SES		P2 P2B			Remi MANIAK
-SES241	Economie et stratégie	Cours de base	SES		P2 P2A			David BOUNIE
-SES247	Management et design de l'innovation technologique	Cours de base	SES			P3 P3A		Annie GENTES Myriam DAVIDOVICI-NORA
-SES249	Entrepreneuriat	Cours de base	SES	P1 P1B				Thomas HOUY
-SES340	Techniques de l'économiste et du gestionnaire	Cours de spé	SES				P4 P4A	Bernard BURTSCHY David BOUNIE Patrick WAELBROECK
-SES344	Projets incubateur	Cours de spé	SES				P4 P4B	Isabelle GARRON Jerome DENIS
-SES347	Econométrie	Cours de spé	SES				P4 P4B	Patrick WAELBROECK
-SES349	Télécom Internet Médias (stratégie et acteurs)	Cours de spé	SES			P3 P3B		Lukasz Grzybowski Patrick WAELBROECK
-SES381	Projet d'innovation	Cours de spé projet	SES	P1 P1A P1 P1B	P2 P2A P2 P2B	P3 P3A P3 P3B	P4 P4A P4 P4B	Valérie BEAUDOUIN
-SI220	Acoustique	Cours de base	SI			P3 P3B2		Bertrand DAVID Jean-Marie NICOLAS
-SI221	Bases de la reconnaissance des formes	Cours de base	SI	P1 P1B1	P2 P2A2			Jean-Marie NICOLAS Laurence LIKFORMAN-SULEM
-SI222	Techniques de compression	Cours de base	SI	P1 P1A1	P2 P2B2			Gaël RICHARD Marco CAGNAZZO
-SI223	Optique non linéaire	Cours de base	SI		P2 P2A2			Isabelle ZAQUINE
-SI224	Bases de la mécanique quantique	Cours de base	SI		P2 P2A1			Isabelle ZAQUINE
-SI227	Etudes de cas en signal	Cours de base	SI		P2 P2A1	P3 P3B1		Slim ESSID
-SI241	Traitement et analyse des images	Cours de base	SI	P1 P1A		P3 P3A		Yann GOUSSEAU
-SI340	Signal audiofréquence et parole	Cours de spé	SI				P4 P4A	Bertrand DAVID Gaël RICHARD
-SI341	Méthodes avancées pour le traitement du signal	Cours de spé	SI			P3 P3A		Pascal BIANCHI Roland BADEAU
-SI343	Méthodes avancées de traitement des images	Cours de spé	SI			P3 P3B		Florence TUPIN
-SI344	Vision artificielle et raisonnement dans les images	Cours de spé	SI		P2 P2B			Michel ROUX
-SI345	Application du traitement des images	Cours de spé	SI				P4 P4B	Jean-Marie NICOLAS
-SI349	Communications et calcul quantiques	Cours de spé	SI			P3 P3A		Eleni DIAMANTI Isabelle ZAQUINE
-SI350	Vidéo numérique et multimédia	Cours de spé	SI				P4 P4B	Marco CAGNAZZO
-SI380	Projet de traitement du signal	Cours de spé	SI		P2 P2B	P3 P3A	P4 P4B	Bertrand DAVID Roland BADEAU
-SI381	Projet de traitement des images	Cours de spé projet	SI			P3 P3A	P4 P4A	Michel ROUX Said LADJAL
-SI382	Projet multimédia	Cours de spé projet	INF SI			P3 P3A P3 P3B		Cyril CONCOLATO Jean LE FEUVRE Jean-Claude MOISSINAC
-SI383	Projet théorique en information quantique	Cours de spé projet	SI				P4 P4B	Damian MARKHAM Isabelle ZAQUINE
-SI384	Projet expérimental en traitement quantique du signal	Cours de spé projet	SI			P3 P3B		Isabelle ZAQUINE
-SIMDI226	Statistiques des séries temporelles	Cours de base	MDI SI		P2 P2B1			Eric MOULINES Francois ROUEFF
+COM220	Communications optiques		Cours de base	COM	P1	P1A2	P2	P2B2	Renaud GABET									
+COM221	Communications radiofréquences		Cours de base	COM	P1	P1B1	P2	P2B2	Eric BERGEAULT									
+COM222	Systèmes de communications		Cours de base	COM	P1	P1B2	P2	P2B1	P3	P3A1	Bernard HUYART							
+COM223	Modulations numériques		Cours de base	COM	P1	P1A1	Philippe CIBLAT											
+COM224	Codage correcteur d'erreurs et performances de systèmes codés		Cours de base	COM	MDI	P2	P2A2	Aslan TCHAMKERTEN	Jean-Claude BELFIORE	Ghaya REKAYA								
+COM340	Systèmes optiques		Cours de spé	COM	P3	P3B	Philippe GALLION	Yves JAOUEN										
+COM341	Fonctions optiques et nanotechnologiques		Cours de spé	COM	P4	P4A	Didier ERASME											
+COM342	Systèmes radio		Cours de spé	COM	P3	P3A	Bernard HUYART											
+COM343	Applications des micro-ondes aux radars, antennes et réseaux sans fils		Cours de spé	COM	P4	P4B	Xavier BEGAUD											
+COM344	Systèmes et technologies émergents pour les communications sans fil		Cours de spé	COM	P3	P3B	Ghaya REKAYA	Michèle WIGGER										
+COM345	Théorie de l'information pour les réseaux et applications		Cours de spé	COM	P4	P4A	Aslan TCHAMKERTEN	Ghaya REKAYA	Jean-Claude BELFIORE									
+COM346	Systèmes de communications satellitaires et aéroportés		Cours de spé	COM	P3	P3B	Anne-Claire LEPAGE											
+COMELEC380	Projet ComElec		Cours de spé	projet	COM	ELEC	P3	P3A	P3	P3B	P4	P4A	P4	P4B	Eric BERGEAULT			
+COMMDI225	Théorie de l information et du codage		Cours de base	COM	MDI	P2	P2B1	Olivier RIOUL										
+COMMDI340	Physique de l'information		Cours de spé	COM	MDI	P4	P4A	Romain ALLEAUME										
+COMRES348	Réseaux satellitaires		Cours de spé	COM	RES	P4	P4A	Philippe GODLEWSKI										
+ELEC220	Base de l'électronique radiofréquences		Cours de base	ELEC	P2	P2A2	Patrick LOUMEAU											
+ELEC221	Théories et architectures du calcul matériel		Cours de base	ELEC	P1	P1B1	P3	P3A1	Lirida ALVES DE BARROS NAVINER									
+ELEC222	Architectures reconfigurables et langages HDL		Cours de base	ELEC	P1	P1A2	P2	P2B2	Yves MATHIEU									
+ELEC223	Pratique des systèmes à microprocesseurs		Cours de base	ELEC	INF	P1	P1B2	P2	P2B1	Guillaume DUC								
+ELEC340	Intégration des systèmes électroniques pour les radiocommunications		Cours de spé	ELEC	P4	P4A	Patricia DESGREYS											
+ELEC341	Microélectronique		Cours de spé	ELEC	P3	P3B	Herve PETIT											
+ELEC342	Conception des Systems on chip		Cours de spé	ELEC	P4	P4A	Tarik GRABA	Yves MATHIEU										
+ELECINF344	Architecture des systèmes embarqués et objets connectés		Cours de spé	ELEC	INF	P3	P3B	Alexis POLTI	Samuel TARDIEU									
+ELECINF359	Sécurité des systèmes embarqués		Cours de spé	ELEC	INF	P4	P4B	Guillaume DUC										
+ELECINF381	Projet architecture des systèmes embarqués et objets connectés		Cours de spé	projet	ELEC	INF	P3	P3A	Alexis POLTI	Samuel TARDIEU								
+INF220	Concepts fondamentaux de la sécurité		Cours de base	INF	P2	P2B2	P3	P3A1	Houda LABIOD	Romain ALLEAUME	Jean LENEUTRE							
+INF221	Programmation logique et connaissances		Cours de base	INF	P2	P2A2	Jean-Louis DESSALLES											
+INF222	Modèles et vérification		Cours de base	INF	P1	P1A2	P2	P2A2	P3	P3B2	Elie NAJM	Etienne BORDE	Sylvie VIGNES					
+INF223	Concurrence et communication		Cours de base	INF	P1	P1B1	P2	P2A1	Ada DIACONESCU	Laurent PAUTET								
+INF224	Paradigmes de programmation : théorie et pratique		Cours de base	INF	P1	P1B2	P2	P2A1	Eric LECOLINET									
+INF225	Bases de données		Cours de base	INF	P1	P1B1	P2	P2A2	Talel ABDESSALEM									
+INF226	Algorithmes et complexité		Cours de base	INF	P2	P2B1	Olivier HUDRY											
+INF227	Architecture et parallélisme		Cours de base	INF	P1	P1A1	P3	P3A2	Thomas ROBERT									
+INF228	Développement Web		Cours de base	INF	P2	P2B2	Pierre SENELLART											
+INF229	Visualisation d'information		Cours de base	INF	P2	P2A2	James EAGAN											
+INF230	Large-Scale Data Mining		Cours de base	INF	P1	P1B2	Mauro Sozio											
+INF280	Projet de programmation : problèmes pratiques et concours		Cours de base	INF	P4	P4A	P4	P4B	Pierre SENELLART									
+INF340	Théorie de l'informatique		Cours de spé	INF	P4	P4A	Patrick BELLOT											
+INF341	Spécifications, modélisation et conception de systèmes logiciels		Cours de spé	INF	P3	P3A	Sylvie VIGNES											
+INF342	Systèmes embarqués temps-réel		Cours de spé	INF	P4	P4B	Laurent PAUTET											
+INF344	Données du Web		Cours de spé	INF	P4	P4B	Mauro Sozio	Pierre SENELLART										
+INF345	Bases de données avancées		Cours de spé	INF	P2	P2B	Talel ABDESSALEM											
+INF346	Systèmes répartis		Cours de spé	INF	P3	P3A	Petr KUZNETSOV	Remi SHARROCK										
+INF348	Modélisation cognitive et informatique intelligente		Cours de spé	INF	P4	P4A	Jean-Louis DESSALLES											
+INF355	Paradigmes et langages non classiques		Cours de spé	INF	P4	P4B	Samuel TARDIEU											
+INF358	Sécurité des systèmes d'information		Cours de spé	INF	P3	P3B	Jean LENEUTRE	Rida Khatoun										
+INF380	Projet d'équipe en informatique		Cours de spé	projet	INF	P4	P4A	P4	P4B	Sylvie VIGNES								
+INFMDI340	Algorithmes, combinatoire et optimisation		Cours de spé	INF	MDI	P3	P3B	Bertrand MEYER	Hugues RANDRIAMBOLOLONA	Olivier HUDRY								
+INFMDI341	Machine learning avancé		Cours de spé	INF	MDI	P4	P4A	Stephan CLEMENÇON										
+INFMDI356	Cryptographie		Cours de spé	INF	MDI	P2	P2A	Hugues RANDRIAMBOLOLONA										
+INFRES352	Modélisation et conception de services et logiciels répartis		Cours de spé	INF	RES	P3	P3B	Elie NAJM										
+INFRES357	Sécurité des réseaux		Cours de spé	INF	RES	P2	P2B	P3	P3A	Ahmed SERHROUCHNI	Pascal URIEN							
+INFSES344	Systèmes d'information et management		Cours de spé	INF	SES	P3	P3B	Laure MUSELLI	Sylvie VIGNES									
+INFSES384	Projet en systèmes d'information et management		Cours de spé	projet	INF	SES	P3	P3A	Laure MUSELLI	Sylvie VIGNES								
+INFSI350	Informatique graphique 3D et réalité virtuelle		Cours de spé	INF	SI	P3	P3A	Tamy BOUBEKEUR										
+INFSI351	Interfaces homme-machine		Cours de spé	INF	SI	P3	P3B	Eric LECOLINET										
+MDI220	Statistiques		Cours de base	MDI	P1	P1A2	Francois ROUEFF	Stephan CLEMENÇON										
+MDI222	Statistiques mathématiques		Cours de base	MDI	P2	P2A1	Francois ROUEFF	Pascal BIANCHI										
+MDI224	Méthodes d'optimisation continue et applications		Cours de base	MDI	P2	P2B2	Alexandre GRAMFORT	Roland BADEAU										
+MDI241	Probabilités ++		Cours de base	MDI	P1	P1B	Eric MOULINES	Stephan CLEMENÇON										
+MDI243	Algèbre		Cours de base	MDI	P1	P1A	Hugues RANDRIAMBOLOLONA											
+MDI340	Calcul stochastique de la finance		Cours de spé	MDI	P3	P3B	Laurent DECREUSEFOND	Suleyman USTUNEL										
+MDI342	Calcul de Malliavin et analyse stochastique		Cours de spé	MDI	P3	P3A	Laurent DECREUSEFOND	Suleyman USTUNEL										
+MDI343	Apprentissage statistique et fouille de donnees		Cours de spé	MDI	P3	P3B	Joseph SALMON	Stephan CLEMENÇON										
+MDI345	Calcul numérique		Cours de spé	MDI	P4	P4A	Eric MOULINES	Laurent DECREUSEFOND										
+MDI349	Techniques mathématiques avancées pour le codage et la cryptographie		Cours de spé	MDI	P4	P4B	Gérard COHEN	Hugues RANDRIAMBOLOLONA										
+PIM380	Projet Innovation Master		Cours de spé	projet	COM	ELEC	INF	MDI	PHY	RES	SES	SI	P1	P1A	P1	P1B	P2	P2A
+PJL380	Projet libre		Cours de spé	projet	COM	INF	MDI	RES	SES	SI	P1	P1A	P1	P1B	P2	P2A	P2	P2B
+RES220	Signalisation		Cours de base	RES	P1	P1A2	P3	P3B2	Nadia BOUKHATEM	Philippe MARTINS GONÇALVES								
+RES221	Trafic, files d'attente et réseaux		Cours de base	RES	P1	P1A1	Thomas BONALD											
+RES222	Accès et mobilité		Cours de base	RES	P1	P1A2	P3	P3A2	Marceau COUPECHOUX	Maurice GAGNAIRE								
+RES223	Internet		Cours de base	RES	P1	P1B1	P2	P2B1	Ahmed SERHROUCHNI									
+RES224	Architecture des applications Internet		Cours de base	RES	P1	P1B2	P2	P2B2	Dario ROSSI									
+RES340	Communications sans fil et réseaux autonomes		Cours de spé	RES	P2	P2A	P3	P3A	Claude CHAUDET	Houda LABIOD								
+RES341	Ingénierie des réseaux radiomobiles		Cours de spé	RES	P3	P3B	P4	P4A	Philippe GODLEWSKI	Philippe MARTINS GONÇALVES								
+RES343	Nouvelles technologies IP et internet du futur		Cours de spé	RES	P2	P2B	P4	P4A	Jean-Louis ROUGIER									
+RES344	Réseaux et communications d'entreprise		Cours de spé	RES	P3	P3A	Ahmed SERHROUCHNI											
+RES345	Réseaux radiomobiles cellulaires		Cours de spé	RES	P2	P2A	P4	P4B	Marceau COUPECHOUX	Philippe GODLEWSKI	Philippe MARTINS GONÇALVES							
+RES346	Cloud computing: architecture, réseaux, mise en oeuvre		Cours de spé	RES	P3	P3A	Maurice GAGNAIRE											
+SES221	IDEE: Innovation et développement, approche économique		Cours de base	SES	P1	P1A2	Maya BACACHE											
+SES222	Technologies et société		Cours de base	SES	P2	P2B1	Jerome DENIS											
+SES223	Cultures et sociabilités du numérique		Cours de base	SES	P1	P1A1	Antonio Casilli											
+SES224	Ecritures et lectures numériques		Cours de base	SES	P3	P3B1	Isabelle GARRON	Valérie BEAUDOUIN										
+SES240	Management de l'entreprise : fondamentaux en stratégie / finance / marketing		Cours de base	SES	P2	P2B	Remi MANIAK											
+SES241	Economie et stratégie		Cours de base	SES	P2	P2A	David BOUNIE											
+SES247	Management et design de l'innovation technologique		Cours de base	SES	P3	P3A	Annie GENTES	Myriam DAVIDOVICI-NORA										
+SES249	Entrepreneuriat		Cours de base	SES	P1	P1B	Thomas HOUY											
+SES340	Techniques de l'économiste et du gestionnaire		Cours de spé	SES	P4	P4A	Bernard BURTSCHY	David BOUNIE	Patrick WAELBROECK									
+SES344	Projets incubateur		Cours de spé	SES	P4	P4B	Isabelle GARRON	Jerome DENIS										
+SES347	Econométrie		Cours de spé	SES	P4	P4B	Patrick WAELBROECK											
+SES349	Télécom, Internet, Médias (stratégie et acteurs)		Cours de spé	SES	P3	P3B	Lukasz Grzybowski	Patrick WAELBROECK										
+SES381	Projet d'innovation		Cours de spé	projet	SES	P1	P1A	P1	P1B	P2	P2A	P2	P2B	P3	P3A	P3	P3B	P4
+SI220	Acoustique		Cours de base	SI	P3	P3B2	Bertrand DAVID	Jean-Marie NICOLAS										
+SI221	Bases de la reconnaissance des formes		Cours de base	SI	P1	P1B1	P2	P2A2	Jean-Marie NICOLAS	Laurence LIKFORMAN-SULEM								
+SI222	Techniques de compression		Cours de base	SI	P1	P1A1	P2	P2B2	Gaël RICHARD	Marco CAGNAZZO								
+SI223	Optique non linéaire		Cours de base	SI	P2	P2A2	Isabelle ZAQUINE											
+SI224	Bases de la mécanique quantique		Cours de base	SI	P2	P2A1	Isabelle ZAQUINE											
+SI227	Etudes de cas en signal		Cours de base	SI	P2	P2A1	P3	P3B1	Slim ESSID									
+SI241	Traitement et analyse des images		Cours de base	SI	P1	P1A	P3	P3A	Yann GOUSSEAU									
+SI340	Signal audiofréquence et parole		Cours de spé	SI	P4	P4A	Bertrand DAVID	Gaël RICHARD										
+SI341	Méthodes avancées pour le traitement du signal		Cours de spé	SI	P3	P3A	Pascal BIANCHI	Roland BADEAU										
+SI343	Méthodes avancées de traitement des images		Cours de spé	SI	P3	P3B	Florence TUPIN											
+SI344	Vision artificielle et raisonnement dans les images		Cours de spé	SI	P2	P2B	Michel ROUX											
+SI345	Application du traitement des images		Cours de spé	SI	P4	P4B	Jean-Marie NICOLAS											
+SI349	Communications et calcul quantiques		Cours de spé	SI	P3	P3A	Eleni DIAMANTI	Isabelle ZAQUINE										
+SI350	Vidéo numérique et multimédia		Cours de spé	SI	P4	P4B	Marco CAGNAZZO											
+SI380	Projet de traitement du signal		Cours de spé	SI	P2	P2B	P3	P3A	P4	P4B	Bertrand DAVID	Roland BADEAU						
+SI381	Projet de traitement des images		Cours de spé	projet	SI	P3	P3A	P4	P4A	Michel ROUX	Said LADJAL							
+SI382	Projet multimédia		Cours de spé	projet	INF	SI	P3	P3A	P3	P3B	Cyril CONCOLATO	Jean LE FEUVRE	Jean-Claude MOISSINAC					
+SI383	Projet théorique en information quantique		Cours de spé	projet	SI	P4	P4B	Damian MARKHAM	Isabelle ZAQUINE									
+SI384	Projet expérimental en traitement quantique du signal		Cours de spé	projet	SI	P3	P3B	Isabelle ZAQUINE										
+SIMDI226	Statistiques des séries temporelles		Cours de base	MDI	SI	P2	P2B1	Eric MOULINES	Francois ROUEFF									

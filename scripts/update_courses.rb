@@ -17,6 +17,7 @@ end
 File.read(ARGV[0]).each_line.map{|line| ItemUpdater.new(line)}.each do |item_up|
 
   if item = Item.find_by(name: item_up.name)
+    #item_up.tags.each{|t| item.tags.delete(t)}
     item_up.tags.each{|t| item.tags << t}
     puts r = if item.save and item_up.tags.map(&:save).reduce(:&)
                "saved:\titem #{item_up.name}"

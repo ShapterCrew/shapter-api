@@ -110,10 +110,10 @@ class Diagram
   def front_dims
     s  = Diagram.base_dimensions
     return s unless item
-    s += Diagram.centrale_lyon_dimensions if item.tags.where(name: "Centrale Lyon").exists?
-    s += Diagram.telecom_paristech_dimensions if item.tags.where(name: "Telecom ParisTech").exists?
-    s += Diagram.supelec_dimensions if item.tags.where(name: "Supélec").exists?
-    s += Diagram.eurecom_dimensions if item.tags.where(name: "Eurecom").exists?
+    s += Diagram.centrale_lyon_dimensions if item.tags.where(name: /\A(Echange |)Centrale Lyon\z/).exists?
+    s += Diagram.telecom_paristech_dimensions if item.tags.where(name: /\A(Echange |)Telecom ParisTech\z/).exists?
+    s += Diagram.supelec_dimensions if item.tags.where(name: /\A(Echange |)Supélec\z/).exists?
+    s += Diagram.eurecom_dimensions if item.tags.where(name: /\A(Echange |)Eurecom\z/).exists?
     s.uniq
   end
 

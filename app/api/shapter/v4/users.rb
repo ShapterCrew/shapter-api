@@ -20,7 +20,8 @@ module Shapter
           end
           get "comment-pipe" do 
             n = params[:n] || 5
-            present :commentable_items, current_user.items.desc(:requires_comment_score).take(n), with: Shapter::Entities::ItemShort, :show_interested_users => true
+            r = current_user.items.not.where("comments.author_id" => current_user.id).desc(:requires_comment_score).take(n)
+            present :commentable_items, r , with: Shapter::Entities::ItemShort, :show_interested_users => true
           end
 
         end

@@ -14,7 +14,7 @@ module Shapter
       expose :current_user_has_in_cart do |it,ops|
         it.user_has_in_cart?(ops[:current_user])
       end
-      expose :subscribers, using: Shapter::Entities::UserShort
+      expose :subscribers, using: Shapter::Entities::UserShort, unless: {hide_users: true}
 
       expose :current_user_comments_count do |it,ops|
         it.user_comments_count(ops[:current_user])
@@ -29,14 +29,14 @@ module Shapter
       expose :user_can_view_comments, as: :allowed_to_view_comments do |it,ops|
         it.user_can_view_comments?(ops[:current_user])
       end
-      expose :comments, using: Shapter::Entities::Comment, if: lambda {|it,ops| it.user_can_view_comments?(ops[:current_user]) }
+      expose :comments, using: Shapter::Entities::Comment, if: lambda {|it,ops| it.user_can_view_comments?(ops[:current_user]) and !ops[:hide_comments] }
 
       expose :requires_comment_score
-      expose :front_avg_diag, as: :averaged_diagram #please leave this guy at the bottom
+
+      #please leave this guy at the bottom
+      expose :front_avg_diag, as: :averaged_diagram, unless: {hide_diag: true}
     end
 
 
   end
 end
-
-

@@ -12,7 +12,7 @@ class ItemTag
     @tags ||= @ll.map{|tagname| Tag.find_or_create_by(name: tagname)}
   end
 
-  def export
+  def export!
     puts self.to_s if item.save
   end
 

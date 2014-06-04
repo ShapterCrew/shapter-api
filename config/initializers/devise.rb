@@ -10,7 +10,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'team@shapter.com'
+  config.mailer_sender = 'teamShapter@shapter.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -105,7 +105,7 @@ Devise.setup do |config|
   # able to access the website for two days without confirming their account,
   # access will be blocked just in the third day. Default is 0.days, meaning
   # the user cannot access the website without confirming their account.
-  config.allow_unconfirmed_access_for = 1.hours
+  #config.allow_unconfirmed_access_for = 3.years
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
@@ -231,6 +231,11 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  if Rails.env.production?
+    config.omniauth :facebook, "1407104136209264", "8326a17c2df050b66a4683177504ada4"
+  else
+    config.omniauth :facebook, "213583302154494", "558b2acd1fa49b5312f0ada135b9bc9e"
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

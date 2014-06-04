@@ -2,6 +2,7 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  field :facebook_email, type: String
   field :firstname, type: String
   field :lastname,  type: String
   field :shapter_admin, type: Boolean
@@ -18,7 +19,8 @@ class User
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+    :recoverable, :rememberable, :trackable, :validatable, :confirmable
+  devise :omniauthable, :omniauth_providers => [:facebook]
 
   ## Database authenticatable
   field :email,              type: String, default: ""
@@ -48,6 +50,45 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+
+  #}}}
+
+  #{{{ facebook
+
+  field :provider, type: String
+  field :uid, type: String
+
+  def self.find_for_facebook_oauth(auth)
+
+    if user = User.find_by(email: auth.info.email, provider: nil)
+      user.update_attribute(:uid, auth.uid)
+      user.update_attribute(:provider, auth.provider)
+      user.update_attribute(:facebook_email , auth.info.email)
+      user
+    else
+
+      where(auth.slice(:provider, :uid)).first_or_create do |user|
+        user.provider = auth.provider
+        user.uid = auth.uid
+        user.facebook_email = auth.info.email
+        user.email = auth.info.email
+        user.password = Devise.friendly_token[0,20]
+        user.firstname = auth.info.first_name   # assuming the user model has a name
+        user.lastname  = auth.info.last_name   # assuming the user model has a name
+        #user.image = auth.info.image # assuming the user model has an image
+      end
+
+    end
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
+  end
+
   #}}}
 
   def sign_in_json
@@ -76,11 +117,23 @@ class User
   end
 
   validate :valid_school?
-  before_validation :set_schools
-  before_validation :set_names
+  before_validation :set_schools!
+  before_validation :set_names!
 
   before_save :items_touch
   before_save :comments_touch
+
+  before_create :skip_confirmation_notification!
+  after_create :send_confirmation_if_required
+
+  def send_confirmation_if_required
+    #no need to confirm facebook users
+    unless self.provider == "facebook"
+      if self.class.schools_for(self.email).any?
+        self.send_confirmation_instructions
+      end
+    end
+  end
 
   def comments
     Rails.cache.fetch("userComms|#{id}|#{updated_at.try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
@@ -108,6 +161,28 @@ class User
     end
   end
 
+  def confirmed_student?
+    return true if ( provider == "facebook" and schools.any? and facebook_email == email) # signed up with facebook email, that matched a signup permission or regex
+    return true if confirmed? and schools.any? # already confirmed an email, that gave a school
+    false
+  end
+
+  class << self
+    def schools_for(email)
+      schools = []
+      schools << Tag.find_or_create_by(name: "Centrale Lyon") if (email =~ /.*@ecl[0-9]+.ec-lyon.fr/ or email =~ /.*@auditeur.ec-lyon.fr/)
+      schools << Tag.find_or_create_by(name: "Centrale Paris") if email =~ /.*@student.ecp.fr/
+        schools << Tag.find_or_create_by(name: "HEC") if email =~ /.*@hec.edu/
+
+        if perm = SignupPermission.find_by(email: email)
+          perm.school_names.each do |school_name|
+            schools << Tag.find_or_create_by(name: school_name)
+          end
+        end
+      return schools
+    end
+  end
+
   private
 
   def items_touch
@@ -120,30 +195,26 @@ class User
   end
 
   def valid_school?
-    errors.add(:base,"user must belong to at least one school") if self.schools.empty?
+    unless self.provider == "facebook"
+      errors.add(:base,"user must belong to at least one school") if self.schools.empty?
+    end
   end
 
-  def set_names
+  def set_names!
     if perm = SignupPermission.find_by(email: self.email)
       self.firstname ||= perm.firstname if perm.firstname
       self.lastname  ||= perm.firstname if perm.lastname
     end
   end
 
-  def set_schools
-    self.schools << Tag.find_or_create_by(name: "Centrale Lyon") if (email =~ /.*@ecl[0-9]+.ec-lyon.fr/ or email =~ /.*@auditeur.ec-lyon.fr/)
-    self.schools << Tag.find_or_create_by(name: "Centrale Paris") if email =~ /.*@student.ecp.fr/
-      self.schools << Tag.find_or_create_by(name: "HEC") if email =~ /.*@hec.edu/
-
-      if perm = SignupPermission.find_by(email: self.email)
-
-        # This will be deprecated, please remove after v4 is fully running
-        self.schools << Tag.find_or_create_by(name: perm.school_name) if perm.school_name
-
-        perm.school_names.each do |school_name|
-          self.schools << Tag.find_or_create_by(name: school_name)
-        end
-      end
+  def set_schools!
+    self.schools += self.class.schools_for(self.email)
   end
+
+
+  def confirmation_required?
+    false
+  end
+
 
 end

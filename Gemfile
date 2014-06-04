@@ -40,3 +40,6 @@ gem 'aws-ses'
 gem 'redis-rails'
 gem 'redis-store'
 gem 'redis-rack-cache'
+
+gem 'omniauth-facebook'
+gem 'certified'

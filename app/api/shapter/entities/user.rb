@@ -8,6 +8,7 @@ module Shapter
       expose :schools, using: Shapter::Entities::Tag
       expose :shapter_admin, as: :admin
       expose :confirmed?, as: :confirmed
+      expose :confirmed_student?
 
       expose :items, using: Shapter::Entities::ItemShort
       expose :cart_items, using: Shapter::Entities::ItemShort

@@ -5,7 +5,6 @@ describe Shapter::V4::SignupFunnel do
     Tag.delete_all
     User.delete_all
 
-
     @tag = FactoryGirl.create(:tag)
 
     @signup_params = [
@@ -134,9 +133,11 @@ describe Shapter::V4::SignupFunnel do
         @item.tags << @tag
         @item.save ; @item.reload
         @tag.save ; @tag.reload
+        @user.schools = [@tag]
       end
 
       it "should fucking work" do 
+        puts "debug; #{@user.schools.map(&:name)}"
         get "users/me/signup-funnel/1"
         a = JSON.parse(@response.body)
 

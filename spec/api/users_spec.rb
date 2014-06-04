@@ -5,10 +5,13 @@ describe Shapter::V4::Users do
   before(:each) do 
     User.delete_all
     Item.delete_all
+    Tag.delete_all
     @user = FactoryGirl.create(:user)
 
     @user2 = FactoryGirl.build(:user)
     @user2.email = "another_email@haha.com"
+    @user2.provider = "facebook"
+    @user2.uid = "123"
     @user2.save
     @user2.reload
   end
@@ -72,6 +75,65 @@ describe Shapter::V4::Users do
       h["commentable_items"].size.should == 3
       h["commentable_items"].sort_by{|h| h["requires_comment_score"]}.reverse.map{|h| h["id"]}.should == [@i2,@i1,@i3].map(&:id).map(&:to_s)
     end
+
+  end
+  #}}}
+
+  #{{{ confirm student
+  describe "confirm student" do 
+    before do 
+      login(@user2)
+
+      @user.stub(:provider).and_return(nil)
+
+      @tag = FactoryGirl.create(:tag)
+    end
+
+    context "when email is no student email" do 
+      it "errors" do 
+        post "users/me/confirm_student_email", :email => "omg_so_wrong"
+        @response.status.should == 500
+        @response.body.should =~ /email format/
+      end
+    end
+
+    context "when email is student email" do 
+      before do 
+        User.stub(:schools_for).and_return([@tag])
+      end
+
+      context "when email already exists" do 
+        it "errors when empty password" do 
+          post "users/me/confirm_student_email", :email => @user.email, :password => nil
+          @response.status.should == 500
+          @response.body.should =~ /password/
+        end
+        it "errors when wrong password" do 
+          post "users/me/confirm_student_email", :email => @user.email, :password => "nope"
+          @response.status.should == 500
+          @response.body.should =~ /password/
+        end
+        it "merge accounts when right password" do 
+          pending
+          #post "users/me/confirm_student_email", :email => @user.email, :password => @user.password
+          #User.where(id: @user2.id).exists?.should be_false
+          #@user.reload
+          #@user.uid.should == "123"
+          #@user.provider.should == "facebook"
+        end
+      end
+
+      context "when email doesn't already exists" do 
+        it "associates new email to existing account" do 
+          new_email = "new_valid_email@haha.com"
+          post "users/me/confirm_student_email", :email => new_email
+          @user2.reload
+          @user2.email.should == new_email
+        end
+      end
+
+    end
+
 
   end
   #}}}

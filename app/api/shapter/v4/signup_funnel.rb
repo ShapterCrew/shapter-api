@@ -80,7 +80,7 @@ module Shapter
       namespace :users do 
 
         before do 
-          check_user_login!
+          check_confirmed_student!
         end
 
         namespace "me" do 

@@ -7,7 +7,7 @@ module Shapter
       helpers Shapter::Helpers::FilterHelper
 
       before do 
-        check_user_login!
+        check_confirmed_student!
       end
 
       namespace :tags do 

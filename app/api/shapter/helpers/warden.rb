@@ -22,6 +22,11 @@ module Shapter
         error!("forbidden" ,401) unless current_user.shapter_admin
       end
 
+      def check_confirmed_student!
+        check_user_login!
+        error!("forbidden" ,401) unless current_user.confirmed_student?
+      end
+
       def current_user
         warden.user
       end

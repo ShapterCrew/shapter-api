@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Shapter::V4::Comments do 
 
   before(:each) do 
+    User.any_instance.stub(:confirmed_student?).and_return(true)
     Item.delete_all
     User.delete_all
     @item = FactoryGirl.create(:item)

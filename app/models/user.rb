@@ -129,15 +129,15 @@ class User
 
   def track_signup_if_valid_student!
     if confirmed_student?
-      Behave.delay.identify id.to_s,
-        email: email,
-        firstname: firstname,
-        lastname: lastname,
-        name: [firstname, lastname].join(" "),
-        schools: [schools.map(&:name)],
-        provider: provider
+      Behave.delay.identify self.id.to_s,
+        email: self.email,
+        firstname: self.firstname || "unknown",
+        lastname: self.lastname || "unknown",
+        name: [self.firstname, self.lastname].join(" ") || "unknown",
+        schools: self.schools.map(&:name) || "unknown",
+        provider: self.provider || "null"
 
-      Behave.delay.track id.to_s, "signup"
+      Behave.delay.track self.id.to_s, "signup"
     end
   end
 

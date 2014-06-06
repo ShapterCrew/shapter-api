@@ -38,7 +38,7 @@ module Shapter
               if c.save
                 c.reload
                 present c, with: Shapter::Entities::Comment, :current_user => current_user
-                Behave.track current_user.pretty_id, "comment", item: c.item.pretty_id unless Rails.env.test?
+                Behave.delay.track current_user.pretty_id, "comment", item: c.item.pretty_id 
               else
                 error!(c.errors,400) unless c.valid?
               end
@@ -116,8 +116,8 @@ module Shapter
                 if comment.save
                   present comment, with: Shapter::Entities::Comment, :current_user => current_user
                   if s != old_score
-                    Behave.track current_user.pretty_id, action, last_state: old_score, comment_author: comment.author.pretty_id, comment: comment.pretty_id unless Rails.env.test?
-                    Behave.track comment.author.pretty_id, "received #{action}", last_state: old_score, comment: comment.pretty_id unless Rails.env.test?
+                    Behave.delay.track current_user.pretty_id, action, last_state: old_score, comment_author: comment.author.pretty_id, comment: comment.pretty_id 
+                    Behave.delay.track comment.author.pretty_id, "received #{action}", last_state: old_score, comment: comment.pretty_id 
                   end
                 else
                   error!(comment.errors.messages)

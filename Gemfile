@@ -45,3 +45,6 @@ gem 'omniauth-facebook'
 gem 'certified'
 
 gem 'behave.io'
+
+gem 'delayed_job_mongoid'#, :github => 'collectiveidea/delayed_job'
+gem 'daemons'

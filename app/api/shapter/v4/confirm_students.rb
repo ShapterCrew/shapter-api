@@ -27,6 +27,7 @@ module Shapter
             if u = User.find_by(email: email) 
               error!("existing account,please provide a password") if pass.blank?
               error!("wrong email/password combination") unless u.valid_password?(pass)
+              error!("current account is valid and won't be deleted") if u.confirmed_student?
 
               # Old account has been found, email gives schools and ownership is verified through password confirmation
 

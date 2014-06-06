@@ -1,3 +1,4 @@
+require 'benchmark'
 module Shapter
   module V4
     class Ping < Grape::API

@@ -1,0 +1,6 @@
+require 'behave'
+if Rails.env.production?
+  Behave.init 'api_token_prod'
+else
+  Behave.init 'api_token_sandbox'
+end

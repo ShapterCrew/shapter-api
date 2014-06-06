@@ -83,9 +83,12 @@ module Shapter
             i = Item.find(params[:id])
             error!("not found",404) unless i
             i.subscribers << current_user
-            i.save
-            i.reload
-            present i, with: Shapter::Entities::Item, :current_user => current_user
+            if i.save
+              present i, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.track current_user.pretty_id, "subscribe item", item: i.pretty_id unless Rails.env.test?
+            else
+              error!(i.errors.messages)
+            end
           end
           #}}}
 
@@ -95,9 +98,12 @@ module Shapter
             i = Item.find(params[:id])
             error!("not found",404) unless i
             i.subscribers.delete(current_user)
-            i.save
-            i.reload
-            present i, with: Shapter::Entities::Item, :current_user => current_user
+            if i.save
+              present i, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.track current_user.pretty_id, "unsubscribe item", item: i.pretty_id unless Rails.env.test?
+            else
+              error!(i.errors.messages)
+            end
           end
           #}}}
 
@@ -107,9 +113,12 @@ module Shapter
             i = Item.find(params[:id])
             error!("not found",404) unless i
             i.interested_users << current_user
-            i.save
-            i.reload
-            present i, with: Shapter::Entities::Item, :current_user => current_user
+            if i.save
+              present i, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.track current_user.pretty_id, "add_to_cart", item: i.pretty_id unless Rails.env.test?
+            else
+              error!(i.errors.messages)
+            end
           end
           #}}}
 
@@ -119,9 +128,12 @@ module Shapter
             i = Item.find(params[:id])
             error!("not found",404) unless i
             i.interested_users.delete(current_user)
-            i.save
-            i.reload
-            present i, with: Shapter::Entities::Item, :current_user => current_user
+            if i.save
+              present i, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.track current_user.pretty_id, "remove_from_cart", item: i.pretty_id unless Rails.env.test?
+            else
+              error!(i.errors.messages)
+            end
           end
           #}}}
 

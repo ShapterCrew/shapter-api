@@ -39,8 +39,13 @@ module Shapter
                 d.values ||= Array.new(Diagram.values_size)
                 d.values[i.to_i] = v.to_i
               end
-              d.save
-              present d, with: Shapter::Entities::Diagram, current_user: current_user
+              if d.save
+                present d, with: Shapter::Entities::Diagram, current_user: current_user
+
+                Behave.track current_user.pretty_id, "edit diagram", item: i.pretty_id unless Rails.env.test?
+              else
+                error!(d.errors.messages)
+              end
             end
             #}}}
 

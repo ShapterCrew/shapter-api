@@ -133,6 +133,7 @@ class User
         email: email,
         firstname: firstname,
         lastname: lastname,
+        name: [firstname, lastname].join(" "),
         schools: [schools.map(&:name)],
         provider: provider
 

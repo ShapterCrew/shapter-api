@@ -42,7 +42,7 @@ module Shapter
               if d.save
                 present d, with: Shapter::Entities::Diagram, current_user: current_user
 
-                Behave.track current_user.pretty_id, "edit diagram", item: i.pretty_id unless Rails.env.test?
+                Behave.delay.track current_user.pretty_id, "edit diagram", item: i.pretty_id 
               else
                 error!(d.errors.messages)
               end

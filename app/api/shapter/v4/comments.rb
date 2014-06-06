@@ -97,16 +97,15 @@ module Shapter
                             end
 
                 if s == 0
-                  action = "unlike comment" if old_score == 1
-                  action = "undislike comment" if old_score == -1
+                  action = "unlike"
                   comment.likers.delete(current_user)
                   comment.dislikers.delete(current_user)
                 elsif s == 1
-                  action = "like comment"
+                  action = "like"
                   comment.likers << current_user
                   comment.dislikers.delete(current_user)
                 elsif s == -1
-                  action = "dislike comment"
+                  action = "dislike"
                   comment.dislikers << current_user
                   comment.likers.delete(current_user)
                 else
@@ -117,7 +116,7 @@ module Shapter
                   present comment, with: Shapter::Entities::Comment, :current_user => current_user
                   if s != old_score
                     Behave.delay.track current_user.pretty_id, action, last_state: old_score, comment_author: comment.author.pretty_id, comment: comment.pretty_id 
-                    Behave.delay.track comment.author.pretty_id, "received #{action}", last_state: old_score, comment: comment.pretty_id 
+                    Behave.delay.track comment.author.pretty_id, "receive like" if s == 1
                   end
                 else
                   error!(comment.errors.messages)

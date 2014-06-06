@@ -49,7 +49,7 @@ namespace :deploy do
 
   desc 'Restart application'
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence, wait: 2 do
       # Your restart mechanism here, for example:
        execute :touch, release_path.join('tmp/restart.txt')
     end
@@ -58,12 +58,19 @@ namespace :deploy do
   after :publishing, :restart
 
   after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
+    #on roles(:web), in: :groups, limit: 3, wait: 10 do
+    #  # Here we can do anything such as:
+    #  # within release_path do
+    #  #   execute :rake, 'cache:clear'
+    #  # end
+    #end
+  end
+
+  after :restart, :delayed_job do 
+    task :delayed_job do 
+      invoke 'delayed_job:restart'
     end
   end
 
 end
+

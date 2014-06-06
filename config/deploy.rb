@@ -58,20 +58,18 @@ namespace :deploy do
   after :publishing, :restart
 
   desc "restart delayed_job daemon"
-  after :restart, :start_delayed_job_deamon do
-    on roles(delayed_job_roles) do
+  after :restart, :clear_cache do
+    on roles(:app), in: :groups, limit: 3, wait: 1 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
       within release_path do 
-        with rails_env: fetch(:rails_env) do 
-          execute :bundle, :exec, :'bin/delayed_job', args, :restart
+        with rails_env: :production do 
+          execute :bundle, :exec, :"bin/delayed_job", :restart
         end
       end
     end
-    #on roles(:web), in: :groups, limit: 3, wait: 10 do
-    #  # Here we can do anything such as:
-    #  # within release_path do
-    #  #   execute :rake, 'cache:clear'
-    #  # end
-    #end
   end
 
 end

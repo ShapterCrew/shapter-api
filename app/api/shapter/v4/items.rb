@@ -85,7 +85,7 @@ module Shapter
             i.subscribers << current_user
             if i.save
               present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.track current_user.pretty_id, "subscribe item", item: i.pretty_id unless Rails.env.test?
+              Behave.delay.track current_user.pretty_id, "subscribe item", item: i.pretty_id 
             else
               error!(i.errors.messages)
             end
@@ -100,7 +100,7 @@ module Shapter
             i.subscribers.delete(current_user)
             if i.save
               present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.track current_user.pretty_id, "unsubscribe item", item: i.pretty_id unless Rails.env.test?
+              Behave.delay.track current_user.pretty_id, "unsubscribe item", item: i.pretty_id 
             else
               error!(i.errors.messages)
             end
@@ -115,7 +115,7 @@ module Shapter
             i.interested_users << current_user
             if i.save
               present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.track current_user.pretty_id, "add_to_cart", item: i.pretty_id unless Rails.env.test?
+              Behave.delay.track current_user.pretty_id, "add_to_cart", item: i.pretty_id 
             else
               error!(i.errors.messages)
             end
@@ -130,7 +130,7 @@ module Shapter
             i.interested_users.delete(current_user)
             if i.save
               present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.track current_user.pretty_id, "remove_from_cart", item: i.pretty_id unless Rails.env.test?
+              Behave.delay.track current_user.pretty_id, "remove_from_cart", item: i.pretty_id 
             else
               error!(i.errors.messages)
             end

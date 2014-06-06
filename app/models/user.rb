@@ -128,15 +128,15 @@ class User
   after_create :track_signup_if_valid_student!
 
   def track_signup_if_valid_student!
-    if confirmed_student? and !Rails.env.test?
-      Behave.identify id.to_s,
+    if confirmed_student?
+      Behave.delay.identify id.to_s,
         email: email,
         firstname: firstname,
         lastname: lastname,
         schools: [schools.map(&:name)],
         provider: provider
 
-      Behave.track id.to_s, "signup"
+      Behave.delay.track id.to_s, "signup"
     end
   end
 

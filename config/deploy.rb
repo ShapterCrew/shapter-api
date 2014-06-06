@@ -58,19 +58,20 @@ namespace :deploy do
   after :publishing, :restart
 
   after :restart, :clear_cache do
-    #on roles(:web), in: :groups, limit: 3, wait: 10 do
-    #  # Here we can do anything such as:
-    #  # within release_path do
-    #  #   execute :rake, 'cache:clear'
-    #  # end
-    #end
-  end
-
-  after :restart, :delayed_job do 
-    task :delayed_job do 
-      invoke 'delayed_job:restart'
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+       within release_path do
+         #execute :rake, 'cache:clear'
+         invoke 'delayed_job:restart'
+       end
     end
   end
+
+  #after :restart, :delayed_job do 
+  #  task :delayed_job do 
+  #    invoke 'delayed_job:restart'
+  #  end
+  #end
 
 end
 

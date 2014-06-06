@@ -115,7 +115,7 @@ module Shapter
             i.interested_users << current_user
             if i.save
               present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.delay.track current_user.pretty_id, "add_to_cart", item: i.pretty_id 
+              Behave.delay.track current_user.pretty_id, "add to cart", item: i.pretty_id 
             else
               error!(i.errors.messages)
             end
@@ -130,7 +130,7 @@ module Shapter
             i.interested_users.delete(current_user)
             if i.save
               present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.delay.track current_user.pretty_id, "remove_from_cart", item: i.pretty_id 
+              Behave.delay.track current_user.pretty_id, "remove from cart", item: i.pretty_id 
             else
               error!(i.errors.messages)
             end

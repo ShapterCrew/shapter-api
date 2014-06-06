@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Shapter::V4::Tags do 
 
   before(:each) do 
+    User.any_instance.stub(:confirmed_student?).and_return(:true)
     Tag.delete_all
     User.delete_all
     Item.delete_all

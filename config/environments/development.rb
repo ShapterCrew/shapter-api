@@ -16,11 +16,14 @@ ShapterApi::Application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
+  # Don't send emails
+  config.action_mailer.perform_deliveries = false
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
   config.action_mailer.default_url_options = { :host => 'localhost'}
-  config.action_mailer.delivery_method = :ses
+  #config.action_mailer.delivery_method = :ses
 
   #use this to truly debug email sending:
   #config.action_mailer.default_url_options = { :host => 'shapter.com'}

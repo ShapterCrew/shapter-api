@@ -35,11 +35,13 @@ module Shapter
                 item: item,
               )
 
-              error!(c.errors,400) unless c.valid?
-
-              c.save
-              c.reload
-              present c, with: Shapter::Entities::Comment, :current_user => current_user
+              if c.save
+                c.reload
+                present c, with: Shapter::Entities::Comment, :current_user => current_user
+                Behave.track current_user.pretty_id, "comment", item: c.item.pretty_id unless Rails.env.test?
+              else
+                error!(c.errors,400) unless c.valid?
+              end
             end
             # }}}
 
@@ -86,13 +88,25 @@ module Shapter
                 comment = (item.comments.find(params[:comment_id]) || error!("comment not found"))
                 s = params[:score].to_i
 
+                old_score = if comment.likers.include?(current_user)
+                              1
+                            elsif comment.dislikers.include?(current_user)
+                              -1
+                            else
+                              0
+                            end
+
                 if s == 0
+                  action = "unlike comment" if old_score == 1
+                  action = "undislike comment" if old_score == -1
                   comment.likers.delete(current_user)
                   comment.dislikers.delete(current_user)
                 elsif s == 1
+                  action = "like comment"
                   comment.likers << current_user
                   comment.dislikers.delete(current_user)
                 elsif s == -1
+                  action = "dislike comment"
                   comment.dislikers << current_user
                   comment.likers.delete(current_user)
                 else
@@ -101,6 +115,10 @@ module Shapter
 
                 if comment.save
                   present comment, with: Shapter::Entities::Comment, :current_user => current_user
+                  if s != old_score
+                    Behave.track current_user.pretty_id, action, last_state: old_score, comment_author: comment.author.pretty_id, comment: comment.pretty_id unless Rails.env.test?
+                    Behave.track comment.author.pretty_id, "received #{action}", last_state: old_score, comment: comment.pretty_id unless Rails.env.test?
+                  end
                 else
                   error!(comment.errors.messages)
                 end

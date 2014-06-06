@@ -125,6 +125,20 @@ class User
 
   before_create :skip_confirmation_notification!
   after_create :send_confirmation_if_required
+  after_create :track_signup_if_valid_student!
+
+  def track_signup_if_valid_student!
+    if confirmed_student? and !Rails.env.test?
+      Behave.identify id.to_s,
+        email: email,
+        firstname: firstname,
+        lastname: lastname,
+        schools: [schools.map(&:name)],
+        provider: provider
+
+      Behave.track id.to_s, "signup"
+    end
+  end
 
   def send_confirmation_if_required
     #no need to confirm facebook users
@@ -165,6 +179,12 @@ class User
     return true if ( provider == "facebook" and schools.any? and facebook_email == email) # signed up with facebook email, that matched a signup permission or regex
     return true if confirmed? and schools.any? # already confirmed an email, that gave a school
     false
+  end
+
+  def track_login!
+    unless Rails.env.test?
+      Behave.track pretty_id, "login"
+    end
   end
 
   class << self

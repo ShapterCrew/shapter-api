@@ -26,3 +26,4 @@ config/mongoid.yml
 *.swp
 
 config/initializers/aws_credentials.rb
+config/initializers/behave_io.rb

@@ -79,6 +79,9 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.7)
+    behave.io (0.0.1)
+      httparty (~> 0.13)
+      json (~> 1.8)
     bson (2.2.2)
     bson_ext (1.5.1)
     builder (3.1.4)
@@ -142,6 +145,9 @@ GEM
       railties (>= 3.2.12)
     hashie (2.1.1)
     hike (1.2.3)
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.9)
     ice_nine (0.11.0)
     jbuilder (1.5.3)
@@ -298,6 +304,7 @@ DEPENDENCIES
   autotest-rails
   aws-sdk
   aws-ses
+  behave.io
   bson_ext
   byebug
   capistrano-chruby

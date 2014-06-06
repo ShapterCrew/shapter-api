@@ -182,9 +182,7 @@ class User
   end
 
   def track_login!
-    unless Rails.env.test?
-      Behave.track pretty_id, "login"
-    end
+    Behave.delay.track pretty_id, "login"
   end
 
   class << self

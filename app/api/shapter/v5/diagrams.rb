@@ -1,10 +1,10 @@
 module Shapter
-  module V3
+  module V5
     class Diagrams < Grape::API
       format :json
 
       before do 
-        check_user_login!
+        check_confirmed_student!
       end
 
       namespace :items do 
@@ -39,8 +39,13 @@ module Shapter
                 d.values ||= Array.new(Diagram.values_size)
                 d.values[i.to_i] = v.to_i
               end
-              d.save
-              present d, with: Shapter::Entities::Diagram, current_user: current_user
+              if d.save
+                present d, with: Shapter::Entities::Diagram, current_user: current_user
+
+                Behave.delay.track current_user.pretty_id, "edit a diagram", item: i.pretty_id 
+              else
+                error!(d.errors.messages)
+              end
             end
             #}}}
 

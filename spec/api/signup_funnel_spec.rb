@@ -137,7 +137,6 @@ describe Shapter::V4::SignupFunnel do
       end
 
       it "should fucking work" do 
-        puts "debug; #{@user.schools.map(&:name)}"
         get "users/me/signup-funnel/1"
         a = JSON.parse(@response.body)
 

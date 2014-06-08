@@ -19,7 +19,6 @@ describe Shapter::V4::ConfirmStudents do
         get "users/me"
         access_denied(@response).should be_false
         h = JSON.parse(@response.body)
-        puts "debug: h=#{h}"
         h["email"].should == @user.email
       end
     end

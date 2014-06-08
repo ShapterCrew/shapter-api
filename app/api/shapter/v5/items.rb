@@ -1,11 +1,11 @@
 module Shapter
-  module V3
+  module V5
     class Items < Grape::API
       helpers Shapter::Helpers::FilterHelper
       format :json
 
       before do 
-        check_user_login!
+        check_confirmed_student!
       end
 
       namespace :items do 
@@ -23,6 +23,9 @@ module Shapter
           f = filter_items2(params[:filter])
           present :number_of_results, f.size
           present :items, f[nstart..nstop], with: Shapter::Entities::ItemShort, :current_user => current_user
+          unless (params[:filter] - current_user.school_ids.map(&:to_s)).empty?
+            Behave.delay.track current_user.pretty_id, "search on browse"
+          end
         end
         #}}}
 
@@ -83,9 +86,12 @@ module Shapter
             i = Item.find(params[:id])
             error!("not found",404) unless i
             i.subscribers << current_user
-            i.save
-            i.reload
-            present i, with: Shapter::Entities::Item, :current_user => current_user
+            if i.save
+              present i, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.delay.track current_user.pretty_id, "subscribe item", item: i.pretty_id 
+            else
+              error!(i.errors.messages)
+            end
           end
           #}}}
 
@@ -95,9 +101,12 @@ module Shapter
             i = Item.find(params[:id])
             error!("not found",404) unless i
             i.subscribers.delete(current_user)
-            i.save
-            i.reload
-            present i, with: Shapter::Entities::Item, :current_user => current_user
+            if i.save
+              present i, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.delay.track current_user.pretty_id, "unsubscribe item", item: i.pretty_id 
+            else
+              error!(i.errors.messages)
+            end
           end
           #}}}
 
@@ -107,9 +116,12 @@ module Shapter
             i = Item.find(params[:id])
             error!("not found",404) unless i
             i.interested_users << current_user
-            i.save
-            i.reload
-            present i, with: Shapter::Entities::Item, :current_user => current_user
+            if i.save
+              present i, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.delay.track current_user.pretty_id, "add to cart", item: i.pretty_id 
+            else
+              error!(i.errors.messages)
+            end
           end
           #}}}
 
@@ -119,9 +131,12 @@ module Shapter
             i = Item.find(params[:id])
             error!("not found",404) unless i
             i.interested_users.delete(current_user)
-            i.save
-            i.reload
-            present i, with: Shapter::Entities::Item, :current_user => current_user
+            if i.save
+              present i, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.delay.track current_user.pretty_id, "remove from cart", item: i.pretty_id 
+            else
+              error!(i.errors.messages)
+            end
           end
           #}}}
 

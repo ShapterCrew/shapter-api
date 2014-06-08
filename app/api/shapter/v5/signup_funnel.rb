@@ -1,5 +1,5 @@
 module Shapter
-  module V3
+  module V5
     class SignupFunnel < Grape::API
       helpers Shapter::Helpers::FilterHelper
       format :json
@@ -80,7 +80,7 @@ module Shapter
       namespace :users do 
 
         before do 
-          check_user_login!
+          check_confirmed_student!
         end
 
         namespace "me" do 

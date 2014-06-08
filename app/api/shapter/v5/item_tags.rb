@@ -1,11 +1,11 @@
 module Shapter
-  module V3
+  module V5
     class ItemTags < Grape::API
       helpers Shapter::Helpers::FilterHelper
       format :json
 
       before do 
-        check_user_login!
+        check_confirmed_student!
       end
 
       namespace :items do 

@@ -1,10 +1,10 @@
 module Shapter
-  module V3
+  module V5
     class Comments < Grape::API
       format :json
 
       before do 
-        check_user_login!
+        check_confirmed_student!
       end
 
       namespace :items do 
@@ -35,11 +35,13 @@ module Shapter
                 item: item,
               )
 
-              error!(c.errors,400) unless c.valid?
-
-              c.save
-              c.reload
-              present c, with: Shapter::Entities::Comment, :current_user => current_user
+              if c.save
+                c.reload
+                present c, with: Shapter::Entities::Comment, :current_user => current_user
+                Behave.delay.track current_user.pretty_id, "comment", item: c.item.pretty_id 
+              else
+                error!(c.errors,400) unless c.valid?
+              end
             end
             # }}}
 
@@ -86,13 +88,24 @@ module Shapter
                 comment = (item.comments.find(params[:comment_id]) || error!("comment not found"))
                 s = params[:score].to_i
 
+                old_score = if comment.likers.include?(current_user)
+                              1
+                            elsif comment.dislikers.include?(current_user)
+                              -1
+                            else
+                              0
+                            end
+
                 if s == 0
+                  action = "unlike"
                   comment.likers.delete(current_user)
                   comment.dislikers.delete(current_user)
                 elsif s == 1
+                  action = "like"
                   comment.likers << current_user
                   comment.dislikers.delete(current_user)
                 elsif s == -1
+                  action = "dislike"
                   comment.dislikers << current_user
                   comment.likers.delete(current_user)
                 else
@@ -101,6 +114,10 @@ module Shapter
 
                 if comment.save
                   present comment, with: Shapter::Entities::Comment, :current_user => current_user
+                  if s != old_score
+                    Behave.delay.track current_user.pretty_id, action, last_state: old_score, comment_author: comment.author.pretty_id, comment: comment.pretty_id 
+                    Behave.delay.track comment.author.pretty_id, "receive like" if s == 1
+                  end
                 else
                   error!(comment.errors.messages)
                 end

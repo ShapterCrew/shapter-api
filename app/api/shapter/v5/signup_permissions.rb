@@ -1,5 +1,5 @@
 module Shapter
-  module V3
+  module V5
     class SignupPermissions < Grape::API
       format :json
 
@@ -16,20 +16,23 @@ module Shapter
       end
       #}}}
 
-      #{{{ add a signup permission
+      #{{{ create a signup permission
       desc "add or update a signup permission"
       params do
         requires :signup_permission, type: Hash do 
           requires :email, type: String, desc: "I'm sure you can guess"
-          requires :school_tag_id, type: String, desc: "id of the TAG that will be used as a school"
+          requires :school_tag_ids, type: Array, desc: "id of the TAG that will be used as a school"
           optional :firstname, type: String, desc: "users's firstname"
           optional :lastname, type: String, desc: "users's lastname"
         end
       end
       put do 
-        tag = Tag.find(params[:signup_permission][:school_tag_id].strip) || error!("tag not found",404)
+
+        tags = Tag.any_in(id: params[:signup_permission][:school_tag_ids].map(&:strip))
+        error!("no tag found",404) if tags.empty?
+
         perm = SignupPermission.find_or_create_by(email: params[:signup_permission][:email].strip)
-        perm.school_name = tag.name
+        perm.school_names = tags.map(&:name)
 
         if params[:firstname]
           perm.firstname = params[:signup_permission][:firstname].chomp.strip

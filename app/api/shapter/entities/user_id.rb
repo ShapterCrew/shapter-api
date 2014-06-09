@@ -5,6 +5,7 @@ module Shapter
       expose :lastname
       expose :email
       expose :pretty_id, as: :id
+      expose :image
     end
   end
 end

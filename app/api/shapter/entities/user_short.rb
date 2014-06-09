@@ -5,6 +5,7 @@ module Shapter
       expose :lastname
       expose :schools, using: Shapter::Entities::Tag unless {format: :no_schools}
       expose :pretty_id, as: :id
+      expose :image
     end
   end
 end

@@ -6,6 +6,7 @@ class User
   field :firstname, type: String
   field :lastname,  type: String
   field :shapter_admin, type: Boolean
+  field :image, type: String
 
   has_and_belongs_to_many :liked_comments, class_name: "Item", inverse_of: :likers
   has_and_belongs_to_many :disliked_comments, class_name: "Item", inverse_of: :dislikers
@@ -75,7 +76,7 @@ class User
         user.password = Devise.friendly_token[0,20]
         user.firstname = auth.info.first_name   # assuming the user model has a name
         user.lastname  = auth.info.last_name   # assuming the user model has a name
-        #user.image = auth.info.image # assuming the user model has an image
+        user.image = auth.info.image # assuming the user model has an image
       end
 
     end

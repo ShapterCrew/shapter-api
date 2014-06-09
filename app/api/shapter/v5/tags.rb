@@ -39,7 +39,7 @@ module Shapter
         params do 
           requires :selected_tags, type: Array, desc: "Array of tags"
           optional :ignore_user, type: Boolean, desc: "Ignore user's tags"
-          optional :limit, type: Integer, desc: "Limit the max number of results", default: 20
+          optional :limit, type: Integer, desc: "Limit the max number of results", default: 2_000
         end
 
         post :suggested do 

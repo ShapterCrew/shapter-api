@@ -140,6 +140,36 @@ module Shapter
           end
           #}}}
 
+          #{{{ constructor
+          desc "add item to constructor"
+          post :constructor do 
+            i = Item.find(params[:id])
+            error!("not found",404) unless i
+            i.constructor_users << current_user
+            if i.save
+              present i, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.delay.track current_user.pretty_id, "add to constructor", item: i.pretty_id 
+            else
+              error!(i.errors.messages)
+            end
+          end
+          #}}}
+
+          #{{{ unconstructor
+          desc "removes the item from constructor"
+          post :unconstructor do 
+            i = Item.find(params[:id])
+            error!("not found",404) unless i
+            i.constructor_users.delete(current_user)
+            if i.save
+              present i, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.delay.track current_user.pretty_id, "remove from constructor", item: i.pretty_id 
+            else
+              error!(i.errors.messages)
+            end
+          end
+          #}}}
+
           #{{{ destroy
           desc "destroy an item"
           delete do 

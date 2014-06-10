@@ -18,7 +18,7 @@ describe Shapter::V4::CourseBuilder do
   describe "course builder" do 
 
     before do 
-        @tag.signup_funnel_tag_list = [{name: "haha, recursion!", tag_ids: [@tag.id]}]
+        @tag.signup_funnel = [{name: "haha, recursion!", tag_ids: [@tag.id]}]
         @tag.save
     end
 

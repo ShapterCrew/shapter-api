@@ -7,9 +7,9 @@ describe Shapter::V4::SignupFunnel do
 
     @tag = FactoryGirl.create(:tag)
 
-    @signup_params = [
-      {"name" => "foo", "tag_ids" => [@tag.id.to_s]},
-      {"name" => "bar", "tag_ids" => [@tag.id.to_s]},
+    @constructor_params = [
+      {"name" => "foo", "tag_ids" => [@tag.id.to_s], "default_types" => nil},
+      {"name" => "bar", "tag_ids" => [@tag.id.to_s], "default_types" => ["a","b"]},
     ]
 
     @user = FactoryGirl.create(:user)
@@ -25,7 +25,7 @@ describe Shapter::V4::SignupFunnel do
       context "when not admin" do 
         before do 
           User.any_instance.stub(:shapter_admin).and_return(false)
-          put "tags/#{@tag.id}/signup-funnel", :signup_funnel => @signup_params
+          put "tags/#{@tag.id}/constructor-funnel", :constructor_funnel => @constructor_params
         end
 
         it "denies access" do 
@@ -35,7 +35,7 @@ describe Shapter::V4::SignupFunnel do
       context "when admin" do 
         before do 
           User.any_instance.stub(:shapter_admin).and_return(true)
-          put "tags/#{@tag.id}/signup-funnel", :signup_funnel => @signup_params
+          put "tags/#{@tag.id}/constructor-funnel", :constructor_funnel => @constructor_params
         end
 
         it "allows access" do 
@@ -44,10 +44,10 @@ describe Shapter::V4::SignupFunnel do
 
         it "set proper values" do 
           @tag.reload
-          @tag.signup_funnel.should == @signup_params
+          @tag.constructor_funnel.should == @constructor_params
         end
 
-        it "returns signup_funnel" do 
+        it "returns constructor_funnel" do 
           a = JSON.parse(@response.body)
           a.is_a?(Array).should be_true
         end
@@ -58,14 +58,14 @@ describe Shapter::V4::SignupFunnel do
     #{{{ get 
     describe "get" do 
       before do 
-        @tag.signup_funnel = @signup_params
+        @tag.constructor_funnel = @constructor_params
         @tag.save
         @tag.reload
       end
       context "when not admin" do 
         before do 
           User.any_instance.stub(:shapter_admin).and_return(false)
-          get "tags/#{@tag.id}/signup-funnel"
+          get "tags/#{@tag.id}/constructor-funnel"
         end
 
         it "denies access" do
@@ -75,7 +75,7 @@ describe Shapter::V4::SignupFunnel do
       context "when admin" do 
         before do 
           User.any_instance.stub(:shapter_admin).and_return(true)
-          get "tags/#{@tag.id}/signup-funnel"
+          get "tags/#{@tag.id}/constructor-funnel"
         end
 
         it "allows access" do 
@@ -83,7 +83,7 @@ describe Shapter::V4::SignupFunnel do
         end
 
         it "finds and return values" do 
-          JSON.parse(@response.body).should == {"signup_funnel" => @signup_params}
+          JSON.parse(@response.body).should == {"constructor_funnel" => @constructor_params}
         end
       end
     end
@@ -92,14 +92,14 @@ describe Shapter::V4::SignupFunnel do
     #{{{ delete
     describe "delete" do 
       before do
-        @tag.signup_funnel = @signup_params
+        @tag.constructor_funnel = @constructor_params
         @tag.save
         @tag.reload
       end
       context "when not admin" do 
         before do 
           User.any_instance.stub(:shapter_admin).and_return(false)
-          delete "tags/#{@tag.id}/signup-funnel"
+          delete "tags/#{@tag.id}/constructor-funnel"
         end
 
         it "denies access" do 
@@ -109,12 +109,12 @@ describe Shapter::V4::SignupFunnel do
       context "when admin" do 
         before do 
           User.any_instance.stub(:shapter_admin).and_return(true)
-          delete "tags/#{@tag.id}/signup-funnel"
+          delete "tags/#{@tag.id}/constructor-funnel"
         end
 
         it "deletes the funnel" do 
           @tag.reload
-          @tag.signup_funnel.should be_nil
+          @tag.constructor_funnel.should be_nil
           JSON.parse(@response.body).should == {"status" => "deleted"}
         end
       end
@@ -128,7 +128,7 @@ describe Shapter::V4::SignupFunnel do
     #{{{ get item list
     describe "get" do 
       before do 
-        @tag.signup_funnel = @signup_params
+        @tag.constructor_funnel = @constructor_params
         @item = FactoryGirl.create(:item)
         @item.tags << @tag
         @item.save ; @item.reload
@@ -137,7 +137,7 @@ describe Shapter::V4::SignupFunnel do
       end
 
       it "should fucking work" do 
-        get "users/me/signup-funnel/1"
+        get "users/me/constructor-funnel/1"
         a = JSON.parse(@response.body)
 
         a["total_nb_of_steps"].should == 2
@@ -146,11 +146,11 @@ describe Shapter::V4::SignupFunnel do
         a["items"].first["id"].should == @item.id.to_s
 
 
-        get "users/me/signup-funnel/2"
+        get "users/me/constructor-funnel/2"
         a = JSON.parse(@response.body)
         a["name"].should == "bar"
 
-        get "users/me/signup-funnel/20"
+        get "users/me/constructor-funnel/20"
         a = JSON.parse(@response.body)
         #should error, but not raise any exception
       end

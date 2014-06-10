@@ -1,7 +1,5 @@
 class SignupPermission
   include Mongoid::Document
-  #School_name should be deprecated when v4 is running
-  field :school_name, type: String
 
   field :email, type: String
 

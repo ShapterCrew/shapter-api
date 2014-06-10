@@ -48,3 +48,4 @@ gem 'behave.io'
 
 gem 'delayed_job_mongoid'#, :github => 'collectiveidea/delayed_job'
 gem 'daemons'
+gem 'thor'

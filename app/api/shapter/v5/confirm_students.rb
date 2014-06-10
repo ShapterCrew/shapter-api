@@ -36,6 +36,7 @@ module Shapter
               u.update_attribute(:uid, current_user.uid)
               u.update_attribute(:provider,  current_user.provider)
               u.update_attribute(:facebook_email, current_user.email)
+              u.update_attribute(:image, current_user.image)
 
               User.find(this_user_id).destroy
 

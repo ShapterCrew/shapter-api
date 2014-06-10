@@ -11,7 +11,7 @@ module Funnelable
         if h.is_a? Hash
           errors.add(:field, "#{attr}[#{i}] should have name key") unless h.has_key?("name") or h.has_key?(:name)
           errors.add(:field, "#{attr}[#{i}] should have tag_ids key") unless h.has_key?("tag_ids") or h.has_key?(:tag_ids)
-          if h.has_key?("default_types")
+          if h.has_key?("default_types") and !!h["default_types"]
             errors.add(:field, "#{attr}[#{i}] default_types should be an array") unless h["default_types"].is_a?(Array)
           end
         else

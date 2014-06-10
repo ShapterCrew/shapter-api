@@ -11,7 +11,6 @@ else
 end
 
 
-
 File.open(ARGV[0]).each_line do |line|
   email = line.chomp.downcase
   full_name = email.split("@")[0]
@@ -20,13 +19,18 @@ File.open(ARGV[0]).each_line do |line|
 
   s = SignupPermission.new(
     email: email,
-    school_name: school_name, #v3 compatibility
+    #school_name: school_name, #v3 compatibility # ya plus
     school_names: school_names, #v4 compatibility
     firstname: first_name,
     lastname: last_name,
   )
-  s.save
-  puts "#{email} saved"
+
+  # j'aime bien afficher les erreurs quand il y en a
+  if s.save
+    puts "#{email} saved"
+  else
+    puts "pb with #{email}: #{s.errors.messages}"
+  end
 
 
 end

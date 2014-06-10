@@ -22,10 +22,10 @@ module Shapter
                 school = Tag.find(params[:schoolTagId]) || error!("tag not found",404)
                 error!("forbidden" ,401) unless current_user.schools.include? school
 
-                error!("school #{school.name} has no signup funnel") if school.signup_funnel_tag_list.blank?
+                error!("school #{school.name} has no signup funnel") if school.signup_funnel.blank?
 
                 cart = current_user.cart_item_ids
-                builder = school.signup_funnel_tag_list.map do |h|
+                builder = school.signup_funnel.map do |h|
                   OpenStruct.new({
                     name: h["name"],
                     cart_items: current_user.cart_items.all_in(tag_ids: h["tag_ids"]),

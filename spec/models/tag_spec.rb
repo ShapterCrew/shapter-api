@@ -14,8 +14,8 @@ describe Tag do
 
   describe "validations" do 
 
-    #{{{ signup_funnel_tag_list
-    describe :signup_funnel_tag_list do 
+    #{{{ signup_funnel
+    describe :signup_funnel do 
       before do 
         @tag = FactoryGirl.build(:tag)
         @signup = [
@@ -25,32 +25,32 @@ describe Tag do
       end
 
       it "validates proper structure" do 
-        @tag.signup_funnel_tag_list = @signup
+        @tag.signup_funnel = @signup
         @tag.valid?
         @tag.valid?.should be_true
       end
 
       it "can be nil" do 
-        @tag.signup_funnel_tag_list = @signup
-        @tag.signup_funnel_tag_list = nil
+        @tag.signup_funnel = @signup
+        @tag.signup_funnel = nil
         @tag.valid?.should be_true
       end
 
       it "all list elements should be hashes" do 
-        @tag.signup_funnel_tag_list = @signup
-        @tag.signup_funnel_tag_list << "foo"
+        @tag.signup_funnel = @signup
+        @tag.signup_funnel << "foo"
         @tag.valid?.should be_false
       end
 
       it "all hashes in element should have name key" do 
-        @tag.signup_funnel_tag_list = @signup
-        @tag.signup_funnel_tag_list.last.delete(:name)
+        @tag.signup_funnel = @signup
+        @tag.signup_funnel.last.delete(:name)
         @tag.valid?.should be_false
       end
 
       it "all hashes in element should have tag_ids key" do 
-        @tag.signup_funnel_tag_list = @signup
-        @tag.signup_funnel_tag_list.last.delete(:tag_ids)
+        @tag.signup_funnel = @signup
+        @tag.signup_funnel.last.delete(:tag_ids)
         @tag.valid?.should be_false
       end
 

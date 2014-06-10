@@ -1,6 +1,6 @@
 module Shapter
   module V5
-    class SignupFunnel < Grape::API
+    class ConstructorFunnel < Grape::API
       helpers Shapter::Helpers::FilterHelper
       format :json
 
@@ -14,35 +14,36 @@ module Shapter
             @tag = Tag.find(params[:tag_id]) || error!("tag not found", 404)
           end
 
-          namespace "signup-funnel" do
+          namespace "constructor-funnel" do
 
             #{{{ put
-            desc "set values for the signup funnel on this tag", {
+            desc "set values for the constructor funnel on this tag", {
               :notes => <<-NOTE
-            the signup funnel should be an array of hashes. Each hash has `name` and `tag_ids` keys:
+            the constructor funnel should be an array of hashes. Each hash has `name`, `tag_ids` & `default_types` keys:
 
-                signup_funnel_list = [
-                  {name: "foo", tag_ids: ["id1","id2"...]},
-                  {name: "bar", tag_ids: ["id1","id3"...]},
+                constructor_funnel_list = [
+                  {name: "foo", tag_ids: ["id1","id2"...], default_types: ["type1","type2"]},
+                  {name: "bar", tag_ids: ["id1","id3"...], default_types: ["type1","type2"]},
                 ]
 
               NOTE
             }
             params do
-              requires :signup_funnel, type: Array
+              requires :constructor_funnel, type: Array
             end
             put do
 
-              clean_params = params[:signup_funnel].map{|step|
+              clean_params = params[:constructor_funnel].map{|step|
                 {
-                  :name => step["name"],
-                  :tag_ids => step["tag_ids"],
+                  :name          => step["name"],
+                  :tag_ids       => step["tag_ids"],
+                  :default_types => step["default_types"],
                 }
               }
 
-              @tag.signup_funnel = clean_params
+              @tag.constructor_funnel = clean_params
               if @tag.save
-                present @tag.signup_funnel
+                present @tag.constructor_funnel
               else
                 error!(@tag.errors.messages)
               end
@@ -50,20 +51,20 @@ module Shapter
             #}}}
 
             #{{{ get
-            desc "get values of the signup funnel list for this tag"
+            desc "get values of the constructor funnel list for this tag"
             get do 
-              if @tag.signup_funnel
-                present :signup_funnel, @tag.signup_funnel
+              if @tag.constructor_funnel
+                present :constructor_funnel, @tag.constructor_funnel
               else
-                present :signup_funnel, nil
+                present :constructor_funnel, nil
               end
             end
             #}}}
 
             #{{{ delete
-            desc "removes the signup_funnel from this tag"
+            desc "removes the constructor_funnel from this tag"
             delete do 
-              @tag.signup_funnel = nil
+              @tag.constructor_funnel = nil
               if @tag.save
                 present :status, :deleted
               else
@@ -85,7 +86,7 @@ module Shapter
 
         namespace "me" do 
 
-          namespace "signup-funnel" do 
+          namespace "constructor-funnel" do 
 
             resource ":i" do 
               before do 
@@ -95,23 +96,25 @@ module Shapter
               end
 
               #{{{ get
-              desc "get ith items list for users signup funnel"
+              desc "get ith items list for users constructor funnel"
               get do 
                 tag = current_user.schools.first
-                if tag.signup_funnel
+                if tag.constructor_funnel
 
-                  if params[:i].to_i > tag.signup_funnel.size
-                    error!("only #{tag.signup_funnel.size} steps available")
+                  if params[:i].to_i > tag.constructor_funnel.size
+                    error!("only #{tag.constructor_funnel.size} steps available")
                   else
 
-                  item_ids = tag.signup_funnel[params[:i].to_i - 1]["tag_ids"]
-                  name     = tag.signup_funnel[params[:i].to_i - 1]["name"]
+                  item_ids = tag.constructor_funnel[params[:i].to_i - 1]["tag_ids"]
+                  name     = tag.constructor_funnel[params[:i].to_i - 1]["name"]
+                  types    = tag.constructor_funnel[params[:i].to_i - 1]["default_types"]
 
                   items = filter_items2(item_ids)
 
-                  present :total_nb_of_steps, tag.signup_funnel.size
+                  present :total_nb_of_steps, tag.constructor_funnel.size
                   present :name, name
                   present :items, items, with: Shapter::Entities::ItemId, :current_user => current_user
+                  present :types, types
                   end
                 else
                   present :items, nil

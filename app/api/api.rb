@@ -13,6 +13,7 @@ class API < Grape::API
     mount Shapter::V5::Diagrams
     mount Shapter::V5::SignupPermissions
     mount Shapter::V5::SignupFunnel
+    mount Shapter::V5::ConstructorFunnel
     mount Shapter::V5::CourseBuilder
     mount Shapter::V5::ConfirmStudents
     add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)

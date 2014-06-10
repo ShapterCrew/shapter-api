@@ -116,7 +116,7 @@ class Diagram
     s  = Diagram.base_dimensions
     return s unless item
     s += Diagram.centrale_lyon_dimensions     if item.tags.where(name: /\A(Echange |)Centrale Lyon\z/).exists?
-    s += Diagram.telecom_paristech_dimensions if item.tags.any_in(name: ["Telecom ParisTech","Master Vision et Apprentissage", "Master Parisien de recherche en informatique","Conception & Management des Systèmes Informatiques Complexes"]).exists?
+    s += Diagram.telecom_paristech_dimensions if item.tags.any_in(name: ["Telecom ParisTech","Master Vision et Apprentissage", "Master Parisien de recherche en informatique","Conception & Management des Systèmes Informatiques Complexes","Master Laure Elie"]).exists?
     s += Diagram.iren_dimensions              if item.tags.where(name: "Master Industries de Réseau et Économie Numérique").exists?
     s += Diagram.supelec_dimensions           if item.tags.where(name: /\A(Echange |)Supélec\z/).exists?
     s += Diagram.eurecom_dimensions           if item.tags.where(name: /\A(Echange |)Eurecom\z/).exists?

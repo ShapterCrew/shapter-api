@@ -19,6 +19,7 @@ module Shapter
       expose :user_diagram, using: Shapter::Entities::Diagram
 
       expose :sign_in_count
+      expose :provider
     end
   end
 end

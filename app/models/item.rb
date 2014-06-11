@@ -64,6 +64,11 @@ class Item
     interested_users.include? user
   end
 
+  def user_has_in_constructor?(user)
+    raise "wrong parameter" unless user.is_a? User
+    interested_users.include? user
+  end
+
   def user_comments_count(user)
     raise "wrong parameter" unless user.is_a? User
     comments.where(author: user).count

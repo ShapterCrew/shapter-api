@@ -306,6 +306,16 @@ describe Shapter::V4::Items do
   end
   #}}}
 
+  #{{{ avg_diag
+  describe :avgDiag do 
+    it "should present averaged diagram" do 
+      login(@user)
+      get "items/#{@item.id}/avgDiag"
+      (@response.body).should == @item.front_avg_diag.to_json
+    end
+  end
+  #}}}
+
   describe :tags do 
 
     # {{{ add_tag

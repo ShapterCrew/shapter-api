@@ -204,6 +204,14 @@ module Shapter
           end
           #}}}
 
+          #{{{ avg_diag
+          desc "get the averaged diagram of the item" 
+          get :avgDiag do
+            i = Item.find(params[:id]) || error!("item not found",404)
+            present i.front_avg_diag
+          end
+          #}}}
+
         end
 
       end

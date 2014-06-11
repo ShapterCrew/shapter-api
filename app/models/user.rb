@@ -61,26 +61,27 @@ class User
   field :uid, type: String
 
   def self.find_for_facebook_oauth(auth)
+    fake_email = "fake.#{auth.info.email}"
 
-    if user = User.find_by(email: auth.info.email, provider: nil)
-      user.update_attribute(:uid, auth.uid)
-      user.update_attribute(:provider, auth.provider)
-      user.update_attribute(:facebook_email , auth.info.email)
-      user
-    else
+    #if user = User.find_by(email: auth.info.email, provider: nil)
+    #  user.update_attribute(:uid, auth.uid)
+    #  user.update_attribute(:provider, auth.provider)
+    #  user.update_attribute(:facebook_email , auth.info.email)
+    #  user
+    #else
 
       where(auth.slice(:provider, :uid)).first_or_create do |user|
         user.provider = auth.provider
         user.uid = auth.uid
         user.facebook_email = auth.info.email
-        user.email = auth.info.email
+        user.email = fake_email #user.email = auth.info.email
         user.password = Devise.friendly_token[0,20]
         user.firstname = auth.info.first_name   # assuming the user model has a name
         user.lastname  = auth.info.last_name   # assuming the user model has a name
         user.image = auth.info.image # assuming the user model has an image
       end
 
-    end
+    #end
   end
 
   def self.new_with_session(params, session)

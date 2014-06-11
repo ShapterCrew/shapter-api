@@ -1,8 +1,7 @@
-
 File.open(ARGV[0]).each_line do |line|
   ll = line.chomp.split(";").map(&:strip).reject(&:blank?)
   tag = Tag.find_or_create_by(name: ll.first)
-  type = ll.second
+  type = ll[1]
 
   tag.type = type
   if tag.save

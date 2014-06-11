@@ -187,11 +187,11 @@ describe Shapter::V4::Tags do
           @tag.name.should == "another_name"
         end
 
-        it "updates description" do 
-          put "tags/#{@tag.id}", :description => "another_description" 
+        it "updates short_name" do 
+          put "tags/#{@tag.id}", :short_name => "another_description" 
           access_denied(@response).should be_false
           @tag.reload
-          @tag.description.should == "another_description"
+          @tag.short_name.should == "another_description"
           @tag.name.blank?.should be_false
         end
       end

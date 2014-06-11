@@ -89,13 +89,13 @@ module Shapter
           desc "update tag's attributes"
           params do 
             optional :name, type: String, desc: "tag name"
-            optional :description, type: String, desc: "tag description"
+            optional :short_name, type: String, desc: "short name"
             optional :type, type: String, desc: "tag type"
           end
           put do 
             error!("forbidden",403) unless current_user.shapter_admin
 
-            tag_params = [:name,:description,:type].reduce({}) do |h,p|
+            tag_params = [:name,:short_name,:type].reduce({}) do |h,p|
               h.merge( params[p] ? {p => params[p]} : {} )
             end
 

@@ -3,5 +3,6 @@
 FactoryGirl.define do
   factory :tag do
     name "foo"
+    type "footype"
   end
 end

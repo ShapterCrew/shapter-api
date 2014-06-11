@@ -6,6 +6,7 @@ module Shapter
       expose :current_user_subscribed do |it,ops|
         it.user_subscribed?(ops[:current_user])
       end
+      expose :tags, using: Shapter::Entities::Tag, if: {with_tags: true}
     end
   end
 end

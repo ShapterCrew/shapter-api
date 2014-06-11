@@ -16,6 +16,7 @@ class API < Grape::API
     mount Shapter::V5::ConstructorFunnel
     mount Shapter::V5::CourseBuilder
     mount Shapter::V5::ConfirmStudents
+    mount Shapter::V5::Types
     add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
   end
   version :v4, using: :accept_version_header, format: :json do

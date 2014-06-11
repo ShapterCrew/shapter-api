@@ -7,7 +7,7 @@ class Tag
   funnel_for :constructor_funnel # ZBRA !
 
   field :name, type: String
-  field :description, type: String
+  field :short_name, type: String
   field :type, type: String
 
 

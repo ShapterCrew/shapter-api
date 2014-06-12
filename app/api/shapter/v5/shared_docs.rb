@@ -41,6 +41,7 @@ module Shapter
                 :description => params[:sharedDoc][:description],
                 :file => params[:sharedDoc][:file],
                 :item => @item,
+                :author => current_user,
               }
 
               doc = SharedDoc.new(clean_p)
@@ -58,7 +59,7 @@ module Shapter
                 params do 
                   requires :doc_id, type: String, desc: "id of the document"
                 end
-                @shared_doc = SharedDoc.find(params[:doc_id]) || error!("doc not found",404)
+                @shared_doc = @item.shared_docs.find(params[:doc_id]) || error!("doc not found",404)
               end
 
               #{{{ get
@@ -94,7 +95,52 @@ module Shapter
               desc "delete document"
               delete do 
                 @shared_doc.destroy
+                @item.save
                 present :status, :deleted
+              end
+              #}}}
+
+              #{{{ score
+              desc "like, or dislike a document"
+              params do 
+                requires :score, type: Integer, desc: "score"
+              end
+              put :score do 
+                s = params[:score].to_i
+
+                old_score = if @shared_doc.likers.include?(current_user)
+                              1
+                            elsif @shared_doc.dislikers.include?(current_user)
+                              -1
+                            else
+                              0
+                            end
+
+                if s == 0
+                  action = "unlike document"
+                  @shared_doc.likers.delete(current_user)
+                  @shared_doc.dislikers.delete(current_user)
+                elsif s == 1
+                  action = "like document"
+                  @shared_doc.likers << current_user
+                  @shared_doc.dislikers.delete(current_user)
+                elsif s == -1
+                  action = "dislike document"
+                  @shared_doc.dislikers << current_user
+                  @shared_doc.likers.delete(current_user)
+                else
+                  error!("invalid score parameter")
+                end
+
+                if @shared_doc.save
+                  present @shared_doc, with: Shapter::Entities::SharedDoc, :current_user => current_user
+                  if s != old_score
+                    Behave.delay.track current_user.pretty_id, action, last_state: old_score, document_author: @shared_doc.author.pretty_id, shared_doc: @shared_doc.pretty_id 
+                    Behave.delay.track @shared_doc.author.pretty_id, "receive document like" if s == 1
+                  end
+                else
+                  error!(comment.errors.messages)
+                end
               end
               #}}}
 

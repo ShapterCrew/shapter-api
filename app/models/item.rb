@@ -9,8 +9,7 @@ class Item
 
   embeds_many :comments
   embeds_many :diagrams
-
-  has_many :shared_docs
+  embeds_many :shared_docs
 
   has_and_belongs_to_many :tags
 

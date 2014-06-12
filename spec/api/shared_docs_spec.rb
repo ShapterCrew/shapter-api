@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Shapter::V5::SharedDocs do 
   before(:each) do 
     Item.delete_all
-    SharedDoc.delete_all
     User.delete_all
 
     User.any_instance.stub(:confirmed_student?).and_return(:true)
@@ -14,9 +13,8 @@ describe Shapter::V5::SharedDocs do
 
     @shared_doc = FactoryGirl.build(:shared_doc)
     @shared_doc.item = @item
-    @item.shared_docs << @shared_doc
+    @shared_doc.author = @user
     @shared_doc.save
-    @item.save
 
     @ps = {
       :name => 'foo',
@@ -58,10 +56,11 @@ describe Shapter::V5::SharedDocs do
   describe :create do 
     it 'creates document if valid' do 
 
-      SharedDoc.count.should == 1
+      @item.shared_docs.count.should == 1
       post "items/#{@item.id}/sharedDocs/", :sharedDoc => @ps
-      SharedDoc.count.should == 2
-      s = SharedDoc.all.sort_by(&:created_at).last
+      @item.reload
+      @item.shared_docs.count.should == 2
+      s = @item.shared_docs.sort_by(&:created_at).last
 
       s.name.should == @ps[:name]
       s.description.should == @ps[:description]
@@ -77,7 +76,7 @@ describe Shapter::V5::SharedDocs do
 
       put "items/#{@item.id}/sharedDocs/#{@shared_doc.id}", :sharedDoc => @ps
 
-      @shared_doc.reload
+      @shared_doc.reload ; @item.reload
       @shared_doc.name.should == @ps[:name]
       @shared_doc.description.should == @ps[:description]
     end
@@ -87,10 +86,45 @@ describe Shapter::V5::SharedDocs do
   #{{{ delete
   describe :delete do 
     it 'deletes document' do 
-      SharedDoc.count.should == 1
+      @item.shared_docs.count.should == 1
       delete "items/#{@item.id}/sharedDocs/#{@shared_doc.id}"
-      SharedDoc.count.should == 0
+      @item.reload
+      @item.shared_docs.count.should == 0
     end
+  end
+  #}}}
+
+  #{{{ score
+  describe :score do 
+
+      it "should add to likers when +1" do 
+        put "items/#{@item.id}/sharedDocs/#{@shared_doc.id}/score", :score => 1
+        @shared_doc.reload ; @item.reload
+        @shared_doc.likers.include?(@user).should be_true
+        @shared_doc.dislikers.include?(@user).should be_false
+      end
+
+      it "should add to dislikers when -1" do 
+        put "items/#{@item.id}/sharedDocs/#{@shared_doc.id}/score", :score => -1
+        @shared_doc.reload ; @item.reload
+        @shared_doc.likers.include?(@user).should be_false
+        @shared_doc.dislikers.include?(@user).should be_true
+      end
+
+      it "should remove from like/dislikers when 0" do 
+        put "items/#{@item.id}/sharedDocs/#{@shared_doc.id}/score", :score => 1
+        put "items/#{@item.id}/sharedDocs/#{@shared_doc.id}/score", :score => 0
+        @shared_doc.reload ; @item.reload
+        @shared_doc.likers.include?(@user).should be_false
+        @shared_doc.dislikers.include?(@user).should be_false
+      end
+
+      it "should error when score is not in [-1,0,1]" do 
+        put "items/#{@item.id}/sharedDocs/#{@shared_doc.id}/score", :score => 3
+        @response.status.should == 500
+        @response.body.should == {error: "invalid score parameter"}.to_json
+      end
+
   end
   #}}}
 

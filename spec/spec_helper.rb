@@ -18,6 +18,10 @@ RSpec.configure do |config|
 
   config.order = "random"
 
+  config.after(:each) do 
+    FileUtils.rm_rf(Dir["#{Rails.root}/tmp/spec/uploads"])
+  end
+
 end
 
 def login(user)

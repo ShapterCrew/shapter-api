@@ -1,7 +1,7 @@
 class Item
-
   include Mongoid::Document
   include Mongoid::Timestamps
+
   field :name, type: String
   field :description, type: String
   field :tags, type: Array
@@ -9,6 +9,8 @@ class Item
 
   embeds_many :comments
   embeds_many :diagrams
+
+  has_many :shared_docs
 
   has_and_belongs_to_many :tags
 

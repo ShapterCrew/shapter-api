@@ -38,8 +38,11 @@ module Shapter
 
       expose :requires_comment_score
 
+      expose :shared_docs, using: Shapter::Entities::SharedDoc
+
       #please leave this guy at the bottom
       expose :front_avg_diag, as: :averaged_diagram, unless: {hide_diag: true}
+
     end
 
 

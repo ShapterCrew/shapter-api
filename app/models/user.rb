@@ -11,6 +11,9 @@ class User
   has_and_belongs_to_many :liked_comments, class_name: "Item", inverse_of: :likers
   has_and_belongs_to_many :disliked_comments, class_name: "Item", inverse_of: :dislikers
 
+  has_and_belongs_to_many :liked_documents, class_name: "Item", inverse_of: :likers
+  has_and_belongs_to_many :disliked_documents, class_name: "Item", inverse_of: :dislikers
+
   has_and_belongs_to_many :items, class_name: "Item", inverse_of: :subscribers
   has_and_belongs_to_many :cart_items, class_name: "Item", inverse_of: :interested_users
   has_and_belongs_to_many :constructor_items, class_name: "Item", inverse_of: :constructor_users
@@ -195,6 +198,8 @@ class User
       schools = []
       schools << Tag.find_or_create_by(name: "Centrale Lyon") if (email =~ /.*@ecl[0-9]+.ec-lyon.fr/ or email =~ /.*@auditeur.ec-lyon.fr/)
       schools << Tag.find_or_create_by(name: "Centrale Paris") if email =~ /.*@student.ecp.fr/
+      schools << Tag.find_or_create_by(name: "ULM") if email =~ /.*@clipper.ens.fr/
+
         schools << Tag.find_or_create_by(name: "HEC") if email =~ /.*@hec.edu/
 
         if perm = SignupPermission.find_by(email: email)

@@ -26,7 +26,6 @@ describe SharedDoc do
   end
 
   it "validates" do 
-    puts "debug: #{@doc.errors.messages}"
     @doc.valid?.should be_true
   end
 

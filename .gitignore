@@ -27,3 +27,5 @@ config/mongoid.yml
 
 config/initializers/aws_credentials.rb
 config/initializers/behave_io.rb
+public/tmp
+public/uploads

@@ -33,13 +33,21 @@ module Shapter
                 requires :name, type: String, desc: "name of the document"
                 optional :description, type: String, desc: "description"
                 requires :file, desc: "file"
+                requires :filename, desc: "filename, with the extension"
               end
             end
             post do
+              s = params[:sharedDoc][:file].split(',').last
+              tempfile = Tempfile.new('upload')
+              tempfile.binmode
+              tempfile.write(Base64.decode64(s))
+
+              uploaded_file = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => params[:sharedDoc][:filename], :original_filename => params[:sharedDoc][:filename])
+
               clean_p = {
                 :name => params[:sharedDoc][:name],
                 :description => params[:sharedDoc][:description],
-                :file => params[:sharedDoc][:file],
+                :file => uploaded_file,
                 :item => @item,
                 :author => current_user,
               }
@@ -47,7 +55,8 @@ module Shapter
               doc = SharedDoc.new(clean_p)
 
               if doc.save
-                present doc, using: Shapter::Entities::SharedDoc
+                present doc, with: Shapter::Entities::SharedDoc
+                Behave.delay.track current_user.pretty_id, "upload document"
               else
                 error!(doc.errors.messages)
               end

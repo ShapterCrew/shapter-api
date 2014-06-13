@@ -14,7 +14,7 @@ class SharedDoc
 
   belongs_to :author, class_name: "User"
 
-  validates_presence_of :name, :item
+  validates_presence_of :name, :item, :file
   validates_presence_of :author
 
   def pretty_id

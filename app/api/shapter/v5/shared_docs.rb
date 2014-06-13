@@ -144,8 +144,15 @@ module Shapter
               end
               #}}}
 
-            end
+              #{{{ countDl
+              desc "add +1 to download counter"
+              post :countDl do
+                @shared_doc.inc(dl_count: 1) 
+                present :count, @shared_doc.dl_count
+              end
+              #}}}
 
+            end
           end
         end
       end

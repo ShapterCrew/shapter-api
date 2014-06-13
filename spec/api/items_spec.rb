@@ -292,14 +292,16 @@ describe Shapter::V4::Items do
         login(@user)
         User.any_instance.stub(:shapter_admin).and_return(true)
       end
-      it "destroy an item" do 
+      it "updates an item" do 
         new_name = "new name"
         desc = "soooooo cool !"
-        put "items/#{@item.id}/update", :item => {:name => new_name, :description => desc}
+        new_short_name = "new short name haha"
+        put "items/#{@item.id}/update", :item => {:name => new_name, :description => desc, :short_name => new_short_name}
 
         @item.reload
         @item.name.should == new_name
         @item.description.should == desc
+        @item.short_name.should == new_short_name
 
       end
     end

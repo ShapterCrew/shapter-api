@@ -192,6 +192,7 @@ module Shapter
             requires :item, type: Hash do 
               optional :name, type: String, desc: "item name"
               optional :description, type: String, desc: "description"
+              optional :short_name, type: String, desc: "short name"
             end
           end
           put :update do 

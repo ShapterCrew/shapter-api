@@ -8,25 +8,36 @@ describe SharedDoc do
 
     @user = FactoryGirl.create(:user)
     @item = FactoryGirl.create(:item)
-    @doc = FactoryGirl.build(:shared_doc)
-    @doc.item = @item
-    @doc.author = @user
+
+    @valid_attr = {
+      file: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/150.jpg'))),
+      item: @item,
+      author: @user,
+      name: "haha",
+    }
   end
 
   it "checks presence of file" do 
-    SharedDoc.new(@doc.attributes.merge({file: nil})).valid?.should be_false
+    SharedDoc.new(@valid_attr.merge({file: nil})).valid?.should be_false
   end
 
   it "checks presence of item" do 
-    SharedDoc.new(@doc.attributes.merge({item: nil})).valid?.should be_false
+    SharedDoc.new(@valid_attr.merge({item: nil})).valid?.should be_false
   end
 
   it "checks presence of name" do
-    SharedDoc.new(@doc.attributes.merge({name: nil})).valid?.should be_false
+    SharedDoc.new(@valid_attr.merge({name: nil})).valid?.should be_false
   end
 
   it "validates" do 
-    @doc.valid?.should be_true
+    SharedDoc.new(@valid_attr).valid?.should be_true
+  end
+
+  it "new doc has 0 dl_count" do 
+    d = SharedDoc.new(@valid_attr)
+    d.save
+    d.reload
+    d.dl_count.should == 0
   end
 
 end

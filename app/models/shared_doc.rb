@@ -3,6 +3,7 @@ class SharedDoc
   include Mongoid::Timestamps
   field :name, type: String
   field :description, type: String
+  field :dl_count, type: Integer
 
   mount_uploader :file, FileUploader
 
@@ -22,6 +23,14 @@ class SharedDoc
 
   def file_url
     file.url
+  end
+
+  before_create :initialize_dl_count
+
+  protected
+
+  def initialize_dl_count
+    self.dl_count ||= 0
   end
 
 end

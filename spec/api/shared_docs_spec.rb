@@ -128,4 +128,15 @@ describe Shapter::V5::SharedDocs do
   end
   #}}}
 
+  #{{{ dl_count
+  describe :countDl do 
+    it "add +1 to the counter" do 
+      c = @shared_doc.dl_count
+      post "items/#{@item.id}/sharedDocs/#{@shared_doc.id}/countDl"
+      @shared_doc.reload
+      @shared_doc.dl_count.should == (c + 1)
+    end
+  end
+  #}}}
+
 end

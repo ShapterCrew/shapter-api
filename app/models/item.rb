@@ -4,6 +4,7 @@ class Item
 
   field :name, type: String
   field :description, type: String
+  field :short_name, type: String
   field :tags, type: Array
   field :requires_comment_score, type: Integer
 

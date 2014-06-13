@@ -64,17 +64,19 @@ class Diagram
 
     def names
       [
-        "Charge de travail", #00
-        "Travail en groupe", #01
-        "Maths"            , #02
-        "Codage"           , #03
-        "Théorique"        , #04
-        "Technique"        , #05
-        "Qualité"          , #06
-        "Dur à valider"    , #07
-        "Fun"              , #08
-        "Pipeau"           , #09
-        "Économie"         , #10
+        "Charge de travail"         , #00
+        "Travail en groupe"         , #01
+        "Maths"                     , #02
+        "Codage"                    , #03
+        "Théorique"                 , #04
+        "Technique"                 , #05
+        "Qualité"                   , #06
+        "Dur à valider"             , #07
+        "Fun"                       , #08
+        "Pipeau"                    , #09
+        "Économie"                  , #10
+        "fondamental"               , #11
+        "niveau d'approfondissement", #12
       ]
     end
 
@@ -106,6 +108,10 @@ class Diagram
       [0,6,7]
     end
 
+    def info_ulm_dimensions
+      [2,3,1,8,11,12]
+    end
+
   end
 
   after_save :touches
@@ -125,6 +131,9 @@ class Diagram
     s += Diagram.mnt_dimensions               if item.tags.where(name: "MNT").exists?
     s += Diagram.supelec_dimensions           if item.tags.where(name: /\A(Echange |)Supélec\z/).exists?
     s += Diagram.eurecom_dimensions           if item.tags.where(name: /\A(Echange |)Eurecom\z/).exists?
+
+
+    s += Diagram.info_ulm_dimensions          if item.tags.all_in(name: ["ULM","Département informatique"]).count == 2
     s.uniq
   end
 

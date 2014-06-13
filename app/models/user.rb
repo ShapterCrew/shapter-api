@@ -141,8 +141,8 @@ class User
         lastname: self.lastname || "unknown",
         name: [self.firstname, self.lastname].join(" ") || "unknown",
         schools: self.schools.map(&:name) || "unknown",
-        provider: self.provider || "null",
-        picture: self.image || "null"
+        provider: self.provider, #|| "null",
+        picture: self.image #|| "null"
 
       Behave.delay.track self.id.to_s, "signup"
     end

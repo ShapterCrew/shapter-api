@@ -6,9 +6,10 @@ File.open(ARGV[0]).each_line do |line|
     Tag.find_or_create_by(name: t)
   end
 
-  item.tags += tags
+  #item.tags << tags
+  tags.each{|t| item.tags << t}
   if item.save
-  puts item.name
+    puts item.name
   else
     puts item.errors.messages
   end

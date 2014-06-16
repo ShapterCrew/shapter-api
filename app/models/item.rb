@@ -33,6 +33,10 @@ class Item
     comments.count
   end
 
+  def documents_count
+    shared_docs.count
+  end
+
   def subscribers_count
     Rails.cache.fetch("itSubsCnt|#{self.id}|#{updated_at.try(:utc).try(:to_s, :number)}", :expires_in => 1.hours) do 
       subscribers.count

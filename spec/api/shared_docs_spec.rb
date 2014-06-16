@@ -19,7 +19,8 @@ describe Shapter::V5::SharedDocs do
     @ps = {
       :name => 'foo',
       :description => 'bar',
-      :file => Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/150.jpg')))
+      :file => "head, #{Base64.encode64("hahalol")}",
+      :filename => "haha.jpg"
     }
   end
 
@@ -57,7 +58,7 @@ describe Shapter::V5::SharedDocs do
     it 'creates document if valid' do 
 
       @item.shared_docs.count.should == 1
-      post "items/#{@item.id}/sharedDocs/", :sharedDoc => @ps
+      post "items/#{@item.id}/sharedDocs/", :sharedDoc => @ps.merge(item: @item, author: @user)
       @item.reload
       @item.shared_docs.count.should == 2
       s = @item.shared_docs.sort_by(&:created_at).last

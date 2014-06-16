@@ -5,6 +5,7 @@ module Shapter
       expose :name
       expose :description
       expose :file_url, as: :file
+      expose :dl_count, as: :dlCount
     end
   end
 end

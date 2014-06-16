@@ -7,6 +7,7 @@ module Shapter
       expose :pretty_id, as: :id
       expose :comments_count
       expose :subscribers_count
+      expose :documents_count
       expose :current_user_subscribed do |it,ops|
         it.user_subscribed?(ops[:current_user])
       end

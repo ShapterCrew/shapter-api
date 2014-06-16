@@ -31,15 +31,34 @@ module Shapter
           end
           #}}}
 
+          #{{{ friends
+          desc "get my friends from facebook x shapter"
+          get :friends do 
+            present current_user.friends, with: Shapter::Entities::User, :current_user => current_user
+          end
+          #}}}
+
         end
 
         resource ":user_id" do 
+          before do 
+            params do 
+              requires :user_id, type: String, desc: "id of the user"
+            end
+            @user = User.find(params[:user_id]) || error!("not found",404)
+          end
 
           #{{{ get user
           get do 
             check_confirmed_student!
-            user = User.find(params[:user_id]) || error!("not found",404)
-            present user, with: Shapter::Entities::User, :current_user => current_user
+            present @user, with: Shapter::Entities::User, :current_user => current_user
+          end
+          #}}}
+
+          #{{{ friends
+          desc "get user's friends from facebook x shapter"
+          get :friends do 
+            present @user.friends, with: Shapter::Entities::User, :current_user => current_user
           end
           #}}}
 

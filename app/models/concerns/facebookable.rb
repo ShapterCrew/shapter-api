@@ -24,15 +24,15 @@ module Facebookable
     end
 
     def fb_friends
-      JSON.parse(FbConnector.conn.get("/#{uid}/friends").body)["data"]
+      provider == "facebook" ? JSON.parse(FbConnector.conn.get("/#{uid}/friends").body)["data"] : []
     end
 
     def fb_friend_ids
-      fb_friends.map{|h| h["id"]}
+      provider == "facebook" ? fb_friends.map{|h| h["id"]} : []
     end
 
     def friends
-      User.any_in(uid: fb_friend_ids)
+      provider == "facebook" ? User.any_in(uid: fb_friend_ids) : []
     end
 
   end

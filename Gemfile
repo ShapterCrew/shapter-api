@@ -52,3 +52,4 @@ gem 'thor'
 
 gem 'fog'
 gem 'carrierwave-mongoid'
+gem 'faraday'

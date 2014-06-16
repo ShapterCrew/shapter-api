@@ -34,7 +34,7 @@ module Shapter
           #{{{ friends
           desc "get my friends from facebook x shapter"
           get :friends do 
-            present current_user.friends, with: Shapter::Entities::User, :current_user => current_user
+            present current_user.friends, with: Shapter::Entities::UserId, :current_user => current_user
           end
           #}}}
 
@@ -58,7 +58,7 @@ module Shapter
           #{{{ friends
           desc "get user's friends from facebook x shapter"
           get :friends do 
-            present @user.friends, with: Shapter::Entities::User, :current_user => current_user
+            present @user.friends, with: Shapter::Entities::UserId, :current_user => current_user
           end
           #}}}
 

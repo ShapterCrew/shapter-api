@@ -15,9 +15,12 @@ def double_first_name user
   if response == 'y'
     user.firstname = first_name
     user.lastname = last_name
-    puts "ok"
-    user.save
-    puts "lol"
+    if user.save
+      puts "#{email} saved"
+    else
+      puts "pb with #{email}: #{user.errors.messages}"
+    end
+
   end
 end
 

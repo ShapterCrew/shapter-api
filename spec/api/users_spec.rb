@@ -138,4 +138,19 @@ describe Shapter::V4::Users do
   end
   #}}}
 
+  #{{{ social
+  describe :social do 
+    before do
+      login(@user)
+      User.any_instance.stub(:confirmed_student?).and_return(true)
+    end
+    it "should respond" do 
+      get "/users/me/social"
+      r = JSON.parse(@response.body)
+      r.has_key?("alike_users").should be_true
+      r.has_key?("friends").should be_true
+    end
+  end
+  #}}}
+
 end

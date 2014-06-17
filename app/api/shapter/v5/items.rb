@@ -29,18 +29,6 @@ module Shapter
         end
         #}}}
 
-        #{{{ suggested
-        desc "suggestion of items the current user might want to subscribe to."
-        params do 
-          optional :limit, type: Integer, desc: "limit of questions to ask. default 5", default: 5
-          optional :exl, type: Array, desc: "list of item ids to exclude from reco"
-        end
-        get :suggested do 
-          exclude = params[:exl] || []
-          present reco_item(current_user,params[:limit],exclude), with: Shapter::Entities::ItemShort
-        end
-        #}}}
-
         #{{{ create
         desc "create multiple items, all of them being tagged with some tags (using tag names)"
         params do 

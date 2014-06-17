@@ -160,6 +160,27 @@ describe Shapter::V4::Tags do
 
   describe :tag_id do 
 
+    #{{{ students
+    describe :students do 
+      before do 
+        login(@user)
+        User.any_instance.stub(:shapter_admin).and_return(false)
+      end
+
+      it "get students" do 
+        @tag.students << @user
+        get "tags/#{@tag.id}/students"
+        h = JSON.parse(@response.body)
+        h.has_key?("students").should be_true
+        hh = h["students"].first
+        hh.has_key?("firstname").should be_true
+        hh.has_key?("lastname").should be_true
+        hh.has_key?("id").should be_true
+        hh["id"].should == @user.id.to_s
+      end
+    end
+    #}}}
+
     #{{{ update
     describe :update do 
       context "when not admin" do 

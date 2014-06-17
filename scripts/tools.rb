@@ -1,6 +1,4 @@
 
-
-
 def double_first_name user
   email = user.email
   puts "email : #{email}"

@@ -50,17 +50,6 @@ module Shapter
             end
             #}}}
 
-            #{{{ get
-            desc "get values of the constructor funnel list for this tag"
-            get do 
-              if @tag.constructor_funnel
-                present :constructor_funnel, @tag.constructor_funnel
-              else
-                present :constructor_funnel, nil
-              end
-            end
-            #}}}
-
             #{{{ delete
             desc "removes the constructor_funnel from this tag"
             delete do 
@@ -77,6 +66,28 @@ module Shapter
 
         end
       end
+
+      ## Hack to remove admin protection to the "get"
+      #{{{ get
+      desc "get values of the constructor funnel list for this tag"
+      params do 
+        requires :tag_id, type: String, desc: "id of the tag"
+      end
+      get "tags/:tag_id/constructor-funnel" do 
+        check_user_login!
+        error!("forbidden",401) unless (current_user.shapter_admin or current_user.confirmed_student?)
+
+        @tag = Tag.find(params[:tag_id]) || error!("tag not found",404)
+
+        error!("forbidden",401) unless (current_user.schools.include?(@tag) or current_user.shapter_admin)
+
+        if @tag.constructor_funnel
+          present :constructor_funnel, @tag.constructor_funnel
+        else
+          present :constructor_funnel, nil
+        end
+      end
+      #}}}
 
       namespace :users do 
 
@@ -105,16 +116,16 @@ module Shapter
                     error!("only #{tag.constructor_funnel.size} steps available")
                   else
 
-                  item_ids = tag.constructor_funnel[params[:i].to_i - 1]["tag_ids"]
-                  name     = tag.constructor_funnel[params[:i].to_i - 1]["name"]
-                  types    = tag.constructor_funnel[params[:i].to_i - 1]["default_types"]
+                    item_ids = tag.constructor_funnel[params[:i].to_i - 1]["tag_ids"]
+                    name     = tag.constructor_funnel[params[:i].to_i - 1]["name"]
+                    types    = tag.constructor_funnel[params[:i].to_i - 1]["default_types"]
 
-                  items = filter_items2(item_ids)
+                    items = filter_items2(item_ids)
 
-                  present :total_nb_of_steps, tag.constructor_funnel.size
-                  present :name, name
-                  present :items, items, with: Shapter::Entities::ItemId, :current_user => current_user, with_tags: true
-                  present :types, types
+                    present :total_nb_of_steps, tag.constructor_funnel.size
+                    present :name, name
+                    present :items, items, with: Shapter::Entities::ItemId, :current_user => current_user, with_tags: true
+                    present :types, types
                   end
                 else
                   present :items, nil

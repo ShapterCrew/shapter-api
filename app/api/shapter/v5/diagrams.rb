@@ -39,10 +39,10 @@ module Shapter
                 d.values ||= Array.new(Diagram.values_size)
                 d.values[i.to_i] = v.to_i
               end
+              please_track = d.new_record?
               if d.save
                 present d, with: Shapter::Entities::Diagram, current_user: current_user
-
-                Behave.delay.track current_user.pretty_id, "edit a diagram", item: i.pretty_id 
+                Behave.delay.track(current_user.pretty_id, "edit a diagram", item: i.pretty_id ) if please_track
               else
                 error!(d.errors.messages)
               end

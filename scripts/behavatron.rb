@@ -2,6 +2,7 @@
 
 Item.each do |item|
   puts item.name
+
   # comments, comment-likes
   item.comments.each do |comment|
     Behave.delay.track comment.author_id.to_s, "comment", item: item.pretty_id
@@ -27,15 +28,22 @@ Item.each do |item|
     Behave.delay.track user.pretty_id, "subscribe item", item: item.pretty_id
   end
 
+  # constructor
+  item.constructor_users.each do |user|
+    Behave.delay.track user.pretty_id, "add to constructor", item: item.pretty_id
+  end
+
   # edit diagram
   item.diagrams.each do |diagram|
     Behave.delay.track diagram.author_id.to_s, "edit a diagram", item: item.pretty_id
   end
+
 end
 
 
 User.each do |user|
   puts user.email
+
   # signup
   user.track_signup_if_valid_student!
 

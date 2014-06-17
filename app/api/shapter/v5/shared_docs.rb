@@ -53,10 +53,11 @@ module Shapter
               }
 
               doc = SharedDoc.new(clean_p)
+              please_track = doc.new_record?
 
               if doc.save
                 present doc, with: Shapter::Entities::SharedDoc
-                Behave.delay.track current_user.pretty_id, "upload document"
+                Behave.delay.track(current_user.pretty_id, "upload document") if please_track
               else
                 error!(doc.errors.messages)
               end

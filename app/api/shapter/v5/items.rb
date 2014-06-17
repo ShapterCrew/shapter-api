@@ -85,10 +85,11 @@ module Shapter
           post :subscribe do 
             i = Item.find(params[:id])
             error!("not found",404) unless i
+            do_not_track = ( current_user.items.include?(i))
             i.subscribers << current_user
             if i.save
               present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.delay.track current_user.pretty_id, "subscribe item", item: i.pretty_id 
+              Behave.delay.track(current_user.pretty_id, "subscribe item", item: i.pretty_id ) unless do_not_track
             else
               error!(i.errors.messages)
             end
@@ -100,10 +101,11 @@ module Shapter
           post :unsubscribe do 
             i = Item.find(params[:id])
             error!("not found",404) unless i
+            do_not_track = !(current_user.items.include?(i))
             i.subscribers.delete(current_user)
             if i.save
               present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.delay.track current_user.pretty_id, "unsubscribe item", item: i.pretty_id 
+              Behave.delay.track(current_user.pretty_id, "unsubscribe item", item: i.pretty_id ) unless do_not_track
             else
               error!(i.errors.messages)
             end
@@ -115,10 +117,11 @@ module Shapter
           post :cart do 
             i = Item.find(params[:id])
             error!("not found",404) unless i
+            do_not_track = (current_user.cart_items.include?(i))
             i.interested_users << current_user
             if i.save
               present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.delay.track current_user.pretty_id, "add to cart", item: i.pretty_id 
+              Behave.delay.track(current_user.pretty_id, "add to cart", item: i.pretty_id ) unless do_not_track
             else
               error!(i.errors.messages)
             end
@@ -130,10 +133,11 @@ module Shapter
           post :uncart do 
             i = Item.find(params[:id])
             error!("not found",404) unless i
+            do_not_track = !(current_user.cart_items.include?(i))
             i.interested_users.delete(current_user)
             if i.save
               present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.delay.track current_user.pretty_id, "remove from cart", item: i.pretty_id 
+              Behave.delay.track(current_user.pretty_id, "remove from cart", item: i.pretty_id ) unless do_not_track
             else
               error!(i.errors.messages)
             end
@@ -145,10 +149,11 @@ module Shapter
           post :constructor do 
             i = Item.find(params[:id])
             error!("not found",404) unless i
+            do_not_track = ( current_user.constructor_items.include?(i))
             i.constructor_users << current_user
             if i.save
               present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.delay.track current_user.pretty_id, "add to constructor", item: i.pretty_id 
+              Behave.delay.track(current_user.pretty_id, "add to constructor", item: i.pretty_id ) unless do_not_track
             else
               error!(i.errors.messages)
             end
@@ -160,10 +165,11 @@ module Shapter
           post :unconstructor do 
             i = Item.find(params[:id])
             error!("not found",404) unless i
+            do_not_track = !( current_user.constructor_items.include?(i))
             i.constructor_users.delete(current_user)
             if i.save
               present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.delay.track current_user.pretty_id, "remove from constructor", item: i.pretty_id 
+              Behave.delay.track(current_user.pretty_id, "remove from constructor", item: i.pretty_id ) unless do_not_track
             else
               error!(i.errors.messages)
             end

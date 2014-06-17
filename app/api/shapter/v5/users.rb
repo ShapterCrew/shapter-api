@@ -1,6 +1,7 @@
 module Shapter
   module V5
     class Users < Grape::API
+      helpers Shapter::Helpers::UsersHelper
       format :json
 
       before do 
@@ -34,7 +35,22 @@ module Shapter
           #{{{ friends
           desc "get my friends from facebook x shapter"
           get :friends do 
-            present current_user.friends, with: Shapter::Entities::UserId, :current_user => current_user
+            present :friends, current_user.friends, with: Shapter::Entities::UserId, :current_user => current_user
+          end
+          #}}}
+
+          #{{{ alike
+          desc "get a list of users that ressemble you"
+          get :alike do 
+            present :alike_users, alike_users(current_user), with: Shapter::Entities::UserId, :current_user => current_user
+          end
+          #}}}
+
+          #{{{ social
+          desc "get a list of both users that ressemble you, and friends"
+          get :social do 
+            present :alike_users, alike_users(current_user), with: Shapter::Entities::UserId, :current_user => current_user
+            present :friends, current_user.friends, with: Shapter::Entities::UserId, :current_user => current_user
           end
           #}}}
 

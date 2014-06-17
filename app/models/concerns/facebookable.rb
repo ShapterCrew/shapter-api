@@ -24,13 +24,15 @@ module Facebookable
     end
 
     def fb_friends
-      Rails.cache.fetch("usrFbFriends|#{id}", expires_in: 1.minutes) do 
+      f = Rails.cache.fetch("usrFbFriends|#{id}", expires_in: 1.minutes) do 
         provider == "facebook" ? JSON.parse(FbConnector.conn.get("/#{uid}/friends").body)["data"] : []
       end
+      f || []
     end
 
     def fb_friend_ids
-      provider == "facebook" ? fb_friends.map{|h| h["id"]} : []
+      f = (provider == "facebook" ? fb_friends.map{|h| h["id"]} : [])
+      f || []
     end
 
     def friends

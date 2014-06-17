@@ -20,6 +20,9 @@ module Shapter
 
       expose :sign_in_count
       expose :provider
+      expose :is_fb_friend do |user,ops|
+        user.is_friend_with?(ops[:current_user])
+      end
     end
   end
 end

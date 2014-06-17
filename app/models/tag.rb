@@ -23,6 +23,12 @@ class Tag
     id.to_s
   end
 
+  def cached_students
+    Rails.cache.fetch("tagStudents|#{id}|#{updated_at.try(:utc).try(:to_s,:number)}",expires_in: 3.hours) do
+      students
+    end
+  end
+
   class << self
     def touch
       Tag.find_or_create_by(name: "__null__").touch

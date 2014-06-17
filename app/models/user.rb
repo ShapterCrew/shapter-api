@@ -93,6 +93,7 @@ class User
 
   before_save :items_touch
   before_save :comments_touch
+  before_save :tags_touch
 
   before_create :skip_confirmation_notification!
   after_create :send_confirmation_if_required
@@ -185,6 +186,10 @@ class User
   def comments_touch
     liked_comments.each(&:touch)
     disliked_comments.each(&:touch)
+  end
+
+  def tags_touch
+    schools.each(&:touch) if school_ids_changed? or new_record?
   end
 
   def valid_school?

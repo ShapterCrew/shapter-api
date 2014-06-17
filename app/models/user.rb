@@ -75,6 +75,10 @@ class User
     id.to_s
   end
 
+  def name
+    "#{firstname} #{lastname}"
+  end
+
   def valid_password?(pwd)
     begin
       super(pwd)

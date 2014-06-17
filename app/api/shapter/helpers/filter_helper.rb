@@ -64,28 +64,6 @@ module Shapter
       end
       #}}}
 
-      # Collaborative filtering items -> users -> items
-      # This seriously needs to be refactored, this version is way too ugly (but it works)
-      def reco_item(user,limit,exclude)
-        user_item_ids = db[:users].find("_id" => user.id).select(item_ids: 1).map{|h| h["item_ids"]}.flatten.compact
-        user_items_user_ids = user_item_ids.flat_map{|item_id|
-          db[:items].find("_id" => item_id).select(subscriber_ids: 1).map{|h| h["subscriber_ids"]}
-        }.flatten.compact
-        user_items_users_item_ids = user_items_user_ids.flat_map{|user_id|
-          db[:users].find("_id" => user_id).select(item_ids: 1).map{|h| h["item_ids"]}
-        }.flatten.flatten
-        .reject{|item_id| user.item_ids.include? item_id}
-        .reject{|item_id| exclude.include? item_id.to_s}
-        .reduce(Hash.new(0)){|h,item_id|
-          h[item_id] += 1
-          h
-        }
-        .sort_by{|item_id,count| count}.reverse
-        .map(&:first)
-        .take(limit)
-        .map{|id| Item.find(id)}
-      end
-
       private
 
       def db

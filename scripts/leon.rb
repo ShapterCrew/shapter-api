@@ -1,25 +1,31 @@
 #Léon, nettoyeur
 
-puts "---------cleaning tags---------"
-Tag.all.each do |tag|
-  puts tag.name
-  tag.items.each do |item|
-    item.reload
-    unless item.tags.include? tag
-      puts "adding tag #{tag.name} to item #{item.name}"
-      item.tags << tag ; item.save ; tag.save
+puts "---------cleaning items---------"
+Item.all.each do |item|
+  item.tags.each do |tag|
+    unless tag.items.include? item
+      print "attempting to add item\t#{item.name}\tto tag\t#{tag.name}..."
+      tag.items << item 
+      if tag.save and item.save
+        print "...success\n"
+      else
+        print "... FAILURE !!!!!!!!!!!!\n"
+      end
     end
   end
 end
 
-puts "---------cleaning items---------"
-Item.all.each do |item|
-  puts item.name
-  item.tags.each do |tag|
-    tag.reload
-    unless tag.items.include? item
-      puts "adding item #{item.name} to tag #{tag.name}"
-      tag.items << item ; tag.save ; item.save
+puts "---------cleaning tags---------"
+Tag.all.each do |tag|
+  tag.items.each do |item|
+    unless item.tags.include? tag
+      print "attempting to add tag\t#{tag.name}\tto item\t#{item.name}..."
+      item.tags << tag 
+      if item.save and tag.save
+        print "...success\n"
+      else
+        print "... FAILURE !!!!!!!!!!!!\n"
+      end
     end
   end
 end

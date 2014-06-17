@@ -1,5 +1,10 @@
 # Boris est un peu violent et pas très poli, mais c'est un bon travailleur
 
+if Rails.env.production?
+  "Boris not work in prod. Boris too violent, they said.j"
+  exit
+end
+
 Item.each do |item|
   item.comments.where(content: "").delete_all
   item.save

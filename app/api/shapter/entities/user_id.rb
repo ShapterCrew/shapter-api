@@ -7,6 +7,9 @@ module Shapter
       expose :pretty_id, as: :id
       expose :image
       expose :confirmed_student?, as: :confirmed_student
+      expose :is_fb_friend do |user,ops|
+        user.is_friend_with?(ops[:current_user])
+      end
     end
   end
 end

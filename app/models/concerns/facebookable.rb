@@ -24,7 +24,9 @@ module Facebookable
     end
 
     def fb_friends
-      provider == "facebook" ? JSON.parse(FbConnector.conn.get("/#{uid}/friends").body)["data"] : []
+      Rails.cache.fetch("usrFbFriends|#{id}", expires_in: 1.minutes) do 
+        provider == "facebook" ? JSON.parse(FbConnector.conn.get("/#{uid}/friends").body)["data"] : []
+      end
     end
 
     def fb_friend_ids
@@ -32,7 +34,13 @@ module Facebookable
     end
 
     def friends
-      provider == "facebook" ? User.any_in(uid: fb_friend_ids) : []
+      Rails.cache.fetch("usrFriends|#{id}", expires_in: 1.minutes) do 
+        provider == "facebook" ? User.any_in(uid: fb_friend_ids) : []
+      end
+    end
+
+    def is_friend_with? user
+      friends.include? user
     end
 
   end

@@ -8,7 +8,9 @@ module Shapter
       expose :subscribers_count 
       expose :front_avg_diag, as: :averaged_diagram 
       expose :requires_comment_score
-      expose :interested_users, using: Shapter::Entities::UserId, if: {show_interested_users: true}
+      expose :interested_users, using: Shapter::Entities::UserId#, if: {show_interested_users: true}
+      expose :subscribers, using: Shapter::Entities::UserId
+      expose :constructor_users, as: :constructors, using: Shapter::Entities::UserId
     end
   end
 end

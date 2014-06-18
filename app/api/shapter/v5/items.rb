@@ -52,6 +52,9 @@ module Shapter
 
           present :status, "created"
           present :items, its, with: Shapter::Entities::ItemShort
+
+          Tag.touch
+          Item.touch
         end
         #}}}
 

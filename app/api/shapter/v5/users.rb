@@ -28,7 +28,7 @@ module Shapter
             check_confirmed_student!
             n = params[:n] || 5
             r = current_user.items.not.where("comments.author_id" => current_user.id).desc(:requires_comment_score).take(n)
-            present :commentable_items, r , with: Shapter::Entities::ItemShort, :show_interested_users => true
+            present :commentable_items, r , with: Shapter::Entities::ItemShort, :show_users => true
           end
           #}}}
 

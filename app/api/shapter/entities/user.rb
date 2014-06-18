@@ -10,8 +10,6 @@ module Shapter
       expose :confirmed?, as: :confirmed
       expose :confirmed_student?, as: :confirmed_student
 
-      expose :items, using: Shapter::Entities::ItemShort
-      expose :cart_items, using: Shapter::Entities::ItemShort
       expose :comments, using: Shapter::Entities::Comment
       expose :comments_likes_count
       expose :comments_dislikes_count

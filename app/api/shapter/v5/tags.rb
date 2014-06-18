@@ -89,7 +89,7 @@ module Shapter
           desc "get a list of students from a school"
           get :students do
             tag = Tag.find(params[:tag_id]) || error!("tag not found",404)
-            present :students, tag.cached_students, with: Shapter::Entities::UserId, :current_user => current_user
+            present :students, tag.cached_students, with: Shapter::Entities::UserId, :current_user => current_user, no_image: true,no_confirm: true, no_fb_friends: true
           end
           #}}}
 

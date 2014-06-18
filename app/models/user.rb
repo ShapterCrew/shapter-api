@@ -147,7 +147,7 @@ class User
 
   def diagrams_count
     Rails.cache.fetch("usrDiagCnt|#{id}|#{items.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 1.hours) do 
-      Item.where("diagrams.author_id" => u.id).count
+      Item.where("diagrams.author_id" => id).count
     end
   end
 

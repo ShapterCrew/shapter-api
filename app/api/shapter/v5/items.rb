@@ -42,8 +42,11 @@ module Shapter
 
           its.each do |item|
             tags.each{|t| item.tags << t}
-            item.tags << Tag.find_or_create_by(name: item.name)
+            named_tag = Tag.find_or_create_by(name: item.name)
+            item.tags << named_tag
             item.save
+            named_tag.items << item 
+            named_tag.save
           end
           tags.each(&:save)
 

@@ -18,7 +18,7 @@ describe Shapter::V4::CourseBuilder do
   describe "course builder" do 
 
     before do 
-        @tag.signup_funnel = [{name: "haha, recursion!", tag_ids: [@tag.id]}]
+        @tag.constructor_funnel = [{name: "haha, recursion!", tag_ids: [@tag.id]}]
         @tag.save
     end
 
@@ -31,7 +31,7 @@ describe Shapter::V4::CourseBuilder do
     context "when user belongs to asked school" do 
       it "success" do 
         @user.schools << @tag
-        get "/users/me/courses/builder", :schoolTagId => @tag.id.to_s
+        get "/users/#{@user.id}/courses/", :schoolTagId => @tag.id.to_s
         access_denied(@response).should be_false
         @response.status.should == 200
       end

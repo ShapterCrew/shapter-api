@@ -20,6 +20,10 @@ module Shapter
       expose :is_fb_friend do |user,ops|
         user.is_friend_with?(ops[:current_user])
       end
+
+      expose :comments_count
+      expose :items_count
+      expose :diagrams_count
     end
   end
 end

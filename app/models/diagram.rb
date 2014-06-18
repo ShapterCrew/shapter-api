@@ -76,7 +76,9 @@ class Diagram
         "Pipeau"                    , #09
         "Économie"                  , #10
         "fondamental"               , #11
-        "niveau d'approfondissement", #12
+        "Accessibilité"             , #12
+        "Calcul"                    , #13
+        "Professionalisant"         , #14
       ]
     end
 
@@ -112,6 +114,38 @@ class Diagram
       [2,3,1,8,11,12]
     end
 
+    def bio_ulm_dimensions
+      [8,9,11,12]
+    end
+
+    def chimie_ulm_dimensions
+      [2,5,8,9,11,12]
+    end
+
+    def physique_ulm_dimensions
+      [2,8,9,11,12,13]
+    end
+
+    def ensae_dimensions
+      [2,3,4,8,9,10]
+    end
+
+    def geographie_ulm_dimensions
+      [1,4,8,9,12,14]
+    end
+
+    def maths_ulm_dimensions
+      [8,9,12,13]
+    end
+
+    def science_co_ulm_dimensions
+      [2,8,9,12]
+    end
+
+    def espci_dimensions
+      [4,8,9,11,13]
+    end
+
   end
 
   after_save :touches
@@ -126,11 +160,19 @@ class Diagram
     s  = Diagram.base_dimensions
     return s unless item
     s += Diagram.centrale_lyon_dimensions     if item.tags.where(name: /\A(Echange |)Centrale Lyon\z/).exists?
-    s += Diagram.telecom_paristech_dimensions if item.tags.any_in(name: ["Telecom ParisTech","Master Vision et Apprentissage", "Master Parisien de recherche en informatique","Conception & Management des Systèmes Informatiques Complexes","Master Laure Elie"]).exists?
+    s += Diagram.telecom_paristech_dimensions if item.tags.any_in(name: ["Telecom ParisTech","Master Vision et Apprentissage", "Master Parisien de recherche en informatique","Conception & Management des Systèmes Informatiques Complexes","Master Laure Elie","Athens"]).exists?
     s += Diagram.iren_dimensions              if item.tags.where(name: "Master Industries de Réseau et Économie Numérique").exists?
     s += Diagram.mnt_dimensions               if item.tags.where(name: "MNT").exists?
     s += Diagram.supelec_dimensions           if item.tags.where(name: /\A(Echange |)Supélec\z/).exists?
     s += Diagram.eurecom_dimensions           if item.tags.where(name: /\A(Echange |)Eurecom\z/).exists?
+    s += Diagram.chimie_ulm_dimensions        if item.tags.all_in(name: ["ULM","Département de Chimie"]).count == 2
+    s += Diagram.physique_ulm_dimensions      if item.tags.all_in(name: ["ULM", "Département de Physique"]).count == 2
+    s += Diagram.geographie_ulm_dimensions    if item.tags.all_in(name: ["ULM", "Département de Géographie"]).count == 2
+    s += Diagram.maths_ulm_dimensions         if item.tags.all_in(name: ["ULM", "Département de mathématique"]).count == 2
+    s += Diagram.bio_ulm_dimensions           if item.tags.all_in(name: ["ULM", "Département de Biologie"]).count == 2
+    s += Diagram.science_co_ulm_dimensions    if item.tags.all_in(name: ["ULM", "Département de Sciences Cognitives"]).count == 2
+    s += Diagram.ensae_dimensions             if item.tags.where(name: "ENSAE").exists?
+    s += Diagram.espci_dimensions             if item.tags.where(name: "ESPCI").exists?
 
 
     s += Diagram.info_ulm_dimensions          if item.tags.all_in(name: ["ULM","Département informatique"]).count == 2

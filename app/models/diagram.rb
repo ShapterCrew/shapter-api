@@ -165,13 +165,13 @@ class Diagram
     s += Diagram.mnt_dimensions               if item.tags.where(name: "MNT").exists?
     s += Diagram.supelec_dimensions           if item.tags.where(name: /\A(Echange |)Supélec\z/).exists?
     s += Diagram.eurecom_dimensions           if item.tags.where(name: /\A(Echange |)Eurecom\z/).exists?
-    s += Diagram.chimie_ulm_dimensions        if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Chimie"]))
-    s += Diagram.physique_ulm_dimensions      if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Physique"]))
-    s += Diagram.geographie_ulm_dimensions    if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Géographie"]))
-    s += Diagram.maths_ulm_dimensions         if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de mathématiques"]))
-    s += Diagram.bio_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Biologie"]))
-    s += Diagram.science_co_ulm_dimensions    if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Sciences Cognitives"]))
-    s += Diagram.info_ulm_dimensions          if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département informatique"]))
+    s += Diagram.chimie_ulm_dimensions        if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Chimie"]).exists?)
+    s += Diagram.physique_ulm_dimensions      if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Physique"]).exists?)
+    s += Diagram.geographie_ulm_dimensions    if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Géographie"]).exists?)
+    s += Diagram.maths_ulm_dimensions         if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de mathématiques"]).exists?)
+    s += Diagram.bio_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Biologie"]).exists?)
+    s += Diagram.science_co_ulm_dimensions    if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Sciences Cognitives"]).exists?)
+    s += Diagram.info_ulm_dimensions          if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département informatique"]).exists?)
     s += Diagram.ensae_dimensions             if item.tags.where(name: "ENSAE").exists?
     s += Diagram.espci_dimensions             if item.tags.where(name: "ESPCI").exists?
 

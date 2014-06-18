@@ -129,12 +129,26 @@ class User
     end
   end
 
+  def comments_count
+    comments.size
+  end
+
+  def items_count
+    item_ids.count
+  end
+
   def comments_likes_count
     comments.map(&:likers_count).reduce(:+)
   end
 
   def comments_dislikes_count
     comments.map(&:dislikers_count).reduce(:+)
+  end
+
+  def diagrams_count
+    Rails.cache.fetch("usrDiagCnt|#{id}|#{items.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 1.hours) do 
+      Item.where("diagrams.author_id" => u.id).count
+    end
   end
 
   def user_diagram

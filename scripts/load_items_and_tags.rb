@@ -7,7 +7,7 @@ File.open(ARGV[0]).each_line do |line|
   end
 
   tags.each{|t| item.tags << t ; t.items << item}
-  if item.save and tag.map(&:save).reduce(:&)
+  if item.save and tags.map(&:save).reduce(:&)
     puts item.name
   else
     puts item.errors.messages

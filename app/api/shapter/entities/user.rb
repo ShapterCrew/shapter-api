@@ -3,7 +3,6 @@ module Shapter
     class User < Grape::Entity
       expose :image
       expose :pretty_id, as: :id
-      expose :email
       expose :firstname
       expose :lastname
       expose :schools, using: Shapter::Entities::Tag

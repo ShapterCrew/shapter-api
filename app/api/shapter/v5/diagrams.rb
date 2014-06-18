@@ -35,11 +35,11 @@ module Shapter
             put do
               i = Item.find(params[:item_id]) || error!("item not found",500)
               d = i.diagrams.find_or_create_by(author: current_user)
+              please_track = d.values.nil?
               params[:values].each do |i,v|
                 d.values ||= Array.new(Diagram.values_size)
                 d.values[i.to_i] = v.to_i
               end
-              please_track = d.values.nil?
               if d.save
                 present d, with: Shapter::Entities::Diagram, current_user: current_user
                 Behave.delay.track(current_user.pretty_id, "edit a diagram", item: i.pretty_id ) if please_track

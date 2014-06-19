@@ -23,11 +23,14 @@ module Shapter
           desc "comment pipe : what are the items to comment ?"
           params do 
             optional :n, type: Integer, default: 5, desc: "number of items to get"
+            optional :n_start, type: Integer, default: 0, desc: "starting index. default = 0 to get the first item"
           end
           get "comment-pipe" do 
             check_confirmed_student!
-            n = params[:n] || 5
-            r = current_user.items.not.where("comments.author_id" => current_user.id).desc(:requires_comment_score).take(n)
+            n        = params[:n]       || 5
+            n_start  = params[:n_start] || 0
+
+            r = current_user.items.not.where("comments.author_id" => current_user.id).desc(:requires_comment_score).skip(n_start).take(n)
             present :commentable_items, r , with: Shapter::Entities::ItemShort, :show_users => true
           end
           #}}}

@@ -63,29 +63,26 @@ module Shapter
             params do 
               requires :id, type: String, desc: "id of the item to fetch"
             end
+            @item = Item.find(params[:id]) || error!("item not found",404)
           end
 
           #{{{ get
           desc "get item infos"
           get do 
-            i = Item.find(params[:id])
-            error!("not found",404) unless i
-            present i, with: Shapter::Entities::Item, :current_user => current_user
+            present @item, with: Shapter::Entities::Item, :current_user => current_user
           end
           #}}}
 
           #{{{ subscribe
           desc "subscribe to the item"
           post :subscribe do 
-            i = Item.find(params[:id])
-            error!("not found",404) unless i
-            do_not_track = ( current_user.items.include?(i))
-            i.subscribers << current_user
-            if i.save
-              present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.delay.track(current_user.pretty_id, "subscribe item", item: i.pretty_id ) unless do_not_track
+            do_not_track = ( current_user.items.include?(@item))
+            @item.subscribers << current_user
+            if @item.save
+              present @item, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.delay.track(current_user.pretty_id, "subscribe item", item: @item.pretty_id ) unless do_not_track
             else
-              error!(i.errors.messages)
+              error!(@item.errors.messages)
             end
           end
           #}}}
@@ -93,15 +90,13 @@ module Shapter
           #{{{ unsubscribe
           desc "unsubscribe to the item"
           post :unsubscribe do 
-            i = Item.find(params[:id])
-            error!("not found",404) unless i
-            do_not_track = !(current_user.items.include?(i))
-            i.subscribers.delete(current_user)
-            if i.save
-              present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.delay.track(current_user.pretty_id, "unsubscribe item", item: i.pretty_id ) unless do_not_track
+            do_not_track = !(current_user.items.include?(@item))
+            @item.subscribers.delete(current_user)
+            if @item.save
+              present @item, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.delay.track(current_user.pretty_id, "unsubscribe item", item: @item.pretty_id ) unless do_not_track
             else
-              error!(i.errors.messages)
+              error!(@item.errors.messages)
             end
           end
           #}}}
@@ -109,15 +104,13 @@ module Shapter
           #{{{ cart
           desc "add item to cart"
           post :cart do 
-            i = Item.find(params[:id])
-            error!("not found",404) unless i
-            do_not_track = (current_user.cart_items.include?(i))
-            i.interested_users << current_user
-            if i.save
-              present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.delay.track(current_user.pretty_id, "add to cart", item: i.pretty_id ) unless do_not_track
+            do_not_track = (current_user.cart_items.include?(@item))
+            @item.interested_users << current_user
+            if @item.save
+              present @item, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.delay.track(current_user.pretty_id, "add to cart", item: @item.pretty_id ) unless do_not_track
             else
-              error!(i.errors.messages)
+              error!(@item.errors.messages)
             end
           end
           #}}}
@@ -125,15 +118,13 @@ module Shapter
           #{{{ uncart
           desc "removes the item from cart"
           post :uncart do 
-            i = Item.find(params[:id])
-            error!("not found",404) unless i
-            do_not_track = !(current_user.cart_items.include?(i))
-            i.interested_users.delete(current_user)
-            if i.save
-              present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.delay.track(current_user.pretty_id, "remove from cart", item: i.pretty_id ) unless do_not_track
+            do_not_track = !(current_user.cart_items.include?(@item))
+            @item.interested_users.delete(current_user)
+            if @item.save
+              present @item, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.delay.track(current_user.pretty_id, "remove from cart", item: @item.pretty_id ) unless do_not_track
             else
-              error!(i.errors.messages)
+              error!(@item.errors.messages)
             end
           end
           #}}}
@@ -141,15 +132,13 @@ module Shapter
           #{{{ constructor
           desc "add item to constructor"
           post :constructor do 
-            i = Item.find(params[:id])
-            error!("not found",404) unless i
-            do_not_track = ( current_user.constructor_items.include?(i))
-            i.constructor_users << current_user
-            if i.save
-              present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.delay.track(current_user.pretty_id, "add to constructor", item: i.pretty_id ) unless do_not_track
+            do_not_track = ( current_user.constructor_items.include?(@item))
+            @item.constructor_users << current_user
+            if @item.save
+              present @item, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.delay.track(current_user.pretty_id, "add to constructor", item: @item.pretty_id ) unless do_not_track
             else
-              error!(i.errors.messages)
+              error!(@item.errors.messages)
             end
           end
           #}}}
@@ -157,15 +146,13 @@ module Shapter
           #{{{ unconstructor
           desc "removes the item from constructor"
           post :unconstructor do 
-            i = Item.find(params[:id])
-            error!("not found",404) unless i
-            do_not_track = !( current_user.constructor_items.include?(i))
-            i.constructor_users.delete(current_user)
-            if i.save
-              present i, with: Shapter::Entities::Item, :current_user => current_user
-              Behave.delay.track(current_user.pretty_id, "remove from constructor", item: i.pretty_id ) unless do_not_track
+            do_not_track = !( current_user.constructor_items.include?(@item))
+            @item.constructor_users.delete(current_user)
+            if @item.save
+              present @item, with: Shapter::Entities::Item, :current_user => current_user
+              Behave.delay.track(current_user.pretty_id, "remove from constructor", item: @item.pretty_id ) unless do_not_track
             else
-              error!(i.errors.messages)
+              error!(@item.errors.messages)
             end
           end
           #}}}
@@ -174,12 +161,11 @@ module Shapter
           desc "destroy an item"
           delete do 
             error!("forbidden",403) unless current_user.shapter_admin
-            item = Item.find(params[:id]) || error!("not found",404)
 
-            item.destroy
+            @item.destroy
 
             {
-              item_id: item.id.to_s,
+              item_id: @item.id.to_s,
               status: :destroyed
             }.to_json
 
@@ -197,19 +183,17 @@ module Shapter
           end
           put :update do 
             error!("forbidden",403) unless current_user.shapter_admin
-            item = Item.find(params[:id]) || error!("not found",404)
 
-            item.update(params[:item])
+            @item.update(params[:item])
 
-            present item, with: Shapter::Entities::Item, :current_user => current_user
+            present @item, with: Shapter::Entities::Item, :current_user => current_user
           end
           #}}}
 
           #{{{ avg_diag
           desc "get the averaged diagram of the item" 
           get :avgDiag do
-            i = Item.find(params[:id]) || error!("item not found",404)
-            present i.front_avg_diag
+            present @item.front_avg_diag
           end
           #}}}
 

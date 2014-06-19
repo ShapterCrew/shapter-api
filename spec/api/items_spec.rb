@@ -117,7 +117,7 @@ describe Shapter::V4::Items do
 
       it "should error if iten is not found" do 
         get "items/hahahanononon"
-        response.body.should == {error: "not found"}.to_json
+        response.body.should == {error: "item not found"}.to_json
         response.status.should == 404
       end
 

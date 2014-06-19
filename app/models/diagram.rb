@@ -142,6 +142,10 @@ class Diagram
       [2,8,9,12]
     end
 
+    def eco_ulm_dimensions
+      [1,2,3,8,9,12]
+    end
+
     def espci_dimensions
       [4,8,9,11,13]
     end
@@ -160,7 +164,7 @@ class Diagram
     s  = Diagram.base_dimensions
     return s unless item
     s += Diagram.centrale_lyon_dimensions     if item.tags.where(name: /\A(Echange |)Centrale Lyon\z/).exists?
-    s += Diagram.telecom_paristech_dimensions if item.tags.any_in(name: ["Telecom ParisTech","Master Vision et Apprentissage", "Master Parisien de recherche en informatique","Conception & Management des Systèmes Informatiques Complexes","Master Laure Elie","Athens"]).exists?
+    s += Diagram.telecom_paristech_dimensions if item.tags.any_in(name: ["Telecom ParisTech","Master Vision et Apprentissage", "Master Parisien de recherche en informatique","Conception & Management des Systèmes Informatiques Complexes","Master Laure Elie","Athens","Ponts ParisTech"]).exists?
     s += Diagram.iren_dimensions              if item.tags.where(name: "Master Industries de Réseau et Économie Numérique").exists?
     s += Diagram.mnt_dimensions               if item.tags.where(name: "MNT").exists?
     s += Diagram.supelec_dimensions           if item.tags.where(name: /\A(Echange |)Supélec\z/).exists?
@@ -172,6 +176,7 @@ class Diagram
     s += Diagram.bio_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Biologie").exists?)
     s += Diagram.science_co_ulm_dimensions    if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Sciences Cognitives").exists?)
     s += Diagram.info_ulm_dimensions          if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département informatique").exists?)
+    s += Diagram.eco_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département d'économie").exists?)
     s += Diagram.ensae_dimensions             if item.tags.where(name: "ENSAE").exists?
     s += Diagram.espci_dimensions             if item.tags.where(name: "ESPCI").exists?
 

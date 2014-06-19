@@ -7,32 +7,52 @@ module Shapter
         check_confirmed_student!
       end
 
+      namespace :users do 
+        namespace ":user_id" do 
+          before do 
+            params do 
+              requires :user_id, type: String, desc: "id of the user"
+            end
+            @user = User.find(params[:user_id]) || error!("user not found",404)
+          end
+
+          namespace :comments do 
+            #{{{ get comments
+            desc "get user's comments"
+            get do 
+              present :comments, @user.comments, with: Shapter::Entities::Comment, current_user: current_user
+            end
+            #}}}
+          end
+
+        end
+      end
+
       namespace :items do 
         resource ':item_id' do
           before do 
             params do 
               requires :item_id, type: String, desc: "id of the item to fetch"
             end
+            @item = Item.find(params[:item_id]) || error!("item not found",404)
           end
           namespace :comments do 
 
             # {{{ create comment
             desc "comment an item"
             params do
-              requires :item_id, type: String, desc: "The item id"
               requires :comment, type: Hash do
                 requires :content, type: String, desc: "comment content"
               end
             end
             post :create do
-              item = (Item.find(params[:item_id]) || error!("item not found",400) )
 
               #could be nicer with proper params :permit handling
               content = CGI.escapeHTML(params[:comment][:content] || "")
               c = Comment.new(
                 content: content,
                 author: current_user,
-                item: item,
+                item: @item,
               )
 
               if c.save
@@ -48,12 +68,11 @@ module Shapter
             #{{{ index
             desc "get comments from item"
             get do
-              i = Item.find(params[:item_id]) || error!("not found",404)
-              ok_school = !(i.tags & current_user.schools).empty?
+              ok_school = !(@item.tags & current_user.schools).empty?
               ok_admin = current_user.shapter_admin
               error!("access denied",401) unless (ok_admin or ok_school)
 
-              present i.comments, with: Shapter::Entities::Comment, current_user: current_user
+              present @item.comments, with: Shapter::Entities::Comment, current_user: current_user
             end
             #}}}
 
@@ -63,11 +82,9 @@ module Shapter
               desc "destroy a comment"
               params do 
                 requires :comment_id, type: String, desc: "id of the comment"
-                requires :item_id, type: String, desc: "The item id"
               end
               delete do
-                item = (Item.find(params[:item_id]) || error!("item not found"))
-                comment = (item.comments.find(params[:comment_id]) || error!("comment not found"))
+                comment = (@item.comments.find(params[:comment_id]) || error!("comment not found"))
                 error!("forbidden") unless (comment.author == current_user or current_user.shapter_admin)
                 comment.destroy
                 {
@@ -81,11 +98,9 @@ module Shapter
               params do 
                 requires :score, type: Integer, desc: "score"
                 requires :comment_id, type: String, desc: "id of the comment"
-                requires :item_id, type: String, desc: "The item id"
               end
               put :score do 
-                item = (Item.find(params[:item_id]) || error!("item not found"))
-                comment = (item.comments.find(params[:comment_id]) || error!("comment not found"))
+                comment = (@item.comments.find(params[:comment_id]) || error!("comment not found"))
                 s = params[:score].to_i
 
                 old_score = if comment.likers.include?(current_user)

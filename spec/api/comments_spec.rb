@@ -12,6 +12,22 @@ describe Shapter::V4::Comments do
     @comment.author = @user
   end
 
+  #{{{ get user's comments
+  describe "get  users's comments" do 
+    it "should present the users's comment" do 
+      @comment.item = @item
+      @comment.save
+      @item.save
+      User.any_instance.stub(:comments).and_return([@comment])
+      login(@user)
+      get "users/#{@user.id}/comments"
+      h = JSON.parse(@response.body)
+      h.has_key?("comments").should be_true
+      h["comments"].size.should == 1
+      h["comments"].first["id"].should == @comment.id.to_s
+    end
+  end
+  #}}}
 
   # {{{ create
   describe :create do 
@@ -29,7 +45,7 @@ describe Shapter::V4::Comments do
 
       it "errors if item is not found" do 
         post "/items/not_valid/comments/create", :comment => @comment.attributes
-        response.status.should == 400
+        response.status.should == 404
         response.body.should == {error: "item not found"}.to_json
       end
 

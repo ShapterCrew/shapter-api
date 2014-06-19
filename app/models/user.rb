@@ -177,16 +177,18 @@ class User
     def schools_for(email)
       schools = []
       schools << Tag.find_or_create_by(name: "Centrale Lyon") if (email =~ /.*@ecl[0-9]+.ec-lyon.fr/ or email =~ /.*@auditeur.ec-lyon.fr/)
-      schools << Tag.find_or_create_by(name: "Centrale Paris") if email =~ /.*@student.ecp.fr/
-      schools << Tag.find_or_create_by(name: "ULM") if email =~ /.*@clipper.ens.fr/
+      schools << Tag.find_or_create_by(name: "Centrale Paris") if (email =~ /.*@student.ecp.fr/)
+      schools << Tag.find_or_create_by(name: "ULM") if ( email =~ /.*@clipper.ens.fr/)
 
-        schools << Tag.find_or_create_by(name: "HEC") if email =~ /.*@hec.edu/
+      schools << Tag.find_or_create_by(name: "HEC") if (email =~ /.*@hec.edu/)
 
-        if perm = SignupPermission.find_by(email: email)
-          perm.school_names.each do |school_name|
-            schools << Tag.find_or_create_by(name: school_name)
-          end
+      schools << Tag.find_or_create_by(name: "Ponts ParisTech") if (email =~ /.*@eleves.enpc.fr/)
+
+      if perm = SignupPermission.find_by(email: email)
+        perm.school_names.each do |school_name|
+          schools << Tag.find_or_create_by(name: school_name)
         end
+      end
       return schools
     end
   end

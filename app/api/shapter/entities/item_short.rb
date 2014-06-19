@@ -12,6 +12,10 @@ module Shapter
       expose :subscribers, using: Shapter::Entities::UserId, if: {show_users: true}
       expose :constructor_users, as: :constructors, using: Shapter::Entities::UserId, if: {show_users: true}
 
+      expose :current_user_comments_count do |it,ops|
+        it.user_comments_count(ops[:current_user])
+      end
+
       expose :current_user_subscribed, if: {show_subs: true} do |it,ops|
         it.user_subscribed?(ops[:current_user])
       end

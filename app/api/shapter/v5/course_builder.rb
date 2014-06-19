@@ -44,7 +44,17 @@ module Shapter
 
               end
 
-              present builder, with: Shapter::Entities::CourseBuilder, current_user: current_user, hide_comments: true, hide_users: true, hide_diag: true
+              present builder,
+                with: Shapter::Entities::CourseBuilder,
+                current_user: current_user,
+                this_user: @user,
+                hide_comments: true,
+                hide_users: true,
+                hide_diag: true,
+                show_subs: true,
+                show_user_has_diagram: true,
+                show_user_has_comment: true
+
 
             end
             #}}}

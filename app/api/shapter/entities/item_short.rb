@@ -11,6 +11,19 @@ module Shapter
       expose :interested_users, using: Shapter::Entities::UserId, if: {show_users: true}
       expose :subscribers, using: Shapter::Entities::UserId, if: {show_users: true}
       expose :constructor_users, as: :constructors, using: Shapter::Entities::UserId, if: {show_users: true}
+
+      expose :current_user_subscribed, if: {show_subs: true} do |it,ops|
+        it.user_subscribed?(ops[:current_user])
+      end
+
+      expose :this_user_has_diagram, if: {show_user_has_diagram: true} do |it,ops|
+        it.user_has_diagram?(ops[:this_user])
+      end
+
+      expose :this_user_has_comment, if: {show_user_has_comment: true} do |it,ops|
+        it.user_has_comment?(ops[:this_user])
+      end
+
     end
   end
 end

@@ -109,6 +109,14 @@ class Item
     diagrams.count
   end
 
+  def user_has_diagram?(user)
+    diagrams.where(author: user).exists?
+  end
+
+  def user_has_comment?(user)
+    comments.where(author: user).exists?
+  end
+
   def user_diagram(user)
     if d = diagrams.find_by(author: user)
       d

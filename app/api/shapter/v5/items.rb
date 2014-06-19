@@ -51,7 +51,7 @@ module Shapter
           tags.each(&:save)
 
           present :status, "created"
-          present :items, its, with: Shapter::Entities::ItemShort
+          present :items, its, with: Shapter::Entities::ItemShort, current_user: current_user
 
           Tag.touch
           Item.touch

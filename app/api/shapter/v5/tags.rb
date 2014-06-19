@@ -70,7 +70,7 @@ module Shapter
           end
           if tag.save
             tag.reload
-            present tag, with: Shapter::Entities::TagFull
+            present tag, with: Shapter::Entities::TagFull, current_user: current_user
           else
             error!(tag.errors,500)
           end
@@ -115,7 +115,7 @@ module Shapter
           desc "show tag"
           get "" do 
             t = Tag.find(params[:tag_id])
-            present t, with: Shapter::Entities::TagFull
+            present t, with: Shapter::Entities::TagFull, current_user: current_user
           end
           #}}}
 

@@ -3,7 +3,7 @@ module Shapter
     module UsersHelper
 
       def alike_users(user, max=10)
-        a = Rails.cache.fetch("usrAlike|#{user.id}|#{user.updated_at.try(:utc).try(:to_s,:number)}", expires_in: 1.hours) do
+        a = Rails.cache.fetch("usrAlike|#{user.id}|#{user.updated_at.try(:utc).try(:to_s,:number)}", expires_in: 10.minutes) do
           items = db[:items].where("_id" => { "$in" => user.item_ids}).select(subscriber_ids: 1)
 
         items.reduce(Hash.new(0)) { |h,item|

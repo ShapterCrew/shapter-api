@@ -24,6 +24,10 @@ module Shapter
         it.user_has_comment?(ops[:this_user])
       end
 
+      expose :current_user_diag, if: {show_current_user_diag: true} do |it,ops|
+        it.user_diagram(ops[:current_user])
+      end
+
     end
   end
 end

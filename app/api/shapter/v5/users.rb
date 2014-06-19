@@ -31,7 +31,9 @@ module Shapter
             n_start  = params[:n_start] || 0
 
             r = current_user.items.not.where("comments.author_id" => current_user.id).desc(:requires_comment_score).skip(n_start).take(n)
-            present :commentable_items, r , with: Shapter::Entities::ItemShort, :show_users => true
+            present :commentable_items, r , with: Shapter::Entities::ItemShort,
+              current_user: current_user,
+              :show_current_user_diag => true
           end
           #}}}
 

@@ -3,7 +3,7 @@ module Shapter
     module UsersHelper
 
       def alike_users(user, max=10)
-        a = Rails.cache.fetch("usrAlike|#{user.id}|#{timekey}", expires_in: 3.hours) do
+        a = Rails.cache.fetch("usrAlike|#{user.id}|#{timekey(user)}", expires_in: 3.hours) do
           items = db[:items].where("_id" => { "$in" => user.item_ids}).select(subscriber_ids: 1)
 
         items.reduce(Hash.new(0)) { |h,item|
@@ -21,7 +21,7 @@ module Shapter
 
       private
 
-      def timekey
+      def timekey(user)
         user.items.max(:updated_at).try(:utc).try(:to_s,:number)
       end
 

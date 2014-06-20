@@ -42,6 +42,7 @@ module Shapter
               end
               if d.save
                 present d, with: Shapter::Entities::Diagram, current_user: current_user
+
                 Behave.delay.track(current_user.pretty_id, "edit a diagram", item: i.pretty_id ) if please_track
               else
                 error!(d.errors.messages)

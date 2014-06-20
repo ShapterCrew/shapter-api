@@ -82,6 +82,7 @@ module Shapter
               present @item, with: Shapter::Entities::Item, :current_user => current_user
               Behave.delay.track(current_user.pretty_id, "subscribe item", item: @item.pretty_id ) unless do_not_track
               current_user.touch unless do_not_track
+              current_user.touch unless do_not_track
             else
               error!(@item.errors.messages)
             end

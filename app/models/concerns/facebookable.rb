@@ -24,7 +24,7 @@ module Facebookable
     end
 
     def fb_friends
-      f = Rails.cache.fetch("usrFbFriends|#{id}", expires_in: 1.minutes) do 
+      f = Rails.cache.fetch("usrFbFriends|#{id}", expires_in: 5.minutes) do 
         provider == "facebook" ? JSON.parse(FbConnector.conn.get("/#{uid}/friends").body)["data"] : []
       end
       f || []

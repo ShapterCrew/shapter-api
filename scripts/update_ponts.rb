@@ -16,7 +16,8 @@ end
 '
 
 not_found = []
-saved = []
+saved     = []
+errored   = []
 
 File.read(ARGV[0]).each_line do |line|
   ll = line.chomp.split(';').map(&:strip).reject(&:blank?)
@@ -26,18 +27,24 @@ File.read(ARGV[0]).each_line do |line|
   if item = Item.find_by(name: item_name)
     puts "items found : #{item_name}, new name : #{new_name}"
     puts item.name
-    saved << new_name
-    item.name = new_name
-    item.save
+    if item.update_attribute(:name, new_name)
+      saved << new_name 
+    else
+      errored << new_name
+    end
   else
-   puts "items NOT found : #{item_name}"
-   not_found << new_name 
+    puts "items NOT found : #{item_name}"
+    not_found << new_name 
   end
 end
 
+puts "not found: "
 puts not_found
 puts not_found.count
-puts saved.count
+puts "errored: "
+puts errored
+puts errored.count
+puts "saved: #{saved.count}"
 
 
 'File.read(ARGV[0]).each_line.map{|line| ItemUpdater.new(line)}.each do |item_up|
@@ -55,4 +62,4 @@ puts saved.count
   end
 
 end
-'
+  '

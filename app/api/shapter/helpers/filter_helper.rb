@@ -48,17 +48,17 @@ module Shapter
       def reco_tags2(ary,limit)
         Rails.cache.fetch( "reco_tags2|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
           tags_for_item_ids(
-            Tag.any_in(id: ary)
-        .map(&tag_to_item_ids)
-        .reduce(:&)
-        )
-        .reduce(Hash.new(0)) { |h,t|
-          h[t] += 1
-          h
-        }
-        .sort_by{|k,v| v}.reverse
-        .reject{|tag,count| ary.include? tag.id.to_s}
-        .reject{|tag,count| (tag.type || "").downcase == "cours"}
+            (items =  Tag.any_in(id: ary) .map(&tag_to_item_ids))
+            .reduce(:&)
+          )
+          .reduce(Hash.new(0)) { |h,t|
+            h[t] += 1
+            h
+          }
+          .sort_by{|k,v| v}.reverse
+          .reject{|tag,count| count >= items.size}
+          .reject{|tag,count| ary.include? tag.id.to_s}
+          .reject{|tag,count| (tag.type || "").downcase == "cours"}
         end.take(limit)
         .map{|tag,count| {name: tag.name, id: tag.pretty_id, score: count, type: tag.type, short_name: tag.short_name}}
       end

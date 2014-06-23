@@ -40,6 +40,7 @@ module Shapter
           #{{{ friends
           desc "get my friends from facebook x shapter"
           get :friends do 
+            check_confirmed_student!
             present :friends, current_user.friends, with: Shapter::Entities::UserId, :current_user => current_user
           end
           #}}}
@@ -47,6 +48,7 @@ module Shapter
           #{{{ alike
           desc "get a list of users that ressemble you"
           get :alike do 
+            check_confirmed_student!
             present :alike_users, alike_users(current_user), with: Shapter::Entities::UserId, :current_user => current_user
           end
           #}}}
@@ -54,8 +56,22 @@ module Shapter
           #{{{ social
           desc "get a list of both users that ressemble you, and friends"
           get :social do 
+            check_confirmed_student!
             present :alike_users, alike_users(current_user), with: Shapter::Entities::UserId, :current_user => current_user
             present :friends, current_user.friends, with: Shapter::Entities::UserId, :current_user => current_user
+          end
+          #}}}
+
+          #{{{
+          desc  "get a leaderboard from behave.io, that intersects the user's schools"
+          get :leaderboard do 
+            check_confirmed_student!
+            a = Behave::Leaderboard.results("points").reject do |h|
+              s1 =  (h[:player][:traits][:schools] rescue [] ) || []
+              s2 = current_user.schools.map(&:name)
+              (s1 & s2).empty?
+            end
+            present :leaderboard, a.to_json
           end
           #}}}
 

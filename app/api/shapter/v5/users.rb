@@ -64,6 +64,9 @@ module Shapter
 
           #{{{ leaderboard
           desc  "get a leaderboard from behave.io, that intersects the user's schools"
+          params do 
+            optional :max, type: Integer, default: 10, desc: "max number of elements. default 10"
+          end
           get :leaderboard do 
             check_confirmed_student!
             a = Behave::Leaderboard.results("points").reject do |h|
@@ -71,7 +74,7 @@ module Shapter
               s2 = current_user.schools.map(&:name)
               (s1 & s2).empty?
             end
-            present :leaderboard, a
+            present :leaderboard, a.take(params[:max] || 10)
           end
           #}}}
 

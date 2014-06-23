@@ -62,7 +62,7 @@ module Shapter
           end
           #}}}
 
-          #{{{
+          #{{{ leaderboard
           desc  "get a leaderboard from behave.io, that intersects the user's schools"
           get :leaderboard do 
             check_confirmed_student!
@@ -71,7 +71,7 @@ module Shapter
               s2 = current_user.schools.map(&:name)
               (s1 & s2).empty?
             end
-            present :leaderboard, a.to_json
+            present :leaderboard, a
           end
           #}}}
 

@@ -184,6 +184,8 @@ class User
 
       schools << Tag.find_or_create_by(name: "Ponts ParisTech") if (email =~ /.*@eleves.enpc.fr/)
 
+      schools << Tag.find_or_create_by(name: "ESPCI") if (email =~ /@bde.espci.fr/)
+
       if perm = SignupPermission.find_by(email: email)
         perm.school_names.each do |school_name|
           schools << Tag.find_or_create_by(name: school_name)

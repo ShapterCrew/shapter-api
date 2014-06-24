@@ -1,14 +1,15 @@
 ses = AWS::SimpleEmailService.new
 
-users = User.any_in(email: ["tiberein@enst.fr","mail@aurelien-herve.com"])
+#users = User.any_in(email: ["tiberein@enst.fr","mail@aurelien-herve.com"])
+users = User.lte(last_sign_in_at: Date.today - 7).lte(current_sign_in_at: Date.today - 7).lazy.select{|u| u.items.count > 0}.select{|u| u.comments.count < 5 }
 
 users.each do |u|
   ses.send_email(
-    :subject => 'Eurecom needs you !',
+    :subject => 'On a besoin de toi sur Shapter !',
     :from => 'teamShapter@shapter.com',
     :to => u.email,
     :body_html => <<-EMAIL
-    <p>Salut à toi#{ u.firstname},</p>
+    <p>Salut à toi #{u.firstname},</p>
 
     <p>Tu t'es inscrit sur <a href='http://shapter.com'>Shapter</a>, et ça déjà, c'est super #swag (et t'as même gagné un badge pour ça). En revanche, il te reste encore des cours à commenter et des diagrammes à ajouter (voire même des documents à uploader, soyons fous) pour vraiment être méga stylé (et devenir, qui sait, une licorne de l'espace..?).</p>
 
@@ -21,5 +22,5 @@ users.each do |u|
     <p>The Shapter Crew.</p>
     EMAIL
   )
-  puts email
+  puts u.email
 end

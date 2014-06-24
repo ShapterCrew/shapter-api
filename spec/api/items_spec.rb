@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::V4::Items do 
+describe Shapter::V6::Items do 
 
   before(:each) do 
     User.any_instance.stub(:confirmed_student?).and_return(true)

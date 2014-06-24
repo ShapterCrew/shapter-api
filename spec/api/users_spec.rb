@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::V4::Users do 
+describe Shapter::V6::Users do 
 
   before(:each) do 
     User.delete_all

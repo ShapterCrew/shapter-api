@@ -1,5 +1,5 @@
 require 'spec_helper'
-describe Shapter::V4::SignupPermissions do 
+describe Shapter::V6::SignupPermissions do 
   before(:each) do 
     User.delete_all
     Tag.delete_all

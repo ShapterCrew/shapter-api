@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::V4::CourseBuilder do 
+describe Shapter::V6::CourseBuilder do 
 
   before(:each) do 
     Tag.delete_all
@@ -24,14 +24,14 @@ describe Shapter::V4::CourseBuilder do
 
     context "when user doesn't belong to asked school" do 
       it "denies access" do 
-        get "/users/me/courses/builder", :schoolTagId => @tag.id.to_s
+        get "/users/#{@user.id}/courses", :schoolTagId => @tag.id.to_s
         access_denied(@response).should be_true
       end
     end
     context "when user belongs to asked school" do 
       it "success" do 
         @user.schools << @tag
-        get "/users/#{@user.id}/courses/", :schoolTagId => @tag.id.to_s
+        get "/users/#{@user.id}/courses", :schoolTagId => @tag.id.to_s
         access_denied(@response).should be_false
         @response.status.should == 200
       end

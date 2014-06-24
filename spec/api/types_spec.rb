@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::V5::Types do
+describe Shapter::V6::Types do
   before do 
     User.delete_all
     Tag.delete_all

@@ -1,5 +1,5 @@
 module Shapter
-  module V4
+  module V6
     class SignupFunnel < Grape::API
       helpers Shapter::Helpers::FilterHelper
       format :json
@@ -40,9 +40,9 @@ module Shapter
                 }
               }
 
-              @tag.signup_funnel_tag_list = clean_params
+              @tag.signup_funnel = clean_params
               if @tag.save
-                present @tag.signup_funnel_tag_list
+                present @tag.signup_funnel
               else
                 error!(@tag.errors.messages)
               end
@@ -52,8 +52,8 @@ module Shapter
             #{{{ get
             desc "get values of the signup funnel list for this tag"
             get do 
-              if @tag.signup_funnel_tag_list
-                present :signup_funnel, @tag.signup_funnel_tag_list
+              if @tag.signup_funnel
+                present :signup_funnel, @tag.signup_funnel
               else
                 present :signup_funnel, nil
               end
@@ -61,9 +61,9 @@ module Shapter
             #}}}
 
             #{{{ delete
-            desc "removes the signup_funnel_tag_list from this tag"
+            desc "removes the signup_funnel from this tag"
             delete do 
-              @tag.signup_funnel_tag_list = nil
+              @tag.signup_funnel = nil
               if @tag.save
                 present :status, :deleted
               else
@@ -96,22 +96,27 @@ module Shapter
 
               #{{{ get
               desc "get ith items list for users signup funnel"
+              params do 
+                requires :school_id, type: String, desc: "id of the school tag to use"
+              end
               get do 
-                tag = current_user.schools.first
-                if tag.signup_funnel_tag_list
+                #tag = current_user.schools.first
+                tag = Tag.find(params[:school_id]) || error!("school tag not found",404)
+                error!("user doesn't belong to this school") unless current_user.schools.include?(tag)
+                if tag.signup_funnel
 
-                  if params[:i].to_i > tag.signup_funnel_tag_list.size
-                    error!("only #{tag.signup_funnel_tag_list.size} steps available")
+                  if params[:i].to_i > tag.signup_funnel.size
+                    error!("only #{tag.signup_funnel.size} steps available")
                   else
 
-                  item_ids = tag.signup_funnel_tag_list[params[:i].to_i - 1]["tag_ids"]
-                  name     = tag.signup_funnel_tag_list[params[:i].to_i - 1]["name"]
+                  item_ids = tag.signup_funnel[params[:i].to_i - 1]["tag_ids"]
+                  name     = tag.signup_funnel[params[:i].to_i - 1]["name"]
 
                   items = filter_items2(item_ids)
 
-                  present :total_nb_of_steps, tag.signup_funnel_tag_list.size
+                  present :total_nb_of_steps, tag.signup_funnel.size
                   present :name, name
-                  present :items, items, with: Shapter::Entities::ItemId, :current_user => current_user
+                  present :items, items, with: Shapter::Entities::ItemId, :current_user => current_user, with_tags: true
                   end
                 else
                   present :items, nil

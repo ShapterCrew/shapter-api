@@ -1,5 +1,5 @@
 module Shapter
-  module V4
+  module V6
     class SignupPermissions < Grape::API
       format :json
 
@@ -34,10 +34,10 @@ module Shapter
         perm = SignupPermission.find_or_create_by(email: params[:signup_permission][:email].strip)
         perm.school_names = tags.map(&:name)
 
-        if params[:firstname]
+        if params[:signup_permission][:firstname]
           perm.firstname = params[:signup_permission][:firstname].chomp.strip
         end
-        if params[:lastname]
+        if params[:signup_permission][:lastname]
           perm.lastname  = params[:signup_permission][:lastname].chomp.strip
         end
 

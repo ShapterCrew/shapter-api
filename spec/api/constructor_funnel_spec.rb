@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::V4::SignupFunnel do 
+describe Shapter::V6::SignupFunnel do 
   before(:each) do 
     Tag.delete_all
     User.delete_all
@@ -137,7 +137,7 @@ describe Shapter::V4::SignupFunnel do
       end
 
       it "should fucking work" do 
-        get "users/me/constructor-funnel/1"
+        get "users/me/constructor-funnel/1", school_id: @tag.id
         a = JSON.parse(@response.body)
 
         a["total_nb_of_steps"].should == 2
@@ -146,11 +146,11 @@ describe Shapter::V4::SignupFunnel do
         a["items"].first["id"].should == @item.id.to_s
 
 
-        get "users/me/constructor-funnel/2"
+        get "users/me/constructor-funnel/2", school_id: @tag.id
         a = JSON.parse(@response.body)
         a["name"].should == "bar"
 
-        get "users/me/constructor-funnel/20"
+        get "users/me/constructor-funnel/20", school_id: @tag.id
         a = JSON.parse(@response.body)
         #should error, but not raise any exception
       end

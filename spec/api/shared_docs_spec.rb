@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::V5::SharedDocs do 
+describe Shapter::V6::SharedDocs do 
   before(:each) do 
     Item.delete_all
     User.delete_all

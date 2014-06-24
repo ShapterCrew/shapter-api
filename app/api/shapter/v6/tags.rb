@@ -1,6 +1,6 @@
 require 'ostruct'
 module Shapter
-  module V4
+  module V6
     class Tags < Grape::API
       format :json
 
@@ -39,7 +39,7 @@ module Shapter
         params do 
           requires :selected_tags, type: Array, desc: "Array of tags"
           optional :ignore_user, type: Boolean, desc: "Ignore user's tags"
-          optional :limit, type: Integer, desc: "Limit the max number of results", default: 20
+          optional :limit, type: Integer, desc: "Limit the max number of results", default: 40
         end
 
         post :suggested do 
@@ -70,7 +70,7 @@ module Shapter
           end
           if tag.save
             tag.reload
-            present tag, with: Shapter::Entities::TagFull
+            present tag, with: Shapter::Entities::TagFull, current_user: current_user
           else
             error!(tag.errors,500)
           end
@@ -85,17 +85,25 @@ module Shapter
             end
           end
 
+          #{{{ students
+          desc "get a list of students from a school"
+          get :students do
+            tag = Tag.find(params[:tag_id]) || error!("tag not found",404)
+            present :students, tag.cached_students, with: Shapter::Entities::UserId, :current_user => current_user, no_image: true,no_confirm: true, no_fb_friends: true
+          end
+          #}}}
+
           #{{{ udpate
           desc "update tag's attributes"
           params do 
             optional :name, type: String, desc: "tag name"
-            optional :description, type: String, desc: "tag description"
+            optional :short_name, type: String, desc: "short name"
             optional :type, type: String, desc: "tag type"
           end
           put do 
             error!("forbidden",403) unless current_user.shapter_admin
 
-            tag_params = [:name,:description,:type].reduce({}) do |h,p|
+            tag_params = [:name,:short_name,:type].reduce({}) do |h,p|
               h.merge( params[p] ? {p => params[p]} : {} )
             end
 
@@ -107,7 +115,7 @@ module Shapter
           desc "show tag"
           get "" do 
             t = Tag.find(params[:tag_id])
-            present t, with: Shapter::Entities::TagFull
+            present t, with: Shapter::Entities::TagFull, current_user: current_user
           end
           #}}}
 

@@ -4,8 +4,6 @@ def remove_sa name
   return new
 end
 
-
-
 def remove_sa! item
   new_name = remove_sa item.name
   puts "old name : #{item.name}"

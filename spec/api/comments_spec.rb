@@ -199,4 +199,21 @@ describe Shapter::V6::Comments do
   end
   #}}}
 
+  #{{{ update
+  describe :update do 
+    it "should update comment" do 
+      @comment.item = @item
+      @comment.save
+      login(@user)
+      new_content = "hahaha hohohoh"
+      @comment.content.should_not == new_content
+
+      put "items/#{@item.id}/comments/#{@comment.id}", :comment => {:content => new_content}
+
+      @comment.reload
+      @comment.content.should == new_content
+    end
+  end
+  #}}}
+
 end

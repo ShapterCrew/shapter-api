@@ -92,8 +92,7 @@ module Shapter
                 end
               end
               put do 
-                authorized = current_user.shapter_admin or current_user == @comment.author
-                error!("unauthorized",401) unless authorized
+                error!("forbidden") unless (@comment.author == current_user or current_user.shapter_admin)
                 if @comment.update_attribute(:content, params[:comment][:content])
                   present @comment, with: Shapter::Entities::Comment, :current_user => current_user
                 else

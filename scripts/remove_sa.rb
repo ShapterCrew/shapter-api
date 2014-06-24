@@ -15,9 +15,14 @@ def remove_sa! item
   if response == "y"
     item.name = new_name
     tag = Tag.find_or_create_by(name: new_name)
-    tag.save
     item.tags << tag
-    item.save
- end
+
+    if tag.save and item.save
+      puts "saved"
+    else
+      puts tag.errors
+      puts item.errors
+    end
+  end
 end
 

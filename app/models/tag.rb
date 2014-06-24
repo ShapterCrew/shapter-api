@@ -34,6 +34,7 @@ class Tag
       Tag.find_or_create_by(name: "__null__").touch
     end
 
+    # merge tag t2 into tag t1. Tag t2 will be destroyed
     def merge!(t1,t2)
       is = []
       ss = []

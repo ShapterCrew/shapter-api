@@ -36,6 +36,8 @@ module Shapter
         it.subscribers & ops[:current_user].friends
       end
 
+      expose :documents_count
+
     end
   end
 end

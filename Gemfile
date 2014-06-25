@@ -53,3 +53,5 @@ gem 'thor'
 gem 'fog'
 gem 'carrierwave-mongoid'
 gem 'faraday'
+
+gem 'mongo_session_store-rails4'

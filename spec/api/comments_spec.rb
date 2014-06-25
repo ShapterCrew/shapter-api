@@ -216,4 +216,38 @@ describe Shapter::V6::Comments do
   end
   #}}}
 
+  #{{{ likers
+  describe :likers do 
+    it "presents the users that like the comment" do 
+      @comment.item = @item
+      @comment.likers << @user
+      @comment.save
+      login(@user)
+
+      get "items/#{@item.id}/comments/#{@comment.id}/likers"
+
+      h = JSON.parse(@response.body)
+      h.has_key?("likers").should be_true
+      h["likers"].first["id"].should == @user.id.to_s
+    end
+  end
+  #}}}
+
+  #{{{ dislikers
+  describe :dislikers do 
+    it "presents the users that dislike the comment" do 
+      @comment.item = @item
+      @comment.dislikers << @user
+      @comment.save
+      login(@user)
+
+      get "items/#{@item.id}/comments/#{@comment.id}/dislikers"
+
+      h = JSON.parse(@response.body)
+      h.has_key?("dislikers").should be_true
+      h["dislikers"].first["id"].should == @user.id.to_s
+    end
+  end
+  #}}}
+
 end

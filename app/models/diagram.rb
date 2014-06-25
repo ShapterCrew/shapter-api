@@ -146,8 +146,32 @@ class Diagram
       [1,2,3,8,9,12]
     end
 
+    def langue_ulm_dimensions
+      [8,9]
+    end
+
     def espci_dimensions
       [4,8,9,11,13]
+    end
+
+    def ape_dimensions
+      [1,2,8,9]
+    end
+
+    def master_chimie_dimensions
+      [2,8,9,11]
+    end
+
+    def ppd_dimensions
+      [1,2,3,8,9,14]
+    end
+
+    def master_maths_dimensions
+      [1,8,9,13]
+    end
+
+    def master_logique_dimensions
+      [1,8,9,13]
     end
 
   end
@@ -177,9 +201,15 @@ class Diagram
     s += Diagram.science_co_ulm_dimensions    if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Sciences Cognitives").exists?)
     s += Diagram.info_ulm_dimensions          if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département informatique").exists?)
     s += Diagram.eco_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département d'économie").exists?)
+    s += Diagram.langue_ulm_dimensions        if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Langues").exists?)
     s += Diagram.ensae_dimensions             if item.tags.where(name: "ENSAE").exists?
     s += Diagram.espci_dimensions             if item.tags.where(name: "ESPCI").exists?
-
+    
+    s += Diagram.ape_dimensions               if item.tags.where(name: "Master Analyse et Politique Économiques").exists?
+    s += Diagram.master_chimie_dimensions     if item.tags.where(name: "Master de Sciences et Technologies, Mention Chimie").exists?
+    s += Diagram.ppd_dimensions               if item.tags.where(name: "Politiques Publiques et Développement").exists?
+    s += Diagram.master_maths_dimensions      if item.tags.where(name: "Master de Mathématiques Fondamentales").exists?
+    s += Diagram.master_logique_dimensions    if item.tags.where(name: "Master Logique Mathématique et Fondements de l'Informatique").exists?
 
     s.uniq
   end

@@ -32,6 +32,10 @@ module Shapter
         it.user_diagram(ops[:current_user])
       end
 
+      expose :follower_friends, using: Shapter::Entities::UserId, if: {show_follower_friends: true} do |it,ops|
+        it.subscribers & ops[:current_user].friends
+      end
+
     end
   end
 end

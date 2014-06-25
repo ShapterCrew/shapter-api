@@ -156,6 +156,20 @@ module Shapter
               end
               #}}}
 
+              #{{{ likers
+              desc "get a list of user that like the comment"
+              get :likers do 
+                present :likers, @comment.likers, with: Shapter::Entities::UserId, :current_user => current_user
+              end
+              #}}}
+
+              #{{{ dislikers
+              desc "get a list of user that dislike the comment"
+              get :dislikers do 
+                present :dislikers, @comment.dislikers, with: Shapter::Entities::UserId, :current_user => current_user
+              end
+              #}}}
+
             end
           end
         end

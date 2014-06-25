@@ -22,7 +22,7 @@ module Shapter
           nstop = params[:n_stop].to_i
           f = filter_items2(params[:filter])
           present :number_of_results, f.size
-          present :items, f[nstart..nstop], with: Shapter::Entities::ItemShort, :current_user => current_user
+          present :items, f[nstart..nstop], with: Shapter::Entities::ItemShort, :current_user => current_user, show_follower_friends: true
           unless (params[:filter] - current_user.school_ids.map(&:to_s)).empty?
             Behave.delay.track current_user.pretty_id, "search on browse"
           end

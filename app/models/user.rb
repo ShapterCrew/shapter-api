@@ -192,6 +192,8 @@ class User
       schools << Tag.find_or_create_by(name: "ESPCI") if (email =~ /@bde.espci.fr/)
       schools << Tag.find_or_create_by(name: "Échange ESPCI") if (email =~ /@bde.espci.fr/)
 
+      schools << Tag.find_or_create_by(name: "ESPC") if (email =~ /@edu.escpeurope.eu/)
+
       if perm = SignupPermission.find_by(email: email)
         perm.school_names.each do |school_name|
           schools << Tag.find_or_create_by(name: school_name)

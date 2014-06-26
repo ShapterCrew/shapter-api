@@ -78,6 +78,34 @@ module Shapter
           end
           #}}}
 
+          #{{{ latest_comments
+          desc "returns a list of latest comments in my subscribed items, my cart items, my constructor items"
+          params do 
+            optional :hide_my_items         , type: Boolean, desc: "do not present user's items comments"           , default: false
+            optional :hide_cart_items       , type: Boolean, desc: "do not present cart items comments"             , default: false
+            optional :hide_constructor_items, type: Boolean, desc: "do not present constructor items comments"      , default: false
+
+            optional :my_max                , type: Integer, desc: "maximum items in my list. default = 10"         , default: 10
+            optional :cart_max              , type: Integer, desc: "maximum items in cart list. default = 10"       , default: 10
+            optional :constructor_max       , type: Integer, desc: "maximum items in constructor list. default = 10", default: 10
+          end
+          get :latest_comments do
+
+            unless params[:hide_my_items]
+              my_items             = current_user.items            .not.where(comments: nil).flat_map(&:comments).sort_by{|c| c.updated_at}.reverse.take(params[:my_max])
+              present(:my_item_comments         , my_items, with: Shapter::Entities::Comment, current_user: current_user) 
+            end
+            unless params[:hide_cart_items]
+              my_cart_items        = current_user.cart_items       .not.where(comments: nil).flat_map(&:comments).sort_by{|c| c.updated_at}.reverse.take(params[:cart_max])
+              present(:cart_item_comments       , my_cart_items, with: Shapter::Entities::Comment, current_user: current_user) 
+            end
+            unless params[:constructor_items]
+              my_constructor_items = current_user.constructor_items.not.where(comments: nil).flat_map(&:comments).sort_by{|c| c.updated_at}.reverse.take(params[:constructor_max])
+              present(:constructor_item_comments, my_constructor_items, with: Shapter::Entities::Comment, current_user: current_user) 
+            end
+          end
+          #}}}
+
         end
 
         resource ":user_id" do 
@@ -87,6 +115,14 @@ module Shapter
             end
             @user = User.find(params[:user_id]) || error!("not found",404)
           end
+
+          #{{{ alike
+          desc "get a list of users that ressemble the user"
+          get :alike do 
+            check_confirmed_student!
+            present :alike_users, alike_users(@user), with: Shapter::Entities::UserId, :current_user => current_user
+          end
+          #}}}
 
           #{{{ get user
           get do 

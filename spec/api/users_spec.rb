@@ -154,4 +154,44 @@ describe Shapter::V6::Users do
   end
   #}}}
 
+  #{{{ latest_comments
+  describe :latest_comments do 
+    before do
+      @item = FactoryGirl.create(:item)
+      @comment = FactoryGirl.build(:comment)
+      @comment.author = @user2
+      @comment.item = @item
+      @comment.save
+      @item.save
+
+      login(@user)
+    end
+
+    it "should present constructor items lastest comments" do 
+      @user.constructor_items << @item
+      get "/users/me/latest_comments"
+      h = JSON.parse(@response.body)
+      h.has_key?("constructor_item_comments").should be_true
+      h["constructor_item_comments"].first["id"].should == @comment.id.to_s
+    end
+
+    it "should present my items latest comments" do 
+      @user.items << @item
+      get "/users/me/latest_comments"
+      h = JSON.parse(@response.body)
+      h.has_key?("my_item_comments").should be_true
+      h["my_item_comments"].first["id"].should == @comment.id.to_s
+    end
+
+
+    it "should present cart items lastest comments" do 
+      @user.cart_items << @item
+      get "/users/me/latest_comments"
+      h = JSON.parse(@response.body)
+      h.has_key?("cart_item_comments").should be_true
+      h["cart_item_comments"].first["id"].should == @comment.id.to_s
+    end
+  end
+  #}}}
+
 end

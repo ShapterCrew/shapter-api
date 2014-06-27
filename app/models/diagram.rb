@@ -8,6 +8,7 @@ class Diagram
   belongs_to :author, class_name: "User"
 
   validates_presence_of :author
+  validates_presence_of :values
 
   def names
     Diagram.names
@@ -153,7 +154,7 @@ class Diagram
     def antiquite_ulm_dimensions
       [1,8,9,12]
     end
-    
+
     def histoire_ulm_dimensions
       [1,8,9,12]
     end
@@ -230,12 +231,11 @@ class Diagram
     s += Diagram.geoscience_ulm_dimensions    if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Déparement des Géosciences").exists?)
     s += Diagram.philo_ulm_dimensions         if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Philosophie").exists?)
 
-
     s += Diagram.eco_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département d'économie").exists?)
     s += Diagram.langue_ulm_dimensions        if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de langues vivantes").exists?)
     s += Diagram.ensae_dimensions             if item.tags.where(name: "ENSAE").exists?
     s += Diagram.espci_dimensions             if item.tags.where(name: "ESPCI").exists?
-    
+
     s += Diagram.ape_dimensions               if item.tags.where(name: "Master Analyse et Politique Économiques").exists?
     s += Diagram.master_chimie_dimensions     if item.tags.where(name: "Master de Sciences et Technologies, Mention Chimie").exists?
     s += Diagram.ppd_dimensions               if item.tags.where(name: "Politiques Publiques et Développement").exists?

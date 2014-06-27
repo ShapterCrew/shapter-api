@@ -14,4 +14,26 @@ describe Diagram do
       dd.values[3].should == 3
     end
   end
+
+  describe :validations do 
+    before do 
+    u = FactoryGirl.build(:user)
+    @d = FactoryGirl.build(:diagram)
+    @d.author = u
+    end
+
+    it "should validate" do 
+      @d.valid?.should be_true
+    end
+
+    it "should validate author" do 
+      @d.author = nil
+      @d.valid?.should be_false
+    end
+
+    it "should validate values" do 
+      @d.values = nil
+      @d.valid?.should be_false
+    end
+  end
 end

@@ -15,7 +15,7 @@ def remove_sa! item
     tag = Tag.find_or_create_by(name: new_name)
     item.tags << tag
 
-    if tag.save and item.save
+    if item.update_attribute(:name, new_name)
       puts "saved"
     else
       puts tag.errors

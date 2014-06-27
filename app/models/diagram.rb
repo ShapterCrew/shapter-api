@@ -146,6 +146,26 @@ class Diagram
       [1,2,3,8,9,12]
     end
 
+    def dss_ulm_dimensions
+      [1,8,9,12]
+    end
+
+    def antiquite_ulm_dimensions
+      [1,8,9,12]
+    end
+    
+    def histoire_ulm_dimensions
+      [1,8,9,12]
+    end
+
+    def geoscience_ulm_dimensions
+      [1,8,9,12]
+    end
+
+    def philo_ulm_dimensions
+      [1,8,9,12]
+    end
+
     def langue_ulm_dimensions
       [8,9]
     end
@@ -200,8 +220,15 @@ class Diagram
     s += Diagram.bio_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Biologie").exists?)
     s += Diagram.science_co_ulm_dimensions    if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Sciences Cognitives").exists?)
     s += Diagram.info_ulm_dimensions          if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département informatique").exists?)
+    s += Diagram.dss_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Sciences Sociales (DSS)").exists?
+    s += Diagram.antiquite_ulm_dimensions     if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département Sciences de l'antiquité").exists?
+    s += Diagram.histoire_ulm_dimensions      if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département d'Histoire").exists?
+    s += Diagram.geoscience_ulm_dimensions    if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Déparement des Géosciences").exists?
+    s += Diagram.philo_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Philosophie").exists?
+
+
     s += Diagram.eco_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département d'économie").exists?)
-    s += Diagram.langue_ulm_dimensions        if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Langues").exists?)
+    s += Diagram.langue_ulm_dimensions        if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de langues vivantes").exists?)
     s += Diagram.ensae_dimensions             if item.tags.where(name: "ENSAE").exists?
     s += Diagram.espci_dimensions             if item.tags.where(name: "ESPCI").exists?
     

@@ -194,6 +194,10 @@ class Diagram
       [1,8,9,13]
     end
 
+    def escp_dimensions
+      [1,2,4,8,9,14]
+    end
+
   end
 
   after_save :touches
@@ -237,6 +241,8 @@ class Diagram
     s += Diagram.ppd_dimensions               if item.tags.where(name: "Politiques Publiques et Développement").exists?
     s += Diagram.master_maths_dimensions      if item.tags.where(name: "Master de Mathématiques Fondamentales").exists?
     s += Diagram.master_logique_dimensions    if item.tags.where(name: "Master Logique Mathématique et Fondements de l'Informatique").exists?
+
+    s += Diagram.escp_dimensions              if item.tags.where(name: "ESCP Europe").exists?
 
     s.uniq
   end

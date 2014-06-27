@@ -224,11 +224,11 @@ class Diagram
     s += Diagram.bio_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Biologie").exists?)
     s += Diagram.science_co_ulm_dimensions    if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Sciences Cognitives").exists?)
     s += Diagram.info_ulm_dimensions          if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département informatique").exists?)
-    s += Diagram.dss_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Sciences Sociales (DSS)").exists?
-    s += Diagram.antiquite_ulm_dimensions     if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département Sciences de l'antiquité").exists?
-    s += Diagram.histoire_ulm_dimensions      if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département d'Histoire").exists?
-    s += Diagram.geoscience_ulm_dimensions    if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Déparement des Géosciences").exists?
-    s += Diagram.philo_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Philosophie").exists?
+    s += Diagram.dss_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Sciences Sociales (DSS)").exists?)
+    s += Diagram.antiquite_ulm_dimensions     if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département Sciences de l'antiquité").exists?)
+    s += Diagram.histoire_ulm_dimensions      if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département d'Histoire").exists?)
+    s += Diagram.geoscience_ulm_dimensions    if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Déparement des Géosciences").exists?)
+    s += Diagram.philo_ulm_dimensions         if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département de Philosophie").exists?)
 
 
     s += Diagram.eco_ulm_dimensions           if ((item.tags.where(name: "ULM").exists?) and item.tags.where(name: "Département d'économie").exists?)

@@ -40,8 +40,7 @@ module Shapter
                 }
               }
 
-              @tag.signup_funnel = clean_params
-              if @tag.save
+              if @tag.update_attribute(:signup_funnel, clean_params)
                 present @tag.signup_funnel
               else
                 error!(@tag.errors.messages)
@@ -63,8 +62,7 @@ module Shapter
             #{{{ delete
             desc "removes the signup_funnel from this tag"
             delete do 
-              @tag.signup_funnel = nil
-              if @tag.save
+              if @tag.update_attribute(:signup_funnel, nil)
                 present :status, :deleted
               else
                 error!(@tag.errors.messages)

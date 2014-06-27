@@ -41,8 +41,7 @@ module Shapter
                 }
               }
 
-              @tag.constructor_funnel = clean_params
-              if @tag.save
+              if @tag.update_attribute(:constructor_funnel, clean_params)
                 present @tag.constructor_funnel
               else
                 error!(@tag.errors.messages)
@@ -53,8 +52,7 @@ module Shapter
             #{{{ delete
             desc "removes the constructor_funnel from this tag"
             delete do 
-              @tag.constructor_funnel = nil
-              if @tag.save
+              if @tag.update_attribute(:constructor_funnel, nil)
                 present :status, :deleted
               else
                 error!(@tag.errors.messages)

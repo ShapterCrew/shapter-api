@@ -3,6 +3,7 @@ require 'grape-swagger'
 class API < Grape::API
   version :v7, using: :accept_version_header, format: :json do
     helpers Shapter::Helpers::Warden
+    helpers Shapter::Helpers::OptionsHelper
 
     mount Shapter::V7::Ping
     mount Shapter::V7::Items

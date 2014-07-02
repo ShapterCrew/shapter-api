@@ -15,7 +15,7 @@ module Shapter
 
           #{{{ /users/me
           get do 
-            present current_user, with: Shapter::Entities::User, :current_user => current_user
+            present current_user, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
 

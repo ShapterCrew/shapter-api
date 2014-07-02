@@ -1,6 +1,6 @@
 require 'ostruct'
 module Shapter
-  module V5
+  module V7
     class Tags < Grape::API
       format :json
 
@@ -38,18 +38,15 @@ module Shapter
         }
         params do 
           requires :selected_tags, type: Array, desc: "Array of tags"
-          optional :ignore_user, type: Boolean, desc: "Ignore user's tags"
           optional :limit, type: Integer, desc: "Limit the max number of results", default: 40
         end
 
         post :suggested do 
 
-          ignore_user = params[:ignore_user]
 
-          resp = { :recommended_tags => reco_tags2(params[:selected_tags],params[:limit]) }
-          .merge( ignore_user ? {} : { :user_tags => current_user.items.flat_map(&:tags).uniq })
+          resp = reco_tags2(params[:selected_tags],params[:limit])
 
-          present OpenStruct.new(resp), with: Shapter::Entities::SuggestedTags 
+          present :recommended_tags, resp
 
         end
         # }}}
@@ -70,7 +67,7 @@ module Shapter
           end
           if tag.save
             tag.reload
-            present tag, with: Shapter::Entities::TagFull, current_user: current_user
+            present tag, with: Shapter::Entities::Tag, current_user: current_user
           else
             error!(tag.errors,500)
           end
@@ -89,7 +86,7 @@ module Shapter
           desc "get a list of students from a school"
           get :students do
             tag = Tag.find(params[:tag_id]) || error!("tag not found",404)
-            present :students, tag.cached_students, with: Shapter::Entities::UserId, :current_user => current_user, no_image: true,no_confirm: true, no_fb_friends: true
+            present :students, tag.cached_students, with: Shapter::Entities::User, :current_user => current_user
           end
           #}}}
 
@@ -115,7 +112,7 @@ module Shapter
           desc "show tag"
           get "" do 
             t = Tag.find(params[:tag_id])
-            present t, with: Shapter::Entities::TagFull, current_user: current_user
+            present t, with: Shapter::Entities::Tag, current_user: current_user
           end
           #}}}
 

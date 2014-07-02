@@ -6,7 +6,7 @@ module Shapter
       expose :description
       expose :file_url, as: :file
       expose :dl_count, as: :dlCount
-      expose :author, using: Shapter::Entities::UserId
+      expose :author, using: Shapter::Entities::User
     end
   end
 end

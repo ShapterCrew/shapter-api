@@ -1,5 +1,5 @@
 module Shapter
-  module V5
+  module V7
     class ConstructorFunnel < Grape::API
       helpers Shapter::Helpers::FilterHelper
       format :json
@@ -41,8 +41,7 @@ module Shapter
                 }
               }
 
-              @tag.constructor_funnel = clean_params
-              if @tag.save
+              if @tag.update_attribute(:constructor_funnel, clean_params)
                 present @tag.constructor_funnel
               else
                 error!(@tag.errors.messages)
@@ -53,8 +52,7 @@ module Shapter
             #{{{ delete
             desc "removes the constructor_funnel from this tag"
             delete do 
-              @tag.constructor_funnel = nil
-              if @tag.save
+              if @tag.update_attribute(:constructor_funnel, nil)
                 present :status, :deleted
               else
                 error!(@tag.errors.messages)
@@ -108,8 +106,13 @@ module Shapter
 
               #{{{ get
               desc "get ith items list for users constructor funnel"
+              params do 
+                requires :school_id, type: String, desc: "id of the school tag to use"
+              end
               get do 
-                tag = current_user.schools.first
+                #tag = current_user.schools.first
+                tag = Tag.find(params[:school_id]) || error!("school tag not found",404)
+                error!("user doesn't belong to this school") unless current_user.schools.include?(tag)
                 if tag.constructor_funnel
 
                   if params[:i].to_i > tag.constructor_funnel.size
@@ -124,7 +127,7 @@ module Shapter
 
                     present :total_nb_of_steps, tag.constructor_funnel.size
                     present :name, name
-                    present :items, items, with: Shapter::Entities::ItemId, :current_user => current_user, with_tags: true
+                    present :items, items, with: Shapter::Entities::Item, :current_user => current_user
                     present :types, types
                   end
                 else

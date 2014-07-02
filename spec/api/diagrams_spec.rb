@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::V6::Diagrams do 
+describe Shapter::V7::Diagrams do 
 
   before(:each) do 
     Item.delete_all

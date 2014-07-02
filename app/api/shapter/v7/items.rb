@@ -1,5 +1,5 @@
 module Shapter
-  module V5
+  module V7
     class Items < Grape::API
       helpers Shapter::Helpers::FilterHelper
       format :json
@@ -22,7 +22,7 @@ module Shapter
           nstop = params[:n_stop].to_i
           f = filter_items2(params[:filter])
           present :number_of_results, f.size
-          present :items, f[nstart..nstop], with: Shapter::Entities::ItemShort, :current_user => current_user
+          present :items, f[nstart..nstop], with: Shapter::Entities::Item, :current_user => current_user
           unless (params[:filter] - current_user.school_ids.map(&:to_s)).empty?
             Behave.delay.track current_user.pretty_id, "search on browse"
           end
@@ -51,7 +51,7 @@ module Shapter
           tags.each(&:save)
 
           present :status, "created"
-          present :items, its, with: Shapter::Entities::ItemShort, current_user: current_user
+          present :items, its, with: Shapter::Entities::Item, current_user: current_user
 
           Tag.touch
           Item.touch

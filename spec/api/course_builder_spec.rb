@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::V6::CourseBuilder do 
+describe Shapter::V7::CourseBuilder do 
 
   before(:each) do 
     Tag.delete_all

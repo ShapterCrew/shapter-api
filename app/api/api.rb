@@ -1,6 +1,25 @@
 require 'grape-swagger'
 
 class API < Grape::API
+  version :v7, using: :accept_version_header, format: :json do
+    helpers Shapter::Helpers::Warden
+
+    mount Shapter::V7::Ping
+    mount Shapter::V7::Items
+    mount Shapter::V7::ItemTags
+    mount Shapter::V7::Comments
+    mount Shapter::V7::Tags
+    mount Shapter::V7::Users
+    mount Shapter::V7::Diagrams
+    mount Shapter::V7::SignupPermissions
+    mount Shapter::V7::SignupFunnel
+    mount Shapter::V7::ConstructorFunnel
+    mount Shapter::V7::CourseBuilder
+    mount Shapter::V7::ConfirmStudents
+    mount Shapter::V7::Types
+    mount Shapter::V7::SharedDocs
+    add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
+  end
   version :v6, using: :accept_version_header, format: :json do
     helpers Shapter::Helpers::Warden
 
@@ -18,25 +37,6 @@ class API < Grape::API
     mount Shapter::V6::ConfirmStudents
     mount Shapter::V6::Types
     mount Shapter::V6::SharedDocs
-    add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
-  end
-  version :v5, using: :accept_version_header, format: :json do
-    helpers Shapter::Helpers::Warden
-
-    mount Shapter::V5::Ping
-    mount Shapter::V5::Items
-    mount Shapter::V5::ItemTags
-    mount Shapter::V5::Comments
-    mount Shapter::V5::Tags
-    mount Shapter::V5::Users
-    mount Shapter::V5::Diagrams
-    mount Shapter::V5::SignupPermissions
-    mount Shapter::V5::SignupFunnel
-    mount Shapter::V5::ConstructorFunnel
-    mount Shapter::V5::CourseBuilder
-    mount Shapter::V5::ConfirmStudents
-    mount Shapter::V5::Types
-    mount Shapter::V5::SharedDocs
     add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
   end
 end

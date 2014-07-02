@@ -38,7 +38,7 @@ module Shapter
               t.items << i
               t.save
 
-              present t, with: Shapter::Entities::Tag
+              present t, with: Shapter::Entities::Tag, entity_options: entity_options
             end
             #}}}
 

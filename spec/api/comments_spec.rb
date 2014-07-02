@@ -20,7 +20,9 @@ describe Shapter::V7::Comments do
       @item.save
       User.any_instance.stub(:comments).and_return([@comment])
       login(@user)
+
       get "users/#{@user.id}/comments"
+
       h = JSON.parse(@response.body)
       h.has_key?("comments").should be_true
       h["comments"].size.should == 1
@@ -50,7 +52,8 @@ describe Shapter::V7::Comments do
       end
 
       it "should create comment" do 
-        post "/items/#{@item.id}/comments/create", :comment => @comment.attributes
+        User.any_instance.stub(:shapter_admin).and_return(true)
+        post "/items/#{@item.id}/comments/create", :comment => @comment.attributes, :entities => {"comment" => {content: true}}
         response.status.should == 201
         h = JSON.parse(response.body)
         h.has_key?("content").should be_true
@@ -61,6 +64,7 @@ describe Shapter::V7::Comments do
       end
 
       it "validates presence of content" do 
+        User.any_instance.stub(:shapter_admin).and_return(true)
         post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:content => nil)
         response.status.should == 400
       end

@@ -16,7 +16,7 @@ describe Shapter::V7::ConfirmStudents do
 
       it "present current user" do
         login(@user)
-        get "users/me"
+        get "users/me", entities: {user: {firstname: true, lastname: true}}
         access_denied(@response).should be_false
         h = JSON.parse(@response.body)
         h["firstname"].should == @user.firstname

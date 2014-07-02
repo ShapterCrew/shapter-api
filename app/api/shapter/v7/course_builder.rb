@@ -46,7 +46,7 @@ module Shapter
 
               present builder,
                 with: Shapter::Entities::CourseBuilder,
-                current_user: current_user,
+                entity_options: entity_options,
                 this_user: @user
 
             end

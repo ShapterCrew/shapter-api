@@ -97,19 +97,6 @@ describe Shapter::V7::Tags do
         access_denied(response).should be_false
       end
 
-      it "provides user's tags" do 
-        post "tags/suggested", {:ignore_user => false, :selected_tags => [@tag.id.to_s]}
-        h = JSON.parse(response.body)
-        h.has_key?("user_tags").should be_true
-        h["user_tags"].map{|h| h["id"]}.should =~ [@tag.id.to_s]
-      end
-
-      it "ignores users's tag when asked" do 
-        post "tags/suggested", {:ignore_user => true, :selected_tags => [@tag.id.to_s]}
-        h = JSON.parse(response.body)
-        h["user_tags"].blank?.should be_true
-      end
-
       it "provides recommended tags" do 
         post "tags/suggested", {:selected_tags => [@tag.id.to_s]}
         h = JSON.parse(response.body)
@@ -169,7 +156,7 @@ describe Shapter::V7::Tags do
 
       it "get students" do 
         @tag.students << @user
-        get "tags/#{@tag.id}/students"
+        get "tags/#{@tag.id}/students", entities: {user: {firstname: true, lastname: true}}
         h = JSON.parse(@response.body)
         h.has_key?("students").should be_true
         hh = h["students"].first

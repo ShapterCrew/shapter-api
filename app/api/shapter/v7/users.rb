@@ -31,7 +31,7 @@ module Shapter
             n_start  = params[:n_start] || 0
 
             r = current_user.items.not.where("comments.author_id" => current_user.id).desc(:requires_comment_score).skip(n_start).take(n)
-            present :commentable_items, r , with: Shapter::Entities::Item, current_user: current_user
+            present :commentable_items, r , with: Shapter::Entities::Item, entity_options: entity_options
           end
           #}}}
 
@@ -39,7 +39,7 @@ module Shapter
           desc "get my friends from facebook x shapter"
           get :friends do 
             check_confirmed_student!
-            present :friends, current_user.friends, with: Shapter::Entities::User, :current_user => current_user
+            present :friends, current_user.friends, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
 
@@ -47,7 +47,7 @@ module Shapter
           desc "get a list of users that ressemble you"
           get :alike do 
             check_confirmed_student!
-            present :alike_users, alike_users(current_user), with: Shapter::Entities::User, :current_user => current_user
+            present :alike_users, alike_users(current_user), with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
 
@@ -55,8 +55,8 @@ module Shapter
           desc "get a list of both users that ressemble you, and friends"
           get :social do 
             check_confirmed_student!
-            present :alike_users, alike_users(current_user), with: Shapter::Entities::User, :current_user => current_user
-            present :friends, current_user.friends, with: Shapter::Entities::User, :current_user => current_user
+            present :alike_users, alike_users(current_user), with: Shapter::Entities::User, entity_options: entity_options
+            present :friends, current_user.friends, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
 
@@ -91,15 +91,15 @@ module Shapter
 
             unless params[:hide_my_items]
               my_items             = current_user.items            .not.where(comments: nil).flat_map(&:comments).sort_by{|c| c.updated_at}.reverse.take(params[:my_max])
-              present(:my_item_comments         , my_items, with: Shapter::Entities::Comment, current_user: current_user) 
+              present(:my_item_comments         , my_items, with: Shapter::Entities::Comment, entity_options: entity_options) 
             end
             unless params[:hide_cart_items]
               my_cart_items        = current_user.cart_items       .not.where(comments: nil).flat_map(&:comments).sort_by{|c| c.updated_at}.reverse.take(params[:cart_max])
-              present(:cart_item_comments       , my_cart_items, with: Shapter::Entities::Comment, current_user: current_user) 
+              present(:cart_item_comments       , my_cart_items, with: Shapter::Entities::Comment, entity_options: entity_options) 
             end
             unless params[:constructor_items]
               my_constructor_items = current_user.constructor_items.not.where(comments: nil).flat_map(&:comments).sort_by{|c| c.updated_at}.reverse.take(params[:constructor_max])
-              present(:constructor_item_comments, my_constructor_items, with: Shapter::Entities::Comment, current_user: current_user) 
+              present(:constructor_item_comments, my_constructor_items, with: Shapter::Entities::Comment, entity_options: entity_options) 
             end
           end
           #}}}
@@ -118,21 +118,21 @@ module Shapter
           desc "get a list of users that ressemble the user"
           get :alike do 
             check_confirmed_student!
-            present :alike_users, alike_users(@user), with: Shapter::Entities::User, :current_user => current_user
+            present :alike_users, alike_users(@user), with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
 
           #{{{ get user
           get do 
             check_confirmed_student!
-            present @user, with: Shapter::Entities::User, :current_user => current_user
+            present @user, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
 
           #{{{ friends
           desc "get user's friends from facebook x shapter"
           get :friends do 
-            present @user.friends, with: Shapter::Entities::User, :current_user => current_user
+            present @user.friends, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
 

@@ -24,9 +24,9 @@ module Shapter
         end
         get :/ do 
           if params[:filter]
-            present dictionnary(params[:filter]), with: Shapter::Entities::Tag
+            present dictionnary(params[:filter]), with: Shapter::Entities::Tag, entity_options: entity_options
           else
-            present Tag.all, with: Shapter::Entities::Tag
+            present Tag.all, with: Shapter::Entities::Tag, entity_options: entity_options
           end
         end
         #}}}
@@ -67,7 +67,7 @@ module Shapter
           end
           if tag.save
             tag.reload
-            present tag, with: Shapter::Entities::Tag, current_user: current_user
+            present tag, with: Shapter::Entities::Tag, entity_options: entity_options
           else
             error!(tag.errors,500)
           end
@@ -86,7 +86,7 @@ module Shapter
           desc "get a list of students from a school"
           get :students do
             tag = Tag.find(params[:tag_id]) || error!("tag not found",404)
-            present :students, tag.cached_students, with: Shapter::Entities::User, :current_user => current_user
+            present :students, tag.cached_students, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
 
@@ -112,7 +112,7 @@ module Shapter
           desc "show tag"
           get "" do 
             t = Tag.find(params[:tag_id])
-            present t, with: Shapter::Entities::Tag, current_user: current_user
+            present t, with: Shapter::Entities::Tag, entity_options: entity_options
           end
           #}}}
 

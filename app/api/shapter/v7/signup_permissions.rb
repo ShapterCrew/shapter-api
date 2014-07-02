@@ -12,7 +12,7 @@ module Shapter
       #{{{ index
       desc "list all permissions" 
       get do 
-        present SignupPermission.all, with: Shapter::Entities::SignupPermission
+        present SignupPermission.all, with: Shapter::Entities::SignupPermission, entity_options: entity_options
       end
       #}}}
 
@@ -42,7 +42,7 @@ module Shapter
         end
 
         if perm.save
-          present perm, with: Shapter::Entities::SignupPermission
+          present perm, with: Shapter::Entities::SignupPermission, entity_options: entity_options
         else
           perm.errors.messages.to_json
         end

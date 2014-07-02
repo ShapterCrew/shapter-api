@@ -41,7 +41,7 @@ describe Shapter::V7::SignupPermissions do
       end
       it "should create a permission" do 
         SignupPermission.count.should == 0
-        put "signup-permissions", :signup_permission => @params
+        put "signup-permissions", :signup_permission => @params, entities: {signup_permission: {email: true, firstname: true, lastname: true}}
         access_denied(@response).should be_false
         SignupPermission.count.should == 1
         JSON.parse(@response.body)["id"].should == SignupPermission.last.id.to_s

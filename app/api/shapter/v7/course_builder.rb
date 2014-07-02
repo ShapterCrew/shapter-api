@@ -1,6 +1,6 @@
 require 'ostruct'
 module Shapter
-  module V5
+  module V7
     class CourseBuilder < Grape::API
       format :json
 
@@ -47,14 +47,7 @@ module Shapter
               present builder,
                 with: Shapter::Entities::CourseBuilder,
                 current_user: current_user,
-                this_user: @user,
-                hide_comments: true,
-                hide_users: true,
-                hide_diag: true,
-                show_subs: true,
-                show_user_has_diagram: true,
-                show_user_has_comment: true
-
+                this_user: @user
 
             end
             #}}}

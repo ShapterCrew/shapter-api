@@ -1,5 +1,5 @@
 module Shapter
-  module V5
+  module V7
     class Comments < Grape::API
       format :json
 
@@ -77,18 +77,37 @@ module Shapter
             #}}}
 
             resource ':comment_id' do
+              before do 
+                params do 
+                  requires :comment_id, type: String, desc: "id of the comment"
+                end
+                @comment = (@item.comments.find(params[:comment_id]) || error!("comment not found"))
+              end
+
+              #{{{ update
+              desc "updates comment"
+              params do 
+                requires :comment, type: Hash do 
+                  requires :content, type: String, desc: "new content of the comment"
+                end
+              end
+              put do 
+                error!("forbidden") unless (@comment.author == current_user or current_user.shapter_admin)
+                if @comment.update_attribute(:content, params[:comment][:content])
+                  present @comment, with: Shapter::Entities::Comment, :current_user => current_user
+                else
+                  error!(@comment.errors)
+                end
+              end
+              #}}}
 
               # {{{ destroy 
               desc "destroy a comment"
-              params do 
-                requires :comment_id, type: String, desc: "id of the comment"
-              end
               delete do
-                comment = (@item.comments.find(params[:comment_id]) || error!("comment not found"))
-                error!("forbidden") unless (comment.author == current_user or current_user.shapter_admin)
-                comment.destroy
+                error!("forbidden") unless (@comment.author == current_user or current_user.shapter_admin)
+                @comment.destroy
                 {
-                  :comment => {:id => comment.id.to_s, :status => :destroyed}
+                  :comment => {:id => @comment.id.to_s, :status => :destroyed}
                 }
               end
               # }}}
@@ -97,15 +116,13 @@ module Shapter
               desc "Score a comment. pass -1 to dislike, 0 to ignore and 1 to like"
               params do 
                 requires :score, type: Integer, desc: "score"
-                requires :comment_id, type: String, desc: "id of the comment"
               end
               put :score do 
-                comment = (@item.comments.find(params[:comment_id]) || error!("comment not found"))
                 s = params[:score].to_i
 
-                old_score = if comment.likers.include?(current_user)
+                old_score = if @comment.likers.include?(current_user)
                               1
-                            elsif comment.dislikers.include?(current_user)
+                            elsif @comment.dislikers.include?(current_user)
                               -1
                             else
                               0
@@ -113,29 +130,43 @@ module Shapter
 
                 if s == 0
                   action = "unlike"
-                  comment.likers.delete(current_user)
-                  comment.dislikers.delete(current_user)
+                  @comment.likers.delete(current_user)
+                  @comment.dislikers.delete(current_user)
                 elsif s == 1
                   action = "like"
-                  comment.likers << current_user
-                  comment.dislikers.delete(current_user)
+                  @comment.likers << current_user
+                  @comment.dislikers.delete(current_user)
                 elsif s == -1
                   action = "dislike"
-                  comment.dislikers << current_user
-                  comment.likers.delete(current_user)
+                  @comment.dislikers << current_user
+                  @comment.likers.delete(current_user)
                 else
                   error!("invalid score parameter")
                 end
 
-                if comment.save
-                  present comment, with: Shapter::Entities::Comment, :current_user => current_user
+                if @comment.save
+                  present @comment, with: Shapter::Entities::Comment, :current_user => current_user
                   if s != old_score
-                    Behave.delay.track current_user.pretty_id, action, last_state: old_score, comment_author: comment.author.pretty_id, comment: comment.pretty_id 
-                    Behave.delay.track comment.author.pretty_id, "receive like" if s == 1
+                    Behave.delay.track current_user.pretty_id, action, last_state: old_score, comment_author: @comment.author.pretty_id, comment: @comment.pretty_id 
+                    Behave.delay.track @comment.author.pretty_id, "receive like" if s == 1
                   end
                 else
-                  error!(comment.errors.messages)
+                  error!(@comment.errors.messages)
                 end
+              end
+              #}}}
+
+              #{{{ likers
+              desc "get a list of user that like the comment"
+              get :likers do 
+                present :likers, @comment.likers, with: Shapter::Entities::User, :current_user => current_user
+              end
+              #}}}
+
+              #{{{ dislikers
+              desc "get a list of user that dislike the comment"
+              get :dislikers do 
+                present :dislikers, @comment.dislikers, with: Shapter::Entities::User, :current_user => current_user
               end
               #}}}
 

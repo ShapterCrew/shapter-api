@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::V6::SignupFunnel do 
+describe Shapter::V7::SignupFunnel do 
   before(:each) do 
     Tag.delete_all
     User.delete_all

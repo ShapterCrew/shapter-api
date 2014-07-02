@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::V6::Comments do 
+describe Shapter::V7::Comments do 
 
   before(:each) do 
     User.any_instance.stub(:confirmed_student?).and_return(true)

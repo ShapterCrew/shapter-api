@@ -1,5 +1,5 @@
 module Shapter
-  module V5
+  module V7
     class SharedDocs < Grape::API
       format :json
 
@@ -22,7 +22,7 @@ module Shapter
             #{{{ index
             desc "get a list of docs for this item"
             get do 
-              present :shared_docs, @item.shared_docs, with: Shapter::Entities::SharedDoc
+              present :shared_docs, @item.shared_docs, with: Shapter::Entities::SharedDoc, current_user: current_user
             end
             #}}}
 
@@ -56,7 +56,7 @@ module Shapter
               please_track = doc.new_record?
 
               if doc.save
-                present doc, with: Shapter::Entities::SharedDoc
+                present doc, with: Shapter::Entities::SharedDoc, current_user: current_user
                 Behave.delay.track(current_user.pretty_id, "upload document") if please_track
               else
                 error!(doc.errors.messages)
@@ -75,7 +75,7 @@ module Shapter
               #{{{ get
               desc "get the shared_doc"
               get do 
-                present @shared_doc, with: Shapter::Entities::SharedDoc
+                present @shared_doc, with: Shapter::Entities::SharedDoc, current_user: current_user
               end
               #}}}
 
@@ -94,7 +94,7 @@ module Shapter
                 ].reduce(&:merge)
 
                 if @shared_doc.update_attributes(clean_p)
-                  present @sharedDoc, with: Shapter::Entities::SharedDoc
+                  present @sharedDoc, with: Shapter::Entities::SharedDoc, current_user: current_user
                 else
                   error!(@shared_doc.errors.messages)
                 end

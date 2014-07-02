@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shapter::V6::ConfirmStudents do 
+describe Shapter::V7::ConfirmStudents do 
 
   before(:each) do 
     User.delete_all

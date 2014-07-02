@@ -22,7 +22,7 @@ module Shapter
             #{{{ index
             desc "get a list of docs for this item"
             get do 
-              present :shared_docs, @item.shared_docs, with: Shapter::Entities::SharedDoc, current_user: current_user
+              present :shared_docs, @item.shared_docs, with: Shapter::Entities::SharedDoc, entity_options: entity_options
             end
             #}}}
 
@@ -56,7 +56,7 @@ module Shapter
               please_track = doc.new_record?
 
               if doc.save
-                present doc, with: Shapter::Entities::SharedDoc, current_user: current_user
+                present doc, with: Shapter::Entities::SharedDoc, entity_options: entity_options
                 Behave.delay.track(current_user.pretty_id, "upload document") if please_track
               else
                 error!(doc.errors.messages)
@@ -75,7 +75,7 @@ module Shapter
               #{{{ get
               desc "get the shared_doc"
               get do 
-                present @shared_doc, with: Shapter::Entities::SharedDoc, current_user: current_user
+                present @shared_doc, with: Shapter::Entities::SharedDoc, entity_options: entity_options
               end
               #}}}
 
@@ -94,7 +94,7 @@ module Shapter
                 ].reduce(&:merge)
 
                 if @shared_doc.update_attributes(clean_p)
-                  present @sharedDoc, with: Shapter::Entities::SharedDoc, current_user: current_user
+                  present @sharedDoc, with: Shapter::Entities::SharedDoc, entity_options: entity_options
                 else
                   error!(@shared_doc.errors.messages)
                 end
@@ -143,7 +143,7 @@ module Shapter
                 end
 
                 if @shared_doc.save
-                  present @shared_doc, with: Shapter::Entities::SharedDoc, :current_user => current_user
+                  present @shared_doc, with: Shapter::Entities::SharedDoc, entity_options: entity_options
                   if s != old_score
                     Behave.delay.track current_user.pretty_id, action, last_state: old_score, document_author: @shared_doc.author.pretty_id, shared_doc: @shared_doc.pretty_id 
                     Behave.delay.track @shared_doc.author.pretty_id, "receive document like" if s == 1

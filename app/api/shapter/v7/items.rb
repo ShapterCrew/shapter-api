@@ -22,7 +22,7 @@ module Shapter
           nstop = params[:n_stop].to_i
           f = filter_items2(params[:filter])
           present :number_of_results, f.size
-          present :items, f[nstart..nstop], with: Shapter::Entities::Item, :current_user => current_user
+          present :items, f[nstart..nstop], with: Shapter::Entities::Item, entity_options: entity_options
           unless (params[:filter] - current_user.school_ids.map(&:to_s)).empty?
             Behave.delay.track current_user.pretty_id, "search on browse"
           end
@@ -51,7 +51,7 @@ module Shapter
           tags.each(&:save)
 
           present :status, "created"
-          present :items, its, with: Shapter::Entities::Item, current_user: current_user
+          present :items, its, with: Shapter::Entities::Item, entity_options: entity_options
 
           Tag.touch
           Item.touch
@@ -69,7 +69,7 @@ module Shapter
           #{{{ get
           desc "get item infos"
           get do 
-            present @item, with: Shapter::Entities::Item, :current_user => current_user
+            present @item, with: Shapter::Entities::Item, entity_options: entity_options
           end
           #}}}
 
@@ -79,7 +79,7 @@ module Shapter
             do_not_track = ( current_user.items.include?(@item))
             @item.subscribers << current_user
             if @item.save
-              present @item, with: Shapter::Entities::Item, :current_user => current_user
+              present @item, with: Shapter::Entities::Item, entity_options: entity_options
               Behave.delay.track(current_user.pretty_id, "subscribe item", item: @item.pretty_id ) unless do_not_track
               current_user.touch unless do_not_track
               current_user.touch unless do_not_track
@@ -95,7 +95,7 @@ module Shapter
             do_not_track = !(current_user.items.include?(@item))
             @item.subscribers.delete(current_user)
             if @item.save
-              present @item, with: Shapter::Entities::Item, :current_user => current_user
+              present @item, with: Shapter::Entities::Item, entity_options: entity_options
               Behave.delay.track(current_user.pretty_id, "unsubscribe item", item: @item.pretty_id ) unless do_not_track
               current_user.touch unless do_not_track
             else
@@ -110,7 +110,7 @@ module Shapter
             do_not_track = (current_user.cart_items.include?(@item))
             @item.interested_users << current_user
             if @item.save
-              present @item, with: Shapter::Entities::Item, :current_user => current_user
+              present @item, with: Shapter::Entities::Item, entity_options: entity_options
               Behave.delay.track(current_user.pretty_id, "add to cart", item: @item.pretty_id ) unless do_not_track
             else
               error!(@item.errors.messages)
@@ -124,7 +124,7 @@ module Shapter
             do_not_track = !(current_user.cart_items.include?(@item))
             @item.interested_users.delete(current_user)
             if @item.save
-              present @item, with: Shapter::Entities::Item, :current_user => current_user
+              present @item, with: Shapter::Entities::Item, entity_options: entity_options
               Behave.delay.track(current_user.pretty_id, "remove from cart", item: @item.pretty_id ) unless do_not_track
             else
               error!(@item.errors.messages)
@@ -138,7 +138,7 @@ module Shapter
             do_not_track = ( current_user.constructor_items.include?(@item))
             @item.constructor_users << current_user
             if @item.save
-              present @item, with: Shapter::Entities::Item, :current_user => current_user
+              present @item, with: Shapter::Entities::Item, entity_options: entity_options
               Behave.delay.track(current_user.pretty_id, "add to constructor", item: @item.pretty_id ) unless do_not_track
             else
               error!(@item.errors.messages)
@@ -152,7 +152,7 @@ module Shapter
             do_not_track = !( current_user.constructor_items.include?(@item))
             @item.constructor_users.delete(current_user)
             if @item.save
-              present @item, with: Shapter::Entities::Item, :current_user => current_user
+              present @item, with: Shapter::Entities::Item, entity_options: entity_options
               Behave.delay.track(current_user.pretty_id, "remove from constructor", item: @item.pretty_id ) unless do_not_track
             else
               error!(@item.errors.messages)
@@ -189,7 +189,7 @@ module Shapter
 
             @item.update(params[:item])
 
-            present @item, with: Shapter::Entities::Item, :current_user => current_user
+            present @item, with: Shapter::Entities::Item, entity_options: entity_options
           end
           #}}}
 

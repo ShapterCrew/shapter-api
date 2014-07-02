@@ -127,7 +127,7 @@ module Shapter
 
                     present :total_nb_of_steps, tag.constructor_funnel.size
                     present :name, name
-                    present :items, items, with: Shapter::Entities::Item, :current_user => current_user
+                    present :items, items, with: Shapter::Entities::Item, entity_options: entity_options
                     present :types, types
                   end
                 else

@@ -20,7 +20,7 @@ module Shapter
             #{{{ get comments
             desc "get user's comments"
             get do 
-              present :comments, @user.comments, with: Shapter::Entities::Comment, current_user: current_user
+              present :comments, @user.comments, with: Shapter::Entities::Comment, entity_options: entity_options
             end
             #}}}
           end
@@ -46,6 +46,7 @@ module Shapter
               end
             end
             post :create do
+              error!("forbidden",401) unless @item.user_can_view_comments?(current_user)
 
               #could be nicer with proper params :permit handling
               content = CGI.escapeHTML(params[:comment][:content] || "")
@@ -57,7 +58,7 @@ module Shapter
 
               if c.save
                 c.reload
-                present c, with: Shapter::Entities::Comment, :current_user => current_user
+                present c, with: Shapter::Entities::Comment, entity_options: entity_options
                 Behave.delay.track current_user.pretty_id, "comment", item: c.item.pretty_id 
               else
                 error!(c.errors,400) unless c.valid?
@@ -72,7 +73,7 @@ module Shapter
               ok_admin = current_user.shapter_admin
               error!("access denied",401) unless (ok_admin or ok_school)
 
-              present @item.comments, with: Shapter::Entities::Comment, current_user: current_user
+              present @item.comments, with: Shapter::Entities::Comment, entity_options: entity_options
             end
             #}}}
 
@@ -94,7 +95,7 @@ module Shapter
               put do 
                 error!("forbidden") unless (@comment.author == current_user or current_user.shapter_admin)
                 if @comment.update_attribute(:content, params[:comment][:content])
-                  present @comment, with: Shapter::Entities::Comment, :current_user => current_user
+                  present @comment, with: Shapter::Entities::Comment, entity_options: entity_options
                 else
                   error!(@comment.errors)
                 end
@@ -145,7 +146,7 @@ module Shapter
                 end
 
                 if @comment.save
-                  present @comment, with: Shapter::Entities::Comment, :current_user => current_user
+                  present @comment, with: Shapter::Entities::Comment, entity_options: entity_options
                   if s != old_score
                     Behave.delay.track current_user.pretty_id, action, last_state: old_score, comment_author: @comment.author.pretty_id, comment: @comment.pretty_id 
                     Behave.delay.track @comment.author.pretty_id, "receive like" if s == 1
@@ -159,14 +160,14 @@ module Shapter
               #{{{ likers
               desc "get a list of user that like the comment"
               get :likers do 
-                present :likers, @comment.likers, with: Shapter::Entities::User, :current_user => current_user
+                present :likers, @comment.likers, with: Shapter::Entities::User, entity_options: entity_options
               end
               #}}}
 
               #{{{ dislikers
               desc "get a list of user that dislike the comment"
               get :dislikers do 
-                present :dislikers, @comment.dislikers, with: Shapter::Entities::User, :current_user => current_user
+                present :dislikers, @comment.dislikers, with: Shapter::Entities::User, entity_options: entity_options
               end
               #}}}
 

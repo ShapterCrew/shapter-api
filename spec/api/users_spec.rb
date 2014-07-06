@@ -25,7 +25,7 @@ describe Shapter::V7::Users do
       end
 
       it "present current user" do
-        get "users/me", entities: {user: {firstname: true, lastname: true}}
+        post "users/me", entities: {user: {firstname: true, lastname: true}}
         access_denied(response).should be_false
         h = JSON.parse(response.body)
         h["firstname"].should == @user.firstname
@@ -35,7 +35,7 @@ describe Shapter::V7::Users do
 
     context "when NOT logged in" do 
       it "denies access" do 
-        get "users/me"
+        post "users/me"
         access_denied(response).should be_true
       end
     end
@@ -67,13 +67,13 @@ describe Shapter::V7::Users do
     end
 
     it "should get 1 item to comment" do 
-      get "/users/me/comment-pipe", n: 1
+      post "/users/me/comment-pipe", n: 1
       h = JSON.parse(@response.body)
       h.size.should == 1
     end
 
     it "should get 3 items in proper order" do 
-      get "/users/me/comment-pipe", n: 3, entities: {item: {requires_comment_score: true}}
+      post "/users/me/comment-pipe", n: 3, entities: {item: {requires_comment_score: true}}
       h = JSON.parse(@response.body)
       h["commentable_items"].size.should == 3
       h["commentable_items"].sort_by{|h| h["requires_comment_score"]}.reverse.map{|h| h["id"]}.should == [@i2,@i1,@i3].map(&:id).map(&:to_s)
@@ -150,7 +150,7 @@ describe Shapter::V7::Users do
       User.any_instance.stub(:confirmed_student?).and_return(true)
     end
     it "should respond" do 
-      get "/users/me/social"
+      post "/users/me/social"
       r = JSON.parse(@response.body)
       r.has_key?("alike_users").should be_true
       r.has_key?("friends").should be_true
@@ -173,7 +173,7 @@ describe Shapter::V7::Users do
 
     it "should present constructor items lastest comments" do 
       @user.constructor_items << @item
-      get "/users/me/latest_comments"
+      post "/users/me/latest_comments"
       h = JSON.parse(@response.body)
       h.has_key?("constructor_item_comments").should be_true
       h["constructor_item_comments"].first["id"].should == @comment.id.to_s
@@ -181,7 +181,7 @@ describe Shapter::V7::Users do
 
     it "should present my items latest comments" do 
       @user.items << @item
-      get "/users/me/latest_comments"
+      post "/users/me/latest_comments"
       h = JSON.parse(@response.body)
       h.has_key?("my_item_comments").should be_true
       h["my_item_comments"].first["id"].should == @comment.id.to_s
@@ -190,7 +190,7 @@ describe Shapter::V7::Users do
 
     it "should present cart items lastest comments" do 
       @user.cart_items << @item
-      get "/users/me/latest_comments"
+      post "/users/me/latest_comments"
       h = JSON.parse(@response.body)
       h.has_key?("cart_item_comments").should be_true
       h["cart_item_comments"].first["id"].should == @comment.id.to_s

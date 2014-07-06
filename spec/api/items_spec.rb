@@ -75,7 +75,7 @@ describe Shapter::V7::Items do
   describe :filter do 
     context "when logged off" do 
       it "should deny access" do 
-        get "items/filter", {filter: @filter}
+        post "items/filter", {filter: @filter}
         access_denied(response).should be_true
       end
     end
@@ -85,15 +85,15 @@ describe Shapter::V7::Items do
         login(@user)
       end
       it "should filter properly" do 
-        get "items/filter", {filter: [@t1.id.to_s]}
+        post "items/filter", {filter: [@t1.id.to_s]}
         a = JSON.parse(response.body)
         a["items"].map{|h| h["id"]}.should =~ [@item.id, @item2.id].map(&:to_s)
 
-        get "items/filter", {filter: [@t1.id.to_s,@t3.id.to_s]}
+        post "items/filter", {filter: [@t1.id.to_s,@t3.id.to_s]}
         a = JSON.parse(response.body)
         a["items"].map{|h| h["id"]}.should =~ [@item2.id].map(&:to_s)
 
-        get "items/filter", {filter: [@t1.id.to_s,"hahahalol"]}
+        post "items/filter", {filter: [@t1.id.to_s,"hahahalol"]}
         a = JSON.parse(response.body)
         a["items"].blank?.should be_true
       end
@@ -105,7 +105,7 @@ describe Shapter::V7::Items do
   describe :get do 
     context "when logged off" do 
       it "should deny access" do 
-        get "items/#{@item.id}"
+        post "items/#{@item.id}"
         access_denied(response).should be_true
       end
     end
@@ -116,14 +116,14 @@ describe Shapter::V7::Items do
       end
 
       it "should error if iten is not found" do 
-        get "items/hahahanononon"
+        post "items/hahahanononon"
         response.body.should == {error: "item not found"}.to_json
         response.status.should == 404
       end
 
       it "should returns item when found" do 
-        get "items/#{@item.id}"
-        response.status.should == 200
+        post "items/#{@item.id}"
+        response.status.should == 201
         i = JSON.parse(response.body)
         i["id"].should == @item.id.to_s
       end
@@ -312,7 +312,7 @@ describe Shapter::V7::Items do
   describe :avgDiag do 
     it "should present averaged diagram" do 
       login(@user)
-      get "items/#{@item.id}/avgDiag"
+      post "items/#{@item.id}/avgDiag"
       (@response.body).should == @item.front_avg_diag.to_json
     end
   end
@@ -436,7 +436,7 @@ describe Shapter::V7::Items do
 
       context "when logged of" do
         it "denies access" do 
-          get "items/#{@item.id}/comments"
+          post "items/#{@item.id}/comments"
           access_denied(@response).should be_true
         end
       end
@@ -449,12 +449,12 @@ describe Shapter::V7::Items do
         it "allows access if item belongs to current_user.school " do 
           @user.schools << @item.tags.last# ; @user.save ; @user.reload
 
-          get "items/#{@item.id}/comments"
+          post "items/#{@item.id}/comments"
           access_denied(@response).should be_false
         end
 
         it "denies access if item does NOT belong to current_user.school " do 
-          get "items/#{@item.id}/comments"
+          post "items/#{@item.id}/comments"
           access_denied(@response).should be_true
         end
       end
@@ -466,7 +466,7 @@ describe Shapter::V7::Items do
         end
 
         it "allows access if item does NOT belong to current_user.school " do 
-          get "items/#{@item.id}/comments"
+          post "items/#{@item.id}/comments"
           access_denied(@response).should be_false
         end
 
@@ -474,7 +474,7 @@ describe Shapter::V7::Items do
           c = FactoryGirl.build(:comment) ;  c.author = @user
           @item.comments << c
           @item.save ; @item.reload
-          get "items/#{@item.id}/comments"
+          post "items/#{@item.id}/comments"
           a = JSON.parse(response.body)
           a.is_a?(Array).should be_true
           a.size.should == @item.comments.size

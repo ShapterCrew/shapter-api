@@ -16,7 +16,7 @@ describe Shapter::V7::Types do
   describe :index do 
 
     it "should list all tag types" do 
-      get "types"
+      post "types"
       JSON.parse(@response.body)["types"].should =~ [@tag,@tag2].map(&:type)
     end
 

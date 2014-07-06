@@ -11,7 +11,7 @@ module Shapter
 
       #{{{ index
       desc "list all permissions" 
-      get do 
+      post do 
         present SignupPermission.all, with: Shapter::Entities::SignupPermission, entity_options: entity_options
       end
       #}}}

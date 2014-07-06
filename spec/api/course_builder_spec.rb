@@ -24,16 +24,16 @@ describe Shapter::V7::CourseBuilder do
 
     context "when user doesn't belong to asked school" do 
       it "denies access" do 
-        get "/users/#{@user.id}/courses", :schoolTagId => @tag.id.to_s
+        post "/users/#{@user.id}/courses", :schoolTagId => @tag.id.to_s
         access_denied(@response).should be_true
       end
     end
     context "when user belongs to asked school" do 
       it "success" do 
         @user.schools << @tag
-        get "/users/#{@user.id}/courses", :schoolTagId => @tag.id.to_s
+        post "/users/#{@user.id}/courses", :schoolTagId => @tag.id.to_s
         access_denied(@response).should be_false
-        @response.status.should == 200
+        @response.status.should == 201
       end
     end
 

@@ -27,7 +27,7 @@ describe Shapter::V7::SharedDocs do
   #{{{ index
   describe :index do 
     it "list all shared docs associated to an item" do 
-      get "items/#{@item.id}/sharedDocs"
+      post "items/#{@item.id}/sharedDocs"
       r = JSON.parse(@response.body)
       r.has_key?('shared_docs').should be_true
       r["shared_docs"].map{|h| h["id"].to_s}.should =~ @item.shared_docs.map(&:pretty_id)
@@ -39,14 +39,14 @@ describe Shapter::V7::SharedDocs do
   describe :get do 
     context 'when available' do 
       it 'finds object' do 
-        get "items/#{@item.id}/sharedDocs/#{@shared_doc.id}"
+        post "items/#{@item.id}/sharedDocs/#{@shared_doc.id}"
         JSON.parse(@response.body)["id"].should == @shared_doc.id.to_s
       end
     end
 
     context 'when not found' do 
       it 'returns 404' do 
-        get "items/#{@item.id}/sharedDocs/nopenopenopenope"
+        post "items/#{@item.id}/sharedDocs/nopenopenopenope"
         @response.status.should == 404
       end
     end
@@ -58,7 +58,7 @@ describe Shapter::V7::SharedDocs do
     it 'creates document if valid' do 
 
       @item.shared_docs.count.should == 1
-      post "items/#{@item.id}/sharedDocs/", :sharedDoc => @ps.merge(item: @item, author: @user)
+      post "items/#{@item.id}/sharedDocs/create", :sharedDoc => @ps.merge(item: @item, author: @user)
       @item.reload
       @item.shared_docs.count.should == 2
       s = @item.shared_docs.sort_by(&:created_at).last

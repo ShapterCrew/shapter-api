@@ -50,7 +50,7 @@ module Shapter
 
             #{{{ get
             desc "get values of the signup funnel list for this tag"
-            get do 
+            post do 
               if @tag.signup_funnel
                 present :signup_funnel, @tag.signup_funnel
               else
@@ -97,7 +97,7 @@ module Shapter
               params do 
                 requires :school_id, type: String, desc: "id of the school tag to use"
               end
-              get do 
+              post do 
                 #tag = current_user.schools.first
                 tag = Tag.find(params[:school_id]) || error!("school tag not found",404)
                 error!("user doesn't belong to this school") unless current_user.schools.include?(tag)

@@ -71,7 +71,7 @@ module Shapter
       params do 
         requires :tag_id, type: String, desc: "id of the tag"
       end
-      get "tags/:tag_id/constructor-funnel" do 
+      post "tags/:tag_id/constructor-funnel" do 
         check_user_login!
         error!("forbidden",401) unless (current_user.shapter_admin or current_user.confirmed_student?)
 
@@ -109,7 +109,7 @@ module Shapter
               params do 
                 requires :school_id, type: String, desc: "id of the school tag to use"
               end
-              get do 
+              post do 
                 #tag = current_user.schools.first
                 tag = Tag.find(params[:school_id]) || error!("school tag not found",404)
                 error!("user doesn't belong to this school") unless current_user.schools.include?(tag)

@@ -21,7 +21,7 @@ module Shapter
 
             #{{{ index
             desc "get a list of docs for this item"
-            get do 
+            post do 
               present :shared_docs, @item.shared_docs, with: Shapter::Entities::SharedDoc, entity_options: entity_options
             end
             #}}}
@@ -36,7 +36,7 @@ module Shapter
                 requires :filename, desc: "filename, with the extension"
               end
             end
-            post do
+            post :create do
               s = params[:sharedDoc][:file].split(',').last
               tempfile = Tempfile.new('upload')
               tempfile.binmode
@@ -74,7 +74,7 @@ module Shapter
 
               #{{{ get
               desc "get the shared_doc"
-              get do 
+              post do 
                 present @shared_doc, with: Shapter::Entities::SharedDoc, entity_options: entity_options
               end
               #}}}

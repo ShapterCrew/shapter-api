@@ -26,7 +26,7 @@ module Shapter
               optional :displayCart, type: Boolean, desc: "choose wether the cart items should be displayed", default: false
               optional :displayConstructor, type: Boolean, desc: "choose wether the constructor items should be displayed", default: false
             end
-            get do 
+            post do 
               school = Tag.find(params[:schoolTagId]) || error!("tag not found",404)
               error!("forbidden" ,401) unless @user.schools.include? school
 

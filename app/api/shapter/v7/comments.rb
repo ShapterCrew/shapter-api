@@ -19,7 +19,7 @@ module Shapter
           namespace :comments do 
             #{{{ get comments
             desc "get user's comments"
-            get do 
+            post do 
               present :comments, @user.comments, with: Shapter::Entities::Comment, entity_options: entity_options
             end
             #}}}
@@ -68,7 +68,7 @@ module Shapter
 
             #{{{ index
             desc "get comments from item"
-            get do
+            post do
               ok_school = !(@item.tags & current_user.schools).empty?
               ok_admin = current_user.shapter_admin
               error!("access denied",401) unless (ok_admin or ok_school)
@@ -159,14 +159,14 @@ module Shapter
 
               #{{{ likers
               desc "get a list of user that like the comment"
-              get :likers do 
+              post :likers do 
                 present :likers, @comment.likers, with: Shapter::Entities::User, entity_options: entity_options
               end
               #}}}
 
               #{{{ dislikers
               desc "get a list of user that dislike the comment"
-              get :dislikers do 
+              post :dislikers do 
                 present :dislikers, @comment.dislikers, with: Shapter::Entities::User, entity_options: entity_options
               end
               #}}}

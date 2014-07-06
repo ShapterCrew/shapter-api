@@ -22,7 +22,7 @@ module Shapter
         }
         params do 
         end
-        get :/ do 
+        post :/ do 
           if params[:filter]
             present dictionnary(params[:filter]), with: Shapter::Entities::Tag, entity_options: entity_options
           else
@@ -84,7 +84,7 @@ module Shapter
 
           #{{{ students
           desc "get a list of students from a school"
-          get :students do
+          post :students do
             tag = Tag.find(params[:tag_id]) || error!("tag not found",404)
             present :students, tag.cached_students, with: Shapter::Entities::User, entity_options: entity_options
           end
@@ -110,7 +110,7 @@ module Shapter
 
           #{{{ show
           desc "show tag"
-          get "" do 
+          post  do 
             t = Tag.find(params[:tag_id])
             present t, with: Shapter::Entities::Tag, entity_options: entity_options
           end

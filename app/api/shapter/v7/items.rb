@@ -17,7 +17,7 @@ module Shapter
           optional :n_start, type: Integer, desc: "index to start with. default: 0", default: 0
           optional :n_stop, type: Integer, desc: "index to end with. default: 14. -1 will return the entire list", default: 14
         end
-        get :filter do 
+        post :filter do 
           nstart = params[:n_start].to_i
           nstop = params[:n_stop].to_i
           f = filter_items2(params[:filter])
@@ -68,7 +68,7 @@ module Shapter
 
           #{{{ get
           desc "get item infos"
-          get do 
+          post do 
             present @item, with: Shapter::Entities::Item, entity_options: entity_options
           end
           #}}}
@@ -195,7 +195,7 @@ module Shapter
 
           #{{{ avg_diag
           desc "get the averaged diagram of the item" 
-          get :avgDiag do
+          post :avgDiag do
             present @item.front_avg_diag
           end
           #}}}

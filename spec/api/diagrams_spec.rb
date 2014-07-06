@@ -82,7 +82,7 @@ describe Shapter::V7::Diagrams do
 
       d.reload ; @item.reload
 
-      get "items/#{@item.id}/mydiagram"
+      post "items/#{@item.id}/mydiagram"
 
       h = JSON.parse(response.body)
       h["id"].should == d.id.to_s

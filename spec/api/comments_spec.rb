@@ -21,7 +21,7 @@ describe Shapter::V7::Comments do
       User.any_instance.stub(:comments).and_return([@comment])
       login(@user)
 
-      get "users/#{@user.id}/comments"
+      post "users/#{@user.id}/comments"
 
       h = JSON.parse(@response.body)
       h.has_key?("comments").should be_true
@@ -228,7 +228,7 @@ describe Shapter::V7::Comments do
       @comment.save
       login(@user)
 
-      get "items/#{@item.id}/comments/#{@comment.id}/likers"
+      post "items/#{@item.id}/comments/#{@comment.id}/likers"
 
       h = JSON.parse(@response.body)
       h.has_key?("likers").should be_true
@@ -245,7 +245,7 @@ describe Shapter::V7::Comments do
       @comment.save
       login(@user)
 
-      get "items/#{@item.id}/comments/#{@comment.id}/dislikers"
+      post "items/#{@item.id}/comments/#{@comment.id}/dislikers"
 
       h = JSON.parse(@response.body)
       h.has_key?("dislikers").should be_true

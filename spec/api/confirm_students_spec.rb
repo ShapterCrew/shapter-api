@@ -16,7 +16,7 @@ describe Shapter::V7::ConfirmStudents do
 
       it "present current user" do
         login(@user)
-        get "users/me", entities: {user: {firstname: true, lastname: true}}
+        post "users/me", entities: {user: {firstname: true, lastname: true}}
         access_denied(@response).should be_false
         h = JSON.parse(@response.body)
         h["firstname"].should == @user.firstname
@@ -26,7 +26,7 @@ describe Shapter::V7::ConfirmStudents do
 
     context "when NOT logged in" do 
       it "denies access" do 
-        get "users/me"
+        post "users/me"
         access_denied(@response).should be_true
       end
     end

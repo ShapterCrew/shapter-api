@@ -25,7 +25,7 @@ describe Shapter::V7::Tags do
 
     context "when logged of" do 
       it "denies access" do 
-        get "tags"
+        post "tags"
         access_denied(response).should be_true
       end
     end
@@ -50,24 +50,24 @@ describe Shapter::V7::Tags do
       end
 
       it "allows access" do 
-        get "tags"
+        post "tags"
         access_denied(response).should be_false
       end
 
       it "list all tags withoug params" do 
-        get "tags"
+        post "tags"
         JSON.parse(response.body).map{|h| h["id"]}.map(&:to_s).should =~ Tag.all.map(&:id).map(&:to_s)
       end
 
       context "when filter param is provided" do 
         it "filters when <filter> param is provided" do 
-          get "tags", :filter => @schooltag1.name
+          post "tags", :filter => @schooltag1.name
           a = JSON.parse(response.body)
           a.map{|h| h["id"]}.map(&:to_s).should =~ [@schooltag1,@t1,@t2].map{|h| h["id"]}.map(&:to_s)
         end
 
         it "returns empty array if nothing is found" do 
-          get "tags", :filter => "hahahanonono"
+          post "tags", :filter => "hahahanonono"
           response.body.should == [].to_json
         end
       end
@@ -82,7 +82,7 @@ describe Shapter::V7::Tags do
 
     context "when logged of" do 
       it "denies access" do 
-        get 'tags/suggested'
+        post 'tags/suggested'
         access_denied(response).should be_true
       end
     end
@@ -156,7 +156,7 @@ describe Shapter::V7::Tags do
 
       it "get students" do 
         @tag.students << @user
-        get "tags/#{@tag.id}/students", entities: {user: {firstname: true, lastname: true}}
+        post "tags/#{@tag.id}/students", entities: {user: {firstname: true, lastname: true}}
         h = JSON.parse(@response.body)
         h.has_key?("students").should be_true
         hh = h["students"].first

@@ -13,7 +13,7 @@ module Shapter
 
         #{{{ index
         desc "get a complete list of tag types"
-        get do
+        post do
           present :types, Tag.all.map(&:type).compact.uniq
         end
         #}}}

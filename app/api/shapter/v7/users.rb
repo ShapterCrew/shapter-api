@@ -14,7 +14,7 @@ module Shapter
         namespace :me do 
 
           #{{{ /users/me
-          get do 
+          post do 
             present current_user, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
@@ -25,7 +25,7 @@ module Shapter
             optional :n, type: Integer, default: 5, desc: "number of items to get"
             optional :n_start, type: Integer, default: 0, desc: "starting index. default = 0 to get the first item"
           end
-          get "comment-pipe" do 
+          post "comment-pipe" do 
             check_confirmed_student!
             n        = params[:n]       || 5
             n_start  = params[:n_start] || 0
@@ -37,7 +37,7 @@ module Shapter
 
           #{{{ friends
           desc "get my friends from facebook x shapter"
-          get :friends do 
+          post :friends do 
             check_confirmed_student!
             present :friends, current_user.friends, with: Shapter::Entities::User, entity_options: entity_options
           end
@@ -45,7 +45,7 @@ module Shapter
 
           #{{{ alike
           desc "get a list of users that ressemble you"
-          get :alike do 
+          post :alike do 
             check_confirmed_student!
             present :alike_users, alike_users(current_user), with: Shapter::Entities::User, entity_options: entity_options
           end
@@ -53,7 +53,7 @@ module Shapter
 
           #{{{ social
           desc "get a list of both users that ressemble you, and friends"
-          get :social do 
+          post :social do 
             check_confirmed_student!
             present :alike_users, alike_users(current_user), with: Shapter::Entities::User, entity_options: entity_options
             present :friends, current_user.friends, with: Shapter::Entities::User, entity_options: entity_options
@@ -65,7 +65,7 @@ module Shapter
           params do 
             optional :max, type: Integer, default: 10, desc: "max number of elements. default 10"
           end
-          get :leaderboard do 
+          post :leaderboard do 
             check_confirmed_student!
             a = Behave::Leaderboard.results("points").reject do |h|
               s1 =  (h[:player][:traits][:schools] rescue [] ) || []
@@ -87,7 +87,7 @@ module Shapter
             optional :cart_max              , type: Integer, desc: "maximum items in cart list. default = 10"       , default: 10
             optional :constructor_max       , type: Integer, desc: "maximum items in constructor list. default = 10", default: 10
           end
-          get :latest_comments do
+          post :latest_comments do
 
             unless params[:hide_my_items]
               my_items             = current_user.items            .not.where(comments: nil).flat_map(&:comments).sort_by{|c| c.updated_at}.reverse.take(params[:my_max])
@@ -116,14 +116,14 @@ module Shapter
 
           #{{{ alike
           desc "get a list of users that ressemble the user"
-          get :alike do 
+          post :alike do 
             check_confirmed_student!
             present :alike_users, alike_users(@user), with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
 
           #{{{ get user
-          get do 
+          post do 
             check_confirmed_student!
             present @user, with: Shapter::Entities::User, entity_options: entity_options
           end
@@ -131,7 +131,7 @@ module Shapter
 
           #{{{ friends
           desc "get user's friends from facebook x shapter"
-          get :friends do 
+          post :friends do 
             present @user.friends, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}

@@ -68,7 +68,7 @@ module Shapter
 
             #{{{ get
             desc "get my diagram"
-            get do
+            post do
               i = Item.find(params[:item_id]) || error!("item not found",500)
               d = i.diagrams.find_by(author: current_user)
               present d, with: Shapter::Entities::Diagram, entity_options: entity_options

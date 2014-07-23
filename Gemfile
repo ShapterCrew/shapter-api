@@ -23,7 +23,7 @@ gem 'mongoid', :github => 'mongoid/mongoid'
 gem 'devise', :github => 'plataformatec/devise', :branch => 'master'
 
 group :test, :development do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 2'
   gem 'factory_girl_rails'
   gem 'autotest-rails'
   gem 'byebug'
@@ -55,3 +55,5 @@ gem 'carrierwave-mongoid'
 gem 'faraday'
 
 gem 'mongo_session_store-rails4'
+
+gem 'awesome_print'

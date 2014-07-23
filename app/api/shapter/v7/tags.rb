@@ -80,13 +80,25 @@ module Shapter
             params do 
               requires :tag_id, type: String, desc: "The tag id"
             end
+            @tag = Tag.find(params[:tag_id]) || error!("tag not found", 404)
           end
+
+          #{{{ best comments
+          desc "get the best comments for the items linked to this tag"
+          params do 
+            optional :n_max, type: Integer, desc: "max number of comments to get"
+          end
+          post :best_comments do 
+            n_max = params[:n_max] || 5
+            present @tag.best_comments(n_max), with: Shapter::Entities::Comment, entity_options: entity_options
+          end
+          #}}}
 
           #{{{ students
           desc "get a list of students from a school"
           post :students do
-            tag = Tag.find(params[:tag_id]) || error!("tag not found",404)
-            present :students, tag.cached_students, with: Shapter::Entities::User, entity_options: entity_options
+            #tag = Tag.find(params[:tag_id]) || error!("tag not found",404)
+            present :students, @tag.cached_students, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
 
@@ -104,15 +116,14 @@ module Shapter
               h.merge( params[p] ? {p => params[p]} : {} )
             end
 
-            Tag.find(params[:tag_id]).update(tag_params)
+            @tag.update(tag_params)
           end
           #}}}end
 
           #{{{ show
           desc "show tag"
           post  do 
-            t = Tag.find(params[:tag_id])
-            present t, with: Shapter::Entities::Tag, entity_options: entity_options
+            present @tag, with: Shapter::Entities::Tag, entity_options: entity_options
           end
           #}}}
 
@@ -120,9 +131,8 @@ module Shapter
           desc "delete tag"
           delete "" do 
             error!("forbidden",403) unless current_user.shapter_admin
-            t = Tag.find(params[:tag_id])
-            t.destroy
-            {:id => t.id.to_s, :status => :destroyed}.to_json
+            @tag.destroy
+            {:id => @tag.id.to_s, :status => :destroyed}.to_json
           end
         end
         #}}}

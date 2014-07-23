@@ -55,5 +55,3 @@ gem 'carrierwave-mongoid'
 gem 'faraday'
 
 gem 'mongo_session_store-rails4'
-
-gem 'awesome_print'

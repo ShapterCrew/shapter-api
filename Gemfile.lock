@@ -66,7 +66,6 @@ GEM
     arel (4.0.2)
     autotest-rails (4.2.1)
       ZenTest (~> 4.5)
-    awesome_print (1.2.0)
     aws-sdk (1.48.1)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -351,7 +350,6 @@ PLATFORMS
 
 DEPENDENCIES
   autotest-rails
-  awesome_print
   aws-sdk
   aws-ses
   behave.io

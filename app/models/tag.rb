@@ -55,14 +55,18 @@ class Tag
     Tag.touch
   end
 
-  def best_comment
+  def best_comments(n=5)
     self.items
     .select{|i| [i.comments.map(&:author_id) & i.diagrams.map(&:author_id)].any?}
+    .select{|i| i.diagrams.count > 1}
     .sort_by{|i| i.avg_diag.values[6]}.reverse
-    .take(5)
+    .take(n)
     .map do |item|
-      item.comments.sort_by{|c| item.diagrams.where(author_id: c.author_id).last.values[6] || 0 rescue 0 }.last
+      item.comments
+      .sort_by{|c| c.likers_count*(item.diagrams.where(author_id: c.author_id).last.values[6] || 0 rescue 0) }
+      .last
     end
-    .map(&:content).join("|||")
+    .compact
   end
+
 end

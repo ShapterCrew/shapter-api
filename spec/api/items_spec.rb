@@ -48,7 +48,7 @@ describe Shapter::V7::Items do
       end
 
       it "allows access" do 
-        access_denied(@response).should be_false
+        access_denied(@response).should be false
       end
 
       it 'creates properly named item' do 
@@ -179,11 +179,11 @@ describe Shapter::V7::Items do
         @item.subscribers.include?(@user).should be_true
         @user.items.include?(@item).should be_true
         post "items/#{@item.id}/unsubscribe"
-        access_denied(response).should be_false
+        access_denied(response).should be false
         @item.reload
         @user.reload
-        @item.subscribers.include?(@user).should be_false
-        @user.items.include?(@item).should be_false
+        @item.subscribers.include?(@user).should be false
+        @user.items.include?(@item).should be false
       end
     end
   end
@@ -236,11 +236,11 @@ describe Shapter::V7::Items do
         @item.interested_users.include?(@user).should be_true
         @user.cart_items.include?(@item).should be_true
         post "items/#{@item.id}/uncart"
-        access_denied(response).should be_false
+        access_denied(response).should be false
         @item.reload
         @user.reload
-        @item.interested_users.include?(@user).should be_false
-        @user.cart_items.include?(@item).should be_false
+        @item.interested_users.include?(@user).should be false
+        @user.cart_items.include?(@item).should be false
       end
     end
   end
@@ -264,7 +264,7 @@ describe Shapter::V7::Items do
       end
       it "destroy an item" do 
         tags = @item.tags
-        tags.select{|t| t.item_ids.include?(@item.id)}.empty?.should be_false
+        tags.select{|t| t.item_ids.include?(@item.id)}.empty?.should be false
         delete "items/#{@item.id}"
 
         Item.find(@item.id).should be_nil
@@ -342,7 +342,7 @@ describe Shapter::V7::Items do
           login(@user)
           User.any_instance.stub(:shapter_admin).and_return(true)
           put "items/#{@item.id}/tags/newtag"
-          access_denied(response).should be_false
+          access_denied(response).should be false
         end
 
         it "adds tag" do 
@@ -387,26 +387,26 @@ describe Shapter::V7::Items do
 
         it "allows access" do 
           delete "/items/#{@item.id}/tags/#{@t1.id}"
-          access_denied(@response).should be_false
+          access_denied(@response).should be false
         end
 
         it "deletes the tag from item tags list" do
           @item.tags.include?(@t1).should be_true
           delete "/items/#{@item.id}/tags/#{@t1.id}"
           @item.reload
-          @item.tags.include?(@t1).should be_false
+          @item.tags.include?(@t1).should be false
         end
 
         it "delete the item from the tag items list" do 
           @t1.items.include?(@item).should be_true
           delete "/items/#{@item.id}/tags/#{@t1.id}"
           @t1.reload
-          @t1.items.include?(@item).should be_false
+          @t1.items.include?(@item).should be false
         end
 
         it "removes the tag from base if no item correspond to this tag anymore" do 
           @t2.items.include?(@item).should be_true
-          Tag.where(name: @t2.name).empty?.should be_false
+          Tag.where(name: @t2.name).empty?.should be false
           @t2.items.size.should == 1
           delete "/items/#{@item.id}/tags/#{@t2.id}"
           Tag.where(name: @t2.name).empty?.should be_true
@@ -450,7 +450,7 @@ describe Shapter::V7::Items do
           @user.schools << @item.tags.last# ; @user.save ; @user.reload
 
           post "items/#{@item.id}/comments"
-          access_denied(@response).should be_false
+          access_denied(@response).should be false
         end
 
         it "denies access if item does NOT belong to current_user.school " do 
@@ -467,7 +467,7 @@ describe Shapter::V7::Items do
 
         it "allows access if item does NOT belong to current_user.school " do 
           post "items/#{@item.id}/comments"
-          access_denied(@response).should be_false
+          access_denied(@response).should be false
         end
 
         it "list items comments" do 

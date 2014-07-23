@@ -17,7 +17,7 @@ describe Item do
 
     it "returns true if user subscribed" do 
       @item.subscribers << @user ; @item.save ; @item.reload
-      @item.user_subscribed?(@user).should be_true
+      @item.user_subscribed?(@user).should be true
     end
   end
   #}}}
@@ -31,7 +31,7 @@ describe Item do
 
     it "returns true if user has in cart" do 
       @item.interested_users << @user ; @item.save ; @item.reload
-      @item.user_has_in_cart?(@user).should be_true
+      @item.user_has_in_cart?(@user).should be true
     end
   end
   #}}}
@@ -82,7 +82,7 @@ describe Item do
       @item.diagrams.count.should == 2
 
       avg_d = @item.avg_diag
-      avg_d.is_a?(Diagram).should be_true
+      avg_d.is_a?(Diagram).should be true
       avg_d.values.should == [0,1.5,3,4.5,6]
       avg_d.item.should == @item
 

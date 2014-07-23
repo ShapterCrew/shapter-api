@@ -2,9 +2,9 @@ class Item
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :name, type: String
-  field :description, type: String
-  field :short_name, type: String
+  field :name                  , type: String
+  field :description           , type: String
+  field :short_name            , type: String
   field :requires_comment_score, type: Integer
 
   embeds_many :comments
@@ -13,8 +13,8 @@ class Item
 
   has_and_belongs_to_many :tags
 
-  has_and_belongs_to_many :subscribers, class_name: "User", inverse_of: :items
-  has_and_belongs_to_many :interested_users, class_name: "User", inverse_of: :cart_items
+  has_and_belongs_to_many :subscribers      , class_name: "User", inverse_of: :items
+  has_and_belongs_to_many :interested_users , class_name: "User", inverse_of: :cart_items
   has_and_belongs_to_many :constructor_users, class_name: "User", inverse_of: :constructor_users
 
   class << self

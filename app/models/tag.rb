@@ -54,4 +54,15 @@ class Tag
   def class_touch
     Tag.touch
   end
+
+  def best_comment
+    self.items
+    .select{|i| [i.comments.map(&:author_id) & i.diagrams.map(&:author_id)].any?}
+    .sort_by{|i| i.avg_diag.values[6]}.reverse
+    .take(5)
+    .map do |item|
+      item.comments.sort_by{|c| item.diagrams.where(author_id: c.author_id).last.values[6] || 0 rescue 0 }.last
+    end
+    .map(&:content).join("|||")
+  end
 end

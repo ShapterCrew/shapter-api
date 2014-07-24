@@ -2,6 +2,7 @@ module SchoolStuff
   extend ActiveSupport::Concern
 
   included do 
+
     def is_school?
       category.code == "school"
     end

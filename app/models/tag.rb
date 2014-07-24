@@ -2,6 +2,8 @@ class Tag
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  include SchoolStuff
+
   include Funnelable
   funnel_for :signup_funnel
   funnel_for :constructor_funnel # ZBRA !
@@ -12,7 +14,6 @@ class Tag
 
   belongs_to :category
 
-  include SchoolStuff
 
   #validates_uniqueness_of :name
   validate :type_name_uniqueness

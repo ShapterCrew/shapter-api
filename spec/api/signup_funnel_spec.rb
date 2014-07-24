@@ -29,7 +29,7 @@ describe Shapter::V7::SignupFunnel do
         end
 
         it "denies access" do 
-          access_denied(@response).should be_true
+          access_denied(@response).should be true
         end
       end
       context "when admin" do 
@@ -39,7 +39,7 @@ describe Shapter::V7::SignupFunnel do
         end
 
         it "allows access" do 
-          access_denied(@response).should be_false
+          access_denied(@response).should be false
         end
 
         it "set proper values" do 
@@ -49,7 +49,7 @@ describe Shapter::V7::SignupFunnel do
 
         it "returns signup_funnel" do 
           a = JSON.parse(@response.body)
-          a.is_a?(Array).should be_true
+          a.is_a?(Array).should be true
         end
       end
     end
@@ -69,7 +69,7 @@ describe Shapter::V7::SignupFunnel do
         end
 
         it "denies access" do
-          access_denied(@response).should be_true
+          access_denied(@response).should be true
         end
       end
       context "when admin" do 
@@ -79,7 +79,7 @@ describe Shapter::V7::SignupFunnel do
         end
 
         it "allows access" do 
-          access_denied(@response).should be_false
+          access_denied(@response).should be false
         end
 
         it "finds and return values" do 
@@ -103,7 +103,7 @@ describe Shapter::V7::SignupFunnel do
         end
 
         it "denies access" do 
-          access_denied(@response).should be_true
+          access_denied(@response).should be true
         end
       end
       context "when admin" do 

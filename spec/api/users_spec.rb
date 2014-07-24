@@ -26,8 +26,8 @@ describe Shapter::V7::Users do
 
       it "present current user" do
         post "users/me", entities: {user: {firstname: true, lastname: true}}
-        access_denied(response).should be_false
-        h = JSON.parse(response.body)
+        access_denied(@response).should be false
+        h = JSON.parse(@response.body)
         h["firstname"].should == @user.firstname
         h["lastname"].should == @user.lastname
       end
@@ -36,7 +36,7 @@ describe Shapter::V7::Users do
     context "when NOT logged in" do 
       it "denies access" do 
         post "users/me"
-        access_denied(response).should be_true
+        access_denied(@response).should be true
       end
     end
   end
@@ -121,7 +121,7 @@ describe Shapter::V7::Users do
           id1 = @user.id.dup
           id2 = @user2.id.dup
           post "users/me/confirm_student_email", :email => @user.email, :password => @user.password
-          User.where(id: id2).exists?.should be_false
+          User.where(id: id2).exists?.should be false
           user = User.find(id1)
           user.uid.should == "123"
           user.provider.should == "facebook"
@@ -152,8 +152,8 @@ describe Shapter::V7::Users do
     it "should respond" do 
       post "/users/me/social"
       r = JSON.parse(@response.body)
-      r.has_key?("alike_users").should be_true
-      r.has_key?("friends").should be_true
+      r.has_key?("alike_users").should be true
+      r.has_key?("friends").should be true
     end
   end
   #}}}
@@ -175,7 +175,7 @@ describe Shapter::V7::Users do
       @user.constructor_items << @item
       post "/users/me/latest_comments"
       h = JSON.parse(@response.body)
-      h.has_key?("constructor_item_comments").should be_true
+      h.has_key?("constructor_item_comments").should be true
       h["constructor_item_comments"].first["id"].should == @comment.id.to_s
     end
 
@@ -183,7 +183,7 @@ describe Shapter::V7::Users do
       @user.items << @item
       post "/users/me/latest_comments"
       h = JSON.parse(@response.body)
-      h.has_key?("my_item_comments").should be_true
+      h.has_key?("my_item_comments").should be true
       h["my_item_comments"].first["id"].should == @comment.id.to_s
     end
 
@@ -192,7 +192,7 @@ describe Shapter::V7::Users do
       @user.cart_items << @item
       post "/users/me/latest_comments"
       h = JSON.parse(@response.body)
-      h.has_key?("cart_item_comments").should be_true
+      h.has_key?("cart_item_comments").should be true
       h["cart_item_comments"].first["id"].should == @comment.id.to_s
     end
   end

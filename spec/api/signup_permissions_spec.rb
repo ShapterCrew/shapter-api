@@ -24,14 +24,14 @@ describe Shapter::V7::SignupPermissions do
 
       it "should deny access when not logged in" do 
         put "signup-permissions", :signup_permission => @params
-        access_denied(@response).should be_true
+        expect(access_denied(@response)).to eq true
       end
 
       it "should deny access for non admin user" do 
         User.any_instance.stub(:shapter_admin).and_return(false)
         login(@user)
         put "signup-permissions", :signup_permission => @params
-        access_denied(@response).should be_true
+        expect(access_denied(@response)).to eq true
       end
     end
     context "when admin" do 
@@ -42,7 +42,7 @@ describe Shapter::V7::SignupPermissions do
       it "should create a permission" do 
         SignupPermission.count.should == 0
         put "signup-permissions", :signup_permission => @params, entities: {signup_permission: {email: true, firstname: true, lastname: true}}
-        access_denied(@response).should be_false
+        access_denied(@response).should be false
         SignupPermission.count.should == 1
         JSON.parse(@response.body)["id"].should == SignupPermission.last.id.to_s
         JSON.parse(@response.body)["email"].should == SignupPermission.last.email
@@ -61,14 +61,14 @@ describe Shapter::V7::SignupPermissions do
 
         it "should deny access when not logged in" do 
           delete "signup-permissions/#{@signup_perm.id}"
-          access_denied(@response).should be_true
+          expect(access_denied(@response)).to eq true
         end
 
         it "should deny access for non admin user" do 
           User.any_instance.stub(:shapter_admin).and_return(false)
           login(@user)
           delete "signup-permissions/#{@signup_perm.id}"
-          access_denied(@response).should be_true
+          expect(access_denied(@response)).to eq true
         end
       end
       context "when admin" do 
@@ -79,7 +79,7 @@ describe Shapter::V7::SignupPermissions do
         it "should destroy a permission" do 
           SignupPermission.count.should == 1
           delete "signup-permissions/#{@signup_perm.id}"
-          access_denied(@response).should be_false
+          access_denied(@response).should be false
           SignupPermission.count.should == 0
         end
       end

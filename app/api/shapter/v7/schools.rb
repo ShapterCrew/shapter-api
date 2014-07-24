@@ -11,6 +11,9 @@ module Shapter
           present :schools, Tag.where(category: Category.find_by(code: "school")), with: Shapter::Entities::School, entity_options: entity_options
         end
         #}}}
+        
+        #{{{ create
+        #}}}
 
         namespace ':school_id' do 
 

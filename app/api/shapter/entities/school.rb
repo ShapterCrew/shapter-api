@@ -2,8 +2,8 @@ module Shapter
   module Entities
     class School < Grape::Entity
       expose :pretty_id, as: :id
-      expose :best_comments, if: lambda{|u,o| o[:entity_options]["school"][:best_comments]} do |school,ops|
-        school.best_comments(ops[:entity_options]["school"][:best_comments_count])
+      expose :best_comments, if: lambda{|u,o| o[:entity_options]["school"][:best_comments]}, using: Shapter::Entities::Comment do |school,ops|
+        school.best_comments(ops[:entity_options]["school"][:best_comments_count] || 5)
       end
 
       expose :students_count, if: lambda{|s, o| o[:entity_options]["school"][:students_count]}

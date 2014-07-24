@@ -12,6 +12,7 @@ module Shapter
           "signup_permission" => {},
           "tag"               => {},
           "user"              => {},
+          "school"            => {},
         }
 
         empty_h

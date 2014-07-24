@@ -21,6 +21,7 @@ module Shapter
           NOTE
         }
         params do 
+          optional :filter, type: String, desc: "id of the tag to filter with"
         end
         post :/ do 
           if params[:filter]

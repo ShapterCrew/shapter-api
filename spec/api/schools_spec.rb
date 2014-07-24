@@ -12,7 +12,7 @@ describe Shapter::V7::Schools do
 
   describe :index do 
     it "list schools" do 
-      post "schools/index"
+      post "schools"
       h = JSON.parse(@response.body)
       expect(h.has_key?("schools")).to be true
       expect(h["schools"].first["id"]).to eq @t.id.to_s

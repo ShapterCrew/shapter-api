@@ -24,14 +24,14 @@ module Shapter
 
       #{{{ dictionnary
       # A bit like reco_tags, but simplified. The goal is to build a dictionnary of acceptable tags
-      def dictionnary(tagname)
-        Rails.cache.fetch( "dico|#{tagname}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
-          compute_dico(tagname)
+      def dictionnary(tag_id)
+        Rails.cache.fetch( "dico|#{tag_id}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
+          compute_dico(tag_id)
         end
       end
 
-      def compute_dico(tagname)
-        t = Tag.where(name: tagname)
+      def compute_dico(tag_id)
+        t = Tag.where(id: tag_id)
         return [] if t.empty?
         tags_for_item_ids(
           t

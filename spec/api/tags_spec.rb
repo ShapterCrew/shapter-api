@@ -61,7 +61,7 @@ describe Shapter::V7::Tags do
 
       context "when filter param is provided" do 
         it "filters when <filter> param is provided" do 
-          post "tags", :filter => @schooltag1.name
+          post "tags", :filter => @schooltag1.id
           a = JSON.parse(response.body)
           a.map{|h| h["id"]}.map(&:to_s).should =~ [@schooltag1,@t1,@t2].map{|h| h["id"]}.map(&:to_s)
         end

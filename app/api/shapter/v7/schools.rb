@@ -7,7 +7,7 @@ module Shapter
 
         #{{{ index 
         desc "get a list of schools"
-        post :index do 
+        post do 
           present :schools, Tag.where(category: Category.find_by(code: "school")), with: Shapter::Entities::School, entity_options: entity_options
         end
         #}}}

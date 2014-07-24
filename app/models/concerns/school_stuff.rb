@@ -4,7 +4,7 @@ module SchoolStuff
   included do 
 
     def is_school?
-      category.code == "school"
+      (category.code rescue nil) == "school"
     end
 
     def students_count

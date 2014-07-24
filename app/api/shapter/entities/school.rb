@@ -11,6 +11,8 @@ module Shapter
       expose :diagrams_count, if: lambda{|s, o| o[:entity_options]["school"][:diagrams_count]}
       expose :img_url       , if: lambda{|s, o| o[:entity_options]["school"][:img_url]}
       expose :fill_rate     , if: lambda{|s, o| o[:entity_options]["school"][:fill_rate]}
+      expose :name      , if: lambda{ |u,o| o[:entity_options]["school"][:name]}
+      expose :short_name, if: lambda{ |u,o| o[:entity_options]["school"][:short_name]}
     end
   end
 end

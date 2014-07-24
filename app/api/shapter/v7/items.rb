@@ -187,7 +187,13 @@ module Shapter
           put :update do 
             error!("forbidden",403) unless current_user.shapter_admin
 
-            @item.update(params[:item])
+            ok_params = [
+              !!(x = params[:item][:name])        ? {name: x}        : {},
+              !!(x = params[:item][:description]) ? {description: x} : {},
+              !!(x = params[:item][:short_name])  ? {short_name: x}  : {},
+            ].reduce(&:merge)
+
+            @item.update_attributes(ok_params)
 
             present @item, with: Shapter::Entities::Item, entity_options: entity_options
           end

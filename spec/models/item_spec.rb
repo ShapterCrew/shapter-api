@@ -12,7 +12,7 @@ describe Item do
   describe :current_user_subscribed? do
 
     it "returns false if user didn't subscribed" do 
-      @item.user_subscribed?(@user).should be_false
+      @item.user_subscribed?(@user).should be false
     end
 
     it "returns true if user subscribed" do 
@@ -26,7 +26,7 @@ describe Item do
   describe :current_user_has_in_cart? do
 
     it "returns false if user don't have in cart" do 
-      @item.user_has_in_cart?(@user).should be_false
+      @item.user_has_in_cart?(@user).should be false
     end
 
     it "returns true if user has in cart" do 

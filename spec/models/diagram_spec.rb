@@ -23,17 +23,17 @@ describe Diagram do
     end
 
     it "should validate" do 
-      @d.valid?.should be_true
+      @d.valid?.should be true
     end
 
     it "should validate author" do 
       @d.author = nil
-      @d.valid?.should be_false
+      @d.valid?.should be false
     end
 
     it "should validate values" do 
       @d.values = nil
-      @d.valid?.should be_false
+      @d.valid?.should be false
     end
   end
 end

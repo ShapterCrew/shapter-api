@@ -18,19 +18,19 @@ describe SharedDoc do
   end
 
   it "checks presence of file" do 
-    SharedDoc.new(@valid_attr.merge({file: nil})).valid?.should be_false
+    SharedDoc.new(@valid_attr.merge({file: nil})).valid?.should be false
   end
 
   it "checks presence of item" do 
-    SharedDoc.new(@valid_attr.merge({item: nil})).valid?.should be_false
+    SharedDoc.new(@valid_attr.merge({item: nil})).valid?.should be false
   end
 
   it "checks presence of name" do
-    SharedDoc.new(@valid_attr.merge({name: nil})).valid?.should be_false
+    SharedDoc.new(@valid_attr.merge({name: nil})).valid?.should be false
   end
 
   it "validates" do 
-    SharedDoc.new(@valid_attr).valid?.should be_true
+    SharedDoc.new(@valid_attr).valid?.should be true
   end
 
   it "new doc has 0 dl_count" do 

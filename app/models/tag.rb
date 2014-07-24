@@ -10,10 +10,13 @@ class Tag
   field :short_name, type: String
   field :type, type: String
 
+  belongs_to :category
 
-  validates_uniqueness_of :name
+  include SchoolStuff
+
+  #validates_uniqueness_of :name
+  validate :type_name_uniqueness
   validates_presence_of :name
-
 
   # Don't forget to update Tag.merge when adding new relations
   has_and_belongs_to_many :items
@@ -56,17 +59,25 @@ class Tag
   end
 
   def best_comments(n=5)
-    self.items
-    .select{|i| [i.comments.map(&:author_id) & i.diagrams.map(&:author_id)].any?}
-    .select{|i| i.diagrams.count > 1}
-    .sort_by{|i| i.avg_diag.values[6]}.reverse
-    .take(n)
-    .map do |item|
-      item.comments
-      .sort_by{|c| c.likers_count*(item.diagrams.where(author_id: c.author_id).last.values[6] || 0 rescue 0) }
-      .last
+    Rails.cache.fetch("bestCmmt|#{id}", expires_in: 10.minutes) do 
+      self.items
+      .select{|i| [i.comments.map(&:author_id) & i.diagrams.map(&:author_id)].any?}
+      .select{|i| i.diagrams.count > 1}
+      .sort_by{|i| i.avg_diag.values[6]}.reverse
+      .take(n)
+      .map do |item|
+        item.comments
+        .sort_by{|c| c.likers_count*(item.diagrams.where(author_id: c.author_id).last.values[6] || 0 rescue 0) }
+        .last
+      end
+      .compact
     end
-    .compact
+  end
+
+  protected
+
+  def type_name_uniqueness
+    errors.add(:base, "name/type already taken") if Tag.where(category_id: category_id, name: name).not.where(id: id).exists?
   end
 
 end

@@ -24,7 +24,7 @@ describe Shapter::V7::Comments do
       post "users/#{@user.id}/comments"
 
       h = JSON.parse(@response.body)
-      h.has_key?("comments").should be_true
+      h.has_key?("comments").should be true
       h["comments"].size.should == 1
       h["comments"].first["id"].should == @comment.id.to_s
     end
@@ -56,8 +56,8 @@ describe Shapter::V7::Comments do
         post "/items/#{@item.id}/comments/create", :comment => @comment.attributes, :entities => {"comment" => {content: true}}
         response.status.should == 201
         h = JSON.parse(response.body)
-        h.has_key?("content").should be_true
-        h.has_key?("id").should be_true
+        h.has_key?("content").should be true
+        h.has_key?("id").should be true
 
         @item.reload
         @item.comments.last.content.should == @comment.content
@@ -173,23 +173,23 @@ describe Shapter::V7::Comments do
       it "should add to likers when +1" do 
         put "items/#{@item.id}/comments/#{@comment.id}/score", :score => 1
         @comment.reload
-        @comment.likers.include?(@user).should be_true
-        @comment.dislikers.include?(@user).should be_false
+        @comment.likers.include?(@user).should be true
+        @comment.dislikers.include?(@user).should be false
       end
 
       it "should add to dislikers when -1" do 
         put "items/#{@item.id}/comments/#{@comment.id}/score", :score => -1
         @comment.reload
-        @comment.likers.include?(@user).should be_false
-        @comment.dislikers.include?(@user).should be_true
+        @comment.likers.include?(@user).should be false
+        @comment.dislikers.include?(@user).should be true
       end
 
       it "should remove from like/dislikers when 0" do 
         put "items/#{@item.id}/comments/#{@comment.id}/score", :score => 1
         put "items/#{@item.id}/comments/#{@comment.id}/score", :score => 0
         @comment.reload
-        @comment.likers.include?(@user).should be_false
-        @comment.dislikers.include?(@user).should be_false
+        @comment.likers.include?(@user).should be false
+        @comment.dislikers.include?(@user).should be false
       end
 
       it "should error when score is not in [-1,0,1]" do 
@@ -231,7 +231,7 @@ describe Shapter::V7::Comments do
       post "items/#{@item.id}/comments/#{@comment.id}/likers"
 
       h = JSON.parse(@response.body)
-      h.has_key?("likers").should be_true
+      h.has_key?("likers").should be true
       h["likers"].first["id"].should == @user.id.to_s
     end
   end
@@ -248,7 +248,7 @@ describe Shapter::V7::Comments do
       post "items/#{@item.id}/comments/#{@comment.id}/dislikers"
 
       h = JSON.parse(@response.body)
-      h.has_key?("dislikers").should be_true
+      h.has_key?("dislikers").should be true
       h["dislikers"].first["id"].should == @user.id.to_s
     end
   end

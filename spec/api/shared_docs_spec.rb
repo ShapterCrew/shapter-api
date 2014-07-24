@@ -29,7 +29,7 @@ describe Shapter::V7::SharedDocs do
     it "list all shared docs associated to an item" do 
       post "items/#{@item.id}/sharedDocs"
       r = JSON.parse(@response.body)
-      r.has_key?('shared_docs').should be_true
+      r.has_key?('shared_docs').should be true
       r["shared_docs"].map{|h| h["id"].to_s}.should =~ @item.shared_docs.map(&:pretty_id)
     end
   end
@@ -101,23 +101,23 @@ describe Shapter::V7::SharedDocs do
       it "should add to likers when +1" do 
         put "items/#{@item.id}/sharedDocs/#{@shared_doc.id}/score", :score => 1
         @shared_doc.reload ; @item.reload
-        @shared_doc.likers.include?(@user).should be_true
-        @shared_doc.dislikers.include?(@user).should be_false
+        @shared_doc.likers.include?(@user).should be true
+        @shared_doc.dislikers.include?(@user).should be false
       end
 
       it "should add to dislikers when -1" do 
         put "items/#{@item.id}/sharedDocs/#{@shared_doc.id}/score", :score => -1
         @shared_doc.reload ; @item.reload
-        @shared_doc.likers.include?(@user).should be_false
-        @shared_doc.dislikers.include?(@user).should be_true
+        @shared_doc.likers.include?(@user).should be false
+        @shared_doc.dislikers.include?(@user).should be true
       end
 
       it "should remove from like/dislikers when 0" do 
         put "items/#{@item.id}/sharedDocs/#{@shared_doc.id}/score", :score => 1
         put "items/#{@item.id}/sharedDocs/#{@shared_doc.id}/score", :score => 0
         @shared_doc.reload ; @item.reload
-        @shared_doc.likers.include?(@user).should be_false
-        @shared_doc.dislikers.include?(@user).should be_false
+        @shared_doc.likers.include?(@user).should be false
+        @shared_doc.dislikers.include?(@user).should be false
       end
 
       it "should error when score is not in [-1,0,1]" do 

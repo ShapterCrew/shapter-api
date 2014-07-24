@@ -22,6 +22,9 @@ RSpec.configure do |config|
     FileUtils.rm_rf(Dir["#{Rails.root}/tmp/spec/uploads"])
   end
 
+  config.infer_spec_type_from_file_location!
+
+
 end
 
 def login(user)
@@ -29,5 +32,10 @@ def login(user)
 end
 
 def access_denied(resp)
-  ([401,403,405].include? resp.status ) and (resp.body = {error: "denied"}.to_json or resp.body = {error: "forbidden"}.to_json)
+  (([401,403,405].include? resp.status ) and [
+    {error: "please login"},
+    {error: "denied"},
+    {error: "forbidden"},
+    {error: "access denied"},
+  ].map(&:to_json).include?(resp.body) )
 end

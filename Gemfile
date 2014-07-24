@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.1.2"
 
 gem 'rails', '4.0.3'
 gem 'sass-rails', '~> 4.0.0'
@@ -25,6 +26,7 @@ gem 'devise', :github => 'plataformatec/devise', :branch => 'master'
 group :test, :development do
   gem 'rspec-rails', '~> 2'
   gem 'factory_girl_rails'
+  #gem 'rspec-autotest'
   gem 'autotest-rails'
   gem 'byebug'
 end

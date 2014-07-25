@@ -2,5 +2,6 @@
 
 FactoryGirl.define do
   factory :category do
+    code "category_code"
   end
 end

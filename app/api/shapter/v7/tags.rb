@@ -108,12 +108,18 @@ module Shapter
           params do 
             optional :name, type: String, desc: "tag name"
             optional :short_name, type: String, desc: "short name"
-            optional :type, type: String, desc: "tag type"
+            #optional :type, type: String, desc: "tag type"
           end
           put do 
             error!("forbidden",403) unless current_user.shapter_admin
 
-            tag_params = [:name,:short_name,:type].reduce({}) do |h,p|
+            tag_params = [
+              :name,
+              :short_name,
+              :type,
+              :website_url,
+              :description,
+            ].reduce({}) do |h,p|
               h.merge( params[p] ? {p => params[p]} : {} )
             end
 

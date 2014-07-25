@@ -116,10 +116,11 @@ class Item
   end
 
   def user_can_view_comments?(user)
-    raise "wrong parameter" unless user.is_a? User
-    ok_school = !(tags & user.schools).empty?
-    ok_admin = user.shapter_admin
-    ok_admin or ok_school
+    true
+    #raise "wrong parameter" unless user.is_a? User
+    #ok_school = !(tags & user.schools).empty?
+    #ok_admin = user.shapter_admin
+    #ok_admin or ok_school
   end
 
   def raw_avg_diag

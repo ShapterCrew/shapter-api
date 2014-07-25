@@ -5,7 +5,7 @@ module Shapter
       expose :name      , if: lambda{ |u,o| o[:entity_options]["tag"][:name]}
       expose :short_name, if: lambda{ |u,o| o[:entity_options]["tag"][:short_name]}
       expose :items     , using: Shapter::Entities::Item, if: lambda{ |u,o| o[:entity_options]["tag"][:items]}
-      expose :category  , if: lambda{ |u,o| o[:entity_options]["tag"][:category]}
+      expose :category_code, as: :category  , if: lambda{ |u,o| o[:entity_options]["tag"][:category]} 
     end
   end
 end

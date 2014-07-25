@@ -28,6 +28,7 @@ module Shapter
           present :tag, [:name, :short_name, :items, :category].sort
           present :user, [:image, :firstname, :lastname, :schools, :admin, :confirmed, :confirmed_student, :comments, :comments_likes_count, :comments_dislikes_count, :user_diagram, :sign_in_count, :provider, :is_fb_friend, :comments_count, :items_count, :diagrams_count].sort
           present :school, [:best_comments, :best_comments_count, :students_count, :comments_count, :diagrams_count, :img_url, :fill_rate, :name, :short_name].sort
+          present :category, [:code].sort
         end
 
       end

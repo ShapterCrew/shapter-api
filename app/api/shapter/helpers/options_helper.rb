@@ -13,6 +13,7 @@ module Shapter
           "tag"               => {},
           "user"              => {},
           "school"            => {},
+          "category"          => {},
         }
 
         empty_h

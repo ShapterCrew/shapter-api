@@ -3,6 +3,9 @@ module SchoolStuff
 
   included do 
 
+    field :website_url
+    field :description
+
     def is_school?
       (category.code rescue nil) == "school"
     end

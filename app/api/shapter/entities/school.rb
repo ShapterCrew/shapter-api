@@ -13,6 +13,9 @@ module Shapter
       expose :fill_rate     , if: lambda{|s, o| o[:entity_options]["school"][:fill_rate]}
       expose :name      , if: lambda{ |u,o| o[:entity_options]["school"][:name]}
       expose :short_name, if: lambda{ |u,o| o[:entity_options]["school"][:short_name]}
+
+      expose :website_url, if: lambda{ |u,o| o[:entity_options]["school"][:website_url]}
+      expose :description, if: lambda{ |u,o| o[:entity_options]["school"][:description]}
     end
   end
 end

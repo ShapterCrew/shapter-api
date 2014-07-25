@@ -4,14 +4,23 @@ module Shapter
       helpers Shapter::Helpers::UsersHelper
       format :json
 
-      before do 
-        #check_confirmed_student!
-        check_user_login!
-      end
 
       namespace :users do 
 
+        #{{{ schools_for
+        desc "ask which schools are to be associated to an email address"
+        params do
+          requires :email, type: String, desc: "email to test"
+        end
+        post :schools_for do 
+          present :schools, User::schools_for(params[:email]), with: Shapter::Entities::School, entity_options: entity_options
+        end
+        #}}}
+
         namespace :me do 
+          before do 
+            check_user_login!
+          end
 
           #{{{ /users/me
           post do 
@@ -108,6 +117,7 @@ module Shapter
 
         resource ":user_id" do 
           before do 
+            check_user_login!
             params do 
               requires :user_id, type: String, desc: "id of the user"
             end

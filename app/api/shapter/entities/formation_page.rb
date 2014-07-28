@@ -2,7 +2,7 @@ module Shapter
   module Entities
     class FormationPage < Grape::Entity
       expose :pretty_id, as: :id
-      expose :best_comments, if: lambda{|u,o| o[:entity_options]["formation_page"][:best_comments]}, using: Shapter::Entities::Comment do |formation_page,ops|
+      expose :best_comments, using: Shapter::Entities::Comment, if: lambda{|u,o| o[:entity_options]["formation_page"][:best_comments]} do |formation_page,ops|
         formation_page.best_comments(ops[:entity_options]["formation_page"][:best_comments_count] || 5)
       end
 

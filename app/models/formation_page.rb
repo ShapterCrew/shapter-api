@@ -51,6 +51,13 @@ class FormationPage
     end
   end
 
+  def sub_formations
+    Rails.cache.fetch("frmPgeSbFrmtn|#{cache_id}|#{Tag.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 10.minutes) do 
+      c = Category.find_or_create_by(code: "formation")
+      Tag.where(category_id: c.id) & items.flat_map(&:tags)
+    end
+  end
+
   def comments_count
     items.map(&:comments_count).reduce(:+)
   end
@@ -87,4 +94,5 @@ class FormationPage
       id.is_a?(BSON::ObjectId) ? id : BSON::ObjectId.from_string(id)
     end
   end
+
 end

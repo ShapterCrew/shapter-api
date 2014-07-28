@@ -40,7 +40,7 @@ class FormationPage
   end
 
   def items
-    tags.flat_map(&:items).uniq
+    tags.map(&:items).reduce(:&).uniq
   end
 
   def students
@@ -60,7 +60,7 @@ class FormationPage
   end
 
   def best_comments(n=5)
-    Rails.cache.fetch("bestCmmt|#{tag_ids}", expires_in: 10.minutes) do 
+    Rails.cache.fetch("bestCmmt|#{cache_id}", expires_in: 10.minutes) do 
       self.items
       .select{|i| [i.comments.map(&:author_id) & i.diagrams.map(&:author_id)].any?}
       .select{|i| i.diagrams.count > 1}
@@ -78,7 +78,8 @@ class FormationPage
   private
 
   def cache_id
-    tag_ids.map(&:to_s).join(";")
+    # tags is used instead of tag_ids => passing an id that doesn't match any tag won't alter the cache_id key
+    tags.map(&:id).map(&:to_s).join(";")
   end
 
   def tag_ids_to_bson

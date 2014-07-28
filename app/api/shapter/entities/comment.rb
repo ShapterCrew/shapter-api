@@ -6,7 +6,7 @@ module Shapter
       expose :item_name, if: lambda {|c,o| o[:entity_options]["comment"][:item_name] }
       expose :unescaped_content         , as: :content                  , if: lambda {|c, ops| c.item.user_can_view_comments?(ops[:entity_options][:current_user]) and ops[:entity_options]["comment"][:content] }
       expose :author                    , using: Shapter::Entities::User, if: lambda{ |u,o| o[:entity_options]["comment"][:author] }
-      expose :item                      ,                                 if: lambda{ |u,o| o[:entity_options]["comment"][:item] }
+      expose :item                      , using: Shapter::Entities::Item, if: lambda{ |u,o| o[:entity_options]["comment"][:item] }
       expose :current_user_likes                                        , if: lambda{ |u,o| o[:entity_options]["comment"][:current_user_likes] } do |it,ops|
         it.user_likes?(ops[:entity_options][:current_user])
       end

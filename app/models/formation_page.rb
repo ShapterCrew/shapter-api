@@ -60,7 +60,7 @@ class FormationPage
   end
 
   def best_comments(n=5)
-    Rails.cache.fetch("bestCmmt|#{id}", expires_in: 10.minutes) do 
+    Rails.cache.fetch("bestCmmt|#{tag_ids}", expires_in: 10.minutes) do 
       self.items
       .select{|i| [i.comments.map(&:author_id) & i.diagrams.map(&:author_id)].any?}
       .select{|i| i.diagrams.count > 1}
@@ -76,6 +76,10 @@ class FormationPage
   end
 
   private
+
+  def cache_id
+    tag_ids.map(&:to_s).join(";")
+  end
 
   def tag_ids_to_bson
     tag_ids.map! do |id|

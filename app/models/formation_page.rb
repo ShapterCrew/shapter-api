@@ -36,27 +36,27 @@ class FormationPage
   end
 
   def tags
-    Tag.any_in(id: tag_ids)
+    @tags ||= Tag.any_in(id: tag_ids)
   end
 
   def items
-    tags.map(&:items).reduce(:&).uniq
+    @items ||= tags.map(&:items).reduce(:&).uniq
   end
 
   def students
-    items.flat_map(&:subscribers).uniq
+    @students ||= items.flat_map(&:subscribers).uniq
   end
 
   def students_count
-    students.count
+    @students_count ||= students.count
   end
 
   def comments_count
-    items.map(&:comments_count).reduce(:+)
+    @comments_count ||= items.map(&:comments_count).reduce(:+)
   end
 
   def diagrams_count
-    items.map(&:diagrams_count).reduce(:+)
+    @diagrams_count ||= items.map(&:diagrams_count).reduce(:+)
   end
 
   def best_comments(n=5)

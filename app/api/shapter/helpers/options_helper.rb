@@ -12,7 +12,7 @@ module Shapter
           "signup_permission" => {},
           "tag"               => {},
           "user"              => {},
-          "school"            => {},
+          "formation_page"    => {},
           "category"          => {},
         }
 

@@ -2,8 +2,6 @@ class Tag
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  include SchoolStuff
-
   include Funnelable
   funnel_for :signup_funnel
   funnel_for :constructor_funnel # ZBRA !
@@ -61,22 +59,6 @@ class Tag
   after_destroy :class_touch
   def class_touch
     Tag.touch
-  end
-
-  def best_comments(n=5)
-    Rails.cache.fetch("bestCmmt|#{id}", expires_in: 10.minutes) do 
-      self.items
-      .select{|i| [i.comments.map(&:author_id) & i.diagrams.map(&:author_id)].any?}
-      .select{|i| i.diagrams.count > 1}
-      .sort_by{|i| i.avg_diag.values[6]}.reverse
-      .take(n)
-      .map do |item|
-        item.comments
-        .sort_by{|c| c.likers_count*(item.diagrams.where(author_id: c.author_id).last.values[6] || 0 rescue 0) }
-        .last
-      end
-      .compact
-    end
   end
 
   protected

@@ -83,7 +83,6 @@ describe Shapter::V7::Tags do
     context "when logged of" do 
       it "denies access" do 
         post 'tags/suggested'
-        puts "debug: #{@response.status}"
         access_denied(@response).should be true
       end
     end

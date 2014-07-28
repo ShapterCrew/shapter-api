@@ -51,14 +51,4 @@ describe FormationPage do
     end
   end
 
-  describe :students do 
-    it "find students" do 
-      @f.stub(:tag_ids).and_return([@t.id])
-      @t.items << @i
-      @i.subscribers << @u
-
-      @f.students.should eq [@u]
-    end
-  end
-
 end

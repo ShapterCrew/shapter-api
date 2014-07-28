@@ -19,8 +19,8 @@ class API < Grape::API
     mount Shapter::V7::ConfirmStudents
     mount Shapter::V7::SharedDocs
     mount Shapter::V7::EntityAttributes
-    mount Shapter::V7::Schools
     mount Shapter::V7::Categories
+    mount Shapter::V7::FormationPages
     add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
   end
   version :v6, using: :accept_version_header, format: :json do

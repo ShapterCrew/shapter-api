@@ -36,27 +36,27 @@ class FormationPage
   end
 
   def tags
-    @tags ||= Tag.any_in(id: tag_ids)
+    Tag.any_in(id: tag_ids)
   end
 
   def items
-    @items ||= tags.map(&:items).reduce(:&).uniq
-  end
-
-  def students
-    @students ||= items.flat_map(&:subscribers).uniq
+    Rails.cache.fetch("frmPgeitms|#{cache_id}|#{tags.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
+      tags.map(&:items).reduce(:&).uniq
+    end
   end
 
   def students_count
-    @students_count ||= students.count
+    Rails.cache.fetch("frmPgeStdtsCnt|#{cache_id}|#{Item.any_in(id: items.map(&:id)).max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
+      items.flat_map(&:subscriber_ids).uniq.count
+    end
   end
 
   def comments_count
-    @comments_count ||= items.map(&:comments_count).reduce(:+)
+    items.map(&:comments_count).reduce(:+)
   end
 
   def diagrams_count
-    @diagrams_count ||= items.map(&:diagrams_count).reduce(:+)
+    items.map(&:diagrams_count).reduce(:+)
   end
 
   def best_comments(n=5)

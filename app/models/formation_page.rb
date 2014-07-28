@@ -54,7 +54,7 @@ class FormationPage
   def sub_formations
     Rails.cache.fetch("frmPgeSbFrmtn|#{cache_id}|#{Tag.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 10.minutes) do 
       c = Category.find_or_create_by(code: "formation")
-      Tag.where(category_id: c.id) & items.flat_map(&:tags)
+      (Tag.where(category_id: c.id) & items.flat_map(&:tags)).reject{|t| tag_ids.include?(t.id)}
     end
   end
 

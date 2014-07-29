@@ -75,8 +75,28 @@ class User
     id.to_s
   end
 
+  # Users should share at least one school to see each other's names
+  def public_firstname(who_asks)
+    raise "public_firstname: #{who_asks} is no User" unless who_asks.is_a? User
+    if (who_asks.schools & self.schools).any?
+      firstname
+    else
+      :anonymous
+    end
+  end
+
+  # Users should share at least one school to see each other's names
+  def public_lastname(who_asks)
+    raise "public_lastname: #{who_asks} is no User" unless who_asks.is_a? User
+    if (who_asks.schools & self.schools).any?
+      lastname
+    else
+      :anonymous
+    end
+  end
+
   def name
-    "#{firstname} #{lastname}"
+    [firstname, lastname].map(&:capitalize).join(" ")
   end
 
   def valid_password?(pwd)

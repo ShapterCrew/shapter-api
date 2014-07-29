@@ -91,7 +91,7 @@ class User
     if (who_asks.schools & self.schools).any?
       lastname
     else
-      schools.any? ? "from #{school.first.name}" : nil
+      schools.any? ? "from #{school.first.name}" : ""
     end
   end
 

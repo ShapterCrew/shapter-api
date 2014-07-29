@@ -3,8 +3,12 @@ module Shapter
     class User < Grape::Entity
       expose :pretty_id                       , as: :id
       expose :image                           , if: lambda {|u,o| o[:entity_options]["user"][:image] }
-      expose :firstname                       , if: lambda {|u,o| o[:entity_options]["user"][:firstname]}
-      expose :lastname                        , if: lambda {|u,o| o[:entity_options]["user"][:lastname]}
+      expose :firstname, if: lambda {|u,o| o[:entity_options]["user"][:firstname]} do |u,o|
+        u.public_firstname(o[:entity_options][:current_user])
+      end
+      expose :lastname, if: lambda {|u,o| o[:entity_options]["user"][:lastname]} do |u,o|
+        u.public_lastname(o[:entity_options][:current_user])
+      end
       expose :schools                         , using: Shapter::Entities::Tag    , if: lambda { |u,o| o[:entity_options]["user"][:schools]}
       expose :shapter_admin                   , as: :admin                       , if: lambda { |u,o| o[:entity_options]["user"][:admin]}
       expose :confirmed?                      , as: :confirmed                   , if: lambda { |u,o| o[:entity_options]["user"][:confirmed]}

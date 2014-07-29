@@ -123,6 +123,13 @@ class Item
     #ok_admin or ok_school
   end
 
+  def user_can_comment?(user)
+    raise "wrong parameter" unless user.is_a? User
+    ok_school = (tags & user.schools).any?
+    ok_admin = user.shapter_admin
+    ok_admin or ok_school
+  end
+
   def raw_avg_diag
     @raw_avg_diag ||= (
       d =   if diagrams.empty?

@@ -5,7 +5,8 @@ module Shapter
       format :json
 
       before do 
-        check_confirmed_student!
+        #check_confirmed_student!
+        check_user_login!
       end
 
       namespace :items do 
@@ -76,6 +77,7 @@ module Shapter
           #{{{ subscribe
           desc "subscribe to the item"
           post :subscribe do 
+            error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
             do_not_track = ( current_user.items.include?(@item))
             @item.subscribers << current_user
             if @item.save
@@ -92,6 +94,7 @@ module Shapter
           #{{{ unsubscribe
           desc "unsubscribe to the item"
           post :unsubscribe do 
+            error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
             do_not_track = !(current_user.items.include?(@item))
             @item.subscribers.delete(current_user)
             if @item.save
@@ -107,6 +110,7 @@ module Shapter
           #{{{ cart
           desc "add item to cart"
           post :cart do 
+            error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
             do_not_track = (current_user.cart_items.include?(@item))
             @item.interested_users << current_user
             if @item.save
@@ -121,6 +125,7 @@ module Shapter
           #{{{ uncart
           desc "removes the item from cart"
           post :uncart do 
+            error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
             do_not_track = !(current_user.cart_items.include?(@item))
             @item.interested_users.delete(current_user)
             if @item.save
@@ -135,6 +140,7 @@ module Shapter
           #{{{ constructor
           desc "add item to constructor"
           post :constructor do 
+            error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
             do_not_track = ( current_user.constructor_items.include?(@item))
             @item.constructor_users << current_user
             if @item.save
@@ -149,6 +155,7 @@ module Shapter
           #{{{ unconstructor
           desc "removes the item from constructor"
           post :unconstructor do 
+            error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
             do_not_track = !( current_user.constructor_items.include?(@item))
             @item.constructor_users.delete(current_user)
             if @item.save

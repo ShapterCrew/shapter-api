@@ -22,6 +22,8 @@ describe Shapter::V7::SharedDocs do
       :file => "head, #{Base64.encode64("hahalol")}",
       :filename => "haha.jpg"
     }
+    
+    Item.any_instance.stub(:user_can_comment?).and_return(true)
   end
 
   #{{{ index

@@ -3,6 +3,10 @@ module Shapter
     class Categories < Grape::API
       format :json
 
+      before do 
+        check_user_login!
+      end
+
       namespace :categories do 
 
         desc "index: get a list  of categories"

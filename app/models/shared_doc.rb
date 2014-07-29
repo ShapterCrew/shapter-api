@@ -25,6 +25,15 @@ class SharedDoc
     file.url
   end
 
+  def public_file_url(who_asks)
+    raise "#{who_asks} is no user" unless who_asks.is_a? User
+    if item.user_can_comment?(who_asks)
+      file_url
+    else
+      :hidden
+    end
+  end
+
   before_create :initialize_dl_count
 
   protected

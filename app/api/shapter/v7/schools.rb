@@ -3,6 +3,10 @@ module Shapter
     class Schools < Grape::API
       format :json
 
+      before do 
+        check_user_login!
+      end
+
       namespace :schools do 
 
         #{{{ index

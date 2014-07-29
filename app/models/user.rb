@@ -95,6 +95,16 @@ class User
     end
   end
 
+  # Users should share at least one school to see each other's names
+  def public_image(who_asks)
+    raise "public_lastname: #{who_asks} is no User" unless who_asks.is_a? User
+    if (who_asks.schools & self.schools).any?
+      image
+    else
+      nil
+    end
+  end
+
   def name
     [firstname, lastname].map(&:capitalize).join(" ")
   end

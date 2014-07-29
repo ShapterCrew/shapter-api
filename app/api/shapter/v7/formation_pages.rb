@@ -3,6 +3,10 @@ module Shapter
     class FormationPages < Grape::API
       format :json
 
+      before do 
+        check_user_login!
+      end
+
       namespace :formations do 
 
         #{{{ get

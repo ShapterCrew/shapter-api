@@ -2,8 +2,12 @@ require 'spec_helper'
 describe Shapter::V7::Categories do 
 
   before(:each) do 
+    User.delete_all
     Category.delete_all
     @c = FactoryGirl.create(:category)
+
+    @user = FactoryGirl.create(:user)
+    login(@user)
   end
 
   #{{{ index

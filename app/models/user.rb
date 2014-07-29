@@ -81,7 +81,7 @@ class User
     if (who_asks.schools & self.schools).any?
       firstname
     else
-      :anonymous
+      "student"
     end
   end
 
@@ -91,7 +91,7 @@ class User
     if (who_asks.schools & self.schools).any?
       lastname
     else
-      :anonymous
+      schools.any? ? "from #{school.first.name}" : nil
     end
   end
 

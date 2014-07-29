@@ -45,8 +45,8 @@ module Shapter
 
       expose :diagrams_count, if: lambda{ |u,o| o[:entity_options]["item"][:diagrams_count]}
 
-      expose :user_can_view_comments, as: :allowed_to_view_comments , if: lambda{ |u,o| o[:entity_options]["item"][:allowed_to_view_comments]} do |it,ops|
-        it.user_can_view_comments?(ops[:entity_options][:current_user])
+      expose :current_user_can_comment , if: lambda{ |u,o| o[:entity_options]["item"][:current_user_can_comment]} do |it,ops|
+        it.user_can_comment?(ops[:entity_options][:current_user])
       end
 
       expose :comments, using: Shapter::Entities::Comment, if: lambda {|it,ops| it.user_can_view_comments?(ops[:entity_options][:current_user]) and ops[:entity_options]["item"][:comments] }

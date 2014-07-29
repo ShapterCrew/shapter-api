@@ -5,7 +5,7 @@ module Shapter
       format :json
 
       before do 
-        check_confirmed_student!
+        check_user_admin!
       end
 
       namespace :items do 
@@ -28,7 +28,6 @@ module Shapter
             put ":tag_name" do 
 
 
-              error!("denied", 401) unless current_user.shapter_admin
               i = Item.find(params[:id])
               error!("not found",404) unless i
 
@@ -49,7 +48,6 @@ module Shapter
             end
 
             delete ':tag_id' do 
-              error!("forbidden",403) unless current_user.shapter_admin
               item = Item.find(params[:id]) || error!("item not found",401)
               tag = item.tags.find(params[:tag_id]) 
               if tag

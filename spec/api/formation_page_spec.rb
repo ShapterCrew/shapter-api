@@ -2,9 +2,12 @@ require 'spec_helper'
 describe Shapter::V7::FormationPage do
 
   before(:each) do 
+    User.delete_all
     FormationPage.delete_all
     @f = FactoryGirl.create(:formation_page)
     @t = FactoryGirl.create(:tag)
+    @user = FactoryGirl.create(:user)
+    login(@user)
   end
 
   describe :get do 

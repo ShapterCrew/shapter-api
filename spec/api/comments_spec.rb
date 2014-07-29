@@ -144,7 +144,7 @@ describe Shapter::V7::Comments do
           login(@user2)
           @item.comments.size.should == 1
           delete "items/#{@item.id}/comments/#{@comment.id}"
-          @response.status.should == 500
+          @response.status.should == 401
           @response.body.should == {error: "forbidden"}.to_json
           @item.reload
           @item.comments.size.should == 1
@@ -177,7 +177,17 @@ describe Shapter::V7::Comments do
         @comment.dislikers.include?(@user).should be false
       end
 
-      it "should add to dislikers when -1" do 
+      it "should not add to dislikers when -1 and user doesn't belong to school" do 
+        put "items/#{@item.id}/comments/#{@comment.id}/score", :score => -1
+        @comment.reload
+        @comment.likers.include?(@user).should be false
+        @comment.dislikers.include?(@user).should be false
+      end
+
+      it "should add to dislikers when -1 and user belongs to school" do 
+        t = FactoryGirl.create(:tag)
+        @item.tags << t ; @item.save
+        User.any_instance.stub(:schools).and_return([t])
         put "items/#{@item.id}/comments/#{@comment.id}/score", :score => -1
         @comment.reload
         @comment.likers.include?(@user).should be false

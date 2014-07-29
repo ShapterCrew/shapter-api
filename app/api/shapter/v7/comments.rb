@@ -4,7 +4,7 @@ module Shapter
       format :json
 
       before do 
-        check_confirmed_student!
+        check_user_login!
       end
 
       namespace :users do 
@@ -46,7 +46,7 @@ module Shapter
               end
             end
             post :create do
-              error!("forbidden",401) unless @item.user_can_view_comments?(current_user)
+              error!("forbidden",401) unless @item.user_can_comment?(current_user)
 
               #could be nicer with proper params :permit handling
               content = CGI.escapeHTML(params[:comment][:content] || "")
@@ -69,10 +69,6 @@ module Shapter
             #{{{ index
             desc "get comments from item"
             post do
-              ok_school = !(@item.tags & current_user.schools).empty?
-              ok_admin = current_user.shapter_admin
-              error!("access denied",401) unless (ok_admin or ok_school)
-
               present @item.comments, with: Shapter::Entities::Comment, entity_options: entity_options
             end
             #}}}
@@ -93,7 +89,7 @@ module Shapter
                 end
               end
               put do 
-                error!("forbidden") unless (@comment.author == current_user or current_user.shapter_admin)
+                error!("forbidden",401) unless (@comment.author == current_user or current_user.shapter_admin)
                 if @comment.update_attribute(:content, params[:comment][:content])
                   present @comment, with: Shapter::Entities::Comment, entity_options: entity_options
                 else
@@ -105,7 +101,7 @@ module Shapter
               # {{{ destroy 
               desc "destroy a comment"
               delete do
-                error!("forbidden") unless (@comment.author == current_user or current_user.shapter_admin)
+                error!("forbidden",401) unless (@comment.author == current_user or current_user.shapter_admin)
                 @comment.destroy
                 {
                   :comment => {:id => @comment.id.to_s, :status => :destroyed}
@@ -120,6 +116,11 @@ module Shapter
               end
               put :score do 
                 s = params[:score].to_i
+
+                # Only campus users are allowed to dislike :)
+                if s == -1
+                  error!("forbidden",401) unless @comment.item.user_can_comment?(current_user)
+                end
 
                 old_score = if @comment.likers.include?(current_user)
                               1

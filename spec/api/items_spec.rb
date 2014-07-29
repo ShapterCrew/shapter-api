@@ -146,6 +146,7 @@ describe Shapter::V7::Items do
         login(@user)
       end
       it "should add to subscribers list" do 
+        User.any_instance.stub(:schools).and_return(@item.tags)
         post "items/#{@item.id}/subscribe"
         JSON.parse(response.body)["id"].should == @item.id.to_s
 
@@ -176,6 +177,7 @@ describe Shapter::V7::Items do
       end
 
       it "should unsubscribe" do 
+        User.any_instance.stub(:schools).and_return(@item.tags)
         @item.subscribers.include?(@user).should be true
         @user.items.include?(@item).should be true
         post "items/#{@item.id}/unsubscribe"
@@ -203,6 +205,7 @@ describe Shapter::V7::Items do
         login(@user)
       end
       it "should add to cart list" do 
+        User.any_instance.stub(:schools).and_return(@item.tags)
         post "items/#{@item.id}/cart"
         JSON.parse(response.body)["id"].should == @item.id.to_s
 
@@ -233,6 +236,7 @@ describe Shapter::V7::Items do
       end
 
       it "should unsubscribe" do 
+        User.any_instance.stub(:schools).and_return(@item.tags)
         @item.interested_users.include?(@user).should be true
         @user.cart_items.include?(@item).should be true
         post "items/#{@item.id}/uncart"
@@ -453,10 +457,6 @@ describe Shapter::V7::Items do
           access_denied(@response).should be false
         end
 
-        it "denies access if item does NOT belong to current_user.school " do 
-          post "items/#{@item.id}/comments"
-          expect(access_denied(@response)).to eq true
-        end
       end
 
       context "when logged in as admin" do 

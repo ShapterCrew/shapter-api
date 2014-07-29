@@ -4,7 +4,8 @@ module Shapter
       format :json
 
       before do 
-        check_confirmed_student!
+        #check_confirmed_student!
+        check_user_login!
       end
 
       namespace :items do 
@@ -37,6 +38,7 @@ module Shapter
               end
             end
             post :create do
+              error!("forbidden",403) unless @item.user_can_comment?(current_user)
               s = params[:sharedDoc][:file].split(',').last
               tempfile = Tempfile.new('upload')
               tempfile.binmode
@@ -87,6 +89,8 @@ module Shapter
                 optional :file, desc: "file"
               end
               put do 
+                error!("forbidden",403) unless @shared_doc.author == current_user or current_user.shapter_admin?
+
                 clean_p = [
                   (name = params[:sharedDoc][:name]) ? {name: name} : {},
                   (description = params[:sharedDoc][:description]) ? {description: description} : {},
@@ -104,6 +108,7 @@ module Shapter
               #{{{ delete
               desc "delete document"
               delete do 
+                error!("forbidden",403) unless @shared_doc.author == current_user or current_user.shapter_admin?
                 @shared_doc.destroy
                 @item.save
                 present :status, :deleted
@@ -116,6 +121,7 @@ module Shapter
                 requires :score, type: Integer, desc: "score"
               end
               put :score do 
+                error!("forbidden",403) unless @item.user_can_comment?(current_user)
                 s = params[:score].to_i
 
                 old_score = if @shared_doc.likers.include?(current_user)
@@ -157,6 +163,7 @@ module Shapter
               #{{{ countDl
               desc "add +1 to download counter"
               post :countDl do
+                error!("forbidden",403) unless @item.user_can_comment?(current_user)
                 @shared_doc.inc(dl_count: 1) 
                 present :count, @shared_doc.dl_count
               end

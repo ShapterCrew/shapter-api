@@ -41,14 +41,18 @@ class FormationPage
 
   def items
     Rails.cache.fetch("frmPgeitms|#{cache_id}|#{tags.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
-      tags.map(&:items).reduce(:&).uniq
+      tags.map(&:items).reduce(:&).uniq rescue []
+    end
+  end
+
+  def students
+    Rails.cache.fetch("frmPgeStdts|#{cache_id}|#{Item.any_in(id: items.map(&:id)).max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
+      items.flat_map(&:subscriber_ids).uniq
     end
   end
 
   def students_count
-    Rails.cache.fetch("frmPgeStdtsCnt|#{cache_id}|#{Item.any_in(id: items.map(&:id)).max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
-      items.flat_map(&:subscriber_ids).uniq.count
-    end
+    students.count
   end
 
   def sub_formations
@@ -94,6 +98,23 @@ class FormationPage
       end
       .compact
     end
+  end
+
+
+  # Get n students profiles, that belong to this formation
+  def typical_users(n=1,randomize=true)
+    ids = items.flat_map {|item|
+      item.subscriber_ids
+    }.reduce(Hash.new(0)) { |h,id|
+      h[id] += 1
+      h
+    }
+    .sort_by{|k,v| v}.reverse
+    .take(2*n)
+    .sample(n)
+    .map(&:first)
+
+    User.any_in(id: ids)
   end
 
   private

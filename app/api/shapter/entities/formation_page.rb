@@ -17,6 +17,8 @@ module Shapter
       expose :website_url    , if: lambda{|_,o| o[:entity_options]["formation_page"][:website_url]}
       expose :description    , if: lambda{|_,o| o[:entity_options]["formation_page"][:description]}
       expose :sub_formations , using: Shapter::Entities::Tag, if: lambda{|_,o| o[:entity_options]["formation_page"][:sub_formations]}
+      expose :sub_choices , using: Shapter::Entities::Tag, if: lambda{|_,o| o[:entity_options]["formation_page"][:sub_choices]}
+      expose :sub_departments , using: Shapter::Entities::Tag, if: lambda{|_,o| o[:entity_options]["formation_page"][:sub_departments]}
     end
   end
 end

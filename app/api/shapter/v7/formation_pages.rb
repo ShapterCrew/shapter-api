@@ -27,7 +27,7 @@ module Shapter
             params do 
               requires :formation_id, type: String, desc: "id of the formation_page"
             end
-            @formation_page = FormationPage.find(params[:formation_id])
+            @formation_page = FormationPage.find(params[:formation_id]) || error!("not found",404)
           end
 
         #{{{ typical users
@@ -39,7 +39,7 @@ module Shapter
         post :typical_users do 
           nb = (params[:nb] || 1).to_i
           rand = !!params[:randomize]
-          present :typical_users, @formation_page.typical_users(nb, rand), with: Shapter::Entities::User
+          present :typical_users, @formation_page.typical_users(nb, rand), with: Shapter::Entities::User, entity_options: entity_options
         end
         #}}}
 

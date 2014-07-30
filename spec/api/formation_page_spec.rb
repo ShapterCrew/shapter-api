@@ -32,7 +32,7 @@ describe Shapter::V7::FormationPage do
 
   describe :typical_users do 
     it "works" do 
-      post "formations/#{@f.id}/typical_users"
+      post "formations/typical_users", :tag_ids => [@t.id.to_s]
       h = JSON.parse(@response.body)
       expect(h.has_key?("typical_users")).to be true
       expect(h["typical_users"].is_a? Array).to be true

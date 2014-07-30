@@ -30,4 +30,13 @@ describe Shapter::V7::FormationPage do
     end
   end
 
+  describe :typical_users do 
+    it "works" do 
+      post "formations/#{@f.id}/typical_users"
+      h = JSON.parse(@response.body)
+      expect(h.has_key?("typical_users")).to be true
+      expect(h["typical_users"].is_a? Array).to be true
+    end
+  end
+
 end

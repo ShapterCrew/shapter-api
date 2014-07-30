@@ -22,6 +22,30 @@ module Shapter
         end
         #}}}
 
+        namespace ":formation_id" do 
+          before do 
+            params do 
+              requires :formation_id, type: String, desc: "id of the formation_page"
+            end
+            @formation_page = FormationPage.find(params[:formation_id])
+          end
+
+        #{{{ typical users
+        desc "get the profile of n typical users for this formation. If the 'randomize' flat is set to true, then a set of profiles will be randomly selected from the best candidates"
+        params do 
+          optional :randomize, type: Boolean, desc: "randomize results", default: true
+          optional :nb, type: Integer, desc: "number of expected results", default: 1
+        end
+        post :typical_users do 
+          nb = (params[:nb] || 1).to_i
+          rand = !!params[:randomize]
+          present :typical_users, @formation_page.typical_users(nb, rand), with: Shapter::Entities::User
+        end
+        #}}}
+
+        end
+
+
       end
 
     end

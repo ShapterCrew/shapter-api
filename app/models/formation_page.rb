@@ -85,10 +85,11 @@ class FormationPage
   end
 
   def best_comments(n=5)
-    Rails.cache.fetch("bestCmmt|#{cache_id}", expires_in: 10.minutes) do 
+    Rails.cache.fetch("bestCmmt|#{cache_id}|#{Item.any_in(id: items.map(&:id)).max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
       self.items
       .select{|i| [i.comments.map(&:author_id) & i.diagrams.map(&:author_id)].any?}
       .select{|i| i.diagrams.count > 1}
+      .select{|i| i.avg_diag.values[6] > 50}
       .sort_by{|i| i.avg_diag.values[6]}.reverse
       .take(n)
       .map do |item|

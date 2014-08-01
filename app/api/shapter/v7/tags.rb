@@ -13,13 +13,34 @@ module Shapter
 
       namespace :tags do 
 
+        #{{{ elasticsearch
+        desc "search for tag name"
+        params do 
+          requires :search, type: String
+          optional :category_id, type: String
+          optional :category_code, type: String
+        end
+        post :elasticsearch do 
+          tags = Tag.es.search(params[:search]).select{ |tag|
+            if params[:category_id]
+              tag.category_id == BSON::ObjectId.from_string(params[:category_id])
+            elsif params[:category_code]
+              tag.category_id == Category.find_by(code: params[:category_code]).id
+            else
+              true
+            end
+          }
+          present :tags, tags, with: Shapter::Entities::Tag, entity_options: entity_options
+        end
+        #}}}
+
         # index {{{
         desc "get all tags", { :notes => <<-NOTE
         Useful to build an exhaustive dictionnary of tags
 
         A <filter> parameter can be passed to build a dictionnary based on some school.
         If specified, then all the tags will have at least one item that is tagged by the school.
-          NOTE
+                               NOTE
         }
         params do 
           optional :filter, type: String, desc: "id of the tag to filter with"
@@ -36,7 +57,7 @@ module Shapter
         # suggested {{{
         desc "suggested tags to filter with", { :notes => <<-NOTE
         Given a list of set tags, and given the user's tags, this route provides an array of relevant tags, associated with their weights.
-          NOTE
+                                                NOTE
         }
         params do 
           requires :selected_tags, type: Array, desc: "Array of tags"

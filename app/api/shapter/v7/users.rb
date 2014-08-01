@@ -134,7 +134,7 @@ module Shapter
 
           #{{{ get user
           post do 
-            check_confirmed_student!
+            #check_confirmed_student!
             present @user, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}

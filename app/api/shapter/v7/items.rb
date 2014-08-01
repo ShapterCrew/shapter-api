@@ -33,29 +33,41 @@ module Shapter
         #{{{ create
         desc "create multiple items, all of them being tagged with some tags (using tag names)"
         params do 
-          requires :itemNames, type: Array, desc: "name of the items to create"
-          optional :tagNames, type: Array, desc: "array of tag names to associate with the created items" 
+          requires :item_names, type: Array, desc: "name of the items to create"
+          requires :tags, type: Array do 
+            requires :tag_name, type: String, desc: "name of the tag"
+            requires :category_id, type: String, desc: "category if of the tag"
+          end
         end
         post :create_with_tags do 
           check_user_admin!
-          its  = params[:itemNames].map{|n| Item.new(name: n.strip)}
-          tags = params[:tagNames].map{|n| Tag.find_or_create_by(name: n.strip)}
 
-          its.each do |item|
-            tags.each{|t| item.tags << t}
-            named_tag = Tag.find_or_create_by(name: item.name)
-            item.tags << named_tag
-            item.save
-            named_tag.items << item 
-            named_tag.save
+          tags = params[:tags].map do |tag|
+            cat = Category.find(tag["category_id"]) || error!("category not found")
+            Tag.find_or_create_by(name: tag["tag_name"], category_id: cat.id)
           end
-          tags.each(&:save)
 
-          present :status, "created"
-          present :items, its, with: Shapter::Entities::Item, entity_options: entity_options
+          items = params[:item_names].map do |item_name|
+            Item.create(name: item_name)
+          end
+
+          cat = Category.find_or_create_by(code: "item_name")
+
+          items.each do |item|
+            special_tag = Tag.find_or_create_by(name: item.name, category_id: cat.id)
+            (tags + [special_tag]).each do |tag|
+              item.add_to_set(tag_ids: tag.id)
+              tag.add_to_set(item_ids: item.id)
+            end
+          end
 
           Tag.touch
           Item.touch
+
+          present :status, :created
+          present :tags, tags, with: Shapter::Entities::Tag, entity_options: entity_options
+          present :items, items, with: Shapter::Entities::Item, entity_options: entity_options
+
         end
         #}}}
 

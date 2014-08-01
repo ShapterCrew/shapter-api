@@ -2,6 +2,10 @@ class Tag
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  include Mongoid::Elasticsearch
+
+  elasticsearch! 
+
   include Funnelable
   funnel_for :signup_funnel
   funnel_for :constructor_funnel # ZBRA !
@@ -11,7 +15,6 @@ class Tag
   field :type, type: String
 
   belongs_to :category
-
 
   #validates_uniqueness_of :name
   validate :type_name_uniqueness

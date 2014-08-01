@@ -4,7 +4,9 @@ class FormationPage
   field :name
   field :website_url
   field :description
-  field :img_url
+
+  mount_uploader :logo, FileUploader
+  mount_uploader :image, FileUploader
 
   field :tag_ids, type: Array
 
@@ -12,6 +14,14 @@ class FormationPage
   validates_presence_of :tag_ids
 
   before_save :tag_ids_to_bson
+
+  def logo_url
+    logo.url
+  end
+
+  def image_url
+    image.url
+  end
 
   class << self
     #array of tags, tag_ids.to_s or tag_ids can be passed

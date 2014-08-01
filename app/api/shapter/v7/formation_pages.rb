@@ -9,6 +9,57 @@ module Shapter
 
       namespace :formations do 
 
+        #{{{ create/update
+        desc "create or update formation informations"
+        params do 
+          requires :tag_ids, type: Array, desc: "a batch of tags that define the Formation scope"
+          optional :name, type: String, desc: "name"
+          optional :website_url, type: String, desc: "website url"
+          optional :description, type: String, desc: "description"
+          optional :logo, desc: "logo (file)"
+          optional :image, desc: "image (file)"
+        end
+        post :create_or_update do
+          check_user_admin!
+
+          formation = FormationPage.find_by_tags(params[:tag_ids]) || FormationPage.new(tag_ids: params[:tag_ids])
+
+          uploaded_logo = if params[:logo]
+                            s = params[:logo].split(',').last
+                            tempfile = Tempfile.new('logo')
+                            tempfile.binmode
+                            tempfile.write(Base64.decode64(s))
+                            ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile)
+                          end
+
+          uploaded_image = if params[:image]
+                             s = params[:image].split(',').last
+                             tempfile = Tempfile.new('image')
+                             tempfile.binmode
+                             tempfile.write(Base64.decode64(s))
+                             uploaded_image = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile)
+                           end
+
+          clean_p = [
+            [:name , params[:name]],
+            [:description , params[:description]],
+            [:logo, uploaded_logo],
+            [:image, uploaded_image],
+            [:website_url, params[:website_url]],
+          ].reduce({}) do |h,a|
+            h.merge!( {a.first => a.last} ) if a.last
+            h
+          end
+
+          if formation.update_attributes(clean_p)
+            present formation, using: Shapter::Entities::FormationPage
+          else
+            error!(formation.error.messages)
+          end
+
+        end
+        #}}}
+
         #{{{ get
         desc "get the formation page from a list of tags. If no record of FormationPage is found, then a new page is automatically generated"
         params do 

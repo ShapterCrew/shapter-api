@@ -92,7 +92,7 @@ class Item
     tags.delete(tag)
     self.save
     tag.reload
-    tag.destroy if tag.items.empty?
+    #tag.destroy if tag.items.empty?
   end
 
   def user_subscribed?(user)

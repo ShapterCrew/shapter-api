@@ -94,7 +94,7 @@ describe Shapter::V7::ItemTags do
 
       item_ids = [@i1,@i2].map(&:id).map(&:to_s)
       tags = [@t2,@t3].map{|t| {tag_name: t.name, category_id: t.category_id}}
-      delete "items/tags/delete", {tags: tags, item_ids: item_ids}
+      post "items/tags/delete", {tags: tags, item_ids: item_ids}
 
       h = JSON.parse(response.body)
       expect( h.has_key?("status") ).to be true

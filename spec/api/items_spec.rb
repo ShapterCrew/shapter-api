@@ -7,9 +7,11 @@ describe Shapter::V7::Items do
     Item.delete_all
     User.delete_all
     Tag.delete_all
+    Category.delete_all
     @user = FactoryGirl.create(:user)
     @item = FactoryGirl.create(:item)
     @item2= FactoryGirl.create(:item)
+    @cat = FactoryGirl.create(:category)
 
     @t1 = Tag.new(name: :t1) ; @t1.save
     @t2 = Tag.new(name: :t2) ; @t2.save
@@ -29,6 +31,16 @@ describe Shapter::V7::Items do
   describe :create_with_tags do
     before do 
       login(@user)
+      @h = {
+        item_names: [
+          "fooitem",
+          "baritem",
+        ],
+        tags: [
+          {category_id: @cat.id, tag_name: "footag"},
+          {category_id: @cat.id, tag_name: "bartag"},
+        ]
+      }
     end
     context "when non admin user" do 
       before do 
@@ -36,7 +48,7 @@ describe Shapter::V7::Items do
       end
 
       it "denies access" do 
-        post "items/create_with_tags", {:itemNames => ["fooitem","baritem"], :tagNames => ["footag","bartag"]}
+        post "items/create_with_tags", @h
         access_denied(@response).should be true
       end
     end
@@ -44,16 +56,22 @@ describe Shapter::V7::Items do
     context "when admin" do 
       before do 
         User.any_instance.stub(:shapter_admin).and_return(true)
-        post "items/create_with_tags", {:itemNames => ["fooitem","baritem"], :tagNames => ["footag","bartag"]}
+
+        post "items/create_with_tags", @h
+
       end
 
       it "allows access" do 
-        access_denied(@response).should be false
+        expect(access_denied(@response)).to be false
       end
 
       it 'creates properly named item' do 
         Item.where(name: "fooitem").exists?.should be true
         Item.where(name: "baritem").exists?.should be true
+
+        h = JSON.parse(response.body)
+        expect(h.has_key?("status")).to be true
+        expect(h["status"]).to eq "created"
       end
 
       it 'creates item with proper tags' do 

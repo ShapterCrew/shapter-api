@@ -69,26 +69,6 @@ describe Shapter::V7::Comments do
         response.status.should == 400
       end
 
-      it "doesn't validates presence of work_score" do 
-        post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:work_score => nil)
-        response.status.should_not == 400
-      end
-
-      it "doesn't validates presence of quality_score" do 
-        post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:quality_score => nil)
-        response.status.should_not == 400
-      end
-
-      #it "validates value of work_score" do 
-      #  post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:work_score => 600)
-      #  response.status.should == 400
-      #end
-
-      #it "validates value of quality_score" do 
-      #  post "/items/#{@item.id}/comments/create", :comment => @comment.attributes.merge(:quality_score => 600)
-      #  response.status.should == 400
-      #end
-
     end
 
   end
@@ -168,6 +148,10 @@ describe Shapter::V7::Comments do
         login(@user)
         @item.comments << @comment
         @item.save
+
+        #can't score your own comment. Let's create someone else's comment
+        @u2 = FactoryGirl.build(:user) ; @u2.email = "other.email@haha.com" 
+        Comment.any_instance.stub(:author).and_return(@u2)
       end
 
       it "should add to likers when +1" do 

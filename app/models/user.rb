@@ -265,7 +265,6 @@ class User
     self.schools += self.class.schools_for(self.email)
   end
 
-
   def confirmation_required?
     false
   end

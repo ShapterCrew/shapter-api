@@ -5,7 +5,7 @@ module Shapter
       format :json
 
       before do 
-        check_confirmed_student!
+        check_user_login!
       end
 
       namespace :users do

@@ -106,7 +106,7 @@ class User
   end
 
   def name
-    [firstname, lastname].map(&:capitalize).join(" ")
+    [firstname, lastname].compact.map(&:capitalize).join(" ")
   end
 
   def valid_password?(pwd)

@@ -54,7 +54,7 @@ module Shapter
               requires :category_id, type: String, desc: "category_id of the tag"
             end
           end
-          delete :delete do 
+          post :delete do 
             items = Item.any_in(id: params[:item_ids]) || error!("no item found",418)
             tags = params[:tags].map do |h|
               cat = Category.find(h[:category_id]) || error!("category #{h[:category_id]} not found", 418)

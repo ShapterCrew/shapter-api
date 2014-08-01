@@ -115,6 +115,7 @@ module Shapter
                 requires :score, type: Integer, desc: "score"
               end
               put :score do 
+                error!("you can't score your own comment",403) if @comment.author == current_user
                 s = params[:score].to_i
 
                 # Only campus users are allowed to dislike :)

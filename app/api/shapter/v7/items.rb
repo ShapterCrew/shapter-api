@@ -30,7 +30,7 @@ module Shapter
         end
         #}}}
 
-        #{{{ create
+        #{{{ create with tags
         desc "create multiple items, all of them being tagged with some tags (using tag names)"
         params do 
           requires :item_names, type: Array, desc: "name of the items to create"
@@ -61,8 +61,8 @@ module Shapter
             end
           end
 
-          Tag.touch
-          Item.touch
+          items.each(&:touch)
+          tags.each(&:touch)
 
           present :status, :created
           present :tags, tags, with: Shapter::Entities::Tag, entity_options: entity_options

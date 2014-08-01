@@ -11,6 +11,7 @@ module Shapter
       namespace "items" do 
         namespace "tags" do 
 
+          #{{{ add tags to a list of items
           desc "add a list of tags to a list of items"
           params do 
             requires :item_ids, type: Array, desc: "list of items ids"
@@ -34,13 +35,17 @@ module Shapter
               end
             end
 
+            items.each(&:touch)
+            tags.each(&:touch)
+
             present :items, items, with: Shapter::Entities::Item, entity_options: entity_options
             present :tags, tags, with: Shapter::Entities::Tag, entity_options: entity_options
             present :status, :added
 
           end
+          #}}}
 
-
+          #{{{ remove tags
           desc "removes a list of tags from a list of items"
           params do 
             requires :item_ids, type: Array, desc: "list of items ids"
@@ -74,6 +79,7 @@ module Shapter
             present :status, status
 
           end
+          #}}}
 
         end
       end

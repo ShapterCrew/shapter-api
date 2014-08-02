@@ -7,7 +7,6 @@ module Shapter
       helpers Shapter::Helpers::FilterHelper
 
       before do 
-        #check_confirmed_student!
         check_user_login!
       end
 
@@ -21,17 +20,16 @@ module Shapter
           optional :category_code, type: String, desc: 'optional: category_code to filter with'
         end
         post :search do 
-          #tags = Tag.es.search({body: { query: {match: {name: params[:search]}} }}).select{ |tag|
 
-          tags = Tag.where(name: /#{params[:search]}/i).select{ |tag|
-            if params[:category_id]
-              tag.category_id == (@cat ||= BSON::ObjectId.from_string(params[:category_id]))
-            elsif params[:category_code]
-              tag.category_id == (@cat ||= Category.find_by(code: params[:category_code]).id)
-            else
-              true
-            end
-          }
+          tags = if params[:category_id]
+                   cat_id = BSON::ObjectId.from_string(params[:category_id])
+                   Tag.where(name: /#{params[:search]}/i, category_id: cat_id)
+                 elsif params[:category_code]
+                   cat = Category.find_by(code: params[:category_code])
+                   Tag.where(name: /#{params[:search]}/i, category_id: cat.id)
+                 else
+                   Tag.where(name: /#{params[:search]}/i)
+                 end
           present :tags, tags, with: Shapter::Entities::Tag, entity_options: entity_options
         end
         #}}}

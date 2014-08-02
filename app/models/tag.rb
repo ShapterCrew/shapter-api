@@ -4,7 +4,20 @@ class Tag
 
   include Mongoid::Elasticsearch
 
-  elasticsearch! 
+  elasticsearch!({
+    index_mappings: {
+      name: {
+        type: 'multi_field',
+        fields: {
+          name:     {type: 'string', analyzer: 'snowball'},
+          raw:      {type: 'string', index: :not_analyzed},
+          suggest:  {type: 'completion'} 
+        }
+      },
+      tags: {type: 'string', include_in_all: false}
+    },
+    wrapper: :load
+  })
 
   include Funnelable
   funnel_for :signup_funnel

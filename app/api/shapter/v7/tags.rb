@@ -35,6 +35,16 @@ module Shapter
         end
         #}}}
 
+        #{{{ completion
+        desc "elasticsearch auto-completion"
+        params do 
+          requires :search, type: String, desc: "string to auto-complete"
+        end
+        get :autocomplete do 
+          Tag.es.completion(params[:search],'name.suggest')
+        end
+        #}}}
+
         # index {{{
         desc "get all tags", { :notes => <<-NOTE
         Useful to build an exhaustive dictionnary of tags

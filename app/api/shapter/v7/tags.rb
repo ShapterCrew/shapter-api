@@ -55,13 +55,24 @@ module Shapter
         }
         params do 
           optional :filter, type: String, desc: "id of the tag to filter with"
+          optional :category_id, type: String, desc: "category_id to filter with"
         end
         post :/ do 
           if params[:filter]
-            present dictionnary(params[:filter]), with: Shapter::Entities::Tag, entity_options: entity_options
+            tags = dictionnary(params[:filter])
           else
-            present Tag.all, with: Shapter::Entities::Tag, entity_options: entity_options
+            tags = Tag.all
           end
+
+          cat_id = BSON::ObjectId.from_string(params[:category_id]) if params[:category_id]
+
+          filtered_tags = if params[:category_id]
+                            tags.select{|t| t.category_id == cat_id}
+                          else
+                            tags
+                          end
+
+            present filtered_tags, with: Shapter::Entities::Tag, entity_options: entity_options
         end
         #}}}
 

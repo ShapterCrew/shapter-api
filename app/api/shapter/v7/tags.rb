@@ -13,37 +13,37 @@ module Shapter
 
       namespace :tags do 
 
-        #{{{ elasticsearch
-        desc "search for tag name"
-        params do 
-          requires :search, type: String, desc: 'required: search string'
-          optional :category_id, type: String, desc: 'optional: category_id to filter with'
-          optional :category_code, type: String, desc: 'optional: category_code to filter with'
-        end
-        post :elasticsearch do 
-          
-          tags = Tag.es.search({body: { query: {match: {name: params[:search]}} }}).select{ |tag|
-            if params[:category_id]
-              tag.category_id == (@cat ||= BSON::ObjectId.from_string(params[:category_id]))
-            elsif params[:category_code]
-              tag.category_id == (@cat ||= Category.find_by(code: params[:category_code]).id)
-            else
-              true
-            end
-          }
-          present :tags, tags, with: Shapter::Entities::Tag, entity_options: entity_options
-        end
-        #}}}
-
-        #{{{ completion
-        desc "elasticsearch auto-completion"
-        params do 
-          requires :search, type: String, desc: "string to auto-complete"
-        end
-        get :autocomplete do 
-          Tag.es.completion(params[:search],'name.suggest')
-        end
-        #}}}
+#        #{{{ elasticsearch
+#        desc "search for tag name"
+#        params do 
+#          requires :search, type: String, desc: 'required: search string'
+#          optional :category_id, type: String, desc: 'optional: category_id to filter with'
+#          optional :category_code, type: String, desc: 'optional: category_code to filter with'
+#        end
+#        post :elasticsearch do 
+#          
+#          tags = Tag.es.search({body: { query: {match: {name: params[:search]}} }}).select{ |tag|
+#            if params[:category_id]
+#              tag.category_id == (@cat ||= BSON::ObjectId.from_string(params[:category_id]))
+#            elsif params[:category_code]
+#              tag.category_id == (@cat ||= Category.find_by(code: params[:category_code]).id)
+#            else
+#              true
+#            end
+#          }
+#          present :tags, tags, with: Shapter::Entities::Tag, entity_options: entity_options
+#        end
+#        #}}}
+#
+#        #{{{ completion
+#        desc "elasticsearch auto-completion"
+#        params do 
+#          requires :search, type: String, desc: "string to auto-complete"
+#        end
+#        get :autocomplete do 
+#          Tag.es.completion(params[:search],'name.suggest')
+#        end
+#        #}}}
 
         # index {{{
         desc "get all tags", { :notes => <<-NOTE

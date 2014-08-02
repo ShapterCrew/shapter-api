@@ -58,4 +58,4 @@ gem 'faraday'
 gem 'mongo_session_store-rails4'
 
 #gem 'elasticsearch', github: 'elasticsearch/elasticsearch-ruby', branch: '0.4'
-gem 'mongoid-elasticsearch'
+#gem 'mongoid-elasticsearch'

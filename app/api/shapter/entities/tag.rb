@@ -10,6 +10,7 @@ module Shapter
       expose :students_count, if: lambda{ |u, o| o[:entity_options]["tag"][:students_count]}
       expose :items_count   , if: lambda{ |u, o| o[:entity_options]["tag"][:items_count]}
       expose :diagrams_count, if: lambda{ |u, o| o[:entity_options]["tag"][:diagrams_count]}
+      expose :comments_count, if: lambda{ |u, o| o[:entity_options]["tag"][:comments_count]}
     end
   end
 end

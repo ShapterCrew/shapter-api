@@ -74,7 +74,7 @@ module Shapter
         #}}}
 
         #{{{ typical users
-        desc "get the profile of n typical users for this formation. If the 'randomize' flat is set to true, then a set of profiles will be randomly selected from the best candidates"
+        desc "get the profile of n typical users for this formation. If the 'randomize' flag is set to true, then a set of profiles will be randomly selected from the best candidates"
         params do 
           requires :tag_ids, type: Array, desc: "a batch of tags that define the Formation scope"
           optional :randomize, type: Boolean, desc: "randomize results", default: true

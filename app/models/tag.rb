@@ -50,6 +50,18 @@ class Tag
     end
   end
 
+  def students_count
+    cached_students.size
+  end
+
+  def items_count
+    items.size
+  end
+
+  def diagrams_count
+    items.flat_map(&:diagrams).compact.count
+  end
+
   class << self
     def touch
       Tag.find_or_create_by(name: "__null__").touch

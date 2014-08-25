@@ -51,15 +51,23 @@ class Tag
   end
 
   def students_count
-    cached_students.size
+    student_ids.size
   end
 
   def items_count
-    items.size
+    item_ids.size
   end
 
   def diagrams_count
-    items.flat_map(&:diagrams).compact.count
+    Rails.cache.fetch("tagDiagCnt|#{id}|#{items.max(:updated_at).try(:utc).try(:to_s,:number)}",expires_in: 3.hours) do
+      items.flat_map(&:diagrams).compact.count
+    end
+  end
+
+  def comments_count
+    Rails.cache.fetch("tagCommCnt|#{id}|#{items.max(:updated_at).try(:utc).try(:to_s,:number)}",expires_in: 3.hours) do
+      items.flat_map(&:comments).compact.count
+    end
   end
 
   class << self

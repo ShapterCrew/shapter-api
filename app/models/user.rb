@@ -117,7 +117,7 @@ class User
     end
   end
 
-  validate :valid_school?
+  #validate :valid_school?
   before_validation :set_schools!
   before_validation :set_names!
 

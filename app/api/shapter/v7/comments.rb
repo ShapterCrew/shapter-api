@@ -116,6 +116,7 @@ module Shapter
               end
               put :score do 
                 error!("you can't score your own comment",403) if @comment.author == current_user
+                error!("you can't score this comment",403) unless @comment.user_can_view?(current_user)
                 s = params[:score].to_i
 
                 # Only campus users are allowed to dislike :)

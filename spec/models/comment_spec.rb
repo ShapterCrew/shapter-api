@@ -51,4 +51,37 @@ describe Comment do
   end
   #}}}
 
+  #{{{ public_content
+  describe :public_content do 
+    before do 
+      @user2 = FactoryGirl.build(:user)
+      @user2.email = 'email2@hahahoho.com'
+    end
+
+    it "shows content if asking user if fb friend" do 
+      @user2.stub(:friends).and_return(@user)
+      expect(@comment.public_content(@user2)).to eq @comment.content
+    end
+
+    it "shows content if asking user share a school with author" do 
+      @t = FactoryGirl.create(:tag)
+      @user.stub(:schools).and_return([@t])
+      @user2.stub(:schools).and_return([@t])
+      expect(@comment.public_content(@user2)).to eq @comment.content
+    end
+
+    it "shows content if forced to " do 
+      expect(@comment.public_content(@user2,true)).to eq @comment.content
+    end
+
+    it "hide content otherwise" do 
+      #has to remove school from user2 ( there is a school from factoryGirl)
+      @user2.stub(:schools).and_return([])
+      @user2.stub(:school_ids).and_return([])
+      expect(@comment.public_content(@user2)).to eq "hidden"
+    end
+
+  end
+  #}}}
+
 end

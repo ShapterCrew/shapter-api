@@ -7,35 +7,35 @@ describe User do
   end
 
 
-  it "should set and validates school using regex" do 
-    u = FactoryGirl.build(:user)
-    u.schools = []
+  #it "should set and validates school using regex" do 
+  #  u = FactoryGirl.build(:user)
+  #  u.schools = []
 
-    u.valid?.should be false
+  #  u.valid?.should be false
 
-    u.email = 'valid@student.ecp.fr'
-    u.save
-    u.reload
-    u.valid?.should be true
-    u.schools.first.name.should == "Centrale Paris"
+  #  u.email = 'valid@student.ecp.fr'
+  #  u.save
+  #  u.reload
+  #  u.valid?.should be true
+  #  u.schools.first.name.should == "Centrale Paris"
 
-  end
+  #end
 
-  it "should set and validates school using signup_permission" do 
-    u = FactoryGirl.build(:user)
-    u.schools = []
-    u.firstname = nil
-    u.valid?.should be false
+  #it "should set and validates school using signup_permission" do 
+  #  u = FactoryGirl.build(:user)
+  #  u.schools = []
+  #  u.firstname = nil
+  #  u.valid?.should be false
 
-    SignupPermission.create(email: "foo@bar.com", school_names: ["fooSchool","barSchool"], firstname: 'fname')
+  #  SignupPermission.create(email: "foo@bar.com", school_names: ["fooSchool","barSchool"], firstname: 'fname')
 
-    u.email = "foo@bar.com"
+  #  u.email = "foo@bar.com"
 
-    u.save ; u.reload
-    u.valid?.should be true
-    u.schools.first.name.should == "fooSchool"
-    u.schools.last.name.should == "barSchool"
-    u.firstname.should == 'fname'
-  end
+  #  u.save ; u.reload
+  #  u.valid?.should be true
+  #  u.schools.first.name.should == "fooSchool"
+  #  u.schools.last.name.should == "barSchool"
+  #  u.firstname.should == 'fname'
+  #end
 
 end

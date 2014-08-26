@@ -69,7 +69,7 @@ module Shapter
           @formation_page = FormationPage.find_by_tags(params[:tag_ids]) || FormationPage.new(tag_ids: params[:tag_ids])
           tag_ids = params[:tag_ids].map{|id| BSON::ObjectId.from_string(id)}
 
-          present @formation_page, with: Shapter::Entities::FormationPage, entity_options: entity_options
+          present @formation_page, with: Shapter::Entities::FormationPage, entity_options: entity_options.merge({"force_comments_content" => true})
         end
         #}}}
 

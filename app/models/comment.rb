@@ -16,6 +16,15 @@ class Comment
     CGI.unescapeHTML(content)
   end
 
+  # If asking_user is a facebook friend, or a student from same school, then the comment can be viewed. Otherwise, it is hidden.
+  def public_content(asking_user,force=false)
+    pc = if force or user_can_view?(asking_user)
+           unescaped_content
+         else
+           "hidden"
+         end
+  end
+
   def pretty_id
     id.to_s
   end
@@ -56,6 +65,10 @@ class Comment
     self.touch
     item.touch
     author.touch
+  end
+
+  def user_can_view?(user)
+    (user.school_ids & author.school_ids).any?  or user.is_friend_with?(author) 
   end
 
 end

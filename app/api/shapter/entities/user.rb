@@ -13,7 +13,7 @@ module Shapter
       end
       expose :schools                         , using: Shapter::Entities::Tag    , if: lambda { |u,o| o[:entity_options]["user"][:schools]}
       expose :shapter_admin                   , as: :admin                       , if: lambda { |u,o| o[:entity_options]["user"][:admin]}
-      expose :confirmed?                      , as: :confirmed                   , if: lambda { |u,o| o[:entity_options]["user"][:confirmed]}
+      expose :confirmed_account?              , as: :confirmed                   , if: lambda { |u,o| o[:entity_options]["user"][:confirmed]}
       expose :confirmed_student?              , as: :confirmed_student           , if: lambda { |u,o| o[:entity_options]["user"][:confirmed_student]}
 
       expose :comments                        , using: Shapter::Entities::Comment, if: lambda { |u,o| o[:entity_options]["user"][:comments]}

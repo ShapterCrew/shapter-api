@@ -5,7 +5,7 @@ module Shapter
 
       before do 
         #check_confirmed_student!
-        check_user_login!
+        check_confirmed_account!
       end
 
       namespace :items do 

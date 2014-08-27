@@ -4,7 +4,7 @@ module Shapter
       format :json
 
       before do 
-        check_user_login!
+        check_confirmed_account!
       end
 
       namespace :categories do 

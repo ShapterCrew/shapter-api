@@ -193,6 +193,10 @@ class User
     end
   end
 
+  def confirmed_account?
+    confirmed? or provider == "facebook"
+  end
+
   def confirmed_student?
     return true if ( provider == "facebook" and schools.any? and facebook_email == email) # signed up with facebook email, that matched a signup permission or regex
     return true if confirmed? and schools.any? # already confirmed an email, that gave a school

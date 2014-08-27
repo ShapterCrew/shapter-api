@@ -19,7 +19,7 @@ module Shapter
 
         namespace :me do 
           before do 
-            check_user_login!
+            check_confirmed_account!
           end
 
           #{{{ /users/me
@@ -117,7 +117,7 @@ module Shapter
 
         resource ":user_id" do 
           before do 
-            check_user_login!
+            check_confirmed_account!
             params do 
               requires :user_id, type: String, desc: "id of the user"
             end

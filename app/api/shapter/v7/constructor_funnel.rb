@@ -72,7 +72,7 @@ module Shapter
         requires :tag_id, type: String, desc: "id of the tag"
       end
       post "tags/:tag_id/constructor-funnel" do 
-        check_user_login!
+        check_confirmed_account!
         error!("forbidden",401) unless (current_user.shapter_admin or current_user.confirmed_student?)
 
         @tag = Tag.find(params[:tag_id]) || error!("tag not found",404)

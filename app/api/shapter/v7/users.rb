@@ -19,7 +19,7 @@ module Shapter
 
         namespace :me do 
           before do 
-            check_confirmed_account!
+            check_user_login!
           end
 
           #{{{ /users/me
@@ -47,7 +47,7 @@ module Shapter
           #{{{ friends
           desc "get my friends from facebook x shapter"
           post :friends do 
-            check_confirmed_student!
+            check_confirmed_account!
             present :friends, current_user.friends, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}

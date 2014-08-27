@@ -43,6 +43,7 @@ module Shapter
             params do
               requires :comment, type: Hash do
                 requires :content, type: String, desc: "comment content"
+                optional :context, type: String, desc: "comment context (required when alien)"
               end
             end
             post :create do
@@ -50,8 +51,11 @@ module Shapter
 
               #could be nicer with proper params :permit handling
               content = CGI.escapeHTML(params[:comment][:content] || "")
+              context = CGI.escapeHTML(params[:comment][:context] || "")
+
               c = Comment.new(
                 content: content,
+                context: context,
                 author: current_user,
                 item: @item,
               )

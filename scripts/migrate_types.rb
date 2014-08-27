@@ -48,4 +48,5 @@ h = {
 }
 
 h.each_pair{|t,c| type_to_cat!(t,c)}
+
 Tag.where(category_id: nil).each{|t| puts t.update_attribute(:category_id , Category.find_or_create_by(code: "other").id)}

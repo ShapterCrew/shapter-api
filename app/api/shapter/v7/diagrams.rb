@@ -34,6 +34,8 @@ module Shapter
             end
             put do
               i = Item.find(params[:item_id]) || error!("item not found",500)
+              error!("forbidden",401) unless i.user_can_comment?(current_user)
+
               d = i.diagrams.find_or_create_by(author: current_user)
               please_track = d.values.nil?
               params[:values].each do |i,v|

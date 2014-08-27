@@ -89,16 +89,23 @@ module Shapter
               desc "updates comment"
               params do 
                 requires :comment, type: Hash do 
-                  requires :content, type: String, desc: "new content of the comment"
+                  optional :content, type: String, desc: "new content of the comment"
+                  optional :context, type: String, desc: "comment context (required when alien)"
                 end
               end
               put do 
                 error!("forbidden",401) unless (@comment.author == current_user or current_user.shapter_admin)
-                if @comment.update_attribute(:content, params[:comment][:content])
-                  present @comment, with: Shapter::Entities::Comment, entity_options: entity_options
-                else
-                  error!(@comment.errors)
+
+                if params[:comment][:context]
+                  error!(@comment.errors) unless @comment.update_attribute(:context, params[:comment][:context])
                 end
+
+                if params[:comment][:content]
+                  error!(@comment.errors) unless @comment.update_attribute(:content, params[:comment][:content])
+                end
+
+                present @comment, with: Shapter::Entities::Comment, entity_options: entity_options
+
               end
               #}}}
 

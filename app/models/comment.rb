@@ -79,7 +79,7 @@ class Comment
   end
 
   def user_can_view?(user)
-    prom_buddy(user) or fb_buddy(user) or my_campus(user)
+    prom_buddy(user) or fb_buddy(user) or his_campus(user)
   end
 
   # An alien is someone who comments a course without being a verified student of the campus
@@ -101,8 +101,8 @@ class Comment
     user.is_friend_with?(author) 
   end
 
-  def my_campus(user)
-    (item.tag_ids & author.school_ids).any? 
+  def his_campus(user)
+    (item.tag_ids & user.school_ids).any? 
   end
 
 end

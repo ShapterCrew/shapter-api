@@ -8,8 +8,7 @@ module Shapter
         force = !!ops[:entity_options]["force_comments_content"] # this should be false most of the time
         comm.public_content(ops[:entity_options][:current_user],force)
       end
-
-      expose :context, if: lambda{ |u,o| o[:entity_options]["comment"][:context]}
+      expose :unescaped_context, as: :context , if: lambda {|c, ops| ops[:entity_options]["comment"][:context] } 
 
       expose :author                    , using: Shapter::Entities::User, if: lambda{ |u,o| o[:entity_options]["comment"][:author] }
       expose :item                      , using: Shapter::Entities::Item, if: lambda{ |u,o| o[:entity_options]["comment"][:item] }

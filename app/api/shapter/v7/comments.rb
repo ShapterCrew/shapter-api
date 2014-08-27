@@ -121,7 +121,7 @@ module Shapter
 
                 # Only campus users are allowed to dislike :)
                 if s == -1
-                  error!("forbidden",401) unless @comment.item.user_can_comment?(current_user)
+                  error!("forbidden",401) unless (@comment.item.tag_ids & current_user.school_ids).any?
                 end
 
                 old_score = if @comment.likers.include?(current_user)

@@ -115,19 +115,14 @@ class Item
     comments.where(author: user).count
   end
 
-  def user_can_view_comments?(user)
-    true
-    #raise "wrong parameter" unless user.is_a? User
-    #ok_school = !(tags & user.schools).empty?
-    #ok_admin = user.shapter_admin
-    #ok_admin or ok_school
-  end
-
   def user_can_comment?(user)
     raise "wrong parameter" unless user.is_a? User
-    ok_school = (tags & user.schools).any?
-    ok_admin = user.shapter_admin
-    ok_admin or ok_school
+    #ok_school = (tags & user.schools).any?
+    #ok_admin = user.shapter_admin
+    #ok_admin or ok_school
+
+    #=== Brand new version, yay ! ===
+    user.confirmed_student? or user.shapter_admin
   end
 
   def raw_avg_diag

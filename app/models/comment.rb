@@ -18,7 +18,7 @@ class Comment
   end
 
   def unescaped_context
-    CGI.unescapeHTML(context)
+    CGI.unescapeHTML(context || "")
   end
 
   # If asking_user is a facebook friend, or a student from same school, then the comment can be viewed. Otherwise, it is hidden.

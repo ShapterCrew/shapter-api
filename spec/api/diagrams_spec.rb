@@ -17,6 +17,7 @@ describe Shapter::V7::Diagrams do
   describe "create_or_update" do 
     it "creates or updates a diagram" do 
       @item.diagrams.count.should == 0
+      User.any_instance.stub(:schools).and_return([@item.tags.first])
 
       put "/items/#{@item.id}/mydiagram", :values => {0 => 0, "1" => 2, 3 => 6}
 

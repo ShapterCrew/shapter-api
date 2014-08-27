@@ -49,7 +49,7 @@ module Shapter
         it.user_can_comment?(ops[:entity_options][:current_user])
       end
 
-      expose :comments, using: Shapter::Entities::Comment, if: lambda {|it,ops| it.user_can_view_comments?(ops[:entity_options][:current_user]) and ops[:entity_options]["item"][:comments] }
+      expose :comments, using: Shapter::Entities::Comment, if: lambda {|it,ops| ops[:entity_options]["item"][:comments] }
 
       expose :requires_comment_score, if: lambda{ |u,o| o[:entity_options]["item"][:requires_comment_score] }
 

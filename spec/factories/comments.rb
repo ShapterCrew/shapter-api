@@ -4,7 +4,6 @@ FactoryGirl.define do
   factory :comment do
     content "MyText"
     author "123"
-    #work_score 1
-    #quality_score 2
+    context "dans le cadre de la journée mondiale du tricot"
   end
 end

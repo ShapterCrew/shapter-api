@@ -172,6 +172,7 @@ describe Shapter::V7::Comments do
         t = FactoryGirl.create(:tag)
         @item.tags << t ; @item.save
         User.any_instance.stub(:schools).and_return([t])
+        User.any_instance.stub(:school_ids).and_return([t.id])
         put "items/#{@item.id}/comments/#{@comment.id}/score", :score => -1
         @comment.reload
         @comment.likers.include?(@user).should be false

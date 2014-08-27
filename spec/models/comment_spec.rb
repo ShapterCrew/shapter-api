@@ -4,6 +4,10 @@ describe Comment do
   before(:each) do 
     User.delete_all
     Item.delete_all
+    Tag.delete_all
+
+    @t = FactoryGirl.create(:tag)
+
     @user = FactoryGirl.create(:user)
     @item = FactoryGirl.create(:item)
     @comment = FactoryGirl.build(:comment)
@@ -74,6 +78,13 @@ describe Comment do
       expect(@comment.public_content(@user2,true)).to eq @comment.content
     end
 
+    it "shows content when alien is publishing in my campus" do 
+      @t = FactoryGirl.create(:tag)
+      @user.stub(:schools).and_return([@t])
+      @user2.stub(:schools).and_return([])
+      expect(@comment.public_content(@user2)).to eq @comment.content
+    end
+
     it "hide content otherwise" do 
       #has to remove school from user2 ( there is a school from factoryGirl)
       @user2.stub(:schools).and_return([])
@@ -83,5 +94,51 @@ describe Comment do
 
   end
   #}}}
+
+  #{{{ alien comments
+  describe :alien? do 
+
+    it "is alien when user comments in a school he doesn't belong to" do 
+      @item.update_attribute(:tag_ids, [@t.id])
+      @user.update_attribute(:school_ids, [])
+
+      expect( @comment.alien?).to be true
+    end
+
+    it "is NOT alien when user comments in a school he belongs to" do 
+
+      @item.update_attribute(:tag_ids, [@t.id])
+      @user.update_attribute(:school_ids, [@t.id])
+
+      expect( @comment.alien?).to be false
+    end
+
+  end
+  #}}}
+
+  describe :context do 
+
+    it "NON-alien comment doesn't requires context" do
+      @comment.stub(:alien?).and_return(false)
+      @comment.stub(:context).and_return(nil)
+
+      expect(@comment.valid?).to be true
+    end
+
+    it "alien comment requires context" do 
+      @comment.stub(:alien?).and_return(true)
+      @comment.stub(:context).and_return(nil)
+
+      expect(@comment.valid?).to be false
+    end
+
+    it "context should not be more than 70 characters" do
+      expect(@comment.valid?).to be true
+      @comment.stub(:context).and_return((0..99).map{|_| "x"}.join)
+      expect(@comment.valid?).to be false
+    end
+
+
+  end
 
 end

@@ -19,7 +19,7 @@ module Shapter
         NOTE
         }
         get do 
-          present :comment, [:content, :author, :item, :current_user_likes, :likers_count, :dislikers_count, :created_at, :updated_at, :item_name].sort
+          present :comment, [:content, :author, :item, :current_user_likes, :likers_count, :dislikers_count, :created_at, :updated_at, :item_name, :is_alien].sort
           present :course_builder, [:cart_items, :subscribed_items, :constructor_items].sort
           present :diagram, [:front_values, :author, :item].sort
           present :item, [:name, :description, :tags, :comments_count, :documents_count, :interested_users, :subscribers, :constructor_users, :current_user_subscribed, :current_user_has_in_cart, :current_user_has_in_constructor, :subscribers, :current_user_comments_count, :current_user_diagram, :this_user_has_diagram , :this_user_has_comment, :diagrams_count, :current_user_can_comment, :comments, :requires_comment_score, :shared_docs, :follower_friends, :averaged_diagram ].sort

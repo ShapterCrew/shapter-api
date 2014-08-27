@@ -2,6 +2,7 @@ class Comment
   include Mongoid::Document
   include Mongoid::Timestamps
   field :content, type: String
+  field :context, type: String
 
   embedded_in :item
   belongs_to :author, class_name: "User"
@@ -60,6 +61,8 @@ class Comment
   end
 
   before_save :touches
+  validate :context_validator
+  validates_length_of :context, maximum: 70
 
   def touches
     self.touch
@@ -67,8 +70,35 @@ class Comment
     author.touch
   end
 
+  def context_validator
+    errors.add(:context, "a context is required for alien comments") if (alien? and context.blank?)
+  end
+
   def user_can_view?(user)
-    (user.school_ids & author.school_ids).any?  or user.is_friend_with?(author) 
+    prom_buddy(user) or fb_buddy(user) or my_campus(user)
+  end
+
+  # An alien is someone who comments a course without being a verified student of the campus
+  def alien?
+    (author.school_ids & item.tag_ids).empty?
+  end
+
+  def alien_schools
+    author.schools - item.tags
+  end
+
+  private
+
+  def prom_buddy(user)
+    (user.school_ids & author.school_ids).any?
+  end
+
+  def fb_buddy(user)
+    user.is_friend_with?(author) 
+  end
+
+  def my_campus(user)
+    (item.tag_ids & author.school_ids).any? 
   end
 
 end

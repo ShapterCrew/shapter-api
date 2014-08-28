@@ -4,6 +4,7 @@ class FormationPage
   field :name
   field :website_url
   field :description
+  field :image_credits
 
   mount_uploader :logo, FileUploader
   mount_uploader :image, FileUploader

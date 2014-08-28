@@ -20,6 +20,7 @@ module Shapter
           optional :image, desc: "image (file)"
           optional :logo_filename, desc: "logo (filename)"
           optional :image_filename, desc: "image (filename)"
+          optional :image_credits, desc: "image credits"
         end
         post :create_or_update do
           check_user_admin!
@@ -43,6 +44,7 @@ module Shapter
                            end
 
           clean_p = [
+            [:image_credits, params[:image_credits]],
             [:name , params[:name]],
             [:description , params[:description]],
             [:logo, uploaded_logo],

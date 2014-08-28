@@ -13,6 +13,7 @@ module Shapter
 
       expose :logo_url       , if: lambda{|_,o| o[:entity_options]["formation_page"][:logo]}
       expose :image_url      , if: lambda{|_,o| o[:entity_options]["formation_page"][:image]}
+      expose :image_credits  , if: lambda{|_,o| o[:entity_options]["formation_page"][:image_credits]}
 
       expose :website_url    , if: lambda{|_,o| o[:entity_options]["formation_page"][:website_url]}
       expose :description    , if: lambda{|_,o| o[:entity_options]["formation_page"][:description]}

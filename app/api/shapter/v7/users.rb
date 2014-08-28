@@ -13,7 +13,7 @@ module Shapter
           requires :email, type: String, desc: "email to test"
         end
         post :schools_for do 
-          present :schools, User::schools_for(params[:email]), with: Shapter::Entities::School, entity_options: entity_options
+          present :schools, User::schools_for(params[:email]), with: Shapter::Entities::Tag, entity_options: entity_options
         end
         #}}}
 

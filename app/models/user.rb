@@ -216,15 +216,15 @@ class User
       schools << Tag.find_or_create_by(name: "Centrale Paris") if (email =~ /.*@student.ecp.fr/)
 
       schools << Tag.find_or_create_by(name: "ULM") if ( email =~ /.*@clipper.ens.fr/)
-      schools << Tag.find_or_create_by(name: "Echange ULM") if ( email =~ /.*@clipper.ens.fr/)
+      #schools << Tag.find_or_create_by(name: "Echange ULM") if ( email =~ /.*@clipper.ens.fr/)
 
       schools << Tag.find_or_create_by(name: "HEC") if (email =~ /.*@hec.edu/)
 
-      schools << Tag.find_or_create_by(name: "Echange Ponts ParisTech") if (email =~ /.*@eleves.enpc.fr/)
+      #schools << Tag.find_or_create_by(name: "Echange Ponts ParisTech") if (email =~ /.*@eleves.enpc.fr/)
       schools << Tag.find_or_create_by(name: "Ponts ParisTech") if (email =~ /.*@eleves.enpc.fr/)
 
       schools << Tag.find_or_create_by(name: "ESPCI") if (email =~ /@bde.espci.fr/)
-      schools << Tag.find_or_create_by(name: "Échange ESPCI") if (email =~ /@bde.espci.fr/)
+      #schools << Tag.find_or_create_by(name: "Échange ESPCI") if (email =~ /@bde.espci.fr/)
 
       schools << Tag.find_or_create_by(name: "ESCP Europe") if (email =~ /@edu.escpeurope.eu/)
 

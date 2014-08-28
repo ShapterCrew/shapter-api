@@ -121,9 +121,9 @@ class User
   before_validation :set_schools!
   before_validation :set_names!
 
-  before_save :items_touch
-  before_save :comments_touch
-  before_save :tags_touch
+  after_save :items_touch
+  after_save :comments_touch
+  after_save :tags_touch
 
   before_create :skip_confirmation_notification!
   after_create :send_confirmation_if_required
@@ -147,9 +147,9 @@ class User
   def send_confirmation_if_required
     #no need to confirm facebook users
     unless self.provider == "facebook"
-      if self.class.schools_for(self.email).any?
+      #if self.class.schools_for(self.email).any?
         self.send_confirmation_instructions
-      end
+      #end
     end
   end
 

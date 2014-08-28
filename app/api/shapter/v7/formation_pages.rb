@@ -18,6 +18,8 @@ module Shapter
           optional :description, type: String, desc: "description"
           optional :logo, desc: "logo (file)"
           optional :image, desc: "image (file)"
+          optional :logo_filename, desc: "logo (filename)"
+          optional :image_filename, desc: "image (filename)"
         end
         post :create_or_update do
           check_user_admin!
@@ -29,7 +31,7 @@ module Shapter
                             tempfile = Tempfile.new('logo')
                             tempfile.binmode
                             tempfile.write(Base64.decode64(s))
-                            ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile)
+                            ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => params[:logo_filename])
                           end
 
           uploaded_image = if params[:image]
@@ -37,7 +39,7 @@ module Shapter
                              tempfile = Tempfile.new('image')
                              tempfile.binmode
                              tempfile.write(Base64.decode64(s))
-                             uploaded_image = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile)
+                             uploaded_image = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => params[:image_filename])
                            end
 
           clean_p = [

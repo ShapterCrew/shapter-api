@@ -1,7 +1,13 @@
+c = Category.find_or_create_by(code: "school")
+
+Tag.all.select{|t| t.students.count > 0}.each do |tag|
+  tag.update_attribute(:category_id, c.id)
+end
 
 def type_to_cat!(type,cat)
-  Tag.where(type: type).each do |tag|
-    puts tag.update_attribute(:category_id , Category.find_or_create_by(code: cat).id)
+  puts "#{type} => #{cat}"
+  Tag.where(type: type).lazy.each do |tag|
+    puts "!!!!!!!ERROR!!!!!!" unless tag.update_attribute(:category_id , Category.find_or_create_by(code: cat).id)
   end
 end
 
@@ -49,4 +55,7 @@ h = {
 
 h.each_pair{|t,c| type_to_cat!(t,c)}
 
-Tag.where(category_id: nil).each{|t| puts t.update_attribute(:category_id , Category.find_or_create_by(code: "other").id)}
+other = Category.find_or_create_by(code: "other")
+
+Tag.where(category_id: nil).each{|t| puts t.update_attribute(:category_id , other.id)}
+Tag.where(category_id: "" ).each{|t| puts t.update_attribute(:category_id , other.id)}

@@ -35,7 +35,6 @@ echs.each do |ech|
   end
 end
 
-
 echs.each do |ech|
   ech.destroy
 end

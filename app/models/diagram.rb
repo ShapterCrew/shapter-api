@@ -18,7 +18,7 @@ class Diagram
     front_dims.map{|i|
       {
         i => {
-        :value => values[i],
+        :value => values[i] || 50,
         :name => names[i],
       }
       }

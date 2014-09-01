@@ -1,6 +1,9 @@
 module Shapter
   module Entities
     class Item < Grape::Entity
+      expose :current_user_has_diagram , if: lambda{ |u,o| o[:entity_options]["item"][:current_user_has_diagram]} do |it,ops|
+        it.user_has_diagram?(ops[:entity_options][:current_user])
+      end
       expose :pretty_id        , as: :id
       expose :name             , if: lambda{ |u,o| o[:entity_options]["item"][:name]}
       expose :description      , if: lambda{ |u,o| o[:entity_options]["item"][:description]}
@@ -62,9 +65,6 @@ module Shapter
       #please leave this guy at the bottom
       expose :front_avg_diag, as: :averaged_diagram, if: lambda{ |u,o| o[:entity_options]["item"][:averaged_diagram]}
 
-      expose :current_user_has_diagram , if: lambda{ |u,o| o[:entity_options]["item"][:current_user_has_diagram]} do |it,ops|
-        it.user_has_diagram?(ops[:entity_options][:current_user])
-      end
 
     end
 

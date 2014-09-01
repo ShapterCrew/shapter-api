@@ -39,6 +39,10 @@ module Shapter
         it.user_has_diagram?(ops[:this_user])
       end
 
+      expose :current_user_has_diagram , if: lambda{ |u,o| o[:entity_options]["item"][:current_user_has_diagram]} do |it,ops|
+        it.user_has_diagram?(ops[:entity_options][:current_user])
+      end
+
       expose :this_user_has_comment , if: lambda{ |u,o| o[:entity_options]["item"][:this_user_has_comment]} do |it,ops|
         it.user_has_comment?(ops[:this_user])
       end

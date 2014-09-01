@@ -17,9 +17,9 @@ describe SharedDoc do
     }
   end
 
-  it "checks presence of file" do 
-    SharedDoc.new(@valid_attr.merge({file: nil})).valid?.should be false
-  end
+  #it "checks presence of file" do 
+  #  SharedDoc.new(@valid_attr.merge({file: nil})).valid?.should be false
+  #end
 
   it "checks presence of item" do 
     SharedDoc.new(@valid_attr.merge({item: nil})).valid?.should be false

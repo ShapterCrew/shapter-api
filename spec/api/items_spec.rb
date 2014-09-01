@@ -146,6 +146,29 @@ describe Shapter::V7::Items do
         i["id"].should == @item.id.to_s
       end
 
+      it "option current_user_has_diagram? should be true when user has diagram" do 
+        @diag = FactoryGirl.build(:diagram)
+        @diag.update_attributes(author: @user, item:@item)
+        expect(@diag.valid?).to be true
+        @diag.save
+
+        post "items/#{@item.id}", :entities => {:item => {:current_user_has_diagram => true} }
+        response.status.should == 201
+        i = JSON.parse(response.body)
+        puts "debug: #{i}"
+        expect(i.has_key?("current_user_has_diagram")).to be true
+        expect(i["current_user_has_diagram"]).to be true
+      end
+
+      it "option current_user_has_diagram? should be false when user does NOT have a diagram" do 
+        post "items/#{@item.id}", :entities => {:item => {:current_user_has_diagram => true} }
+        response.status.should == 201
+        i = JSON.parse(response.body)
+        puts "debug: #{i}"
+        expect(i.has_key?("current_user_has_diagram")).to be true
+        expect(i["current_user_has_diagram"]).to be false
+      end
+
     end
   end
   #}}}

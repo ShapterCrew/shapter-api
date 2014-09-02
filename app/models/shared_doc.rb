@@ -29,7 +29,7 @@ class SharedDoc
     raise "#{who_asks} is no user" unless who_asks.is_a? User
     #if item.user_can_comment?(who_asks)
     c = Category.find_or_create_by(code: :school)
-    if  ( item.tags.where(category_id: c.id) & who_asks.items.where(category_id: c.id)).any? # item and user share a school
+    if  who_asks.shapter_admin or ( item.tags.where(category_id: c.id) & who_asks.items.where(category_id: c.id)).any? 
       file_url
     else
       :hidden

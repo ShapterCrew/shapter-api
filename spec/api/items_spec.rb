@@ -155,7 +155,6 @@ describe Shapter::V7::Items do
         post "items/#{@item.id}", :entities => {:item => {:current_user_has_diagram => true} }
         response.status.should == 201
         i = JSON.parse(response.body)
-        puts "debug: #{i}"
         expect(i.has_key?("current_user_has_diagram")).to be true
         expect(i["current_user_has_diagram"]).to be true
       end
@@ -164,7 +163,6 @@ describe Shapter::V7::Items do
         post "items/#{@item.id}", :entities => {:item => {:current_user_has_diagram => true} }
         response.status.should == 201
         i = JSON.parse(response.body)
-        puts "debug: #{i}"
         expect(i.has_key?("current_user_has_diagram")).to be true
         expect(i["current_user_has_diagram"]).to be false
       end

@@ -27,7 +27,9 @@ class SharedDoc
 
   def public_file_url(who_asks)
     raise "#{who_asks} is no user" unless who_asks.is_a? User
-    if item.user_can_comment?(who_asks)
+    #if item.user_can_comment?(who_asks)
+    c = Category.find_or_create_by(code: :school)
+    if  ( item.tags.where(category_id: c.id) & who_asks.items.where(category_id: c.id)).any? # item and user share a school
       file_url
     else
       :hidden

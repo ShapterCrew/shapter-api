@@ -10,10 +10,13 @@ class Tag
   field :short_name, type: String
   field :type, type: String
 
+  field :custom_diag_dims, type: Array
+
   belongs_to :category
 
   #validates_uniqueness_of :name
   validate :type_name_uniqueness
+  validate :custom_diag_dims_validator
   validates_presence_of :name
 
   # Don't forget to update Tag.merge when adding new relations
@@ -86,4 +89,7 @@ class Tag
     errors.add(:base, "name/type already taken") if Tag.where(category_id: category_id, name: name).not.where(id: id).exists?
   end
 
+  def custom_diag_dims_validator
+    errors.add(:base, "custom diags dimensions should have an odd number of values") if custom_diag_dims.size > 0 and custom_diag_dims.even?
+  end
 end

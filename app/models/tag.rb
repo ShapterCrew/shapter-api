@@ -90,6 +90,6 @@ class Tag
   end
 
   def custom_diag_dims_validator
-    errors.add(:base, "custom diags dimensions should have an odd number of values") if !custom_diag_dims.blank? and custom_diag_dims.size.even?
+    errors.add(:base, "custom diags dimensions should have an odd number of values") if !custom_diag_dims.blank? and custom_diag_dims.size.even? and custom_diag_dims.size > 1
   end
 end

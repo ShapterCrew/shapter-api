@@ -33,13 +33,31 @@ module Shapter
           params do 
             optional :n, type: Integer, default: 5, desc: "number of items to get"
             optional :n_start, type: Integer, default: 0, desc: "starting index. default = 0 to get the first item"
+            optional :school_id, type: String, desc: "if school_id is passed, then only items from this school will be presented"
           end
           post "comment-pipe" do 
             check_confirmed_student!
             n        = params[:n]       || 5
             n_start  = params[:n_start] || 0
 
-            r = current_user.items.not.where("comments.author_id" => current_user.id).desc(:requires_comment_score).skip(n_start).take(n)
+
+            if params[:school_id]
+              school = Tag.find(params[:school_id]) || error!("school not found",404)
+              error!("school_id is no school") unless school.category_code.to_s == "school"
+
+              r = current_user.items
+              .where("tag_ids" => school.id)
+              .not.where("comments.author_id" => current_user.id)
+              .desc(:requires_comment_score)
+              .skip(n_start)
+              .take(n)
+            else
+              r = current_user.items
+              .not.where("comments.author_id" => current_user.id)
+              .desc(:requires_comment_score)
+              .skip(n_start)
+              .take(n)
+            end
             present :commentable_items, r , with: Shapter::Entities::Item, entity_options: entity_options
           end
           #}}}

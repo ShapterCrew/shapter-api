@@ -6,6 +6,7 @@ describe Shapter::V7::Users do
     User.delete_all
     Item.delete_all
     Tag.delete_all
+    Category.delete_all
     @user = FactoryGirl.create(:user)
 
     @user2 = FactoryGirl.build(:user)
@@ -77,6 +78,23 @@ describe Shapter::V7::Users do
       h = JSON.parse(@response.body)
       h["commentable_items"].size.should == 3
       h["commentable_items"].sort_by{|h| h["requires_comment_score"]}.reverse.map{|h| h["id"]}.should == [@i2,@i1,@i3].map(&:id).map(&:to_s)
+    end
+
+    it "should accept the school_id param" do 
+      cat = Category.find_or_create_by(code: :school)
+      @school1 = Tag.create(name: "school1", category_id: cat.id)
+      @school2 = Tag.create(name: "school2", category_id: cat.id)
+
+      @i1.tags << @school1 
+      @i2.tags << @school2
+      @i3.tags << @school2
+
+      @school1.save ; @school2.save
+
+      post "/users/me/comment-pipe", n: 3, entities: {item: {requires_comment_score: true}}, school_id: @school2.id
+      h = JSON.parse(@response.body)
+      h["commentable_items"].size.should == 2
+      h["commentable_items"].sort_by{|h| h["requires_comment_score"]}.reverse.map{|h| h["id"]}.should == [@i2,@i3].map(&:id).map(&:to_s)
     end
 
   end

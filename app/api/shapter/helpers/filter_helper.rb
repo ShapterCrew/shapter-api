@@ -5,8 +5,14 @@ module Shapter
       #{{{ filter_items
       # This for v2. 
       def filter_items2(ary)
-        Rails.cache.fetch( "filter_items2|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
-          compute_filter(ary)
+        Rails.cache.fetch( "filterItem|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
+          compute_filter(ary).sort_by(&natural_sort)
+        end
+      end
+
+      def quality_filter(ary)
+        Rails.cache.fetch( "qualityFilter|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
+          compute_filter(ary).sort_by(&quality_sort).reverse
         end
       end
 
@@ -18,7 +24,7 @@ module Shapter
         return init if ary.size == 1
         ary[1..-1].reduce(init) { |aa, tag_id|
           aa = aa & Tag.where(id: tag_id).flat_map(&:items)
-        }.sort_by(&natural_sort)
+        }
       end
       #}}}
 
@@ -100,8 +106,14 @@ module Shapter
         Proc.new do |item|
           item.name
           .downcase
-          .gsub("/àÀáÁãÃâÂäÄ/","a")
-          .gsub("/éÉèÈêÊẽẼëË/",'e')
+          .gsub(/[à|À|á|Á|ã|Ã|â|Â|ä|Ä]/,"a")
+          .gsub(/[é|É|è|È|ê|Ê|ẽ|Ẽ|ë|Ë]/,'e')
+        end
+      end
+
+      def quality_sort
+        Proc.new do |item|
+          item.avg_diag.values[6].to_i
         end
       end
 

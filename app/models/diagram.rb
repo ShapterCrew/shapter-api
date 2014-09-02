@@ -72,7 +72,7 @@ class Diagram
         "Codage"                    , #03
         "Théorique"                 , #04
         "Technique"                 , #05
-        "Qualité"                   , #06
+        "Satisfaction"              , #06
         "Dur à valider"             , #07
         "Fun"                       , #08
         "Pipo"                      , #09
@@ -81,6 +81,9 @@ class Diagram
         "Difficile à suivre"        , #12
         "Calcul"                    , #13
         "Professionalisant"         , #14
+        "Étendue du cours"          , #15
+        "Interactivité"             , #16
+        "Culture générale"          , #17
       ]
     end
 

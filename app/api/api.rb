@@ -22,6 +22,7 @@ class API < Grape::API
     mount Shapter::V7::Categories
     mount Shapter::V7::FormationPages
     mount Shapter::V7::Schools
+    mount Shapter::V7::SchoolsDiagDims
     add_swagger_documentation(mount_path: '/swagger_doc', markdown: true)
   end
   version :v6, using: :accept_version_header, format: :json do

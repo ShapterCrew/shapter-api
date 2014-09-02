@@ -115,6 +115,20 @@ describe Shapter::V7::Items do
         a = JSON.parse(response.body)
         a["items"].blank?.should be true
       end
+
+      it "should filter properly when :quality_filter option is passed" do 
+        post "items/filter", {filter: [@t1.id.to_s], quality_filter: true}
+        a = JSON.parse(response.body)
+        a["items"].map{|h| h["id"]}.should =~ [@item.id, @item2.id].map(&:to_s)
+
+        post "items/filter", {filter: [@t1.id.to_s,@t3.id.to_s], quality_filter: true}
+        a = JSON.parse(response.body)
+        a["items"].map{|h| h["id"]}.should =~ [@item2.id].map(&:to_s)
+
+        post "items/filter", {filter: [@t1.id.to_s,"hahahalol"], quality_filter: true}
+        a = JSON.parse(response.body)
+        a["items"].blank?.should be true
+      end
     end
   end
   #}}}

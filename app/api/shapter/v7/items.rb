@@ -17,11 +17,18 @@ module Shapter
           requires :filter, type: Array, desc: "array of tags to filter with"
           optional :n_start, type: Integer, desc: "index to start with. default: 0", default: 0
           optional :n_stop, type: Integer, desc: "index to end with. default: 14. -1 will return the entire list", default: 14
+
+          optional :quality_filter, type: Boolean, desc: "passing any value will result in a filtering by quality of avg_diags instead of name"
         end
         post :filter do 
           nstart = params[:n_start].to_i
           nstop = params[:n_stop].to_i
-          f = filter_items2(params[:filter])
+
+          f = if !!params[:quality_filter]
+                quality_filter(params[:filter])
+              else
+                filter_items2(params[:filter])
+              end
           present :number_of_results, f.size
           present :items, f[nstart..nstop], with: Shapter::Entities::Item, entity_options: entity_options
           unless (params[:filter] - current_user.school_ids.map(&:to_s)).empty?

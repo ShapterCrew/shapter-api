@@ -84,6 +84,10 @@ class Diagram
       ]
     end
 
+    def default_dims
+      [ 0,4,5,6,7,9,12 ]
+    end
+
     #{{{ old stuff
     #def centrale_lyon_dimensions
     #  [1,5,8,9]
@@ -211,8 +215,13 @@ class Diagram
   end
 
   private
+
+  def schools
+    item.tags.where(category_id: Category.find_or_create_by(code: :school).id)
+  end
+
   def front_dims
-    [ 0,4,5,6,7,9,12 ]
+    schools.map(&:custom_diag_dims).first || Diagram.default_dims
   end
 
   #{{{ old front_dims

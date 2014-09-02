@@ -23,7 +23,7 @@ module Shapter
             #{{{ available dimensions
             desc "get the exhaustive list of available dimensions"
             post :available do 
-              present :available_dimensions, Diagram.names.each_with_index.to_a.map(&:reverse).to_h
+              present Diagram.names.each_with_index.to_a.map(&:reverse).to_h
             end
             #}}}
 

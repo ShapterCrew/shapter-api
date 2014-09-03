@@ -209,26 +209,27 @@ class User
 
   class << self
     def schools_for(email)
+      cat = Category.find_or_create_by(code: :school)
       schools = []
 
-      schools << Tag.find_or_create_by(name: "Centrale Lyon") if (email =~ /.*@ecl[0-9]+.ec-lyon.fr/ or email =~ /.*@auditeur.ec-lyon.fr/)
+      schools << Tag.find_or_create_by(category_id: cat.id, name: "Centrale Lyon") if (email =~ /.*@ecl[0-9]+.ec-lyon.fr/ or email =~ /.*@auditeur.ec-lyon.fr/)
 
-      schools << Tag.find_or_create_by(name: "Centrale Paris") if (email =~ /.*@student.ecp.fr/)
+      schools << Tag.find_or_create_by(category_id: cat.id, name: "Centrale Paris") if (email =~ /.*@student.ecp.fr/)
 
-      schools << Tag.find_or_create_by(name: "ULM") if ( email =~ /.*@clipper.ens.fr/)
+      schools << Tag.find_or_create_by(category_id: cat.id, name: "ULM") if ( email =~ /.*@clipper.ens.fr/)
       #schools << Tag.find_or_create_by(name: "Echange ULM") if ( email =~ /.*@clipper.ens.fr/)
 
-      schools << Tag.find_or_create_by(name: "HEC") if (email =~ /.*@hec.edu/)
+      schools << Tag.find_or_create_by(category_id: cat.id, name: "HEC") if (email =~ /.*@hec.edu/)
 
       #schools << Tag.find_or_create_by(name: "Echange Ponts ParisTech") if (email =~ /.*@eleves.enpc.fr/)
-      schools << Tag.find_or_create_by(name: "Ponts ParisTech") if (email =~ /.*@eleves.enpc.fr/)
+      schools << Tag.find_or_create_by(category_id: cat.id, name: "Ponts ParisTech") if (email =~ /.*@eleves.enpc.fr/)
 
-      schools << Tag.find_or_create_by(name: "ESPCI") if (email =~ /@bde.espci.fr/)
+      schools << Tag.find_or_create_by(category_id: cat.id, name: "ESPCI") if (email =~ /@bde.espci.fr/)
       #schools << Tag.find_or_create_by(name: "Échange ESPCI") if (email =~ /@bde.espci.fr/)
 
-      schools << Tag.find_or_create_by(name: "ESCP Europe") if (email =~ /@edu.escpeurope.eu/)
+      schools << Tag.find_or_create_by(category_id: cat.id, name: "ESCP Europe") if (email =~ /@edu.escpeurope.eu/)
 
-      schools << Tag.find_or_create_by(name: "ENSMA") if (email =~ /@etu.isae-ensma.fr/)
+      schools << Tag.find_or_create_by(category_id: cat.id, name: "ENSMA") if (email =~ /@etu.isae-ensma.fr/)
 
       if perm = SignupPermission.find_by(email: email)
         perm.school_names.each do |school_name|

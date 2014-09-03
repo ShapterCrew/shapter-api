@@ -220,7 +220,7 @@ class Diagram
   private
 
   def schools
-    item.tags.where(category_id: Category.find_or_create_by(code: :school).id)
+    (item.tags.where(category_id: Category.find_or_create_by(code: :school).id)) rescue []
   end
 
   def front_dims

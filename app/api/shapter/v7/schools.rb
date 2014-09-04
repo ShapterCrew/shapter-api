@@ -12,8 +12,8 @@ module Shapter
         #{{{ index
         desc "get a list of schools as an array of tags"
         post do 
-          c = Category.find_or_create_by(code: :school)
-          present :schools, Tag.where(category: c), with: Shapter::Entities::Tag, entity_options: entity_options
+          #c = Category.find_or_create_by(code: :school)
+          present :schools, Tag.schools, with: Shapter::Entities::Tag, entity_options: entity_options
         end
         #}}}
 

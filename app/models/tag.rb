@@ -31,6 +31,8 @@ class Tag
     category ? category.code : :other
   end
 
+  scope :schools, -> { where(category_id: Category.find_or_create_by(code: :school)) }
+
   def cached_students
     Rails.cache.fetch("tagStudents|#{id}|#{updated_at.try(:utc).try(:to_s,:number)}",expires_in: 3.hours) do
       students

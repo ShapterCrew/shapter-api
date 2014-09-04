@@ -19,6 +19,7 @@ module Shapter
           optional :n_stop, type: Integer, desc: "index to end with. default: 14. -1 will return the entire list", default: 14
 
           optional :quality_filter, type: Boolean, desc: "passing any value will result in a filtering by quality of avg_diags instead of name"
+          optional :cart_only, type: Boolean, desc: "look only for items that are in my favorites"
         end
         post :filter do 
           nstart = params[:n_start].to_i
@@ -29,8 +30,15 @@ module Shapter
               else
                 filter_items2(params[:filter])
               end
+
+          results = if !!params[:cart_only]
+                      (f & current_user.cart_items)[nstart..nstop]
+                    else
+                      f[nstart..nstop]
+                    end
+
           present :number_of_results, f.size
-          present :items, f[nstart..nstop], with: Shapter::Entities::Item, entity_options: entity_options
+          present :items, results, with: Shapter::Entities::Item, entity_options: entity_options
           unless (params[:filter] - current_user.school_ids.map(&:to_s)).empty?
             Behave.delay.track current_user.pretty_id, "search on browse"
           end

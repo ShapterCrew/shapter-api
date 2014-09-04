@@ -129,6 +129,13 @@ describe Shapter::V7::Items do
         a = JSON.parse(response.body)
         a["items"].blank?.should be true
       end
+
+      it "should filter properly when :cart_only option is passed" do 
+        @user.cart_items << @item2
+        post "items/filter", {filter: [@t1.id.to_s], :cart_only => true}
+        a = JSON.parse(response.body)
+        a["items"].map{|h| h["id"]}.should =~ [@item2.id].map(&:to_s)
+      end
     end
   end
   #}}}

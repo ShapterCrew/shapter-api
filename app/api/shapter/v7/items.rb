@@ -32,13 +32,13 @@ module Shapter
               end
 
           results = if !!params[:cart_only]
-                      (f & current_user.cart_items)[nstart..nstop]
+                      (f & current_user.cart_items)
                     else
-                      f[nstart..nstop]
+                      f
                     end
 
-          present :number_of_results, f.size
-          present :items, results, with: Shapter::Entities::Item, entity_options: entity_options
+          present :number_of_results, results.size
+          present :items, results[nstart..nstop], with: Shapter::Entities::Item, entity_options: entity_options
           unless (params[:filter] - current_user.school_ids.map(&:to_s)).empty?
             Behave.delay.track current_user.pretty_id, "search on browse"
           end

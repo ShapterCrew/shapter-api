@@ -28,7 +28,7 @@ module Shapter
         params do 
           optional :max_number,type: Integer,  desc: "max number of suggested items", default: 10
         end
-        post :recommended do 
+        post :cart_recommended do 
           max = params[:max_number] || 10
           present cart_items_reco(current_user,max), with: Shapter::Entities::Item, entity_options: entity_options
         end

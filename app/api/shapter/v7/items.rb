@@ -11,6 +11,28 @@ module Shapter
 
       namespace :items do 
 
+        #{{{ recommended
+        desc "the courses you'll like !"
+        params do 
+          optional :max_number, type: Integer, desc: "max number of suggested items", default: 10
+        end
+        post :recommended do 
+          max = params[:max_number] || 10
+          present items_reco(current_user,max), with: Shapter::Entities::Item, entity_options: entity_options
+        end
+        #}}}
+
+        #{{{ cart recommended
+        desc "the courses you'll like ! (cart version: it suggest items based on your cart)"
+        params do 
+          optional :max_number,type: Integer,  desc: "max number of suggested items", default: 10
+        end
+        post :recommended do 
+          max = params[:max_number] || 10
+          present cart_items_reco(current_user,max), with: Shapter::Entities::Item, entity_options: entity_options
+        end
+        #}}}
+
         #{{{ tag filter
         desc "search for an item using a list of tags"
         params do 
@@ -104,6 +126,7 @@ module Shapter
           #{{{ subscribe
           desc "subscribe to the item"
           post :subscribe do 
+            check_confirmed_student!
             error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
             do_not_track = ( current_user.items.include?(@item))
             @item.subscribers << current_user
@@ -121,6 +144,7 @@ module Shapter
           #{{{ unsubscribe
           desc "unsubscribe to the item"
           post :unsubscribe do 
+            check_confirmed_student!
             error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
             do_not_track = !(current_user.items.include?(@item))
             @item.subscribers.delete(current_user)

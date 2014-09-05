@@ -71,6 +71,7 @@ module Shapter
 
       private
 
+      #{{{ private
       def db
         @db ||= Mongoid::Sessions.default
       end
@@ -116,6 +117,7 @@ module Shapter
           item.avg_diag.values[6].to_i
         end
       end
+      #}}}
 
     end
   end

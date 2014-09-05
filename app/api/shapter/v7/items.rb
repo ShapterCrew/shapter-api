@@ -2,6 +2,7 @@ module Shapter
   module V7
     class Items < Grape::API
       helpers Shapter::Helpers::FilterHelper
+      helpers Shapter::Helpers::UsersHelper
       format :json
 
       before do 
